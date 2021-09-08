@@ -89,7 +89,6 @@ export async function getCustomer(
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<Customer | null> {
   try {
-    // TODO: implement generic parameter converter for GET query string; related issue #568
     const resp = await contextInstance.invoke.post(
       getCustomerEndpoint(),
       parameters

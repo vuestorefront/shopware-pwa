@@ -44,7 +44,7 @@ export default {
     SwButton: () => import("@/components/atoms/SwButton.vue"),
   },
   setup(props, { root }) {
-    const { setBreadcrumbs } = useBreadcrumbs(root)
+    const { setBreadcrumbs } = useBreadcrumbs()
     setBreadcrumbs([
       {
         name: root.$t("Newsletter subscription"),

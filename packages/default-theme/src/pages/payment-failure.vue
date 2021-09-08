@@ -33,7 +33,7 @@ export default {
     return {}
   },
   setup(props, { root }) {
-    const { setBreadcrumbs } = useBreadcrumbs(root)
+    const { setBreadcrumbs } = useBreadcrumbs()
     setBreadcrumbs([
       {
         name: root.$t("Unfinished payment"),

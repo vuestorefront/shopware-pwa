@@ -41,7 +41,7 @@ export default {
     SwErrorsList: () => import("@/components/SwErrorsList.vue"),
   },
   setup(props, { root }) {
-    const { setBreadcrumbs } = useBreadcrumbs(root)
+    const { setBreadcrumbs } = useBreadcrumbs()
     setBreadcrumbs([
       {
         name: root.$t("Reset password"),

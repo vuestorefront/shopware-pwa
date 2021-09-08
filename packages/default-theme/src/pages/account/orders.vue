@@ -8,7 +8,7 @@ import { PAGE_ACCOUNT } from "@/helpers/pages"
 export default {
   name: "OrderHistory",
   setup(props, { root }) {
-    const { setBreadcrumbs } = useBreadcrumbs(root)
+    const { setBreadcrumbs } = useBreadcrumbs()
 
     setBreadcrumbs([
       {

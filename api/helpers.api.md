@@ -36,9 +36,6 @@ export function getCmsLinkTarget(content?: CmsSlot): String;
 export function getCmsTechnicalPath(page: PageResolverResult<CmsPage> | PageResolverProductResult): string | undefined;
 
 // @beta (undocumented)
-export function getListingAvailableFilters(aggregations: Aggregations | undefined | null): UiCategoryFilter[];
-
-// @beta (undocumented)
 export function getListingFilters(aggregations: Aggregations | undefined | null): ListingFilter[];
 
 // @beta
@@ -169,48 +166,6 @@ export interface TierPrice {
 
 // @public
 export function toggleSearchFilter(currentFilters: any, filter: ListingFilter): any;
-
-// @public (undocumented)
-export interface UiCategoryFilter {
-    // (undocumented)
-    name: string;
-    // (undocumented)
-    options: UiCategoryFilterOption[] | UiCategoryRangeFilterOption | any;
-    // (undocumented)
-    type: UiCategoryFilterType;
-}
-
-// @public (undocumented)
-export interface UiCategoryFilterOption {
-    // (undocumented)
-    color: boolean | string;
-    // (undocumented)
-    count?: number;
-    // (undocumented)
-    label: string;
-    // (undocumented)
-    value: string;
-}
-
-// @public (undocumented)
-export enum UiCategoryFilterType {
-    // (undocumented)
-    entity = "entity",
-    // (undocumented)
-    max = "max",
-    // (undocumented)
-    range = "range",
-    // (undocumented)
-    term = "term"
-}
-
-// @public (undocumented)
-export interface UiCategoryRangeFilterOption {
-    // (undocumented)
-    max: string;
-    // (undocumented)
-    min: string;
-}
 
 // @public (undocumented)
 export interface UiMediaGalleryItem {
