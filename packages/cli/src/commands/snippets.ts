@@ -23,6 +23,12 @@ module.exports = {
     // when --ci parameter is provided, then we skip questions for default values
     const isCIrun = inputParameters.ci;
 
+    if (!toolbox.isProduction) {
+      toolbox.print.warning(
+        `[CLI > init] You're running CLI in development mode!`
+      );
+    }
+
     if (!isCIrun) {
       const shopwareUsernameQuestion = !inputParameters.username && {
         type: "input",

@@ -191,18 +191,6 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
     expect(consoleInfoSpy).toBeCalledWith("Using theme: my-theme-name");
   });
 
-  it("should show console error when shopwareEndpoint contains api endpoint instead of just domain", async () => {
-    mockedUtils.loadConfig.mockResolvedValueOnce({
-      shopwareEndpoint: "mockedEndpoint/sales-channel-api/v1",
-      shopwareAccessToken: "mockedToken",
-      theme: "mocked-theme",
-    });
-    await runModule(moduleObject, {});
-    expect(consoleErrorSpy).toBeCalledWith(
-      "Please change your shopwareEndpoint in shopware-pwa.config.js to contain just domain, example: https://github.com/DivanteLtd/shopware-pwa#running-shopware-pwa-on-custom-shopware-instance"
-    );
-  });
-
   it("should have extra API client related config", async () => {
     mockedUtils.loadConfig.mockResolvedValueOnce({
       shopwareEndpoint:

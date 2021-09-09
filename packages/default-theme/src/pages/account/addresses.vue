@@ -10,7 +10,7 @@ import { PAGE_ACCOUNT } from "@/helpers/pages"
 export default {
   name: "UserAddresses",
   setup(props, { root }) {
-    const { setBreadcrumbs } = useBreadcrumbs(root)
+    const { setBreadcrumbs } = useBreadcrumbs()
     setBreadcrumbs([
       {
         name: root.$t("My Account"),

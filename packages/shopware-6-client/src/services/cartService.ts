@@ -40,8 +40,6 @@ export async function getCart(
 }
 
 /**
- * TODO: https://github.com/vuestorefront/shopware-pwa/issues/1449
- *
  * Adds specific quantity of the product to the cart by productId. It creates a new cart line item.
  *
  * Warning: This method does not change the state of the cart in any way if productId already exists in a cart. For changing the quantity use addQuantityToCartLineItem() or changeCartLineItemQuantity() methods.
