@@ -38,7 +38,7 @@ describe("CLI extensions - plugins - buildPluginsMap", () => {
     };
     const res = await toolbox.buildPluginsMap(pluginsTrace);
     expect(res).toEqual({
-      "first-slot": "sw-plugins/first-slot.vue",
+      "first-slot": "sw-plugins/slots/first-slot.vue",
       "second-slot": "path/to/someOtherComponent.vue",
     });
   });
@@ -54,7 +54,7 @@ describe("CLI extensions - plugins - buildPluginsMap", () => {
     await toolbox.buildPluginsMap(pluginsTrace);
     expect(toolbox.template.generate).toHaveBeenCalledWith({
       template: "/plugins/GenericPlugin.vue",
-      target: ".shopware-pwa/sw-plugins/first-slot.vue",
+      target: ".shopware-pwa/sw-plugins/slots/first-slot.vue",
       props: {
         body: "--> <firstSlot3><firstSlot2><firstSlot1></firstSlot1></firstSlot2></firstSlot3> <!--",
         componentImports:
