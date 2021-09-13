@@ -56,8 +56,8 @@ module.exports = {
     );
 
     // remove plugin files
-    toolbox.debug("removing .shopware-pwa/sw-plugins");
-    await toolbox.filesystem.removeAsync(`.shopware-pwa/sw-plugins`);
+    // toolbox.debug("removing .shopware-pwa/sw-plugins");
+    // await toolbox.filesystem.removeAsync(`.shopware-pwa/sw-plugins`);
 
     toolbox.debug(
       "generating .shopware-pwa/sw-plugins/usePlugins.js with devMode:",
