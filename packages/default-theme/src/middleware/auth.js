@@ -7,6 +7,8 @@ import { PAGE_LOGIN } from "@/helpers/pages"
  * 2. Redirect to /login otherwise (always force logout on /login route)
  */
 export default async function ({ route, redirect, app }) {
+  if (route.path.includes("/account/recover/password")) return // allow the route for password recovery
+
   const scope = effectScope()
   extendScopeContext(scope, app)
 
