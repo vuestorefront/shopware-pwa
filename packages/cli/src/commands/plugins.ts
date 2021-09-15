@@ -1,9 +1,9 @@
-import { GluegunToolbox } from "gluegun";
+import { ShopwarePwaToolbox } from "src/types";
 
 module.exports = {
   name: "plugins",
   hidden: true,
-  run: async (toolbox: GluegunToolbox) => {
+  run: async (toolbox: ShopwarePwaToolbox) => {
     const {
       template: { generate },
       print: { success, spin },
@@ -98,8 +98,10 @@ module.exports = {
     toolbox.debug("plugins config", pluginsConfig);
     const shopwarePluginsTrace = await toolbox.buildPluginsTrace({
       pluginsConfig,
+      disabledPlugins: toolbox.config.disabledPlugins,
     });
     toolbox.debug("plugins trace", shopwarePluginsTrace);
+    toolbox.debug("disabled plugins", toolbox.config.disabledPlugins);
     // extend plugins trace from local project
     const localPluginsConfig = await toolbox.plugins.getPluginsConfig({
       localPlugins: true,
