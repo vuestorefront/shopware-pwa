@@ -84,6 +84,61 @@ module.exports = {
 yarn dev
 ```
 
+### shopware-pwa.config.js config file
+
+Available settings inside the `shopware-pwa.config.js` file:
+
+```ts
+export interface ShopwarePwaConfigFile {
+  /**
+   * list of allowed domains for this pwa instance from saleschannel configuration
+   */
+  shopwareDomainsAllowList?: string[];
+  /**
+   * default domain prefix
+   */
+  fallbackDomain?: string;
+  /**
+   * Shopware6 URL
+   */
+  shopwareEndpoint: string;
+  /**
+   * id specific for each sales channel
+   */
+  shopwareAccessToken: string;
+  /**
+   * theme code: npm package name or local one (directory name)
+   */
+  theme: string;
+  /**
+   * default locale used in application
+   */
+  defaultLanguageCode?: string;
+  /**
+   * {ShopwareApiClientConfig}
+   */
+  shopwareApiClient?: ShopwareApiClientConfig;
+  /**
+   * List of the plugins that are installed on Shopware instance but should not be loaded.
+   */
+  disabledPlugins?: string[];
+}
+
+export interface ShopwareApiClientConfig {
+  /**
+   * value of timeout limit for the requests (ms)
+   */
+  timeout?: number;
+  /**
+   * credentials for HTTP basic auth
+   */
+  auth?: {
+    username: string;
+    password: string;
+  };
+}
+```
+
 ### How do I move on?
 
 What about...

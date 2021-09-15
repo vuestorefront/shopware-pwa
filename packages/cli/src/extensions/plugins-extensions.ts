@@ -124,12 +124,15 @@ module.exports = (toolbox: GluegunToolbox) => {
     pluginsConfig,
     rootDirectory,
     pluginsTrace,
+    disabledPlugins,
   }: any = {}) => {
     const pluginsRootDirectory =
       rootDirectory || ".shopware-pwa/pwa-bundles-assets";
     const pluginsMap = Object.assign({}, pluginsTrace);
     if (pluginsConfig) {
-      const pluginNames = Object.keys(pluginsConfig);
+      const pluginNames = Object.keys(pluginsConfig).filter(
+        (pluginName) => !disabledPlugins?.includes(pluginName) // filter out disabled plugins
+      );
       pluginNames.forEach((pluginName) => {
         if (!pluginsConfig[pluginName]) return;
         const pluginDirectory = `${pluginsRootDirectory}/${pluginName}`;
