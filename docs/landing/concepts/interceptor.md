@@ -84,7 +84,7 @@ export default async ({ app }) => {
   const { pushSuccess } = useNotifications(app);
   intercept(INTERCEPTOR_KEYS.ADD_TO_CART, ({ product }) => {
     pushSuccess(
-      `${getTranslatedProperty(product.name)} has been added to cart.`
+      `${getTranslatedProperty(product, "name")} has been added to cart.`
     );
   });
 };
