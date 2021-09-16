@@ -21,20 +21,20 @@
       <SfList :key="categoryBreadcrumbs.length" class="mobile-nav-list">
         <SfListItem
           v-for="category in categoriesList"
-          :key="category.translated.name"
+          :key="getTranslatedProperty(category, 'name')"
         >
           <nuxt-link
             class="sf-header__link"
             :to="$routing.getUrl(getCategoryUrl(category))"
             @click="toggleMobileNavigation"
           >
-            {{ category.translated.name }}
+            {{ getTranslatedProperty(category, "name") }}
           </nuxt-link>
 
           <div
             v-if="category.children && category.children.length"
             class="sw-bottom-menu__subcategory"
-            @click="goDeeper(category.translated.name)"
+            @click="goDeeper(getTranslatedProperty(category, 'name'))"
           >
             <SfIcon
               icon="chevron_right"
@@ -54,7 +54,7 @@
 import { SfBottomModal, SfIcon, SfList } from "@storefront-ui/vue"
 import { useNavigation, useUIState } from "@shopware-pwa/composables"
 import { onMounted } from "@vue/composition-api"
-import { getCategoryUrl } from "@shopware-pwa/helpers"
+import { getCategoryUrl, getTranslatedProperty } from "@shopware-pwa/helpers"
 
 export default {
   name: "SwBottomMenu",
@@ -91,6 +91,7 @@ export default {
       isSidebarOpen,
       toggleSidebar,
       toggleModal,
+      getTranslatedProperty,
     }
   },
   computed: {

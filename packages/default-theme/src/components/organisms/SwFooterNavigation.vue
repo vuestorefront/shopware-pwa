@@ -8,7 +8,7 @@
     <SfFooterColumn
       v-for="category in navigationElements"
       :key="category.id"
-      :title="category.translated.name"
+      :title="getTranslatedProperty(category, 'name')"
     >
       <SfList v-if="category.children">
         <SfListItem
@@ -21,14 +21,14 @@
             :href="getCategoryUrl(childCategory)"
             target="_blank"
           >
-            <SfMenuItem :label="childCategory.translated.name" />
+            <SfMenuItem :label="getTranslatedProperty(childCategory, 'name')" />
           </a>
           <nuxt-link
             v-else
             class="sf-header__link"
             :to="$routing.getUrl(getCategoryUrl(childCategory))"
           >
-            <SfMenuItem :label="childCategory.translated.name" />
+            <SfMenuItem :label="getTranslatedProperty(childCategory, 'name')" />
           </nuxt-link>
         </SfListItem>
       </SfList>
@@ -38,13 +38,17 @@
 <script>
 import { SfFooter, SfList, SfMenuItem } from "@storefront-ui/vue"
 import { ref, watch, computed } from "@vue/composition-api"
-import { getCategoryUrl, isLinkCategory } from "@shopware-pwa/helpers"
+import {
+  getCategoryUrl,
+  isLinkCategory,
+  getTranslatedProperty,
+} from "@shopware-pwa/helpers"
 import { useNavigation, useSharedState } from "@shopware-pwa/composables"
 import { useDomains } from "@/logic"
 
 function extractCategoryNames(categories, aggregation = []) {
   for (const category of categories) {
-    aggregation.push(category.translated.name)
+    aggregation.push(getTranslatedProperty(category, "name"))
     if (category.children && category.children.length) {
       extractCategoryNames(category.children, aggregation)
     }
@@ -91,6 +95,7 @@ export default {
       isLinkCategory,
       column,
       open,
+      getTranslatedProperty,
     }
   },
 }

@@ -1,5 +1,6 @@
 import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
 import { UiProductProperty } from "../ui-interfaces";
+import { getTranslatedProperty } from "@shopware-pwa/helpers";
 
 /**
  * Get product properties as ui-interfaces
@@ -10,8 +11,8 @@ export function getProductProperties({
   product,
 }: { product?: Product } = {}): UiProductProperty[] {
   const propertyList = product?.properties?.map((property) => ({
-    name: property.group?.translated?.name || "",
-    value: property.translated?.name || property.name,
+    name: getTranslatedProperty(property.group, "name"),
+    value: getTranslatedProperty(property, "name"),
   }));
 
   return propertyList || [];

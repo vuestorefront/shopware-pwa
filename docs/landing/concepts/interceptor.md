@@ -77,13 +77,14 @@ import {
   INTERCEPTOR_KEYS,
   useNotifications,
 } from "@shopware-pwa/composables";
+import { getTranslatedProperty } from "@shopware-pwa/helpers";
 
 export default async ({ app }) => {
   const { intercept } = useIntercept();
   const { pushSuccess } = useNotifications(app);
   intercept(INTERCEPTOR_KEYS.ADD_TO_CART, ({ product }) => {
     pushSuccess(
-      `${product?.translated?.name || product?.name} has been added to cart.`
+      `${getTranslatedProperty(product.name)} has been added to cart.`
     );
   });
 };
@@ -96,13 +97,14 @@ import {
   useAddToCart
   useNotifications,
 } from "@shopware-pwa/composables";
+import { getTranslatedProperty } from "@shopware-pwa/helpers";
 
 export default async ({ app }) => {
   const { onAddToCart } = useAddToCart(app);
   const { pushSuccess } = useNotifications(app);
   onAddToCart(({ product }) => {
     pushSuccess(
-      `${product?.translated?.name || product?.name} has been added to cart.`
+      `${getTranslatedProperty(product, 'name')} has been added to cart.`
     );
   });
 };

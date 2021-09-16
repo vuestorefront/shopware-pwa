@@ -55,6 +55,7 @@ import {
   getProductCalculatedListingPrice,
   getProductCalculatedPrice,
   getProductPriceDiscount,
+  getTranslatedProperty,
 } from "@shopware-pwa/helpers"
 
 import { SfBadge, SfHeading, SfPrice, SfRating } from "@storefront-ui/vue"
@@ -82,16 +83,13 @@ export default {
   setup() {
     return {
       filterPrice: usePriceFilter(),
+      getTranslatedProperty,
     }
   },
 
   computed: {
     name() {
-      return (
-        this.product &&
-        (this.product.name ||
-          (this.product.translated && this.product.translated.name))
-      )
+      return getTranslatedProperty(this.product, "name")
     },
     ratingAverage() {
       return getProductRatingAverage(this.product)

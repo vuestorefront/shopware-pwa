@@ -6,7 +6,7 @@
           <SfTab
             v-for="crossSellItem in crossSellCollection"
             :key="crossSellItem.crossSelling.id"
-            :title="crossSellItem.crossSelling.translated.name"
+            :title="getTranslatedProperty(crossSellItem.crossSelling, 'name')"
           >
             <SwProductCarousel :products="crossSellItem.products" />
           </SfTab>
@@ -19,6 +19,7 @@
 import { SfTabs, SfLoader } from "@storefront-ui/vue"
 import { ref, watch, computed, onMounted } from "@vue/composition-api"
 import { useProductAssociations, useDefaults } from "@shopware-pwa/composables"
+import { getTranslatedProperty } from "@shopware-pwa/helpers"
 
 export default {
   name: "SwProductCrossSells",
@@ -36,13 +37,14 @@ export default {
       type: Array,
     },
   },
-  setup(props, { root }) {
+  setup(props) {
     const isLoading = ref(false)
     if (props.crossSellings) {
       const crossSellCollection = computed(() => props.crossSellings || [])
       return {
         crossSellCollection,
         isLoading,
+        getTranslatedProperty,
       }
     }
 
@@ -74,6 +76,7 @@ export default {
     return {
       crossSellCollection,
       isLoading,
+      getTranslatedProperty,
     }
   },
 }

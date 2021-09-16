@@ -14,7 +14,7 @@
         'is-active': selectedValues && selectedValues.includes(option.id),
         'is-color': false,
       }"
-      :name="option.translated.name"
+      :name="getTranslatedProperty(option, 'name')"
       :selected="selectedValues && selectedValues.includes(option.id)"
       @change="
         $emit('toggle-filter-value', {
@@ -24,13 +24,16 @@
       "
     >
       <template #label>
-        <div class="sf-filter__label">{{ option.translated.name }}</div>
+        <div class="sf-filter__label">
+          {{ getTranslatedProperty(option, "name") }}
+        </div>
       </template>
     </SfCheckbox>
   </div>
 </template>
 <script>
 import { SfHeading, SfCheckbox } from "@storefront-ui/vue"
+import { getTranslatedProperty } from "@shopware-pwa/helpers"
 
 export default {
   components: {
@@ -47,6 +50,11 @@ export default {
       type: Array | Object,
       default: () => [],
     },
+  },
+  setup() {
+    return {
+      getTranslatedProperty,
+    }
   },
   computed: {
     getOptions() {

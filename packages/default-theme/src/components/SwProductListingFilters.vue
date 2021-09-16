@@ -28,7 +28,7 @@
             :key="option.key"
             :value="option.key"
             class="sort-by__option"
-            >{{ $t(option.translated.label) }}</SfSelectOption
+            >{{ $t(getTranslatedProperty(option, "label")) }}</SfSelectOption
           >
         </SfSelect>
       </div>
@@ -115,7 +115,10 @@ import { computed, onMounted, ref } from "@vue/composition-api"
 import { useUIState, useListing } from "@shopware-pwa/composables"
 import SwButton from "@/components/atoms/SwButton.vue"
 import SwProductListingFilter from "@/components/listing/SwProductListingFilter.vue"
-import { toggleSearchFilter } from "@shopware-pwa/helpers"
+import {
+  toggleSearchFilter,
+  getTranslatedProperty,
+} from "@shopware-pwa/helpers"
 
 export default {
   name: "SwProductListingFilters",
@@ -177,6 +180,7 @@ export default {
       getTotal,
       getCurrentFilters,
       isMounted,
+      getTranslatedProperty,
     }
   },
   data() {

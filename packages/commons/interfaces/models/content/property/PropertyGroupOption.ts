@@ -15,7 +15,7 @@ export interface PropertyGroupOption {
   position: number;
   colorHexCode: string | null;
   mediaId: string | null;
-  group: PropertyGroup | null;
+  group: PropertyGroup;
   translations: PropertyGroupOptionTranslation[] | null;
   productConfiguratorSettings: ProductConfiguratorSetting[] | null;
   productProperties: Product[] | null;
