@@ -22,6 +22,7 @@
     </div>
     <TotalsSummary />
     <SwPromoCode class="promo-code" />
+    <SwTermsAgreementCheckbox />
     <div class="actions">
       <SwButton
         class="actions__button color-secondary sw-form__button"
@@ -50,6 +51,7 @@ import SwButton from "@/components/atoms/SwButton.vue"
 import TotalsSummary from "@/components/checkout/summary/TotalsSummary.vue"
 import SwCartProduct from "@/components/SwCartProduct.vue"
 import SwPromoCode from "@/components/SwPromoCode.vue"
+import SwTermsAgreementCheckbox from "@/components/checkout/summary/SwTermsAgreementCheckbox.vue"
 
 export default {
   name: "SidebarOrderReview",
@@ -62,6 +64,7 @@ export default {
     TotalsSummary,
     SwCartProduct,
     SfProperty,
+    SwTermsAgreementCheckbox,
   },
   data() {
     return {
