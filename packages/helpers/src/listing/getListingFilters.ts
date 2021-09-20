@@ -1,4 +1,8 @@
-import { Aggregations } from "@shopware-pwa/commons/interfaces/search/Aggregations";
+import {
+  Aggregations,
+  AggregationFilterEntityOption,
+} from "@shopware-pwa/commons/interfaces/search/Aggregations";
+import { getTranslatedProperty } from "..";
 
 /**
  * @public
@@ -10,9 +14,12 @@ export interface ListingFilter {
   [key: string]: any;
 }
 
-const getFilter = (code: string, aggregation: any): ListingFilter => {
+const getFilter = (
+  code: string,
+  aggregation: AggregationFilterEntityOption
+): ListingFilter => {
   return {
-    label: aggregation.translated?.name || code,
+    label: getTranslatedProperty(aggregation, "name") || code,
     code,
     ...aggregation,
   };

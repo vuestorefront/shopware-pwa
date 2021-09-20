@@ -18,14 +18,14 @@
         >
           <SwImage
             :src="getProducImageUrl(product)"
-            :alt="product.translated.name"
+            :alt="getTranslatedProperty(product, 'name')"
             class="search-suggestions__product-image"
             width="90"
             height="90"
           />
           <span>
             <span class="search-suggestions__product-title">
-              {{ product.translated.name }}
+              {{ getTranslatedProperty(product, "name") }}
             </span>
             <span class="search-suggestions__product-price">
               <SfPrice
@@ -64,6 +64,7 @@ import {
   getProductCalculatedPrice,
   getProductTierPrices,
   getProductPriceDiscount,
+  getTranslatedProperty,
 } from "@shopware-pwa/helpers"
 import SwImage from "@/components/atoms/SwImage.vue"
 import getResizedImage from "@/helpers/images/getResizedImage.js"
@@ -101,6 +102,7 @@ export default {
     return {
       getProductUrl,
       filterPrice: usePriceFilter(),
+      getTranslatedProperty,
     }
   },
   directives: { clickOutside },

@@ -4,6 +4,7 @@ import {
   useNotifications,
   getApplicationContext,
 } from "@shopware-pwa/composables"
+import { getTranslatedProperty } from "@shopware-pwa/helpers"
 
 export default async ({ app }) => {
   if (process.client) {
@@ -21,8 +22,7 @@ export default async ({ app }) => {
       intercept(INTERCEPTOR_KEYS.ADD_TO_CART, (payload) => {
         pushSuccess(
           i18n.t("{productName} has been added to cart.", {
-            productName:
-              payload?.product?.translated?.name || payload?.product?.name,
+            productName: getTranslatedProperty(payload?.product, "name"),
           })
         )
       })
@@ -52,8 +52,7 @@ export default async ({ app }) => {
       intercept(INTERCEPTOR_KEYS.ADD_TO_WISHLIST, (payload) => {
         pushSuccess(
           i18n.t(`{productName} has been added to wishlist.`, {
-            productName:
-              payload?.product?.translated?.name || payload?.product?.name,
+            productName: getTranslatedProperty(payload?.product, "name"),
           })
         )
       })

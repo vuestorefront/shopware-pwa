@@ -12,7 +12,7 @@
         <SwAccordionItem
           v-for="accordion in navigation"
           :key="accordion.id"
-          :header="accordion.translated.name"
+          :header="getTranslatedProperty(accordion, 'name')"
         >
           <template #header="{ header, isOpen, accordionClick }">
             <div class="cms-element-category-navigation__menu-item">
@@ -38,20 +38,20 @@
             <SfList>
               <SfListItem v-for="item in accordion.children" :key="item.id">
                 <nuxt-link
-                  v-if="item.route && item.translated.name"
+                  v-if="item.route && getTranslatedProperty(item, 'name')"
                   :to="$routing.getUrl(getCategoryUrl(item))"
                 >
-                  <SfMenuItem :label="item.translated.name" />
+                  <SfMenuItem :label="getTranslatedProperty(item, 'name')" />
                 </nuxt-link>
               </SfListItem>
             </SfList>
           </template>
           <template v-else>
             <nuxt-link
-              v-if="accordion.route && accordion.translated.name"
+              v-if="accordion.route && getTranslatedProperty(accordion, 'name')"
               :to="$routing.getUrl(getCategoryUrl(accordion))"
             >
-              {{ $t("See") }} {{ accordion.translated.name }}
+              {{ $t("See") }} {{ getTranslatedProperty(accordion, "name") }}
             </nuxt-link>
           </template>
         </SwAccordionItem>
@@ -67,7 +67,7 @@ import { useCms, getApplicationContext } from "@shopware-pwa/composables"
 import { ref, computed, onMounted } from "@vue/composition-api"
 import SwButton from "@/components/atoms/SwButton.vue"
 import SwAccordion from "@/components/organisms/SwAccordion.vue"
-import { getCategoryUrl } from "@shopware-pwa/helpers"
+import { getCategoryUrl, getTranslatedProperty } from "@shopware-pwa/helpers"
 
 export default {
   components: {
@@ -112,7 +112,7 @@ export default {
       }
     })
 
-    return { navTitle, navigation, getCategoryUrl }
+    return { navTitle, navigation, getCategoryUrl, getTranslatedProperty }
   },
 }
 </script>

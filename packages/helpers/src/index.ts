@@ -8,3 +8,4 @@ export * from "./listing";
 export * from "./salutation";
 export * from "./plugins";
 export * from "./debounce";
+export * from "./getTranslatedProperty";
