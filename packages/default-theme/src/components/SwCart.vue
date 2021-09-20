@@ -15,7 +15,7 @@
         />
       </template>
       <transition name="fade" mode="out-in">
-        <div v-if="count" key="my-cart" class="my-cart">
+        <div v-if="count" key="my-cart" class="my-cart" ref="content">
           <div class="collected-product-list">
             <SwPluginSlot name="sidecart-products-before" />
             <transition-group name="fade" tag="div">
@@ -98,6 +98,7 @@ import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
 import { computed, onMounted, ref, watch } from "@vue/composition-api"
 import SwImage from "@/components/atoms/SwImage.vue"
 import { usePriceFilter } from "@/logic/usePriceFilter.js"
+import { disableBodyScroll, clearAllBodyScrollLocks } from "body-scroll-lock"
 
 export default {
   name: "SwCart",
@@ -174,10 +175,15 @@ export default {
     }
   },
 
-  // TODO: hotfix - not final solution. To remove after fix cause of a problem.
   watch: {
     isSidebarOpen(val) {
+      this.$nextTick(() => {
+        disableBodyScroll(this.$refs.content)
+      })
       if (!val) {
+        this.$nextTick(() => {
+          clearAllBodyScrollLocks()
+        })
         document.body.style.overflow = "auto"
       }
     },
