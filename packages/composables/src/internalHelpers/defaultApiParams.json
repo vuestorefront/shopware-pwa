@@ -322,7 +322,9 @@
         "lastName",
         "email",
         "guest",
-        "addresses"
+        "addresses",
+        "defaultBillingAddressId",
+        "defaultShippingAddressId"
       ]
     }
   }
