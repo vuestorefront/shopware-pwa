@@ -303,7 +303,8 @@
         "id",
         "phoneNumber",
         "state",
-        "salutation"
+        "salutation",
+        "street"
       ],
       "country": ["name", "id"],
       "salutation": ["salutationKey", "displayName", "translated", "id"]
