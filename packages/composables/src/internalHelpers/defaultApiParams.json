@@ -325,7 +325,8 @@
         "guest",
         "addresses",
         "defaultBillingAddressId",
-        "defaultShippingAddressId"
+        "defaultShippingAddressId",
+        "orderCount"
       ]
     }
   }
