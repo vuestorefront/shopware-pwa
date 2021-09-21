@@ -15,7 +15,7 @@
         />
       </template>
       <transition name="fade" mode="out-in">
-        <div v-if="count" key="my-cart" class="my-cart" ref="content">
+        <div v-if="count" key="my-cart" class="my-cart">
           <div class="collected-product-list">
             <SwPluginSlot name="sidecart-products-before" />
             <transition-group name="fade" tag="div">
@@ -99,6 +99,10 @@ import { computed, onMounted, ref, watch } from "@vue/composition-api"
 import SwImage from "@/components/atoms/SwImage.vue"
 import { usePriceFilter } from "@/logic/usePriceFilter.js"
 import { disableBodyScroll, clearAllBodyScrollLocks } from "body-scroll-lock"
+import {
+  mapMobileObserver,
+  unMapMobileObserver,
+} from "@storefront-ui/vue/src/utilities/mobile-observer"
 
 export default {
   name: "SwCart",
@@ -174,12 +178,20 @@ export default {
       filterPrice: usePriceFilter(),
     }
   },
-
+  computed: {
+    ...mapMobileObserver(),
+  },
+  beforeDestroy() {
+    unMapMobileObserver()
+  },
   watch: {
     isSidebarOpen(val) {
-      this.$nextTick(() => {
-        disableBodyScroll(this.$refs.content)
-      })
+      // until it's fixed in the storefront-ui we need to disable body scroll lock on mobile
+      if (this.isMobile) {
+        setTimeout(() => {
+          clearAllBodyScrollLocks()
+        }, 0)
+      }
       if (!val) {
         this.$nextTick(() => {
           clearAllBodyScrollLocks()
