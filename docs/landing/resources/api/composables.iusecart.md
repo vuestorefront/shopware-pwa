@@ -19,7 +19,7 @@ export interface IUseCart
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [addProduct](./composables.iusecart.addproduct.md) | ({ id, quantity, }: { id: string; quantity?: number; }) =&gt; Promise&lt;void&gt; | <b><i>(BETA)</i></b> |
+|  [addProduct](./composables.iusecart.addproduct.md) | ({ id, quantity, }: { id: string; quantity?: number; }) =&gt; Promise&lt;Cart&gt; | <b><i>(BETA)</i></b> |
 |  [addPromotionCode](./composables.iusecart.addpromotioncode.md) | (promotionCode: string) =&gt; Promise&lt;void&gt; | <b><i>(BETA)</i></b> |
 |  [appliedPromotionCodes](./composables.iusecart.appliedpromotioncodes.md) | ComputedRef&lt;LineItem\[\]&gt; | <b><i>(BETA)</i></b> |
 |  [cart](./composables.iusecart.cart.md) | ComputedRef&lt;Cart \| null&gt; | <b><i>(BETA)</i></b> |
