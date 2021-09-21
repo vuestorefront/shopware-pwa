@@ -117,6 +117,7 @@ import {
   useUser,
   useCart,
   getApplicationContext,
+  useNotifications,
 } from "@shopware-pwa/composables"
 import { computed, ref, watch } from "@vue/composition-api"
 import { handlePayment } from "@shopware-pwa/shopware-6-client"
@@ -142,12 +143,13 @@ export default {
     SfLoader,
     SwErrorsList,
   },
-  setup(props, { root }) {
+  setup() {
     const isCreatingOrder = ref(false)
     const { setBreadcrumbs } = useBreadcrumbs()
     const { isLoggedIn, register, errors } = useUser()
     const { createOrder: invokeCreateOrder, loadings } = useCheckout()
-    const { apiInstance } = getApplicationContext({
+    const { pushError } = useNotifications()
+    const { apiInstance, routing, router, i18n } = getApplicationContext({
       contextName: "CheckoutPage",
     })
     const { refreshCart } = useCart()
@@ -177,6 +179,7 @@ export default {
       // The steps from https://github.com/vuestorefront/shopware-pwa/issues/1419 are followed
       // turn on the loader
       isCreatingOrder.value = true
+      errorMessages.value = []
       try {
         // 1. place an order
         const order = await invokeCreateOrder()
@@ -184,12 +187,10 @@ export default {
         const handledPaymentResponse = await handlePayment(
           order.id,
           // pass finishUrl as a success page (used only in async payment flow)
-          root.$routing.getAbsoluteUrl(
-            `${PAGE_ORDER_SUCCESS}?orderId=${order.id}`
-          ),
+          routing.getAbsoluteUrl(`${PAGE_ORDER_SUCCESS}?orderId=${order.id}`),
           // pass errorUrl as a failure page when the payment isn't done successfully
           // (used only in async payment flow)
-          root.$routing.getAbsoluteUrl(
+          routing.getAbsoluteUrl(
             `${PAGE_ORDER_PAYMENT_FAILURE}?orderId=${order.id}`
           ),
           apiInstance
@@ -198,17 +199,22 @@ export default {
         const redirectUrl = getRedirectUrl(handledPaymentResponse)
         if (!redirectUrl) {
           // redirect to the success page if there is no redirectUrl in ther response
-          return root.$router.push(
-            root.$routing.getUrl(`${PAGE_ORDER_SUCCESS}?orderId=${order.id}`)
+          return router.push(
+            routing.getUrl(`${PAGE_ORDER_SUCCESS}?orderId=${order.id}`)
           )
         }
         // perform a redirection to the external payment gateway
         window.location.href = redirectUrl
       } catch (error) {
-        // TODO https://github.com/vuestorefront/shopware-pwa/issues/1648
-        errorMessages.value = [
-          root.$t("Your order cannot be placed. Please try again later."),
-        ]
+        pushError(
+          i18n.t(
+            "Your order cannot be placed. Please check your previous step."
+          ),
+          {
+            timeout: 5000,
+          }
+        )
+        errorMessages.value = error.messages
         isCreatingOrder.value = false
       }
     }
@@ -218,12 +224,12 @@ export default {
     })
 
     function goToShop() {
-      root.$router.push(root.$routing.getUrl("/"))
+      router.push(routing.getUrl("/"))
     }
 
     setBreadcrumbs([
       {
-        name: root.$t("Checkout"),
+        name: i18n.t("Checkout"),
         path: PAGE_CHECKOUT,
       },
     ])
