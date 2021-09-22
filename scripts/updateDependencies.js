@@ -14,6 +14,9 @@ async function run() {
     .map((filename) => path.join(packagesDirPath, filename))
     .filter((file) => fs.exists(file) === "dir");
   list.push(rootDirPath);
+  list.unshift(
+    path.join(packagesDirPath, "cli", "src", "templates", "project-template")
+  );
 
   try {
     for (let index = 0; index < list.length; index++) {
@@ -31,7 +34,6 @@ async function run() {
     //     });
     //   })
     // );
-
     await execa("yarn", [], {
       stdio: "inherit",
       cwd: rootDirPath,
