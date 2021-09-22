@@ -90,10 +90,14 @@ export function useAddToCart(params: {
     error.value = null;
     if (!quantity.value) quantity.value = 1;
     try {
-      await addProduct({ id: product.id, quantity: quantity.value });
+      const addToCartResponse = await addProduct({
+        id: product.id,
+        quantity: quantity.value,
+      });
       broadcast(INTERCEPTOR_KEYS.ADD_TO_CART, {
         product,
         quantity: quantity.value,
+        apiResponse: addToCartResponse,
       });
       quantity.value = 1;
     } catch (e) {
