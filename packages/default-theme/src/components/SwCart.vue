@@ -98,6 +98,11 @@ import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
 import { computed, onMounted, ref, watch } from "@vue/composition-api"
 import SwImage from "@/components/atoms/SwImage.vue"
 import { usePriceFilter } from "@/logic/usePriceFilter.js"
+import { disableBodyScroll, clearAllBodyScrollLocks } from "body-scroll-lock"
+import {
+  mapMobileObserver,
+  unMapMobileObserver,
+} from "@storefront-ui/vue/src/utilities/mobile-observer"
 
 export default {
   name: "SwCart",
@@ -173,11 +178,24 @@ export default {
       filterPrice: usePriceFilter(),
     }
   },
-
-  // TODO: hotfix - not final solution. To remove after fix cause of a problem.
+  computed: {
+    ...mapMobileObserver(),
+  },
+  beforeDestroy() {
+    unMapMobileObserver()
+  },
   watch: {
     isSidebarOpen(val) {
+      // until it's fixed in the storefront-ui we need to disable body scroll lock on mobile
+      if (this.isMobile) {
+        setTimeout(() => {
+          clearAllBodyScrollLocks()
+        }, 0)
+      }
       if (!val) {
+        this.$nextTick(() => {
+          clearAllBodyScrollLocks()
+        })
         document.body.style.overflow = "auto"
       }
     },
