@@ -18,7 +18,7 @@ import {
   useSharedState,
 } from "@shopware-pwa/composables";
 import { broadcastErrors } from "../../internalHelpers/errorHandler";
-
+import { ErrorLevel } from "@shopware-pwa/commons/interfaces/models/common/EntityError";
 /**
  * interface for {@link useCart} composable
  *
@@ -31,7 +31,7 @@ export interface IUseCart {
   }: {
     id: string;
     quantity?: number;
-  }) => Promise<void>;
+  }) => Promise<Cart>;
   addPromotionCode: (promotionCode: string) => Promise<void>;
   appliedPromotionCodes: ComputedRef<LineItem[]>;
   cart: ComputedRef<Cart | null>;
@@ -92,10 +92,11 @@ export function useCart(): IUseCart {
   }: {
     id: string;
     quantity?: number;
-  }) {
+  }): Promise<Cart> {
     const addToCartResult = await addProductToCart(id, quantity, apiInstance);
     broadcastUpcomingErrors(addToCartResult);
     _storeCart.value = addToCartResult;
+    return addToCartResult;
   }
 
   async function removeItem({ id }: LineItem) {
@@ -135,7 +136,12 @@ export function useCart(): IUseCart {
       );
       const entityErrors: EntityError[] = Object.values(
         cartResult.errors || {}
-      ).filter((entityError) => upcomingErrorsKeys.includes(entityError.key));
+      ).filter(
+        // don't ignore ERROR level of incoming errors or if they are new
+        (entityError) =>
+          entityError.level === ErrorLevel.ERROR ||
+          upcomingErrorsKeys.includes(entityError.key)
+      );
 
       broadcastErrors(entityErrors, `[${contextName}][cartError]`, broadcast);
     } catch (error) {

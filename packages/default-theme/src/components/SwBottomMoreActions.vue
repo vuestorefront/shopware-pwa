@@ -68,7 +68,10 @@
               :value="currencyItem.id"
             >
               <SfMenuItem
-                :label="`${currencyItem.symbol} - ${currencyItem.translated.name}`"
+                :label="`${currencyItem.symbol} - ${getTranslatedProperty(
+                  currencyItem,
+                  'name'
+                )}`"
                 @click="setCurrency(currencyItem), $emit('close')"
               />
             </SfListItem>
@@ -85,6 +88,7 @@ import { useDomains } from "@/logic"
 import { useCurrency } from "@shopware-pwa/composables"
 import { onMounted } from "@vue/composition-api"
 import { PAGE_WISHLIST } from "@/helpers/pages"
+import { getTranslatedProperty } from "@shopware-pwa/helpers"
 
 export default {
   name: "SwBottomMoreActions",
@@ -117,6 +121,7 @@ export default {
       changeDomain,
       availableCurrencies,
       setCurrency,
+      getTranslatedProperty,
     }
   },
   computed: {},

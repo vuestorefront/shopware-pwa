@@ -130,7 +130,7 @@ export interface IUseCart {
     addProduct: ({ id, quantity, }: {
         id: string;
         quantity?: number;
-    }) => Promise<void>;
+    }) => Promise<Cart>;
     // (undocumented)
     addPromotionCode: (promotionCode: string) => Promise<void>;
     // (undocumented)

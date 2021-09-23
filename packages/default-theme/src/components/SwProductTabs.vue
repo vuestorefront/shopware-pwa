@@ -16,12 +16,12 @@
 
         <SfTab v-if="manufacturer" :title="$t('Manufacturer')">
           <SfHeading
-            :title="manufacturer.translated.name"
+            :title="getTranslatedProperty(manufacturer, 'name')"
             :level="3"
             class="sf-heading--no-underline sf-heading--left"
           />
-          <p v-if="manufacturer.translated.description">
-            {{ manufacturer.translated.description }}
+          <p v-if="getTranslatedProperty(manufacturer, 'description')">
+            {{ getTranslatedProperty(manufacturer, "description") }}
           </p>
         </SfTab>
         <SfTab :title="$t('Read reviews')">
@@ -63,6 +63,8 @@ import {
 import { formatDate } from "@/helpers"
 import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
 import SwAddProductReview from "@/components/forms/SwAddProductReview.vue"
+import { getTranslatedProperty } from "@shopware-pwa/helpers"
+
 export default {
   name: "SwProductTabs",
   components: {
@@ -95,6 +97,11 @@ export default {
       type: Object,
       default: null,
     },
+  },
+  setup() {
+    return {
+      getTranslatedProperty,
+    }
   },
   methods: {
     dateFormat(date) {

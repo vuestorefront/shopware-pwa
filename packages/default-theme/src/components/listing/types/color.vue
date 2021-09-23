@@ -3,7 +3,7 @@
     <SfHeading
       class="filters__title"
       :level="4"
-      :title="$t(filter.translated.name)"
+      :title="$t(getTranslatedProperty(filter, 'name'))"
     />
     <div class="filters__filter--color">
       <SfFilter
@@ -27,6 +27,7 @@
 </template>
 <script>
 import { SfFilter, SfHeading } from "@storefront-ui/vue"
+import { getTranslatedProperty } from "@shopware-pwa/helpers"
 
 export default {
   components: {
@@ -43,6 +44,11 @@ export default {
       type: Array | Object,
       default: () => [],
     },
+  },
+  setup() {
+    return {
+      getTranslatedProperty,
+    }
   },
   computed: {
     getOptions() {

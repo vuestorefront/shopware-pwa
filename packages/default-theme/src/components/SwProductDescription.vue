@@ -7,6 +7,7 @@
 <script>
 import { computed, onMounted, ref } from "@vue/composition-api"
 import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
+import { getTranslatedProperty } from "@shopware-pwa/helpers"
 
 export default {
   name: "SwProductDescription",
@@ -21,8 +22,8 @@ export default {
   setup(props, { root }) {
     const isMounted = ref(false)
 
-    const description = computed(
-      () => props.product?.translated?.description || props.product?.description
+    const description = computed(() =>
+      getTranslatedProperty(props.product, "description")
     )
 
     onMounted(() => {

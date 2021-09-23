@@ -189,17 +189,17 @@ describe("CLI extensions - plugins - buildPluginsTrace", () => {
         pluginsConfig,
       });
       expect(result).toEqual({
-        "sw-pages-our-custom-route/_id": [
+        "sw-pages-our-custom-route-_id": [
           "~~/.shopware-pwa/pwa-bundles-assets/first-plugin/myCustomPage.vue",
         ],
       });
       expect(toolbox.template.generate).toBeCalledWith({
-        props: { params: {}, slotName: "sw-pages-our-custom-route/_id" },
+        props: { params: {}, slotName: "sw-pages-our-custom-route-_id" },
         target: ".shopware-pwa/source/pages/our-custom-route/_id.vue",
         template: "/plugins/PluginSlotTemplate.vue",
       });
       expect(toolbox.template.generate).toBeCalledWith({
-        props: { params: {}, slotName: "sw-pages-our-custom-route/_id" },
+        props: { params: {}, slotName: "sw-pages-our-custom-route-_id" },
         target: ".shopware-pwa/sw-plugins/pages/our-custom-route/_id.vue",
         template: "/plugins/PluginSlotTemplate.vue",
       });

@@ -1,4 +1,5 @@
 import { Category } from "@shopware-pwa/commons/interfaces/models/content/category/Category";
+import { getTranslatedProperty } from "@shopware-pwa/helpers";
 
 /**
  * Get URL for category.
@@ -9,7 +10,7 @@ export const getCategoryUrl = (category: Partial<Category>): string => {
   if (!category) return "/";
   switch (category.type) {
     case "link":
-      return category.translated?.externalLink || category.externalLink || "/";
+      return getTranslatedProperty(category, "externalLink") || "/";
     case "folder":
       return "/";
     default:

@@ -1,4 +1,5 @@
 import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
+import { getTranslatedProperty } from "@shopware-pwa/helpers";
 import { UiProductOption } from "../ui-interfaces";
 
 /**
@@ -13,9 +14,9 @@ export function getProductOptions({
 } = {}): UiProductOption[] {
   return (
     product?.options?.map((option) => ({
-      label: option.translated?.name || option.name,
+      label: getTranslatedProperty(option, "name"),
       code: option.id,
-      value: option.translated?.name || option.name,
+      value: getTranslatedProperty(option, "name"),
       color: option.colorHexCode,
     })) || []
   );

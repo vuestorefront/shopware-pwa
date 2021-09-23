@@ -1,3 +1,31 @@
+# [1.0.0-RC.2](https://github.com/DivanteLtd/shopware-pwa/compare/v1.0.0-RC.1...v1.0.0-RC.2) (2021-09-22)
+
+
+### Bug Fixes
+
+* **cli:** debug mode and problem with nested pages in plugins ([#1660](https://github.com/DivanteLtd/shopware-pwa/issues/1660)) ([153cfc5](https://github.com/DivanteLtd/shopware-pwa/commit/153cfc583721cdf6bfa51d880c57d60be19588ef))
+* **cli:** downgrade md5-hex to use cjs in CLI ([#1653](https://github.com/DivanteLtd/shopware-pwa/issues/1653)) ([85b125c](https://github.com/DivanteLtd/shopware-pwa/commit/85b125c1dd81dfde8dd434dd085da1438a32e3ee))
+* **cli:** overwrite CMS elements inside local plugins ([#1655](https://github.com/DivanteLtd/shopware-pwa/issues/1655)) ([ba6dffa](https://github.com/DivanteLtd/shopware-pwa/commit/ba6dffacf9047a0b235bbe6126068c4de55daf05))
+* **commons:** corrected typo in OrderLineItem type ([#1658](https://github.com/DivanteLtd/shopware-pwa/issues/1658)) ([baa708d](https://github.com/DivanteLtd/shopware-pwa/commit/baa708dd838aafbb869350bd97f508b6e23cfe71))
+* **composables:** added missing defaultApiParams in useUser and useCustomerAddresses ([#1678](https://github.com/DivanteLtd/shopware-pwa/issues/1678)) ([fc37583](https://github.com/DivanteLtd/shopware-pwa/commit/fc37583a11c3387b2fa98f2eb581f07dc9d4d67a))
+* **composables:** show add to cart errors properly ([#1683](https://github.com/DivanteLtd/shopware-pwa/issues/1683)) ([8e9c277](https://github.com/DivanteLtd/shopware-pwa/commit/8e9c2775550a821986b7f660d416a28067604ef2))
+* **default-theme:** fix IOS problem with scrolling inside cart ([#1676](https://github.com/DivanteLtd/shopware-pwa/issues/1676)) ([8908aad](https://github.com/DivanteLtd/shopware-pwa/commit/8908aad4ff06713a9bca29cc515cda6db045325d))
+* **default-theme:** reset password form redirection ([#1662](https://github.com/DivanteLtd/shopware-pwa/issues/1662)) ([ee46df9](https://github.com/DivanteLtd/shopware-pwa/commit/ee46df9bb02ffbb722cef52f0b236f06ec9af4b8))
+* **default-theme:** scroll to anchor links ([#1677](https://github.com/DivanteLtd/shopware-pwa/issues/1677)) ([8f23fa4](https://github.com/DivanteLtd/shopware-pwa/commit/8f23fa44793547a318a1015b63346d3ad275db64))
+* **nuxt-module:** defaults config builder array merge ([#1652](https://github.com/DivanteLtd/shopware-pwa/issues/1652)) ([3a1b012](https://github.com/DivanteLtd/shopware-pwa/commit/3a1b0127a74df954f3e0cf5d7a12ee50be031c0a))
+* **nuxt-module:** ssg mode not working after domains refactor ([#1669](https://github.com/DivanteLtd/shopware-pwa/issues/1669)) ([0803a18](https://github.com/DivanteLtd/shopware-pwa/commit/0803a182c0fd8a94cc4f63a3b6313f306ef3d3ef))
+
+
+### Features
+
+* **cli:** ability to disable plugins from shopware instance ([#1668](https://github.com/DivanteLtd/shopware-pwa/issues/1668)) ([277c86f](https://github.com/DivanteLtd/shopware-pwa/commit/277c86f43312044560144e892602a43512ff4891))
+* **cli:** override component with parameters, added TaC to project template ([#1675](https://github.com/DivanteLtd/shopware-pwa/issues/1675)) ([c85c8c3](https://github.com/DivanteLtd/shopware-pwa/commit/c85c8c3f47c7ffe77a6b58a3603a95bc18f7a29c))
+* **default-theme:** show errors during placing an order ([#1681](https://github.com/DivanteLtd/shopware-pwa/issues/1681)) ([1f47231](https://github.com/DivanteLtd/shopware-pwa/commit/1f472312a874d9fd59a1bfbd10d319228954d14c))
+* **default-theme:** terms and conditions in checkout ([#1674](https://github.com/DivanteLtd/shopware-pwa/issues/1674)) ([4e80fc2](https://github.com/DivanteLtd/shopware-pwa/commit/4e80fc2a4d9e7a68aed2a78039445388018cfd83))
+* **helpers:** getTranslatedProperty method ([#1670](https://github.com/DivanteLtd/shopware-pwa/issues/1670)) ([13509f4](https://github.com/DivanteLtd/shopware-pwa/commit/13509f4c1ec332871801aa311835d82aa4b1f6a7))
+
+
+
 # [1.0.0-RC.1](https://github.com/DivanteLtd/shopware-pwa/compare/v0.10.0...v1.0.0-RC.1) (2021-08-31)
 
 

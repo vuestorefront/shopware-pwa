@@ -9,13 +9,13 @@
     >
       <div v-for="config in getOptionGroups" :key="config.id">
         <SwProductSelect
-          v-if="getSelectedOptions[config.translated.name]"
-          :value="getSelectedOptions[config.translated.name]"
+          v-if="getSelectedOptions[getTranslatedProperty(config, 'name')]"
+          :value="getSelectedOptions[getTranslatedProperty(config, 'name')]"
           :options="getProductOptions({ product: config })"
-          :label="config.translated.name"
+          :label="getTranslatedProperty(config, 'name')"
           @change="
             handleChange(
-              config.translated.name,
+              getTranslatedProperty(config, 'name'),
               $event,
               onOptionChanged($event)
             )
@@ -69,7 +69,7 @@ import {
   useProductConfigurator,
   useNotifications,
 } from "@shopware-pwa/composables"
-import { getProductUrl } from "@shopware-pwa/helpers"
+import { getProductUrl, getTranslatedProperty } from "@shopware-pwa/helpers"
 import { computed, onMounted, watch, toRefs } from "@vue/composition-api"
 import SwButton from "@/components/atoms/SwButton.vue"
 import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
@@ -103,13 +103,11 @@ export default {
       findVariantForSelectedOptions,
     } = useProductConfigurator({ product })
 
-    const description = computed(
-      () =>
-        (product.translated && product.translated.description) ||
-        product.description
+    const description = computed(() =>
+      getTranslatedProperty(product.value, "description")
     )
 
-    const stock = computed(() => product.stock)
+    const stock = computed(() => product.value.stock)
 
     // find the best matching variant for current options
     // use it as a callback in handleChange -> onChangeHandled argument
@@ -148,6 +146,7 @@ export default {
       isLoadingOptions,
       getProductOptions,
       onOptionChanged,
+      getTranslatedProperty,
     }
   },
 }

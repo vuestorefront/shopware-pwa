@@ -1,9 +1,9 @@
-import { GluegunToolbox } from "gluegun";
+import { ShopwarePwaToolbox } from "src/types";
 
 module.exports = {
   name: "plugins",
   hidden: true,
-  run: async (toolbox: GluegunToolbox) => {
+  run: async (toolbox: ShopwarePwaToolbox) => {
     const {
       template: { generate },
       print: { success, spin },
@@ -48,6 +48,7 @@ module.exports = {
 
     const allowDevMode = !!inputParameters.devMode;
 
+    toolbox.debug("loading plugin assets from Shopware API");
     await toolbox.loadPluginsAssets();
 
     const generateFilesSpinner = spin(
@@ -55,8 +56,13 @@ module.exports = {
     );
 
     // remove plugin files
+    // toolbox.debug("removing .shopware-pwa/sw-plugins");
     // await toolbox.filesystem.removeAsync(`.shopware-pwa/sw-plugins`);
 
+    toolbox.debug(
+      "generating .shopware-pwa/sw-plugins/usePlugins.js with devMode:",
+      allowDevMode
+    );
     await generate({
       template: "/plugins/usePlugins.js",
       target: ".shopware-pwa/sw-plugins/usePlugins.js",
@@ -65,34 +71,48 @@ module.exports = {
       },
     });
 
+    toolbox.debug(
+      "generating .shopware-pwa/sw-plugins/SwPluginSlotPlaceholder.vue"
+    );
     await generate({
       template: "/plugins/SwPluginSlotPlaceholder.vue",
       target: ".shopware-pwa/sw-plugins/SwPluginSlotPlaceholder.vue",
       props: {},
     });
 
+    toolbox.debug(
+      "generating .shopware-pwa/sw-plugins/SwPluginSlotPlaceholderSwitcher.vue"
+    );
     await generate({
       template: "/plugins/SwPluginSlotPlaceholderSwitcher.vue",
       target: ".shopware-pwa/sw-plugins/SwPluginSlotPlaceholderSwitcher.vue",
       props: {},
     });
 
+    toolbox.debug("removing .shopware-pwa/sw-plugins/pages");
     await toolbox.filesystem.removeAsync(".shopware-pwa/sw-plugins/pages");
+    toolbox.debug("removing .shopware-pwa/sw-plugins/layouts");
     await toolbox.filesystem.removeAsync(".shopware-pwa/sw-plugins/layouts");
 
     const pluginsConfig = await toolbox.plugins.getPluginsConfig();
+    toolbox.debug("plugins config", pluginsConfig);
     const shopwarePluginsTrace = await toolbox.buildPluginsTrace({
       pluginsConfig,
+      disabledPlugins: toolbox.config.disabledPlugins,
     });
+    toolbox.debug("plugins trace", shopwarePluginsTrace);
+    toolbox.debug("disabled plugins", toolbox.config.disabledPlugins);
     // extend plugins trace from local project
     const localPluginsConfig = await toolbox.plugins.getPluginsConfig({
       localPlugins: true,
     });
+    toolbox.debug("local plugins config", localPluginsConfig);
     const pluginsTrace = await toolbox.buildPluginsTrace({
       pluginsConfig: localPluginsConfig,
       pluginsTrace: shopwarePluginsTrace,
       rootDirectory: "sw-plugins",
     });
+    toolbox.debug("new plugins trace", pluginsTrace);
     // In dev mode we're injecting to footer to provide plugin slots switcher
     if (allowDevMode) {
       if (!pluginsTrace["footer-content"]) pluginsTrace["footer-content"] = [];
@@ -104,6 +124,7 @@ module.exports = {
     generateFilesSpinner.succeed();
 
     const finalMap = await toolbox.buildPluginsMap(pluginsTrace);
+    toolbox.debug("plugins map", finalMap);
 
     await generate({
       template: "/plugins/SwPluginSlot.vue",

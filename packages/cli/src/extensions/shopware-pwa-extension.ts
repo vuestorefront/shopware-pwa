@@ -112,6 +112,7 @@ module.exports = (toolbox: GluegunToolbox) => {
     devMode: toolbox.parameters.options.devMode,
     ci: toolbox.parameters.options.ci,
     stage: toolbox.parameters.options.stage,
+    debug: toolbox.parameters.options.debug,
   };
 
   toolbox.reloadInputParameters = function ({
@@ -209,6 +210,12 @@ module.exports = (toolbox: GluegunToolbox) => {
           `Error during API authentication: ${error.response.status} (${error.response.statusText}).`
         );
       }
+    }
+  };
+
+  toolbox.debug = (message: string, ...params) => {
+    if (toolbox.inputParameters.debug) {
+      console.log(`\n[DEBUG] ${message}`, ...params);
     }
   };
 };

@@ -1,6 +1,6 @@
 {
   "name": "@shopware-pwa/composables",
-  "version": "1.0.0-RC.1",
+  "version": "1.0.0-RC.2",
   "description": "@shopware-pwa/composables",
   "main": "dist/composables.cjs.js",
   "module": "dist/composables.esm.js",
@@ -23,8 +23,8 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@shopware-pwa/helpers": "1.0.0-RC.1",
-    "@shopware-pwa/shopware-6-client": "1.0.0-RC.1",
+    "@shopware-pwa/helpers": "1.0.0-RC.2",
+    "@shopware-pwa/shopware-6-client": "1.0.0-RC.2",
     "axios": "^0.21.1",
     "cookie-universal": "^2.1.5",
     "query-string": "^7.0.1",

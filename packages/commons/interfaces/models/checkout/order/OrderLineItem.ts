@@ -22,7 +22,7 @@ export interface OrderLineItem {
   coverId: string | null;
   stackable: boolean;
   price: CalculatedPrice | null;
-  priceDefiniton: PriceDefinitionInterface | null;
+  priceDefinition: PriceDefinitionInterface | null;
   payload: string[] | null;
   parentId: string | null;
   type: string | null;

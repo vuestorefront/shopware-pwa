@@ -1,4 +1,5 @@
 import { Country } from "@shopware-pwa/commons/interfaces/models/system/country/Country";
+import { getTranslatedProperty } from "@shopware-pwa/helpers";
 
 /**
  * Map available countries to (`name`: string | null, id: `string`) format
@@ -12,8 +13,8 @@ export function mapCountries(countries: Country[]): Array<{
 }> {
   if (!countries?.length) return [];
   const mappedCountries = countries.map((country: Country) => ({
-    name: country.translated?.name || country.name,
+    name: getTranslatedProperty(country, "name"),
     id: country.id,
   }));
-  return mappedCountries.filter((country: Country) => country.name !== null);
+  return mappedCountries.filter((country) => !!country.name);
 }
