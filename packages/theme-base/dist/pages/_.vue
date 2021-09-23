@@ -3,14 +3,14 @@
     <component
       :is="getComponent"
       :cms-page="cmsPage"
-      :page="page"
-      :error="error"
+      :page="staticPage"
+      :error="staticError"
     />
   </div>
 </template>
 <script>
-import { useCms, useNotifications } from "@shopware-pwa/composables";
-import { computed } from "vue-demi";
+import { useCms } from "@shopware-pwa/composables";
+import { ref } from "vue-demi";
 
 export default {
   name: "DynamicRoute",
@@ -18,26 +18,26 @@ export default {
   setup() {
     const { page, error, loading } = useCms();
 
-    const cmsPage = computed(() => page.value?.cmsPage);
-    const cmsPageName = computed(() => cmsPage.value?.name);
+    const cmsPage = ref(page.value?.cmsPage);
+    const staticPage = ref(page.value);
+    const staticError = ref(error.value);
+
+    const getComponent = () => {
+      if (staticPage.value) {
+        return () =>
+          import("@/components/views/" + page.value.resourceType + ".vue");
+      }
+      if (staticError.value)
+        return () => import("@/components/views/error.page.vue");
+    };
 
     return {
-      page,
+      staticPage,
       cmsPage,
-      cmsPageName,
-      error,
+      staticError,
       loading,
+      getComponent: getComponent(),
     };
   },
-  computed: {
-    getComponent() {
-      if (this.page) {
-        return () =>
-          import("@/components/views/" + this.page.resourceType + ".vue");
-      }
-      if (this.error) return () => import("@/components/views/error.page.vue");
-    },
-  },
-  methods: {},
 };
 </script>
