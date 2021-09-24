@@ -37,6 +37,5 @@ const { loading, loadAssociations, productAssociations } = useProductAssociation
 if (!productAssociations.value) {
    await loadAssociations()
 }
-
 ```
 
