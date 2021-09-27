@@ -13,5 +13,5 @@
 addProduct: ({ id, quantity, }: {
         id: string;
         quantity?: number;
-    }) => Promise<void>;
+    }) => Promise<Cart>;
 ```

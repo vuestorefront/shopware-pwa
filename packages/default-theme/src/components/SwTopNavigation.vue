@@ -8,12 +8,16 @@
     <SwPluginSlot name="sw-top-navigation-before" />
     <div
       v-for="category in visibleCategories"
-      :key="category.translated.name"
+      :key="getTranslatedProperty(category, 'name')"
       class="sf-header-navigation-item sf-header__link"
       data-cy="top-navigation-item"
-      @mouseover="changeCurrentCategory(category.translated.name)"
+      @mouseover="
+        changeCurrentCategory(getTranslatedProperty(category, 'name'))
+      "
       @mouseleave="changeCurrentCategory(null)"
-      @keyup.tab="changeCurrentCategory(category.translated.name)"
+      @keyup.tab="
+        changeCurrentCategory(getTranslatedProperty(category, 'name'))
+      "
       @click="changeCurrentCategory(null)"
     >
       <a
@@ -22,21 +26,20 @@
         :href="getCategoryUrl(category)"
         target="_blank"
       >
-        {{ category.translated.name }}
+        {{ getTranslatedProperty(category, "name") }}
       </a>
       <nuxt-link
         v-else
         class="sf-header__link"
         :to="$routing.getUrl(getCategoryUrl(category))"
-        >{{ category.translated.name }}</nuxt-link
+        >{{ getTranslatedProperty(category, "name") }}</nuxt-link
       >
       <SwMegaMenu
         v-if="category.children && category.children.length"
         :category="category"
         :visible="
           currentCategoryName &&
-          category.translated &&
-          category.translated.name === currentCategoryName
+          getTranslatedProperty(category, 'name') === currentCategoryName
         "
       />
     </div>
@@ -74,6 +77,7 @@ import { getCategoryUrl, isLinkCategory } from "@shopware-pwa/helpers"
 import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
 import { useDomains } from "@/logic"
 import SwTopNavigationShowMore from "@/components/SwTopNavigationShowMore.vue"
+import { getTranslatedProperty } from "@shopware-pwa/helpers"
 
 export default {
   components: {
@@ -111,6 +115,7 @@ export default {
       isLinkCategory,
       currentCategoryName,
       changeCurrentCategory,
+      getTranslatedProperty,
     }
   },
 

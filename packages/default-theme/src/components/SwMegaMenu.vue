@@ -1,14 +1,14 @@
 <template>
   <SfMegaMenu
     :visible="visible"
-    :title="(category.translated && category.translated.name) || category.name"
+    :title="getTranslatedProperty(category, 'name')"
     class="sw-mega-menu"
     data-cy="mega-menu"
   >
     <div class="sw-mega-menu__content">
       <div
         v-for="subcategory in category.children"
-        :key="subcategory.translated.name"
+        :key="getTranslatedProperty(subcategory, 'name')"
         class="sw-mega-menu__content-section"
         data-cy="mega-menu-category"
       >
@@ -17,7 +17,7 @@
           :to="$routing.getUrl(getCategoryUrl(subcategory))"
         >
           <SfHeading
-            :title="subcategory.translated.name"
+            :title="getTranslatedProperty(subcategory, 'name')"
             :description="subcategory.description"
             :level="4"
           />
@@ -28,7 +28,10 @@
               class="sf-header__link"
               :to="$routing.getUrl(getCategoryUrl(child))"
             >
-              <SfMenuItem class="sw-menu-item" :label="child.translated.name" />
+              <SfMenuItem
+                class="sw-menu-item"
+                :label="getTranslatedProperty(child, 'name')"
+              />
             </nuxt-link>
           </SfListItem>
         </SfList>
@@ -39,7 +42,7 @@
 
 <script>
 import { SfMegaMenu, SfMenuItem, SfList, SfHeading } from "@storefront-ui/vue"
-import { getCategoryUrl } from "@shopware-pwa/helpers"
+import { getCategoryUrl, getTranslatedProperty } from "@shopware-pwa/helpers"
 
 export default {
   name: "SwMegaMenu",
@@ -55,7 +58,7 @@ export default {
     },
   },
   setup(props, { root }) {
-    return { getCategoryUrl }
+    return { getCategoryUrl, getTranslatedProperty }
   },
 }
 </script>

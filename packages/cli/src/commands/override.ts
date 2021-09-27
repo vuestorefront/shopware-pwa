@@ -3,7 +3,7 @@ import { getAllFiles } from "@shopware-pwa/commons/node";
 
 module.exports = {
   name: "override",
-  alias: ["o"],
+  alias: ["o", "overwrite"],
   hidden: false,
   description:
     "Allows you to override theme component. Component will appear in project ready to be edited.",
@@ -27,10 +27,16 @@ module.exports = {
       choices: themeComponents,
     };
 
-    const answers = await toolbox.prompt.ask([componentToOverrideQuestion]);
+    let fileToOverwrite: string;
+    if (!toolbox.parameters.options.file) {
+      const answers = await toolbox.prompt.ask([componentToOverrideQuestion]);
+      fileToOverwrite = answers.componentToOverride;
+    } else {
+      fileToOverwrite = toolbox.parameters.options.file;
+    }
 
-    const copyFrom = path.join(directoryPath, answers.componentToOverride);
-    const copyTo = path.join("src", "components", answers.componentToOverride);
+    const copyFrom = path.join(directoryPath, fileToOverwrite);
+    const copyTo = path.join("src", "components", fileToOverwrite);
 
     try {
       await toolbox.filesystem.copyAsync(copyFrom, copyTo);

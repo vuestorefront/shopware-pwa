@@ -59,6 +59,10 @@ export interface ShopwarePwaConfigFile {
    * {ShopwareApiClientConfig}
    */
   shopwareApiClient?: ShopwareApiClientConfig;
+  /**
+   * List of the plugins that are installed on Shopware instance but should not be loaded.
+   */
+  disabledPlugins?: string[];
 }
 
 export interface CompatibilityTable {

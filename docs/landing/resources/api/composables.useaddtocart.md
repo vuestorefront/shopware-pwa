@@ -37,6 +37,5 @@ if (!isInCart.value) {
    quantity.value = 5
    await addToCart()
 }
-
 ```
 

@@ -13,10 +13,12 @@
               v-for="shippingMethod in shippingMethods"
               :key="shippingMethod.id"
               v-model="activeShippingMethod"
-              :label="shippingMethod.translated.name"
+              :label="getTranslatedProperty(shippingMethod, 'name')"
               :value="shippingMethod.id"
               name="shippingMethod"
-              :description="shippingMethod.deliveryTime.translated.name"
+              :description="
+                getTranslatedProperty(shippingMethod.deliveryTime, 'name')
+              "
               class="sw-form__radio shipping"
             >
               <template #label="{ label }">
@@ -69,6 +71,7 @@ import {
 import SwButton from "@/components/atoms/SwButton.vue"
 import { simplifyString } from "@/helpers"
 import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
+import { getTranslatedProperty } from "@shopware-pwa/helpers"
 
 export default {
   name: "ShippingSection",
@@ -105,6 +108,7 @@ export default {
       simplifyString,
       isGuestSession,
       isLoading,
+      getTranslatedProperty,
     }
   },
 }

@@ -6,6 +6,7 @@ import {
   invokePost,
   getProductEndpoint,
 } from "@shopware-pwa/shopware-6-client";
+import { getTranslatedProperty } from "@shopware-pwa/helpers";
 /**
  * interface for {@link useProductConfigurator} composable
  * @beta
@@ -69,7 +70,7 @@ export function useProductConfigurator(params: {
       return !!optionFound;
     });
 
-    return group?.translated?.name;
+    return getTranslatedProperty(group, "name");
   };
 
   // create a group -> optionId map

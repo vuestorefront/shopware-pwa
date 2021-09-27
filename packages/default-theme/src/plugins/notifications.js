@@ -4,6 +4,7 @@ import {
   useNotifications,
   getApplicationContext,
 } from "@shopware-pwa/composables"
+import { getTranslatedProperty } from "@shopware-pwa/helpers"
 
 export default async ({ app }) => {
   if (process.client) {
@@ -18,13 +19,17 @@ export default async ({ app }) => {
       const { pushSuccess, pushWarning, pushError } = useNotifications()
       const { i18n } = getApplicationContext()
 
-      intercept(INTERCEPTOR_KEYS.ADD_TO_CART, (payload) => {
-        pushSuccess(
-          i18n.t("{productName} has been added to cart.", {
-            productName:
-              payload?.product?.translated?.name || payload?.product?.name,
-          })
-        )
+      intercept(INTERCEPTOR_KEYS.ADD_TO_CART, ({ apiResponse, product }) => {
+        // ignore warning or notice type
+        const errorFound = Object.entries(apiResponse?.errors)?.find(
+          ([code, error]) => error.level === 20
+        ) // 20 is ErrorLevel.ERROR
+        errorFound ||
+          pushSuccess(
+            i18n.t("{productName} has been added to cart.", {
+              productName: getTranslatedProperty(product, "name"),
+            })
+          )
       })
 
       intercept(
@@ -52,14 +57,19 @@ export default async ({ app }) => {
       intercept(INTERCEPTOR_KEYS.ADD_TO_WISHLIST, (payload) => {
         pushSuccess(
           i18n.t(`{productName} has been added to wishlist.`, {
-            productName:
-              payload?.product?.translated?.name || payload?.product?.name,
+            productName: getTranslatedProperty(payload?.product, "name"),
           })
         )
       })
 
       intercept(INTERCEPTOR_KEYS.WARNING, ({ warning }) => {
         pushWarning(warning.message)
+      })
+
+      intercept(INTERCEPTOR_KEYS.ERROR, ({ error }) => {
+        // notify on every broadcasted error.
+        // disconnect if they are not necesarry entirely, or just create conditions to filter they out
+        pushError(error.message)
       })
 
       return result

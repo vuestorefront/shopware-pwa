@@ -52,7 +52,7 @@ export default async ({ app, route, req }, inject) => {
       if (process.client) {
         hostname = window.location.hostname;
         pathname = window.location.pathname;
-      } else {
+      } else if (!process.static) {
         const detectedHost =
           req.headers["x-forwarded-host"] || req.headers.host;
         hostname = Array.isArray(detectedHost) ? detectedHost[0] : detectedHost;

@@ -35,12 +35,17 @@ import SwHeader from "@/components/SwHeader.vue"
 import SwBottomNavigation from "@/components/SwBottomNavigation.vue"
 import SwFooter from "@/components/SwFooter.vue"
 import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
-import { useBreadcrumbs, useUIState } from "@shopware-pwa/composables"
+import {
+  getApplicationContext,
+  useBreadcrumbs,
+  useUIState,
+} from "@shopware-pwa/composables"
 import {
   computed,
   ref,
   watchEffect,
   defineComponent,
+  onMounted,
 } from "@vue/composition-api"
 import SwLoginModal from "@/components/modals/SwLoginModal.vue"
 import SwNotifications from "@/components/SwNotifications.vue"
@@ -61,7 +66,8 @@ export default defineComponent({
   },
   name: "DefaultLayout",
 
-  setup(props, { root }) {
+  setup() {
+    const { route, routing } = getApplicationContext()
     const { breadcrumbs } = useBreadcrumbs()
     const { isOpen: isSidebarOpen } = useUIState({
       stateName: "CART_SIDEBAR_STATE",
@@ -84,10 +90,19 @@ export default defineComponent({
           return {
             // map to SFUI type
             text: breadcrumb.name,
-            link: root.$routing.getUrl(breadcrumb.path),
+            link: routing.getUrl(breadcrumb.path),
           }
         }) || []
       )
+    })
+
+    onMounted(() => {
+      // go to element with hash ID
+      if (route?.hash) {
+        const element = document?.querySelector(route.hash)
+        element &&
+          window.scrollTo({ top: element.offsetTop, behavior: "smooth" })
+      }
     })
 
     return {

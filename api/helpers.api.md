@@ -96,6 +96,9 @@ export function getProductTierPrices(product: Product): TierPrice[];
 // @public
 export function getProductUrl(product: Product | null): string;
 
+// @public
+export function getTranslatedProperty<T>(element: T, property: keyof T): string;
+
 // @beta (undocumented)
 export const isLinkCategory: (category: Partial<Category>) => boolean;
 

@@ -1,4 +1,5 @@
 import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
+import { getTranslatedProperty } from "@shopware-pwa/helpers";
 
 /**
  * @beta
@@ -9,5 +10,5 @@ export function getProductName({ product }: { product?: Product } = {}):
   if (!product) {
     return null;
   }
-  return product.translated?.name || product.name;
+  return getTranslatedProperty(product, "name");
 }

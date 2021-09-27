@@ -117,16 +117,22 @@ module.exports = (toolbox: GluegunToolbox) => {
     settings: unknown;
   }
 
+  toolbox.removeStringSpecialCharacters = (str: string) =>
+    str.replace(/[^\w\s]/gi, "-");
+
   toolbox.buildPluginsTrace = async ({
     pluginsConfig,
     rootDirectory,
     pluginsTrace,
+    disabledPlugins,
   }: any = {}) => {
     const pluginsRootDirectory =
       rootDirectory || ".shopware-pwa/pwa-bundles-assets";
     const pluginsMap = Object.assign({}, pluginsTrace);
     if (pluginsConfig) {
-      const pluginNames = Object.keys(pluginsConfig);
+      const pluginNames = Object.keys(pluginsConfig).filter(
+        (pluginName) => !disabledPlugins?.includes(pluginName) // filter out disabled plugins
+      );
       pluginNames.forEach((pluginName) => {
         if (!pluginsConfig[pluginName]) return;
         const pluginDirectory = `${pluginsRootDirectory}/${pluginName}`;
@@ -148,7 +154,9 @@ module.exports = (toolbox: GluegunToolbox) => {
             // Custom layouts
             if (pluginConfig?.layouts?.length) {
               pluginConfig.layouts.forEach(async (layoutConfig) => {
-                const slotName = `sw-layouts-${layoutConfig.name}`;
+                const slotName = toolbox.removeStringSpecialCharacters(
+                  `sw-layouts-${layoutConfig.name}`
+                );
                 if (!pluginsMap[slotName]) pluginsMap[slotName] = [];
                 pluginsMap[slotName].push(
                   `~~/${pluginDirectory}/${layoutConfig.file}`
@@ -178,7 +186,9 @@ module.exports = (toolbox: GluegunToolbox) => {
             if (pluginConfig?.pages?.length) {
               pluginConfig.pages.forEach(async (pageConfig) => {
                 const { file, path, ...params } = pageConfig;
-                const slotName = `sw-pages-${pageConfig.path}`;
+                const slotName = toolbox.removeStringSpecialCharacters(
+                  `sw-pages-${pageConfig.path}`
+                );
                 if (!pluginsMap[slotName]) pluginsMap[slotName] = [];
                 pluginsMap[slotName].push(
                   `~~/${pluginDirectory}/${pageConfig.file}`
@@ -265,14 +275,14 @@ module.exports = (toolbox: GluegunToolbox) => {
         );
         await toolbox.template.generate({
           template: `/plugins/GenericPlugin.vue`,
-          target: `.shopware-pwa/sw-plugins/${pluginSlotName}.vue`,
+          target: `.shopware-pwa/sw-plugins/slots/${pluginSlotName}.vue`,
           props: {
             body,
             componentImports,
             components,
           },
         });
-        finalMap[pluginSlotName] = `sw-plugins/${pluginSlotName}.vue`;
+        finalMap[pluginSlotName] = `sw-plugins/slots/${pluginSlotName}.vue`;
       }
     }
     return finalMap;

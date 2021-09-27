@@ -47,7 +47,6 @@ defaultsConfigBuilder()
 module.exports = {
   // ... your standard Shopware PWA settings
 }
-
 ```
 We need to remember the structure of includes and associations. You can read more about this [in shopware docs](https://docs.shopware.com/en/shopware-platform-dev-en/admin-api-guide/reading-entities?category=shopware-platform-dev-en/admin-api-guide#parameter-overview)<!-- -->.
 

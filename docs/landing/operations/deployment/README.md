@@ -79,4 +79,4 @@ export default {
 ## More on that
 
 - [Nuxt.js Docs on Commands & Deployment](https://nuxtjs.org/guide/commands)
-- [Prepare Shopware instance](https://shopware-pwa-docs.vuestorefront.io/landing/getting-started/prepare-shopware.html)
+- [Prepare Shopware instance](/landing/getting-started/prepare-shopware.html)
