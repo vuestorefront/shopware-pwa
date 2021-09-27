@@ -2,6 +2,7 @@ import currency from "currency.js";
 
 const defaultFormatPriceOptions = {
   pattern: `# !`,
+  negativePattern: `-# !`,
   separator: ` `,
   decimal: `,`,
   symbol: `€`,
