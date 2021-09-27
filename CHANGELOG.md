@@ -1,3 +1,12 @@
+## [0.8.4](https://github.com/DivanteLtd/shopware-pwa/compare/v0.8.3...v0.8.4) (2021-09-27)
+
+
+### Bug Fixes
+
+* **cli:** use config shopware endpoint before the default one. Backport [#1510](https://github.com/DivanteLtd/shopware-pwa/issues/1510) ([e9b8051](https://github.com/DivanteLtd/shopware-pwa/commit/e9b8051588339c9ac9b45ae6764da0c48496b45a))
+
+
+
 ## [0.8.3](https://github.com/DivanteLtd/shopware-pwa/compare/v0.8.2...v0.8.3) (2021-08-05)
 
 
