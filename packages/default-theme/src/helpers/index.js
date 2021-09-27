@@ -3,6 +3,7 @@ import { PAGE_SEARCH } from "./pages"
 
 const defaultFormatPriceOptions = {
   pattern: `# !`,
+  negativePattern: `# !`,
   separator: ` `,
   decimal: `,`,
   symbol: `€`,
