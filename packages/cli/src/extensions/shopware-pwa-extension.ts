@@ -145,12 +145,12 @@ module.exports = (toolbox: GluegunToolbox) => {
   }: Partial<ShopwarePwaConfigFile> = {}) {
     toolbox.inputParameters.shopwareEndpoint =
       toolbox.parameters.options.shopwareEndpoint ||
-      shopwareEndpoint ||
-      toolbox.config.shopwareEndpoint;
+      toolbox.config.shopwareEndpoint ||
+      shopwareEndpoint;
     toolbox.inputParameters.shopwareAccessToken =
       toolbox.parameters.options.shopwareAccessToken ||
-      shopwareAccessToken ||
-      toolbox.config.shopwareAccessToken;
+      toolbox.config.shopwareAccessToken ||
+      shopwareAccessToken;
     toolbox.inputParameters.pwaHost =
       toolbox.parameters.options.pwaHost ||
       shopwareEndpoint ||
