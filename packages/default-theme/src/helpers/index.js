@@ -1,15 +1,6 @@
 import dayjs from "dayjs"
 import { PAGE_SEARCH } from "./pages"
 
-const defaultFormatPriceOptions = {
-  pattern: `# !`,
-  negativePattern: `-# !`,
-  separator: ` `,
-  decimal: `,`,
-  symbol: `€`,
-  formatWithSymbol: true,
-}
-
 export { formatPrice } from "@/helpers/formatPrice"
 
 export const getSortingLabel = (sorting) => {
