@@ -7,12 +7,10 @@
 import { Aggregations } from '@shopware-pwa/commons/interfaces/search/Aggregations';
 import { Category } from '@shopware-pwa/commons/interfaces/models/content/category/Category';
 import { CmsBlock } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsBlock';
-import { CmsPage } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
+import { CmsPageResponse } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { CmsSection } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { CmsSlot } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { Country } from '@shopware-pwa/commons/interfaces/models/system/country/Country';
-import { PageResolverProductResult } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
-import { PageResolverResult } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { Product } from '@shopware-pwa/commons/interfaces/models/content/product/Product';
 import { Salutation } from '@shopware-pwa/commons/interfaces/models/system/salutation/Salutation';
 import { SearchCriteria } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
@@ -32,8 +30,8 @@ export function getCmsLink(content?: CmsSlot): String;
 // @public
 export function getCmsLinkTarget(content?: CmsSlot): String;
 
-// @beta (undocumented)
-export function getCmsTechnicalPath(page: PageResolverResult<CmsPage> | PageResolverProductResult): string | undefined;
+// @public (undocumented)
+export function getCmsTechnicalPath(page: CmsPageResponse): string | undefined;
 
 // @beta (undocumented)
 export function getListingFilters(aggregations: Aggregations | undefined | null): ListingFilter[];

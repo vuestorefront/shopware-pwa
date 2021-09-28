@@ -21,24 +21,24 @@ export * from "./services/formsService";
 export * from "./endpoints";
 
 /**
- * @beta
+ * @public
  */
 export const config: ClientSettings = defaultInstance.config;
 /**
  * Setup configuration. Merge default values with provided in param.
  * This method will override existing config. For config update invoke **update** method.
- * @beta
+ * @public
  */
 export const setup: (config?: ClientSettings) => void = defaultInstance.setup;
 
 /**
  * Update current configuration. This will change only provided values.
- * @beta
+ * @public
  */
 export const update: (config?: ClientSettings) => void = defaultInstance.update;
 
 /**
- * @beta
+ * @public
  */
 export const onConfigChange: (
   fn: (context: ConfigChangedArgs) => void

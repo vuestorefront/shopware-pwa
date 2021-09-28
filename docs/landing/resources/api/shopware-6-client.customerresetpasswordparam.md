@@ -4,9 +4,6 @@
 
 ## CustomerResetPasswordParam interface
 
-> This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
-> 
-
 
 <b>Signature:</b>
 
@@ -18,6 +15,6 @@ export interface CustomerResetPasswordParam
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [email](./shopware-6-client.customerresetpasswordparam.email.md) | string | <b><i>(BETA)</i></b> |
-|  [storefrontUrl?](./shopware-6-client.customerresetpasswordparam.storefronturl.md) | string | <b><i>(BETA)</i></b> <i>(Optional)</i> |
+|  [email](./shopware-6-client.customerresetpasswordparam.email.md) | string |  |
+|  [storefrontUrl?](./shopware-6-client.customerresetpasswordparam.storefronturl.md) | string | <i>(Optional)</i> |
 

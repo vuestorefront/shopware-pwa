@@ -4,9 +4,6 @@
 
 ## clearCart() function
 
-> This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
-> 
-
 When no sw-context-token given then this method return an empty cart with the new sw-context-token.
 
 When sw-context-token given then this method simply returns the current state of the cart.

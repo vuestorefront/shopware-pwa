@@ -2,15 +2,28 @@
 
 [Home](./index.md) &gt; [@shopware-pwa/shopware-6-client](./shopware-6-client.md) &gt; [getProducts](./shopware-6-client.getproducts.md)
 
-## getProducts variable
-
-> This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
-> 
+## getProducts() function
 
 Get default amount of products
 
 <b>Signature:</b>
 
 ```typescript
-getProducts: (criteria?: ShopwareSearchParams | undefined, contextInstance?: ShopwareApiInstance) => Promise<EntityResult<"product", Product[]>>
+export declare function getProducts(criteria?: ShopwareSearchParams, contextInstance?: ShopwareApiInstance): Promise<EntityResult<"product", Product[]>>;
 ```
+
+## Parameters
+
+|  Parameter | Type | Description |
+|  --- | --- | --- |
+|  criteria | ShopwareSearchParams |  |
+|  contextInstance | [ShopwareApiInstance](./shopware-6-client.shopwareapiinstance.md) |  |
+
+<b>Returns:</b>
+
+Promise&lt;EntityResult&lt;"product", Product\[\]&gt;&gt;
+
+## Exceptions
+
+ClientApiError
+

@@ -14,8 +14,8 @@
 export declare function useCms(params?: {
     cmsContextName?: string;
 }): {
-    page: ComputedRef<PageResolverProductResult | PageResolverResult<CmsPage> | null>;
-    resourceType: ComputedRef<CmsPageType | null>;
+    page: ComputedRef<CmsPageResponse | null>;
+    resourceType: ComputedRef<CmsResourceType | null>;
     resourceIdentifier: ComputedRef<string | null>;
     currentSearchPathKey: ComputedRef<string | null>;
     loading: Ref<boolean>;
@@ -32,5 +32,5 @@ export declare function useCms(params?: {
 
 <b>Returns:</b>
 
-{ page: ComputedRef&lt;PageResolverProductResult \| PageResolverResult&lt;CmsPage&gt; \| null&gt;; resourceType: ComputedRef&lt;CmsPageType \| null&gt;; resourceIdentifier: ComputedRef&lt;string \| null&gt;; currentSearchPathKey: ComputedRef&lt;string \| null&gt;; loading: Ref&lt;boolean&gt;; search: (path: string, query?: any) =&gt; Promise&lt;void&gt;; error: Ref&lt;any&gt;; }
+{ page: ComputedRef&lt;CmsPageResponse \| null&gt;; resourceType: ComputedRef&lt;CmsResourceType \| null&gt;; resourceIdentifier: ComputedRef&lt;string \| null&gt;; currentSearchPathKey: ComputedRef&lt;string \| null&gt;; loading: Ref&lt;boolean&gt;; search: (path: string, query?: any) =&gt; Promise&lt;void&gt;; error: Ref&lt;any&gt;; }
 

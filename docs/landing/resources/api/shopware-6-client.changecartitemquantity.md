@@ -4,9 +4,6 @@
 
 ## changeCartItemQuantity() function
 
-> This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
-> 
-
 Changes the current quantity in specific cart line item to given quantity.
 
 Example: If current quantity is 3 and you pass 2 as quantity parameter, you will get a new cart's state with quantity 2.

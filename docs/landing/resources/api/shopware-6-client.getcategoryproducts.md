@@ -2,15 +2,29 @@
 
 [Home](./index.md) &gt; [@shopware-pwa/shopware-6-client](./shopware-6-client.md) &gt; [getCategoryProducts](./shopware-6-client.getcategoryproducts.md)
 
-## getCategoryProducts variable
-
-> This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
-> 
+## getCategoryProducts() function
 
 Get default amount of products and listing configuration for given category
 
 <b>Signature:</b>
 
 ```typescript
-getCategoryProducts: (categoryId: string, criteria?: ShopwareSearchParams | undefined, contextInstance?: ShopwareApiInstance) => Promise<ProductListingResult>
+export declare function getCategoryProducts(categoryId: string, criteria?: ShopwareSearchParams, contextInstance?: ShopwareApiInstance): Promise<ProductListingResult>;
 ```
+
+## Parameters
+
+|  Parameter | Type | Description |
+|  --- | --- | --- |
+|  categoryId | string |  |
+|  criteria | ShopwareSearchParams |  |
+|  contextInstance | [ShopwareApiInstance](./shopware-6-client.shopwareapiinstance.md) |  |
+
+<b>Returns:</b>
+
+Promise&lt;ProductListingResult&gt;
+
+## Exceptions
+
+ClientApiError
+

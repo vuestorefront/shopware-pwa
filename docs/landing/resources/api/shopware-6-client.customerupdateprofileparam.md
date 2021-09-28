@@ -4,9 +4,6 @@
 
 ## CustomerUpdateProfileParam interface
 
-> This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
-> 
-
 
 <b>Signature:</b>
 
@@ -18,8 +15,8 @@ export interface CustomerUpdateProfileParam
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [firstName](./shopware-6-client.customerupdateprofileparam.firstname.md) | string | <b><i>(BETA)</i></b> |
-|  [lastName](./shopware-6-client.customerupdateprofileparam.lastname.md) | string | <b><i>(BETA)</i></b> |
-|  [salutationId](./shopware-6-client.customerupdateprofileparam.salutationid.md) | string | <b><i>(BETA)</i></b> |
-|  [title](./shopware-6-client.customerupdateprofileparam.title.md) | string \| null | <b><i>(BETA)</i></b> |
+|  [firstName](./shopware-6-client.customerupdateprofileparam.firstname.md) | string |  |
+|  [lastName](./shopware-6-client.customerupdateprofileparam.lastname.md) | string |  |
+|  [salutationId](./shopware-6-client.customerupdateprofileparam.salutationid.md) | string |  |
+|  [title](./shopware-6-client.customerupdateprofileparam.title.md) | string \| null |  |
 

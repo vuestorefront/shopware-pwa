@@ -1,13 +1,11 @@
 import { Ref, computed, ComputedRef, provide, inject } from "vue-demi";
 import { getCmsPage } from "@shopware-pwa/shopware-6-client";
 import { SearchCriteria } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
-import { CmsPageType } from "@shopware-pwa/commons/interfaces/models/content/cms/CmsPage";
 import { _parseUrlQuery } from "@shopware-pwa/helpers";
 import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
 import {
-  CmsPage,
-  PageResolverProductResult,
-  PageResolverResult,
+  CmsPageResponse,
+  CmsResourceType,
 } from "@shopware-pwa/commons/interfaces/models/content/cms/CmsPage";
 import {
   getApplicationContext,
@@ -27,10 +25,8 @@ export function useCms(params?: {
    */
   cmsContextName?: string;
 }): {
-  page: ComputedRef<
-    PageResolverProductResult | PageResolverResult<CmsPage> | null
-  >;
-  resourceType: ComputedRef<CmsPageType | null>;
+  page: ComputedRef<CmsPageResponse | null>;
+  resourceType: ComputedRef<CmsResourceType | null>;
   resourceIdentifier: ComputedRef<string | null>;
   currentSearchPathKey: ComputedRef<string | null>;
   loading: Ref<boolean>;
@@ -58,9 +54,7 @@ export function useCms(params?: {
   const _cmsError = sharedRef<any>(`${cacheKey}-cmsError`, null);
   const _cmsLoading = sharedRef(`${cacheKey}-cmsLoading`, false);
 
-  const _storePage = sharedRef<
-    PageResolverProductResult | PageResolverResult<CmsPage>
-  >(`${cacheKey}-page`);
+  const _storePage = sharedRef<CmsPageResponse>(`${cacheKey}-page`);
 
   const { getDefaults } = useDefaults({ defaultsKey: COMPOSABLE_NAME });
   const { setBreadcrumbs } = useBreadcrumbs();

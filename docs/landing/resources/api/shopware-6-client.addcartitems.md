@@ -4,9 +4,6 @@
 
 ## addCartItems() function
 
-> This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
-> 
-
 Adds multiple items to the cart. Accepts every type of cart item.
 
 <b>Signature:</b>

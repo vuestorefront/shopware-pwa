@@ -41,7 +41,7 @@ describe("Composables - useProduct", () => {
       const response: any = {
         id: "3f637f17cd9f4891a2d7625d19fb37c9",
       };
-      mockedAxios.getProductPage.mockResolvedValueOnce(response);
+      mockedAxios.getCmsPage.mockResolvedValueOnce(response);
       expect(product.value).toBeNull();
     });
   });
@@ -94,12 +94,12 @@ describe("Composables - useProduct", () => {
         id: "3f637f17cd9f4891a2d7625d19fb37c9",
         parentId: "1c3e927309014a67a07f3bb574f9e804",
       };
-      mockedAxios.getProductPage.mockResolvedValueOnce({} as any);
+      mockedAxios.getCmsPage.mockResolvedValueOnce({} as any);
       const { loadAssociations } = useProduct({ product: loadedProduct });
       const includesParams = getDefaultsMock.includes;
       const associationsParams = getDefaultsMock.associations;
       loadAssociations({} as any);
-      expect(mockedAxios.getProductPage).toBeCalledWith(
+      expect(mockedAxios.getCmsPage).toBeCalledWith(
         "detail/1c3e927309014a67a07f3bb574f9e804",
         {
           includes: includesParams,
@@ -122,9 +122,7 @@ describe("Composables - useProduct", () => {
           crossSellings: { id: "cross-id" },
         },
       };
-      mockedAxios.getProductPage.mockResolvedValueOnce(
-        responseLoadAssociations
-      );
+      mockedAxios.getCmsPage.mockResolvedValueOnce(responseLoadAssociations);
       await loadAssociations();
       expect(product.value).toHaveProperty("crossSellings");
     });

@@ -1,38 +1,17 @@
 import { getPageResolverEndpoint, getSeoUrlEndpoint } from "../endpoints";
 import { defaultInstance, ShopwareApiInstance } from "../apiService";
 import { ShopwareSearchParams } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
-import {
-  PageResolverResult,
-  PageResolverProductResult,
-  CmsPage,
-} from "@shopware-pwa/commons/interfaces/models/content/cms/CmsPage";
+import { CmsPageResponse } from "@shopware-pwa/commons/interfaces/models/content/cms/CmsPage";
 
 /**
  * @throws ClientApiError
- * @beta
- */
-export async function getPage(
-  path: string,
-  criteria?: ShopwareSearchParams,
-  contextInstance: ShopwareApiInstance = defaultInstance
-): Promise<PageResolverResult<CmsPage>> {
-  const resp = await contextInstance.invoke.post(getPageResolverEndpoint(), {
-    path: path,
-    criteria,
-  });
-
-  return resp.data;
-}
-
-/**
- * @throws ClientApiError
- * @beta
+ * @public
  */
 export async function getCmsPage(
   path: string,
   criteria?: ShopwareSearchParams,
   contextInstance: ShopwareApiInstance = defaultInstance
-): Promise<PageResolverResult<CmsPage>> {
+): Promise<CmsPageResponse> {
   const resp = await contextInstance.invoke.post(getPageResolverEndpoint(), {
     path: path,
     ...criteria,
@@ -42,27 +21,10 @@ export async function getCmsPage(
 }
 
 /**
- * @throws ClientApiError
- * @beta
- */
-export async function getProductPage(
-  path: string,
-  criteria?: ShopwareSearchParams,
-  contextInstance: ShopwareApiInstance = defaultInstance
-): Promise<PageResolverProductResult> {
-  const resp = await contextInstance.invoke.post(getPageResolverEndpoint(), {
-    path: path,
-    ...(criteria || {}),
-  });
-
-  return resp.data;
-}
-
-/**
  * Returns an array of SEO URLs for given entity
  * Can be used for other languages as well by providing the languageId
  *
- * @beta
+ * @public
  */
 export async function getSeoUrls(
   entityId: string,

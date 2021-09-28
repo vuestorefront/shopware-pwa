@@ -1,5 +1,5 @@
 import { ref, Ref } from "vue-demi";
-import { PageResolverResult } from "@shopware-pwa/commons/interfaces/models/content/cms/CmsPage";
+import { CmsPageResponse } from "@shopware-pwa/commons/interfaces/models/content/cms/CmsPage";
 
 import * as shopwareClient from "@shopware-pwa/shopware-6-client";
 jest.mock("@shopware-pwa/shopware-6-client");
@@ -65,7 +65,7 @@ describe("Composables - useCms", () => {
   });
   it("should have value", async () => {
     const { search, page } = useCms();
-    const response: PageResolverResult<any> = {
+    const response: CmsPageResponse = {
       breadcrumb: {},
       cmsPage: { name: "super category", type: "product_list" },
       resourceIdentifier: "3f637f17cd9f4891a2d7625d19fb37c9",
@@ -246,7 +246,7 @@ describe("Composables - useCms", () => {
 
   it("should return resourceIdentifier if it's included within the page object", async () => {
     const { resourceIdentifier, search } = useCms();
-    const response: PageResolverResult<any> = {
+    const response: CmsPageResponse = {
       breadcrumb: {},
       cmsPage: { name: "super category", type: "product_list" },
       resourceIdentifier: "3f637f17cd9f4891a2d7625d19fb37c9",
@@ -264,7 +264,7 @@ describe("Composables - useCms", () => {
 
   it("should return resourceType from the page object", async () => {
     const { resourceType, search } = useCms();
-    const response: PageResolverResult<any> = {
+    const response: CmsPageResponse = {
       breadcrumb: {},
       cmsPage: { name: "super category", type: "product_list" },
       resourceIdentifier: "3f637f17cd9f4891a2d7625d19fb37c9",

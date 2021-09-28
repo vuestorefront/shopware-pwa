@@ -13,7 +13,7 @@ import { ShopwareSearchParams } from "@shopware-pwa/commons/interfaces/search/Se
 
 /**
  * Creates an order for logged in users
- * @beta
+ * @public
  */
 export async function createOrder(
   contextInstance: ShopwareApiInstance = defaultInstance
@@ -27,7 +27,7 @@ export async function createOrder(
  * @param orderId - Id of an order
  * @param finishUrl - URL where the customer is redirected to after payment is done
  * @param errorUrl - URL where the customer is redirected to after payment fails
- * @beta
+ * @public
  */
 export async function handlePayment(
   orderId: string,
@@ -53,7 +53,7 @@ export async function handlePayment(
  * Get order details
  *
  * @throws ClientApiError
- * @beta
+ * @public
  */
 export async function getOrderDetails(
   orderId: string,
@@ -80,7 +80,7 @@ export async function getOrderDetails(
  * Cancel an order
  *
  * @throws ClientApiError
- * @beta
+ * @public
  */
 export async function cancelOrder(
   orderId: string,
@@ -96,7 +96,7 @@ export async function cancelOrder(
  * Change payment method for given order
  *
  * @throws ClientApiError
- * @beta
+ * @public
  */
 export async function changeOrderPaymentMethod(
   orderId: string,

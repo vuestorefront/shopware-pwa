@@ -4,9 +4,6 @@
 
 ## CustomerUpdateEmailParam interface
 
-> This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
-> 
-
 
 <b>Signature:</b>
 
@@ -18,7 +15,7 @@ export interface CustomerUpdateEmailParam
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [email](./shopware-6-client.customerupdateemailparam.email.md) | string | <b><i>(BETA)</i></b> |
-|  [emailConfirmation](./shopware-6-client.customerupdateemailparam.emailconfirmation.md) | string | <b><i>(BETA)</i></b> |
-|  [password](./shopware-6-client.customerupdateemailparam.password.md) | string | <b><i>(BETA)</i></b> |
+|  [email](./shopware-6-client.customerupdateemailparam.email.md) | string |  |
+|  [emailConfirmation](./shopware-6-client.customerupdateemailparam.emailconfirmation.md) | string |  |
+|  [password](./shopware-6-client.customerupdateemailparam.password.md) | string |  |
 
