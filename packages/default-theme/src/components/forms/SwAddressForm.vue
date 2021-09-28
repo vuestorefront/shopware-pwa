@@ -244,7 +244,6 @@ export default {
 
     return {
       addAddress,
-      userError,
       countriesError,
       getMappedCountries,
       getMappedSalutations,
@@ -266,7 +265,7 @@ export default {
         return
       }
       const addressId = await this.saveAddress()
-      if (this.userError) {
+      if (this.formErrors?.length) {
         return this.pushError(
           this.$t("Your address couldn't be updated due to some errors")
         )
