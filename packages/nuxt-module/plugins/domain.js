@@ -8,13 +8,10 @@ import {
 const FALLBACK_DOMAIN = "<%= options.fallbackDomain %>" || "/";
 const FALLBACK_LOCALE = "<%= options.fallbackLocale %>";
 const SHOPWARE_DOMAINS_ALLOW_LIST = "<%= options.shopwareDomainsAllowList %>";
-const domainsAllowListArray =
-  typeof SHOPWARE_DOMAINS_ALLOW_LIST === "string"
-    ? SHOPWARE_DOMAINS_ALLOW_LIST.split(",")
-    : [];
+const domainsAllowListArray = SHOPWARE_DOMAINS_ALLOW_LIST?.split(",") || [];
 const domains = require("sw-plugins/domains");
 const domainsList = Object.values(domains).filter(
-  ({ url }) => domainsAllowListArray?.includes(url) // TODO: possibly problematic with prefix paths
+  ({ url }) => domainsAllowListArray.includes(url) // TODO: possibly problematic with prefix paths
 );
 
 // register domains based routing and configuration
