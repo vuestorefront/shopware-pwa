@@ -63,7 +63,7 @@ export function changeOrderPaymentMethod(orderId: string, paymentMethodId: strin
 // @beta
 export function clearCart(contextInstance?: ShopwareApiInstance): Promise<ContextTokenResponse>;
 
-// @beta (undocumented)
+// @public (undocumented)
 export interface ClientSettings {
     accessToken?: string;
     contextToken?: string;
@@ -76,7 +76,7 @@ export interface ClientSettings {
 // @beta (undocumented)
 export const config: ClientSettings;
 
-// @beta (undocumented)
+// @public (undocumented)
 export interface ConfigChangedArgs {
     // (undocumented)
     config: ClientSettings;
@@ -112,7 +112,7 @@ export interface ContactFormData {
 // @beta
 export function createCustomerAddress(params: Partial<CustomerAddress>, contextInstance?: ShopwareApiInstance): Promise<CustomerAddress>;
 
-// @beta (undocumented)
+// @public (undocumented)
 export function createInstance(initialConfig?: ClientSettings): ShopwareApiInstance;
 
 // @beta
@@ -502,8 +502,9 @@ export function setDefaultCustomerShippingAddress(addressId: string, contextInst
 // @beta
 export const setup: (config?: ClientSettings) => void;
 
-// @beta (undocumented)
+// @public (undocumented)
 export interface ShopwareApiInstance {
+    _axiosInstance: AxiosInstance;
     // (undocumented)
     config: ClientSettings;
     // (undocumented)

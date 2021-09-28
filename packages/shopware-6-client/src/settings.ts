@@ -1,7 +1,7 @@
 import { defaultPwaConfigFile } from "@shopware-pwa/commons";
 
 /**
- * @beta
+ * @public
  */
 export interface ClientSettings {
   /**
