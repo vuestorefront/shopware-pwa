@@ -3,14 +3,14 @@ import { createResponseInterceptor, errorInterceptor } from "./interceptors";
 import { ClientSettings, defaultConfig } from "./settings";
 import { getQueryString } from "./helpers/queryParamsBuilder";
 /**
- * @beta
+ * @public
  */
 export interface ConfigChangedArgs {
   config: ClientSettings;
 }
 
 /**
- * @beta
+ * @public
  */
 export interface ShopwareApiInstance {
   onConfigChange: (fn: (context: ConfigChangedArgs) => void) => void;
@@ -26,6 +26,10 @@ export interface ShopwareApiInstance {
     delete: AxiosInstance["delete"];
   };
   defaults: AxiosInstance["defaults"];
+  /**
+   * We expose axios instance for advanced use. You might cause some side effects, use with caution.
+   */
+  _axiosInstance: AxiosInstance;
 }
 
 /**
@@ -112,18 +116,26 @@ export function _createInstance(initialConfig: ClientSettings = {}) {
     update,
     invoke,
     defaults: apiService.defaults,
+    _axiosInstance: apiService,
   };
 }
 
 /**
  *
- * @beta
+ * @public
  */
 export function createInstance(
   initialConfig: ClientSettings = {}
 ): ShopwareApiInstance {
-  const { onConfigChange, config, setup, update, invoke, defaults } =
-    _createInstance(initialConfig);
+  const {
+    onConfigChange,
+    config,
+    setup,
+    update,
+    invoke,
+    defaults,
+    _axiosInstance,
+  } = _createInstance(initialConfig);
 
   return {
     onConfigChange,
@@ -134,6 +146,7 @@ export function createInstance(
     },
     invoke,
     defaults,
+    _axiosInstance,
   };
 }
 

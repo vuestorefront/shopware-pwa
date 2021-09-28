@@ -4,9 +4,6 @@
 
 ## ConfigChangedArgs interface
 
-> This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
-> 
-
 
 <b>Signature:</b>
 
@@ -18,5 +15,5 @@ export interface ConfigChangedArgs
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [config](./shopware-6-client.configchangedargs.config.md) | [ClientSettings](./shopware-6-client.clientsettings.md) | <b><i>(BETA)</i></b> |
+|  [config](./shopware-6-client.configchangedargs.config.md) | [ClientSettings](./shopware-6-client.clientsettings.md) |  |
 

@@ -18,7 +18,7 @@
 |  [clearCart(contextInstance)](./shopware-6-client.clearcart.md) | <b><i>(BETA)</i></b> When no sw-context-token given then this method return an empty cart with the new sw-context-token.<!-- -->When sw-context-token given then this method simply returns the current state of the cart.<!-- -->As the purpose of this method is not clear we recommend to use <code>getCart</code> method because its behaviour seems to be the same. |
 |  [confirmPasswordReset(params, contextInstance)](./shopware-6-client.confirmpasswordreset.md) | <b><i>(BETA)</i></b> Confirm a customer's password reset. Set new password for account. |
 |  [createCustomerAddress(params, contextInstance)](./shopware-6-client.createcustomeraddress.md) | <b><i>(BETA)</i></b> Create an address and respond the new address's id |
-|  [createInstance(initialConfig)](./shopware-6-client.createinstance.md) | <b><i>(BETA)</i></b> |
+|  [createInstance(initialConfig)](./shopware-6-client.createinstance.md) |  |
 |  [createOrder(contextInstance)](./shopware-6-client.createorder.md) | <b><i>(BETA)</i></b> Creates an order for logged in users |
 |  [deleteCustomerAddress(addressId, contextInstance)](./shopware-6-client.deletecustomeraddress.md) | <b><i>(BETA)</i></b> Delete's the customer's address by id |
 |  [getAvailableCountries(contextInstance)](./shopware-6-client.getavailablecountries.md) | <b><i>(BETA)</i></b> Get all available countries |
@@ -76,8 +76,8 @@
 
 |  Interface | Description |
 |  --- | --- |
-|  [ClientSettings](./shopware-6-client.clientsettings.md) | <b><i>(BETA)</i></b> |
-|  [ConfigChangedArgs](./shopware-6-client.configchangedargs.md) | <b><i>(BETA)</i></b> |
+|  [ClientSettings](./shopware-6-client.clientsettings.md) |  |
+|  [ConfigChangedArgs](./shopware-6-client.configchangedargs.md) |  |
 |  [ContactFormData](./shopware-6-client.contactformdata.md) | <b><i>(BETA)</i></b> |
 |  [CustomerRegisterResponse](./shopware-6-client.customerregisterresponse.md) | <b><i>(BETA)</i></b> |
 |  [CustomerResetPasswordParam](./shopware-6-client.customerresetpasswordparam.md) | <b><i>(BETA)</i></b> |
@@ -86,7 +86,7 @@
 |  [CustomerUpdateProfileParam](./shopware-6-client.customerupdateprofileparam.md) | <b><i>(BETA)</i></b> |
 |  [GetStoreNavigationParams](./shopware-6-client.getstorenavigationparams.md) | <b><i>(BETA)</i></b> More about the navigation parameters: https://docs.shopware.com/en/shopware-platform-dev-en/store-api-guide/navigation?category=shopware-platform-dev-en/store-api-guide |
 |  [NewsletterSubscribeData](./shopware-6-client.newslettersubscribedata.md) | <b><i>(BETA)</i></b> |
-|  [ShopwareApiInstance](./shopware-6-client.shopwareapiinstance.md) | <b><i>(BETA)</i></b> |
+|  [ShopwareApiInstance](./shopware-6-client.shopwareapiinstance.md) |  |
 
 ## Variables
 
