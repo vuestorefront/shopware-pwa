@@ -24,7 +24,7 @@ import { EntityResult } from "@shopware-pwa/commons/interfaces/response/EntityRe
 import { ShopwareSearchParams } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 
 /**
- * @beta
+ * @public
  */
 export interface CustomerRegisterResponse {
   data: string;
@@ -34,7 +34,7 @@ export interface CustomerRegisterResponse {
  * Register a customer
  *
  * @throws ClientApiError
- * @beta
+ * @public
  */
 export async function register(
   params: CustomerRegistrationParams,
@@ -51,7 +51,7 @@ export async function register(
  * Login user to shopware instance.
  *
  * @throws ClientApiError
- * @beta
+ * @public
  */
 export async function login(
   { username, password }: { username?: string; password?: string } = {},
@@ -70,7 +70,7 @@ export async function login(
  * End up the user session.
  *
  * @throws ClientApiError
- * @beta
+ * @public
  */
 export async function logout(
   contextInstance: ShopwareApiInstance = defaultInstance
@@ -82,7 +82,7 @@ export async function logout(
  * Get customer's object
  *
  * @throws ClientApiError
- * @beta
+ * @public
  */
 export async function getCustomer(
   parameters: ShopwareSearchParams = {},
@@ -104,7 +104,7 @@ export async function getCustomer(
  * Get all customer's addresses
  *
  * @throws ClientApiError
- * @beta
+ * @public
  */
 export async function getCustomerAddresses(
   parameters: ShopwareSearchParams = {},
@@ -121,7 +121,7 @@ export async function getCustomerAddresses(
  * Get all customer's orders
  *
  * @throws ClientApiError
- * @beta
+ * @public
  */
 export async function getCustomerOrders(
   parameters: ShopwareSearchParams = {},
@@ -138,7 +138,7 @@ export async function getCustomerOrders(
  * Get the customer's address by id
  *
  * @throws ClientApiError
- * @beta
+ * @public
  */
 export async function getCustomerAddress(
   addressId: string,
@@ -154,7 +154,7 @@ export async function getCustomerAddress(
  * Create an address and respond the new address's id
  *
  * @throws ClientApiError
- * @beta
+ * @public
  */
 export async function createCustomerAddress(
   params: Partial<CustomerAddress>,
@@ -171,7 +171,7 @@ export async function createCustomerAddress(
  * Update an address for specific ID
  *
  * @throws ClientApiError
- * @beta
+ * @public
  */
 export async function updateCustomerAddress(
   params: Partial<CustomerAddress>,
@@ -188,7 +188,7 @@ export async function updateCustomerAddress(
  * Delete's the customer's address by id
  *
  * @throws ClientApiError
- * @beta
+ * @public
  */
 export async function deleteCustomerAddress(
   addressId: string,
@@ -201,7 +201,7 @@ export async function deleteCustomerAddress(
  * Set address as default
  *
  * @throws ClientApiError
- * @beta
+ * @public
  */
 export async function setDefaultCustomerBillingAddress(
   addressId: string,
@@ -217,7 +217,7 @@ export async function setDefaultCustomerBillingAddress(
  * Set address as default
  *
  * @throws ClientApiError
- * @beta
+ * @public
  */
 export async function setDefaultCustomerShippingAddress(
   addressId: string,
@@ -230,7 +230,7 @@ export async function setDefaultCustomerShippingAddress(
 }
 
 /**
- * @beta
+ * @public
  */
 export interface CustomerUpdateEmailParam {
   email: string;
@@ -242,7 +242,7 @@ export interface CustomerUpdateEmailParam {
  * Update a customer's email
  *
  * @throws ClientApiError
- * @beta
+ * @public
  */
 export async function updateEmail(
   params: CustomerUpdateEmailParam,
@@ -252,7 +252,7 @@ export async function updateEmail(
 }
 
 /**
- * @beta
+ * @public
  */
 export interface CustomerUpdatePasswordParam {
   password: string;
@@ -264,7 +264,7 @@ export interface CustomerUpdatePasswordParam {
  * Update a customer's password
  *
  * @throws ClientApiError
- * @beta
+ * @public
  */
 export async function updatePassword(
   params: CustomerUpdatePasswordParam,
@@ -277,7 +277,7 @@ export async function updatePassword(
 }
 
 /**
- * @beta
+ * @public
  */
 export interface CustomerResetPasswordParam {
   email: string;
@@ -288,7 +288,7 @@ export interface CustomerResetPasswordParam {
  * Reset a customer's password
  *
  * @throws ClientApiError
- * @beta
+ * @public
  */
 export async function resetPassword(
   params: CustomerResetPasswordParam,
@@ -305,7 +305,7 @@ export async function resetPassword(
  * Confirm a customer's password reset. Set new password for account.
  *
  * @throws ClientApiError
- * @beta
+ * @public
  */
 export async function confirmPasswordReset(
   params: {
@@ -323,7 +323,7 @@ export async function confirmPasswordReset(
 }
 
 /**
- * @beta
+ * @public
  */
 export interface CustomerUpdateProfileParam {
   firstName: string;
@@ -336,7 +336,7 @@ export interface CustomerUpdateProfileParam {
  * Update a customer's profile data
  *
  * @throws ClientApiError
- * @beta
+ * @public
  */
 export async function updateProfile(
   params: CustomerUpdateProfileParam,

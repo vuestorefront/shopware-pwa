@@ -1,6 +1,7 @@
 import { ref, Ref, unref } from "vue-demi";
-import { getProduct, getProductPage } from "@shopware-pwa/shopware-6-client";
+import { getProduct, getCmsPage } from "@shopware-pwa/shopware-6-client";
 import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
+import { CmsProductPageResponse } from "@shopware-pwa/commons/interfaces/models/content/cms/CmsPage";
 import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
 import { getApplicationContext, useDefaults } from "@shopware-pwa/composables";
 const NO_PRODUCT_REFERENCE_ERROR =
@@ -51,11 +52,11 @@ export function useProduct(params?: {
     };
 
     const urlPath = `detail/${product.value.parentId || product.value.id}`;
-    const result = await getProductPage(urlPath, searchCriteria, apiInstance);
+    const result = await getCmsPage(urlPath, searchCriteria, apiInstance);
 
     // load only children; other properties are loaded synchronously
     product.value = Object.assign({}, product.value, {
-      crossSellings: result.product?.crossSellings,
+      crossSellings: (result as CmsProductPageResponse).product?.crossSellings,
     });
   };
 

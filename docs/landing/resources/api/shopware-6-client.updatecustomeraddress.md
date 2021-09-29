@@ -4,9 +4,6 @@
 
 ## updateCustomerAddress() function
 
-> This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
-> 
-
 Update an address for specific ID
 
 <b>Signature:</b>

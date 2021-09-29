@@ -8,7 +8,7 @@ import { ShopwareSearchParams } from "@shopware-pwa/commons/interfaces/search/Se
 
 /**
  * More about the navigation parameters: https://docs.shopware.com/en/shopware-platform-dev-en/store-api-guide/navigation?category=shopware-platform-dev-en/store-api-guide
- * @beta
+ * @public
  */
 export interface GetStoreNavigationParams {
   requestActiveId: StoreNavigationType;
@@ -20,7 +20,7 @@ export interface GetStoreNavigationParams {
 
 /**
  * @throws ClientApiError
- * @beta
+ * @public
  */
 export async function getStoreNavigation(
   {

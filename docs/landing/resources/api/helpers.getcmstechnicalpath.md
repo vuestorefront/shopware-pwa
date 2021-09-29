@@ -4,21 +4,18 @@
 
 ## getCmsTechnicalPath() function
 
-> This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
-> 
-
 
 <b>Signature:</b>
 
 ```typescript
-export declare function getCmsTechnicalPath(page: PageResolverResult<CmsPage> | PageResolverProductResult): string | undefined;
+export declare function getCmsTechnicalPath(page: CmsPageResponse): string | undefined;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  page | PageResolverResult&lt;CmsPage&gt; \| PageResolverProductResult |  |
+|  page | CmsPageResponse |  |
 
 <b>Returns:</b>
 

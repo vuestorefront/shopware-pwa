@@ -4,9 +4,6 @@
 
 ## CustomerUpdatePasswordParam interface
 
-> This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
-> 
-
 
 <b>Signature:</b>
 
@@ -18,7 +15,7 @@ export interface CustomerUpdatePasswordParam
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [newPassword](./shopware-6-client.customerupdatepasswordparam.newpassword.md) | string | <b><i>(BETA)</i></b> |
-|  [newPasswordConfirm](./shopware-6-client.customerupdatepasswordparam.newpasswordconfirm.md) | string | <b><i>(BETA)</i></b> |
-|  [password](./shopware-6-client.customerupdatepasswordparam.password.md) | string | <b><i>(BETA)</i></b> |
+|  [newPassword](./shopware-6-client.customerupdatepasswordparam.newpassword.md) | string |  |
+|  [newPasswordConfirm](./shopware-6-client.customerupdatepasswordparam.newpasswordconfirm.md) | string |  |
+|  [password](./shopware-6-client.customerupdatepasswordparam.password.md) | string |  |
 

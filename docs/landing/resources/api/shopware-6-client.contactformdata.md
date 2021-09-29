@@ -4,9 +4,6 @@
 
 ## ContactFormData interface
 
-> This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
-> 
-
 
 <b>Signature:</b>
 
@@ -18,12 +15,12 @@ export interface ContactFormData
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [comment](./shopware-6-client.contactformdata.comment.md) | string | <b><i>(BETA)</i></b> |
-|  [email](./shopware-6-client.contactformdata.email.md) | string | <b><i>(BETA)</i></b> |
-|  [firstName](./shopware-6-client.contactformdata.firstname.md) | string | <b><i>(BETA)</i></b> |
-|  [lastName](./shopware-6-client.contactformdata.lastname.md) | string | <b><i>(BETA)</i></b> |
-|  [navigationId?](./shopware-6-client.contactformdata.navigationid.md) | string | <b><i>(BETA)</i></b> <i>(Optional)</i> |
-|  [phone?](./shopware-6-client.contactformdata.phone.md) | string | <b><i>(BETA)</i></b> <i>(Optional)</i> |
-|  [salutationId](./shopware-6-client.contactformdata.salutationid.md) | string | <b><i>(BETA)</i></b> |
-|  [subject](./shopware-6-client.contactformdata.subject.md) | string | <b><i>(BETA)</i></b> |
+|  [comment](./shopware-6-client.contactformdata.comment.md) | string |  |
+|  [email](./shopware-6-client.contactformdata.email.md) | string |  |
+|  [firstName](./shopware-6-client.contactformdata.firstname.md) | string |  |
+|  [lastName](./shopware-6-client.contactformdata.lastname.md) | string |  |
+|  [navigationId?](./shopware-6-client.contactformdata.navigationid.md) | string | <i>(Optional)</i> |
+|  [phone?](./shopware-6-client.contactformdata.phone.md) | string | <i>(Optional)</i> |
+|  [salutationId](./shopware-6-client.contactformdata.salutationid.md) | string |  |
+|  [subject](./shopware-6-client.contactformdata.subject.md) | string |  |
 

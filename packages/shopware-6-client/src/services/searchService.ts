@@ -7,7 +7,7 @@ import { ShopwareSearchParams } from "@shopware-pwa/commons/interfaces/search/Se
  * Search for products based on criteria.
  * From: Shopware 6.4
  *
- * @beta
+ * @public
  */
 export async function searchProducts(
   criteria?: ShopwareSearchParams,
@@ -25,7 +25,7 @@ export async function searchProducts(
  * Search for suggested products based on criteria.
  * From: Shopware 6.4
  *
- * @beta
+ * @public
  */
 export async function searchSuggestedProducts(
   criteria?: ShopwareSearchParams,

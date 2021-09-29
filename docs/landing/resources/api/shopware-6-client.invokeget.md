@@ -4,9 +4,6 @@
 
 ## invokeGet() function
 
-> This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
-> 
-
 Invoke custom GET request to shopware API. Mostly for plugins usage. You can skip domain and pass only endpoint ex. `/api/my/endpoint`
 
 <b>Signature:</b>

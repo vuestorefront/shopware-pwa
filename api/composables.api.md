@@ -9,8 +9,8 @@ import { ApiDefaults } from '@shopware-pwa/commons';
 import { BillingAddress } from '@shopware-pwa/commons/interfaces/models/checkout/customer/BillingAddress';
 import { Breadcrumb } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { Cart } from '@shopware-pwa/commons/interfaces/models/checkout/cart/Cart';
-import { CmsPage } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
-import { CmsPageType } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
+import { CmsPageResponse } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
+import { CmsResourceType } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { ComputedRef } from 'vue-demi';
 import { Country } from '@shopware-pwa/commons/interfaces/models/system/country/Country';
 import { CrossSelling } from '@shopware-pwa/commons/interfaces/models/content/product/Product';
@@ -28,8 +28,6 @@ import { LineItem } from '@shopware-pwa/commons/interfaces/models/checkout/cart/
 import { ListingFilter } from '@shopware-pwa/helpers';
 import { ListingResult } from '@shopware-pwa/commons/interfaces/response/ListingResult';
 import { Order } from '@shopware-pwa/commons/interfaces/models/checkout/order/Order';
-import { PageResolverProductResult } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
-import { PageResolverResult } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { PaymentMethod } from '@shopware-pwa/commons/interfaces/models/checkout/payment/PaymentMethod';
 import { Product } from '@shopware-pwa/commons/interfaces/models/content/product/Product';
 import { PropertyGroup } from '@shopware-pwa/commons/interfaces/models/content/property/PropertyGroup';
@@ -612,8 +610,8 @@ export function useCheckout(): IUseCheckout;
 export function useCms(params?: {
     cmsContextName?: string;
 }): {
-    page: ComputedRef<PageResolverProductResult | PageResolverResult<CmsPage> | null>;
-    resourceType: ComputedRef<CmsPageType | null>;
+    page: ComputedRef<CmsPageResponse | null>;
+    resourceType: ComputedRef<CmsResourceType | null>;
     resourceIdentifier: ComputedRef<string | null>;
     currentSearchPathKey: ComputedRef<string | null>;
     loading: Ref<boolean>;

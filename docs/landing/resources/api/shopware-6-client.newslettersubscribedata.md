@@ -4,9 +4,6 @@
 
 ## NewsletterSubscribeData interface
 
-> This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
-> 
-
 
 <b>Signature:</b>
 
@@ -18,13 +15,13 @@ export interface NewsletterSubscribeData
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [city?](./shopware-6-client.newslettersubscribedata.city.md) | string | <b><i>(BETA)</i></b> <i>(Optional)</i> |
-|  [email](./shopware-6-client.newslettersubscribedata.email.md) | string | <b><i>(BETA)</i></b> |
-|  [firstName?](./shopware-6-client.newslettersubscribedata.firstname.md) | string | <b><i>(BETA)</i></b> <i>(Optional)</i> |
-|  [lastName?](./shopware-6-client.newslettersubscribedata.lastname.md) | string | <b><i>(BETA)</i></b> <i>(Optional)</i> |
-|  [option](./shopware-6-client.newslettersubscribedata.option.md) | "direct" \| "subscribe" \| "confirmSubscribe" \| "unsubscribe" | <b><i>(BETA)</i></b> |
-|  [salutationId?](./shopware-6-client.newslettersubscribedata.salutationid.md) | string | <b><i>(BETA)</i></b> <i>(Optional)</i> |
-|  [storefrontUrl](./shopware-6-client.newslettersubscribedata.storefronturl.md) | string | <b><i>(BETA)</i></b> |
-|  [street?](./shopware-6-client.newslettersubscribedata.street.md) | string | <b><i>(BETA)</i></b> <i>(Optional)</i> |
-|  [zipCode?](./shopware-6-client.newslettersubscribedata.zipcode.md) | string | <b><i>(BETA)</i></b> <i>(Optional)</i> |
+|  [city?](./shopware-6-client.newslettersubscribedata.city.md) | string | <i>(Optional)</i> |
+|  [email](./shopware-6-client.newslettersubscribedata.email.md) | string |  |
+|  [firstName?](./shopware-6-client.newslettersubscribedata.firstname.md) | string | <i>(Optional)</i> |
+|  [lastName?](./shopware-6-client.newslettersubscribedata.lastname.md) | string | <i>(Optional)</i> |
+|  [option](./shopware-6-client.newslettersubscribedata.option.md) | "direct" \| "subscribe" \| "confirmSubscribe" \| "unsubscribe" |  |
+|  [salutationId?](./shopware-6-client.newslettersubscribedata.salutationid.md) | string | <i>(Optional)</i> |
+|  [storefrontUrl](./shopware-6-client.newslettersubscribedata.storefronturl.md) | string |  |
+|  [street?](./shopware-6-client.newslettersubscribedata.street.md) | string | <i>(Optional)</i> |
+|  [zipCode?](./shopware-6-client.newslettersubscribedata.zipcode.md) | string | <i>(Optional)</i> |
 

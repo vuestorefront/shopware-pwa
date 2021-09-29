@@ -15,9 +15,9 @@ import { defaultInstance, ShopwareApiInstance } from "../apiService";
  * Get default amount of products
  *
  * @throws ClientApiError
- * @beta
+ * @public
  */
-export const getProducts = async function (
+export async function getProducts(
   criteria?: ShopwareSearchParams,
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<EntityResult<"product", Product[]>> {
@@ -25,15 +25,15 @@ export const getProducts = async function (
     ...(criteria || {}),
   });
   return resp.data;
-};
+}
 
 /**
  * Get default amount of products and listing configuration for given category
  *
  * @throws ClientApiError
- * @beta
+ * @public
  */
-export const getCategoryProducts = async function (
+export async function getCategoryProducts(
   categoryId: string,
   criteria?: ShopwareSearchParams,
   contextInstance: ShopwareApiInstance = defaultInstance
@@ -43,13 +43,13 @@ export const getCategoryProducts = async function (
     criteria
   );
   return resp.data;
-};
+}
 
 /**
  * Get the product with passed productId
  *
  * @throws ClientApiError
- * @beta
+ * @public
  */
 export async function getProduct(
   productId: string,
@@ -67,7 +67,7 @@ export async function getProduct(
  * Add a review to specific product by its ID
  *
  * @throws ClientApiError
- * @beta
+ * @public
  */
 export async function addProductReview(
   productId: string,

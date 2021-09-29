@@ -24,7 +24,7 @@ import { extractContextToken } from "../helpers/context";
 
 /**
  * @throws ClientApiError
- * @beta
+ * @public
  */
 async function updateContext(
   params: UpdateContextParams,
@@ -39,7 +39,7 @@ async function updateContext(
  * Loads session context, containing all session-related data.
  *
  * @throws ClientApiErrosr
- * @beta
+ * @public
  */
 export async function getSessionContext(
   contextInstance: ShopwareApiInstance = defaultInstance
@@ -51,7 +51,7 @@ export async function getSessionContext(
 /**
  * Set the current session's shipping address to correspoding to id
  * @throws ClientApiError
- * @beta
+ * @public
  */
 export function setCurrentShippingAddress(
   shippingAddressId: string,
@@ -63,7 +63,7 @@ export function setCurrentShippingAddress(
 /**
  * Set the current session's billing address to correspoding to id
  * @throws ClientApiError
- * @beta
+ * @public
  */
 export function setCurrentBillingAddress(
   billingAddressId: string,
@@ -74,7 +74,7 @@ export function setCurrentBillingAddress(
 
 /**
  * @throws ClientApiError
- * @beta
+ * @public
  */
 export async function getAvailableCurrencies(
   contextInstance: ShopwareApiInstance = defaultInstance
@@ -88,7 +88,7 @@ export async function getAvailableCurrencies(
 
 /**
  * @throws ClientApiError
- * @beta
+ * @public
  */
 export async function setCurrentCurrency(
   newCurrencyID: string,
@@ -102,7 +102,7 @@ export async function setCurrentCurrency(
 
 /**
  * @throws ClientApiError
- * @beta
+ * @public
  */
 export async function getAvailableLanguages(
   contextInstance: ShopwareApiInstance = defaultInstance
@@ -116,7 +116,7 @@ export async function getAvailableLanguages(
 
 /**
  * @throws ClientApiError
- * @beta
+ * @public
  */
 export async function setCurrentLanguage(
   newLanguageId: string,
@@ -132,7 +132,7 @@ export async function setCurrentLanguage(
  * Get all available countries
  *
  * @throws ClientApiError
- * @beta
+ * @public
  */
 export async function getAvailableCountries(
   contextInstance: ShopwareApiInstance = defaultInstance
@@ -147,7 +147,7 @@ export async function getAvailableCountries(
  * Get all available salutations
  *
  * @throws ClientApiError
- * @beta
+ * @public
  */
 export async function getAvailableSalutations(
   contextInstance: ShopwareApiInstance = defaultInstance
@@ -158,7 +158,7 @@ export async function getAvailableSalutations(
 
 /**
  * @throws ClientApiError
- * @beta
+ * @public
  */
 export async function getAvailablePaymentMethods(
   contextInstance: ShopwareApiInstance = defaultInstance,
@@ -176,7 +176,7 @@ export async function getAvailablePaymentMethods(
 
 /**
  * @throws ClientApiError
- * @beta
+ * @public
  */
 export async function getPaymentMethodDetails(
   paymentId: string,
@@ -196,7 +196,7 @@ export async function getPaymentMethodDetails(
 
 /**
  * @throws ClientApiError
- * @beta
+ * @public
  */
 export async function setCurrentPaymentMethod(
   newPaymentMethodId: string,
@@ -210,7 +210,7 @@ export async function setCurrentPaymentMethod(
 
 /**
  * @throws ClientApiError
- * @beta
+ * @public
  */
 export async function getAvailableShippingMethods(
   contextInstance: ShopwareApiInstance = defaultInstance,
@@ -228,7 +228,7 @@ export async function getAvailableShippingMethods(
 
 /**
  * @throws ClientApiError
- * @beta
+ * @public
  */
 export async function getShippingMethodDetails(
   shippingId: string,
@@ -248,7 +248,7 @@ export async function getShippingMethodDetails(
 
 /**
  * @throws ClientApiError
- * @beta
+ * @public
  */
 export async function setCurrentShippingMethod(
   newShippingMethodId: string,
@@ -261,7 +261,7 @@ export async function setCurrentShippingMethod(
 }
 /**
  * @throws ClientApiError
- * @beta
+ * @public
  */
 export async function getUserCountry(
   countryId: string,
@@ -281,7 +281,7 @@ export async function getUserCountry(
 
 /**
  * @throws ClientApiError
- * @beta
+ * @public
  */
 export async function getUserSalutation(
   salutationId: string,
