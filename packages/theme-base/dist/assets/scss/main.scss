@@ -2,6 +2,12 @@
 
 // Global styles for theme
 
+// Global variables for theme
+#__nuxt {
+  --boxed-mode-max-width: 1366px;
+  --bottom-navigation-height: 3.35rem;
+}
+
 html {
   overflow-x: hidden;
   height: 100vh;
