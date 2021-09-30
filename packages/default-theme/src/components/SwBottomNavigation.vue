@@ -167,7 +167,9 @@ export default {
     const { switchState: toggleSidebar, isOpen: isSidebarOpen } = useUIState({
       stateName: "CART_SIDEBAR_STATE",
     })
-    const { switchState: toggleModal } = useUIState(root, "LOGIN_MODAL_STATE")
+    const { switchState: toggleModal } = useUIState({
+      stateName: "LOGIN_MODAL_STATE",
+    })
     const { isLoggedIn, isGuestSession, logout } = useUser()
     const { count } = useCart()
     const isMyAccountActive = computed(() => isLoggedIn.value)
