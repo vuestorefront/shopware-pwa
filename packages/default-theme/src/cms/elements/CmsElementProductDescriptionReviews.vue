@@ -13,7 +13,7 @@
 import SwProductDescription from "@/components/SwProductDescription.vue"
 import SwProductTabs from "@/components/SwProductTabs.vue"
 import { useCms } from "@shopware-pwa/composables"
-import { computed } from "@vue/composition-api"
+import { computed, inject } from "@vue/composition-api"
 import { getProductReviews, getProductProperties } from "@shopware-pwa/helpers"
 
 export default {
@@ -26,8 +26,10 @@ export default {
     },
   },
   setup(props) {
-    const { page } = useCms()
-    const product = computed(() => page.value?.product)
+    const { page } = useCms() // fallback for provide/inject, remove in future
+    const cmsProduct = computed(() => page.value?.product)
+
+    const product = inject("cms-product", cmsProduct)
 
     const reviews = computed(() =>
       getProductReviews({ product: product.value })
