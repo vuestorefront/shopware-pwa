@@ -10,7 +10,7 @@
 </template>
 <script>
 import { useCms } from "@shopware-pwa/composables";
-import { ref } from "vue-demi";
+import { ref, provide } from "vue-demi";
 
 export default {
   name: "DynamicRoute",
@@ -21,6 +21,8 @@ export default {
     const cmsPage = ref(page.value?.cmsPage);
     const staticPage = ref(page.value);
     const staticError = ref(error.value);
+
+    provide("cms-page", page);
 
     const getComponent = () => {
       if (staticPage.value) {

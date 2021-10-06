@@ -138,7 +138,7 @@ import {
   getApplicationContext,
   useCms,
 } from "@shopware-pwa/composables"
-import { computed, reactive, ref, toRefs } from "@vue/composition-api"
+import { computed, reactive, ref, toRefs, inject } from "@vue/composition-api"
 import SwButton from "@/components/atoms/SwButton.vue"
 import { sendContactForm } from "@shopware-pwa/shopware-6-client"
 import SwErrorsList from "@/components/SwErrorsList.vue"
@@ -166,7 +166,13 @@ export default {
       contextName: "CmsElementContactForm",
     })
     const { getSalutations, error: salutationsError } = useSalutations()
-    const { resourceIdentifier } = useCms()
+    const { resourceIdentifier: defaultIdentifier } = useCms() // fallback for provide/inject, remove in future
+
+    const cmsPage = inject("cms-page")
+    const resourceIdentifier = computed(
+      () => cmsPage?.value?.resourceIdentifier ?? defaultIdentifier
+    )
+
     const getMappedSalutations = computed(() =>
       mapSalutations(getSalutations.value)
     )

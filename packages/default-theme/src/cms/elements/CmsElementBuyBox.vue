@@ -17,7 +17,7 @@ export default {
     },
   },
   setup() {
-    const { page } = useCms()
+    const { page } = useCms() // fallback for provide/inject, remove in future
     const cmsProduct = computed(() => page.value?.product)
 
     const product = inject("cms-product", cmsProduct)
