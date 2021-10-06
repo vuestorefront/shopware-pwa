@@ -2,33 +2,35 @@
   <div class="cms-element-product-listing">
     <SfLoader :loading="loading" class="cms-element-product-listing__loader" />
     <div v-if="getElements.length" class="cms-element-product-listing__wrapper">
-      <div
-        tag="div"
-        appear
-        name="cms-element-product-listing__slide"
-        class="cms-element-product-listing__list"
-        :class="{ 'cms-element-product-listing__list--blur': loading }"
-      >
-        <template v-if="!isListView">
-          <SwProductCard
-            v-for="(product, i) in getElements"
-            :key="i + product.id"
-            class="cms-element-product-listing__product-card"
-            :product="product"
-            :style="{ '--index': i }"
-          />
-        </template>
-        <template v-else>
-          <SwProductCardHorizontal
-            v-for="(product, i) in getElements"
-            :key="i + product.id"
-            class="cms-element-product-listing__product-card-horizontal"
-            :product="product"
-            :style="{ '--index': i }"
-          />
-        </template>
-        <div key="holder" class="cms-element-product-listing__place-holder" />
-      </div>
+      <SwPluginSlot name="product-listing" :slot-context="getElements">
+        <div
+          tag="div"
+          appear
+          name="cms-element-product-listing__slide"
+          class="cms-element-product-listing__list"
+          :class="{ 'cms-element-product-listing__list--blur': loading }"
+        >
+          <template v-if="!isListView">
+            <SwProductCard
+              v-for="(product, i) in getElements"
+              :key="i + product.id"
+              class="cms-element-product-listing__product-card"
+              :product="product"
+              :style="{ '--index': i }"
+            />
+          </template>
+          <template v-else>
+            <SwProductCardHorizontal
+              v-for="(product, i) in getElements"
+              :key="i + product.id"
+              class="cms-element-product-listing__product-card-horizontal"
+              :product="product"
+              :style="{ '--index': i }"
+            />
+          </template>
+          <div key="holder" class="cms-element-product-listing__place-holder" />
+        </div>
+      </SwPluginSlot>
       <SfPagination
         v-if="getCurrentPage && !isListView"
         class="cms-element-product-listing__pagination"
@@ -93,6 +95,7 @@ const SwProductCard = () => import("@/components/SwProductCard.vue")
 const SwButton = () => import("@/components/atoms/SwButton.vue")
 const SwProductCardHorizontal = () =>
   import("@/components/SwProductCardHorizontal.vue")
+import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
 
 export default {
   name: "SwProductListing",
@@ -103,6 +106,7 @@ export default {
     SfHeading,
     SfLoader,
     SwButton,
+    SwPluginSlot,
   },
   props: {
     initialListing: {

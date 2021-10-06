@@ -45,18 +45,20 @@
       </div>
       <div class="checkout__aside">
         <transition name="fade">
-          <SidebarOrderSummary
-            v-if="!isLoggedIn"
-            key="order-summary"
-            class="checkout__aside-order"
-            @create-account="invokeRegister"
-          />
-          <SidebarOrderReview
-            v-else
-            key="order-review"
-            class="checkout__aside-order"
-            @create-order="createOrder"
-          />
+          <SwPluginSlot name="order-summary">
+            <SidebarOrderSummary
+              v-if="!isLoggedIn"
+              key="order-summary"
+              class="checkout__aside-order"
+              @create-account="invokeRegister"
+            />
+            <SidebarOrderReview
+              v-else
+              key="order-review"
+              class="checkout__aside-order"
+              @create-order="createOrder"
+            />
+          </SwPluginSlot>
         </transition>
       </div>
     </div>
@@ -104,6 +106,7 @@ import SidebarOrderReview from "@/components/checkout/sidebar/SidebarOrderReview
 import SidebarOrderSummary from "@/components/checkout/sidebar/SidebarOrderSummary.vue"
 import CheckoutSummary from "@/components/checkout/CheckoutSummary.vue"
 import SwErrorsList from "@/components/SwErrorsList.vue"
+import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
 
 import {
   PAGE_CHECKOUT,
@@ -123,7 +126,6 @@ import { computed, ref, watch } from "@vue/composition-api"
 import { handlePayment } from "@shopware-pwa/shopware-6-client"
 import SwRegistrationForm from "@/components/forms/SwRegistrationForm.vue"
 import SwButton from "@/components/atoms/SwButton.vue"
-import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
 import { SfHeading, SfLoader } from "@storefront-ui/vue"
 import { useVuelidate } from "@vuelidate/core"
 import SwAlert from "@/components/atoms/SwAlert.vue"
