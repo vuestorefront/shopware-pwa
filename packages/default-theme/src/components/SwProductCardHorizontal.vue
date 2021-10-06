@@ -1,18 +1,20 @@
 <template>
-  <SfProductCardHorizontal
-    v-model="quantity"
-    :title="getName"
-    :image="getImageUrl"
-    :special-price="filterPrice(getSpecialPrice)"
-    :regular-price="filterPrice(getRegularPrice)"
-    :max-rating="5"
-    :score-rating="getProductRating"
-    :is-on-wishlist="false"
-    :link="getRouterLink"
-    class="sw-product-card-horizontal"
-    @click:wishlist="toggleWishlist"
-    @click:add-to-cart="addToCart"
-  />
+  <SwPluginSlot name="product-card-horizontal" :slot-context="product">
+    <SfProductCardHorizontal
+      v-model="quantity"
+      :title="getName"
+      :image="getImageUrl"
+      :special-price="filterPrice(getSpecialPrice)"
+      :regular-price="filterPrice(getRegularPrice)"
+      :max-rating="5"
+      :score-rating="getProductRating"
+      :is-on-wishlist="false"
+      :link="getRouterLink"
+      class="sw-product-card-horizontal"
+      @click:wishlist="toggleWishlist"
+      @click:add-to-cart="addToCart"
+    />
+  </SwPluginSlot>
 </template>
 
 <script>
@@ -29,9 +31,10 @@ import {
 } from "@shopware-pwa/helpers"
 import getResizedImage from "@/helpers/images/getResizedImage.js"
 import { usePriceFilter } from "@/logic/usePriceFilter.js"
+import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
 
 export default {
-  components: { SfProductCardHorizontal },
+  components: { SfProductCardHorizontal, SwPluginSlot },
   setup(props, { root }) {
     const { addToCart, quantity, getStock, isInCart } = useAddToCart({
       product: props.product,

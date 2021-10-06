@@ -24,6 +24,17 @@
         />
       </div>
     </template>
+    <template #price>
+      <div class="sw-collected-product__configuration" v-if="options">
+        <SwPluginSlot name="collected-product-price" :slot-context="product">
+          <SfPrice
+            v-if="regularPrice"
+            :regular="filterPrice(regularPrice)"
+            :special="filterPrice(specialPrice)"
+          />
+        </SwPluginSlot>
+      </div>
+    </template>
     <template #image>
       <SwImage
         v-if="!isPromotion"
@@ -54,11 +65,12 @@
 <script>
 import { getProductMainImageUrl, getProductUrl } from "@shopware-pwa/helpers"
 import { useCart } from "@shopware-pwa/composables"
-import { ref, watch, computed, onMounted } from "@vue/composition-api"
-import { SfCollectedProduct, SfProperty } from "@storefront-ui/vue"
+import { ref, watch, computed } from "@vue/composition-api"
+import { SfCollectedProduct, SfProperty, SfPrice } from "@storefront-ui/vue"
 import getResizedImage from "@/helpers/images/getResizedImage.js"
 import SwImage from "@/components/atoms/SwImage.vue"
 import { usePriceFilter } from "@/logic/usePriceFilter.js"
+import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
 
 export default {
   name: "SwCartProduct",
@@ -66,6 +78,8 @@ export default {
     SfCollectedProduct,
     SfProperty,
     SwImage,
+    SfPrice,
+    SwPluginSlot,
   },
   props: {
     product: {
@@ -154,6 +168,7 @@ export default {
   --collected-product-configuration-display: flex;
   --collected-product-padding: var(--spacer-xs);
   --collected-product-background: var(--c-white);
+  --collected-product-title-margin: 0;
   &.sf-collected-product {
     --collected-product-remove-text-display: var(
       --sw-collected-product-remove-btn-display,

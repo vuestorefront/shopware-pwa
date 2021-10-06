@@ -1,22 +1,28 @@
 <template>
-  <SfProductCard
-    :title="getName"
-    :image="getImageUrl"
-    :special-price="formatPrice(getSpecialPrice)"
-    :regular-price="formatPrice(getRegularPrice)"
-    :max-rating="5"
-    :score-rating="getProductRating"
-    :image-width="700"
-    :image-height="1000"
-    :link="getRouterLink"
-    class="sw-product-card"
-    :show-add-to-cart-button="true"
-    :is-added-to-cart="isInCart"
-    :is-on-wishlist="isInWishlist"
-    @click:add-to-cart="addToCart"
-    @click:wishlist="toggleWishlistItem"
+  <SwPluginSlot
+    name="product-card"
+    :slot-context="product"
+    style="display: contents"
   >
-  </SfProductCard>
+    <SfProductCard
+      :title="getName"
+      :image="getImageUrl"
+      :special-price="formatPrice(getSpecialPrice)"
+      :regular-price="formatPrice(getRegularPrice)"
+      :max-rating="5"
+      :score-rating="getProductRating"
+      :image-width="700"
+      :image-height="1000"
+      :link="getRouterLink"
+      class="sw-product-card"
+      :show-add-to-cart-button="true"
+      :is-added-to-cart="isInCart"
+      :is-on-wishlist="isInWishlist"
+      @click:add-to-cart="addToCart"
+      @click:wishlist="toggleWishlistItem"
+    >
+    </SfProductCard>
+  </SwPluginSlot>
 </template>
 
 <script>
@@ -34,10 +40,12 @@ import {
 import getResizedImage from "@/helpers/images/getResizedImage.js"
 import { toRefs } from "@vue/composition-api"
 import { usePriceFilter } from "@/logic/usePriceFilter.js"
+import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
 
 export default {
   components: {
     SfProductCard,
+    SwPluginSlot,
   },
   setup(props) {
     const { product } = toRefs(props)
