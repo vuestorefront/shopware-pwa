@@ -5,7 +5,7 @@
 <script>
 import SwProductDetails from "@/components/SwProductDetails.vue"
 import { useCms } from "@shopware-pwa/composables"
-import { computed } from "@vue/composition-api"
+import { computed, inject } from "@vue/composition-api"
 
 export default {
   components: { SwProductDetails },
@@ -16,11 +16,14 @@ export default {
       default: () => ({}),
     },
   },
-  setup(props) {
+  setup() {
     const { page } = useCms()
+    const cmsProduct = computed(() => page.value?.product)
+
+    const product = inject("cms-product", cmsProduct)
 
     return {
-      product: computed(() => page.value?.product),
+      product,
     }
   },
 }
