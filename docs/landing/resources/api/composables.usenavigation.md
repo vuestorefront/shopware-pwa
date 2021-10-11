@@ -35,5 +35,6 @@ export declare function useNavigation(params?: {
 useNavigation()
 // get footer navigation
 useNavigation({ type: "footer-navigation" } )
+
 ```
 

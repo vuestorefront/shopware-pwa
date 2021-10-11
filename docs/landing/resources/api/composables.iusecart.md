@@ -35,3 +35,9 @@ export interface IUseCart
 |  [subtotal](./composables.iusecart.subtotal.md) | ComputedRef&lt;number&gt; | <b><i>(BETA)</i></b> |
 |  [totalPrice](./composables.iusecart.totalprice.md) | ComputedRef&lt;number&gt; | <b><i>(BETA)</i></b> |
 
+## Methods
+
+|  Method | Description |
+|  --- | --- |
+|  [getProductItemsSeoUrlsData()](./composables.iusecart.getproductitemsseourlsdata.md) | <b><i>(BETA)</i></b> |
+

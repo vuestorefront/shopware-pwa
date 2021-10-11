@@ -149,6 +149,8 @@ export interface IUseCart {
     // (undocumented)
     error: ComputedRef<string>;
     // (undocumented)
+    getProductItemsSeoUrlsData(): Promise<Partial<Product>[]>;
+    // (undocumented)
     loading: ComputedRef<boolean>;
     // (undocumented)
     refreshCart: () => void;
