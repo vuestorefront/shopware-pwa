@@ -18,6 +18,7 @@
         :product="product"
         hidden-remove-button
         v-model="product.qty"
+        :additionalItemsData="additionalItemsData"
       />
     </div>
     <TotalsSummary />
@@ -46,7 +47,7 @@
 </template>
 <script>
 import { SfHeading, SfCircleIcon, SfProperty } from "@storefront-ui/vue"
-import { computed } from "@vue/composition-api"
+import { computed, onMounted, ref } from "@vue/composition-api"
 import { useCart, useCheckout } from "@shopware-pwa/composables"
 import SwInput from "@/components/atoms/SwInput.vue"
 import SwButton from "@/components/atoms/SwButton.vue"
@@ -77,16 +78,33 @@ export default {
   },
   setup(props, { root }) {
     const { createOrder, loadings } = useCheckout()
-    const { count, cartItems } = useCart()
-
-    const { appliedPromotionCodes, addPromotionCode, removeItem } = useCart()
-
+    const {
+      count,
+      cartItems,
+      getProductItemsSeoUrlsData,
+      appliedPromotionCodes,
+      addPromotionCode,
+      removeItem,
+    } = useCart()
+    const additionalItemsData = ref([])
     const showPromotionCodes = computed(
       () => appliedPromotionCodes.value?.length > 0
     )
     function goToShop() {
       root.$router.push(root.$routing.getUrl("/"))
     }
+
+    const loadAdditionalData = async () => {
+      if (!count.value) {
+        return
+      }
+
+      additionalItemsData.value = await getProductItemsSeoUrlsData()
+    }
+
+    onMounted(async () => {
+      await loadAdditionalData()
+    })
 
     return {
       addPromotionCode,
@@ -98,6 +116,7 @@ export default {
       goToShop,
       cartItems,
       count,
+      additionalItemsData,
     }
   },
 }

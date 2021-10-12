@@ -2,7 +2,7 @@ import { ref, Ref } from "vue-demi";
 
 import { LineItem } from "@shopware-pwa/commons/interfaces/models/checkout/cart/line-item/LineItem";
 import * as shopwareClient from "@shopware-pwa/shopware-6-client";
-
+import defaultApiParams from "../src/internalHelpers/defaultApiParams.json";
 jest.mock("@shopware-pwa/shopware-6-client");
 const mockedShopwareClient = shopwareClient as jest.Mocked<
   typeof shopwareClient
@@ -31,6 +31,12 @@ describe("Composables - useCart", () => {
     stateCart.value = null;
     consoleWarnSpy.mockImplementationOnce(() => {});
     consoleErrorSpy.mockImplementationOnce(() => {});
+
+    mockedComposables.useDefaults.mockImplementation(() => {
+      return {
+        getDefaults: () => defaultApiParams.useCart,
+      } as any;
+    });
 
     mockedComposables.getApplicationContext.mockImplementation(() => {
       return {
@@ -442,6 +448,74 @@ describe("Composables - useCart", () => {
         } as any);
         await removeItem({ referencedId: "qwerty" } as any);
         expect(mockedErrorHandler.broadcastErrors).toBeCalledTimes(1);
+      });
+    });
+    describe("getProductItemsSeoUrlsData", () => {
+      it("should execute the getProducts method if getProductItemsSeoUrlsData is invoked and there are items", async () => {
+        stateCart.value = {
+          lineItems: [
+            { quantity: 3, type: "product", referencedId: "some-item-id" },
+          ],
+        };
+        const { getProductItemsSeoUrlsData } = useCart();
+        await getProductItemsSeoUrlsData();
+        mockedShopwareClient.getProducts.mockResolvedValueOnce({
+          elements: [{ quantity: 1, type: "product" }],
+        } as any);
+        expect(mockedShopwareClient.getProducts).toBeCalledWith(
+          {
+            includes: {
+              product: ["id", "seoUrls"],
+              seo_url: ["seoPathInfo"],
+            },
+            associations: {
+              seoUrls: {},
+            },
+            ids: ["some-item-id"],
+          },
+          expect.any(Function)
+        );
+      });
+      it("should not execute the getProducts method if getProductItemsSeoUrlsData is invoked and there are no items", async () => {
+        stateCart.value = {
+          lineItems: [],
+        };
+        const { getProductItemsSeoUrlsData } = useCart();
+        await getProductItemsSeoUrlsData();
+        mockedShopwareClient.getProducts.mockResolvedValueOnce({
+          elements: [{ quantity: 1, type: "product" }],
+        } as any);
+        expect(mockedShopwareClient.getProducts).not.toBeCalled();
+      });
+      it("should return an empty array the response from getProducts endpoint does not contain any data", async () => {
+        stateCart.value = {
+          lineItems: [
+            { quantity: 3, type: "product", referencedId: "some-item-id" },
+          ],
+        };
+        const { getProductItemsSeoUrlsData } = useCart();
+        mockedShopwareClient.getProducts.mockResolvedValueOnce({
+          elements: null,
+        } as any);
+        const response = await getProductItemsSeoUrlsData();
+        expect(response).toStrictEqual([]);
+      });
+      it("should return an empty array if rejection occured on api-client level", async () => {
+        stateCart.value = {
+          lineItems: [
+            { quantity: 3, type: "product", referencedId: "some-item-id" },
+          ],
+        };
+        const { getProductItemsSeoUrlsData } = useCart();
+        mockedShopwareClient.getProducts.mockRejectedValueOnce({
+          messages: ["error"],
+        });
+        const response = await getProductItemsSeoUrlsData();
+        expect(consoleErrorSpy).toBeCalledWith(
+          "[useCart][getProductItemsSeoUrlsData]",
+          ["error"]
+        );
+        expect(response).toStrictEqual([]);
       });
     });
   });

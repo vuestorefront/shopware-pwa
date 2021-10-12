@@ -118,39 +118,20 @@ export default {
   },
   setup() {
     const { apiInstance } = getApplicationContext({ contextName: "SwCart" })
-    const { cartItems, count, totalPrice } = useCart()
+    const { cartItems, count, totalPrice, getProductItemsSeoUrlsData } =
+      useCart()
     const { isOpen: isSidebarOpen, switchState: toggleSidebar } = useUIState({
       stateName: "CART_SIDEBAR_STATE",
     })
     const additionalItemsData = ref([])
-    // Load additional info: seoUrls
-    // TODO: move that logic into useCart composable or create global solution for "entity enrichment" maybe during adding to cart
-    // https://github.com/DivanteLtd/shopware-pwa/issues/1254
-    // Component is lazy loaded so to allow animation on first load it needs to be done after it is mounted
     const isComponentMounted = ref(false)
 
     const loadAdditionalData = async (newItems, oldItems) => {
       if (!cartItems.value.length || newItems.length <= oldItems.length) {
         return
       }
-      try {
-        const result = await getProducts(
-          {
-            ids: cartItems.value.map(({ referencedId }) => referencedId),
-            includes: {
-              product: ["id", "seoUrls"],
-              seo_url: ["seoPathInfo"],
-            },
-            associations: {
-              seoUrls: {},
-            },
-          },
-          apiInstance
-        )
-        additionalItemsData.value = result.elements
-      } catch (error) {
-        console.error("[SwCart][setup][onMounted]", error.messages)
-      }
+
+      additionalItemsData.value = await getProductItemsSeoUrlsData()
     }
 
     watch(cartItems, (newItems, oldItems) => {
