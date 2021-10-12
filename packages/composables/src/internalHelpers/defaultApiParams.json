@@ -17,21 +17,7 @@
         ]
       },
       "productReviews": {},
-      "crossSellings": {
-        "associations": {
-          "assignedProducts": {
-            "associations": {
-              "product": {
-                "associations": {
-                  "media": {},
-                  "cover": {},
-                  "seoUrls": {}
-                }
-              }
-            }
-          }
-        }
-      },
+      
       "properties": {
         "associations": {
           "group": {}
