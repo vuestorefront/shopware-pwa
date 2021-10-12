@@ -49,11 +49,8 @@
         size="xs"
         role="button"
         :title="$t('Delete')"
-        v-on:click="
-          isDefaultBilling ||
-            isDefaultShipping ||
-            $emit('deleteAddress', address.id)
-        "
+        v-if="!isDefaultBilling && !isDefaultShipping"
+        v-on:click="$emit('deleteAddress', address.id)"
         :class="{ info: isDefaultBilling || isDefaultShipping }"
       />
       <SfIcon

@@ -67,9 +67,9 @@ export default async ({ app }) => {
       })
 
       intercept(INTERCEPTOR_KEYS.ERROR, ({ error }) => {
-        // notify on every broadcasted error.
+        // notify on every broadcasted error from http 500 group.
         // disconnect if they are not necesarry entirely, or just create conditions to filter they out
-        pushError(error.message)
+        error.statusCode === 500 && pushError(error.message)
       })
 
       return result
