@@ -5,15 +5,17 @@ import {
   addPromotionCode,
   removeCartItem,
   changeCartItemQuantity,
+  getProducts,
 } from "@shopware-pwa/shopware-6-client";
 import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
 import { Cart } from "@shopware-pwa/commons/interfaces/models/checkout/cart/Cart";
 import { EntityError } from "@shopware-pwa/commons/interfaces/models/common/EntityError";
-
+import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
 import { LineItem } from "@shopware-pwa/commons/interfaces/models/checkout/cart/line-item/LineItem";
 import {
   getApplicationContext,
   INTERCEPTOR_KEYS,
+  useDefaults,
   useIntercept,
   useSharedState,
 } from "@shopware-pwa/composables";
@@ -52,6 +54,7 @@ export interface IUseCart {
   shippingTotal: ComputedRef<number>;
   subtotal: ComputedRef<number>;
   cartErrors: ComputedRef<EntityError[]>;
+  getProductItemsSeoUrlsData(): Promise<Partial<Product>[]>;
 }
 
 /**
@@ -65,6 +68,9 @@ export function useCart(): IUseCart {
 
   const { apiInstance } = getApplicationContext({ contextName });
   const { broadcast } = useIntercept();
+  const { getDefaults } = useDefaults({
+    defaultsKey: COMPOSABLE_NAME,
+  });
 
   const loading: Ref<boolean> = ref(false);
   const error: Ref<any> = ref(null);
@@ -149,6 +155,31 @@ export function useCart(): IUseCart {
     }
   }
 
+  async function getProductItemsSeoUrlsData(): Promise<Partial<Product>[]> {
+    if (!cartItems.value.length) {
+      return [];
+    }
+
+    try {
+      const result = await getProducts(
+        {
+          ids: cartItems.value.map(
+            ({ referencedId }) => referencedId
+          ) as string[],
+          includes: (getDefaults() as any).getProductItemsSeoUrlsData.includes,
+          associations: (getDefaults() as any).getProductItemsSeoUrlsData
+            .associations,
+        },
+        apiInstance
+      );
+      return result?.elements || [];
+    } catch (error) {
+      console.error("[useCart][getProductItemsSeoUrlsData]", error.messages);
+    }
+
+    return [];
+  }
+
   const appliedPromotionCodes = computed(() => {
     return cartItems.value.filter(
       (cartItem: LineItem) => cartItem.type === "promotion"
@@ -208,5 +239,6 @@ export function useCart(): IUseCart {
     shippingTotal,
     subtotal,
     cartErrors,
+    getProductItemsSeoUrlsData,
   };
 }

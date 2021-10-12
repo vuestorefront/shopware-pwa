@@ -329,5 +329,20 @@
         "orderCount"
       ]
     }
+  },
+  "useCart": {
+    "includes": {
+
+    },
+    "associations": {},
+    "getProductItemsSeoUrlsData": {
+      "includes": {
+        "product": ["id", "seoUrls"],
+        "seo_url": ["seoPathInfo"]
+      },
+      "associations": {
+        "seoUrls": {}
+      }
+    }
   }
 }
