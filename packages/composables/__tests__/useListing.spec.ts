@@ -10,6 +10,9 @@ import { prepareRootContextMock } from "./contextRunner";
 jest.mock("@shopware-pwa/shopware-6-client");
 const mockedApiClient = ApiClient as jest.Mocked<typeof ApiClient>;
 
+import vueComp from "vue-demi";
+const mockedCompositionAPI = vueComp as jest.Mocked<typeof vueComp>;
+
 describe("Composables - useListing", () => {
   const rootContextMock = prepareRootContextMock();
   const mockedResourceIdentifier = ref();
@@ -25,6 +28,11 @@ describe("Composables - useListing", () => {
       .mockImplementation(({ searchMethod }) => {
         returnedSearchMethod = searchMethod;
       });
+
+    mockedComposables.useVueContext.mockReturnValue({
+      isVueComponent: false,
+      isVueScope: true,
+    });
     const getDefaultsMock = jest.fn().mockImplementation(() => {
       return { limit: 5 };
     });
@@ -94,6 +102,38 @@ describe("Composables - useListing", () => {
     await returnedSearchMethod({ limit: 8 });
     expect(mockedApiClient.getCategoryProducts).not.toBeCalled();
     expect(mockedApiClient.searchProducts).toBeCalledWith(
+      { limit: 8 },
+      rootContextMock.apiInstance
+    );
+  });
+
+  it("should use default useCms resource identifier", async () => {
+    mockedCompositionAPI.inject = jest.fn();
+    useListing({ listingType: "categoryListing" });
+    await returnedSearchMethod({ limit: 8 });
+    expect(mockedApiClient.getCategoryProducts).toBeCalledWith(
+      "321",
+      { limit: 8 },
+      rootContextMock.apiInstance
+    );
+    expect(mockedCompositionAPI.inject).not.toHaveBeenCalled();
+  });
+
+  it("should use injected cms page resource identifier in vue component", async () => {
+    mockedComposables.useVueContext.mockReturnValue({
+      isVueComponent: true,
+      isVueScope: false,
+    });
+    mockedCompositionAPI.inject = jest.fn().mockReturnValueOnce(
+      ref({
+        resourceIdentifier: "injectedIdentifier",
+      })
+    );
+    useListing({ listingType: "categoryListing" });
+    await returnedSearchMethod({ limit: 8 });
+    expect(mockedCompositionAPI.inject).toHaveBeenCalled();
+    expect(mockedApiClient.getCategoryProducts).toBeCalledWith(
+      "injectedIdentifier",
       { limit: 8 },
       rootContextMock.apiInstance
     );

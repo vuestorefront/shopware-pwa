@@ -1,12 +1,18 @@
-import { ref, Ref, computed, unref } from "vue-demi";
+import { ref, Ref, computed, unref, inject, ComputedRef } from "vue-demi";
 import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
 import { PropertyGroup } from "@shopware-pwa/commons/interfaces/models/content/property/PropertyGroup";
-import { useCms, getApplicationContext } from "@shopware-pwa/composables";
+import {
+  useCms,
+  getApplicationContext,
+  useVueContext,
+} from "@shopware-pwa/composables";
 import {
   invokePost,
   getProductEndpoint,
 } from "@shopware-pwa/shopware-6-client";
 import { getTranslatedProperty } from "@shopware-pwa/helpers";
+import { CmsPageResponse } from "@shopware-pwa/commons/interfaces/models/content/cms/CmsPage";
+
 /**
  * interface for {@link useProductConfigurator} composable
  * @beta
@@ -53,8 +59,14 @@ export function useProductConfigurator(params: {
   const product = unref(params.product);
 
   const { apiInstance } = getApplicationContext({ contextName });
+  const { isVueComponent } = useVueContext();
 
-  const { page } = useCms();
+  const { page: defaultPage } = useCms();
+  const cmsPage =
+    (isVueComponent && inject<ComputedRef<CmsPageResponse>>("cms-page")) ||
+    null;
+  const page = computed(() => cmsPage?.value ?? defaultPage.value);
+
   const selected = ref({} as any);
   const isLoadingOptions = ref(!!product.options?.length);
   const parentProductId = computed(() => product.parentId);
