@@ -6,11 +6,15 @@
     />
     <CmsGenericElement
       :content="getLeftBottomContent"
-      class="sw-image-simple-grid__image sw-image-simple-grid__image--left-bottom"
+      class="
+        sw-image-simple-grid__image sw-image-simple-grid__image--left-bottom
+      "
     />
     <CmsGenericElement
       :content="getRightContent"
-      class="sw-image-simple-grid__image sw-image-simple-grid__image--right-full"
+      class="
+        sw-image-simple-grid__image sw-image-simple-grid__image--right-full
+      "
     />
   </article>
 </template>
