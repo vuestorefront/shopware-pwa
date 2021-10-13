@@ -93,7 +93,7 @@ export default {
 
     const cmsPage = inject("cms-page")
     const resourceIdentifier = computed(
-      () => cmsPage?.value?.resourceIdentifier ?? defaultIdentifier
+      () => cmsPage?.value?.resourceIdentifier ?? defaultIdentifier.value
     )
 
     const navTitle = ref(root.$t("Subcategories"))

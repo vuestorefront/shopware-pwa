@@ -70,7 +70,7 @@ import {
   useNotifications,
 } from "@shopware-pwa/composables"
 import { getProductUrl, getTranslatedProperty } from "@shopware-pwa/helpers"
-import { computed, onMounted, watch, toRefs } from "@vue/composition-api"
+import { computed, watch, toRefs } from "@vue/composition-api"
 import SwButton from "@/components/atoms/SwButton.vue"
 import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
 

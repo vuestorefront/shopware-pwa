@@ -10,6 +10,9 @@ const mockedComposables = Composables as jest.Mocked<typeof Composables>;
 import { useProductConfigurator } from "../src/logic/useProductConfigurator";
 import { Ref, ref } from "vue-demi";
 
+import vueComp from "vue-demi";
+const mockedCompositionAPI = vueComp as jest.Mocked<typeof vueComp>;
+
 describe("Composables - useProductConfigurator", () => {
   const statePage: Ref<Object | null> = ref(null);
   const rootContextMock: any = {
@@ -22,6 +25,7 @@ describe("Composables - useProductConfigurator", () => {
   };
   beforeEach(() => {
     jest.resetAllMocks();
+    statePage.value = null;
 
     mockedComposables.useCms.mockImplementation(() => {
       return {
@@ -102,6 +106,38 @@ describe("Composables - useProductConfigurator", () => {
         } as any,
       });
       expect(getSelectedOptions.value).toStrictEqual({});
+    });
+
+    it("should use default useCms page for product options", () => {
+      mockedCompositionAPI.inject = jest.fn();
+      const { getOptionGroups } = useProductConfigurator({
+        product: {},
+      } as any);
+      expect(getOptionGroups.value).toEqual([]);
+      expect(mockedCompositionAPI.inject).not.toHaveBeenCalled();
+    });
+
+    it("should use injected cms page for product options in vue component", () => {
+      mockedComposables.useVueContext.mockReturnValue({
+        isVueComponent: true,
+        isVueScope: false,
+      });
+      const mockedConfigurator = [
+        {
+          options: [{ id: "123" }],
+        },
+      ];
+
+      mockedCompositionAPI.inject = jest.fn().mockReturnValueOnce(
+        ref({
+          configurator: mockedConfigurator,
+        })
+      );
+      const { getOptionGroups } = useProductConfigurator({
+        product: {},
+      } as any);
+      expect(mockedCompositionAPI.inject).toHaveBeenCalled();
+      expect(getOptionGroups.value).toEqual(mockedConfigurator);
     });
   });
   describe("methods", () => {

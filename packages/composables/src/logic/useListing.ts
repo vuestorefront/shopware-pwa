@@ -8,10 +8,13 @@ import {
   getApplicationContext,
   useDefaults,
   createListingComposable,
+  useVueContext,
 } from "@shopware-pwa/composables";
 import { ShopwareSearchParams } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
 import { IUseListing } from "../factories/createListingComposable";
+import { inject, computed, ComputedRef } from "vue-demi";
+import { CmsPageResponse } from "@shopware-pwa/commons/interfaces/models/content/cms/CmsPage";
 
 /**
  * @beta
@@ -38,7 +41,15 @@ export function useListing(params?: {
       return searchProducts(searchCriteria, apiInstance);
     };
   } else {
-    const { resourceIdentifier } = useCms();
+    const { resourceIdentifier: defaultIdentifier } = useCms();
+    const { isVueComponent } = useVueContext();
+    const cmsPage =
+      (isVueComponent && inject<ComputedRef<CmsPageResponse>>("cms-page")) ||
+      null;
+    const resourceIdentifier = computed(
+      () => cmsPage?.value?.resourceIdentifier ?? defaultIdentifier.value
+    );
+
     searchMethod = async (searchCriteria: Partial<ShopwareSearchParams>) => {
       if (!resourceIdentifier.value) {
         throw new Error(
