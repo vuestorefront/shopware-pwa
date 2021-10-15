@@ -4,7 +4,9 @@
  * @packageDocumentation
  */
 
-import { App, markRaw, effectScope, reactive } from "vue-demi";
+import { ApiDefaults } from "@shopware-pwa/commons";
+import { ShopwareApiInstance } from "@shopware-pwa/shopware-6-client";
+import { App, markRaw, effectScope, EffectScope, reactive } from "vue-demi";
 
 export * from "./hooks/useCms";
 export * from "./hooks/useProduct";
@@ -41,6 +43,7 @@ export {
   ShopwareDomain,
   SwRouting,
   SwInterceptors,
+  SwInterceptor,
 } from "./appContext";
 
 export { ShopwareVuePlugin } from "./devtools/vue2";
@@ -55,11 +58,11 @@ export function createShopware(
   app: App,
   options: {
     initialStore: any;
-    shopwareDefaults: any;
-    apiInstance: any;
+    shopwareDefaults: ApiDefaults;
+    apiInstance: ShopwareApiInstance;
   }
 ) {
-  const scope = effectScope(true);
+  const scope: EffectScope = effectScope(true);
   const state = scope.run(() => {
     return reactive({
       interceptors: {},

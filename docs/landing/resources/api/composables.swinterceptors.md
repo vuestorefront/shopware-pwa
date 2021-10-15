@@ -12,8 +12,8 @@
 
 ```typescript
 export declare type SwInterceptors = {
-    [broadcastKey: string]: Array<IInterceptorCallbackFunction>;
+    [broadcastKey: string]: Array<SwInterceptor>;
 };
 ```
-<b>References:</b> [IInterceptorCallbackFunction](./composables.iinterceptorcallbackfunction.md)
+<b>References:</b> [SwInterceptor](./composables.swinterceptor.md)
 

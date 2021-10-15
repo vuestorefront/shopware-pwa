@@ -1,6 +1,10 @@
 import { shopwareSymbol, registerShopwareDevtools } from "./plugin";
 
 /* istanbul ignore next */
+/**
+ *
+ * @beta
+ */
 export const ShopwareVuePlugin = function (
   _Vue: any,
   pluginOptions: {
