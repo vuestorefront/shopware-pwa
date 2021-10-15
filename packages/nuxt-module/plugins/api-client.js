@@ -16,6 +16,17 @@ if (isVue2) {
   });
 }
 
+console.error(
+  "DEBUG",
+  "devtools",
+  process.env.ENABLE_DEVTOOLS,
+  "env",
+  process.env.NODE_ENV,
+  "eq",
+  process.env.ENABLE_DEVTOOLS === "true" ||
+    process.env.NODE_ENV !== "production"
+);
+
 const apiDefaults = JSON.parse(`<%= JSON.stringify(options.apiDefaults) %>`);
 
 export default async ({ app }, inject) => {
