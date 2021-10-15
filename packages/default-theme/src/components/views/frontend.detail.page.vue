@@ -68,8 +68,6 @@ export default {
       defaultsKey: "useProductListing",
     })
 
-    provide("cms-product", product)
-
     return {
       isLoggedIn,
       switchLoginModalState,

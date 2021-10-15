@@ -89,12 +89,9 @@ export default {
     const { apiInstance } = getApplicationContext({
       contextName: "CmsElementCategoryNavigation",
     })
-    const { resourceIdentifier: defaultIdentifier } = useCms() // fallback for provide/inject, remove in future
-
-    const cmsPage = inject("cms-page")
-    const resourceIdentifier = computed(
-      () => cmsPage?.value?.resourceIdentifier ?? defaultIdentifier.value
-    )
+    const { page } = useCms() // fallback for provide/inject, remove in future
+    const cmsPage = inject("cms-page", page)
+    const resourceIdentifier = computed(() => cmsPage.value?.resourceIdentifier)
 
     const navTitle = ref(root.$t("Subcategories"))
     const navigationElements = ref([])
