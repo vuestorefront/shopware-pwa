@@ -10,11 +10,13 @@ import { reactive, isVue2, Vue2 } from "vue-demi";
 
 if (isVue2) {
   Vue2.use(ShopwareVuePlugin, {
-    enableDevtools: true,
+    enableDevtools:
+      process.env.ENABLE_DEVTOOLS === "true" ||
+      process.env.NODE_ENV !== "production",
   });
 }
 
-const apiDefaults = JSON.parse("<%= JSON.stringify(options.apiDefaults) %>");
+const apiDefaults = JSON.parse(`<%= JSON.stringify(options.apiDefaults) %>`);
 
 export default async ({ app }, inject) => {
   if (!app.$cookies) {
