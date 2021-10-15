@@ -132,16 +132,6 @@ export async function runModule(
     });
   });
 
-  moduleObject.addPlugin({
-    fileName: "api-client.js",
-    src: path.join(__dirname, "..", "plugins", "api-client.js"),
-    options: {
-      shopwareEndpoint: shopwarePwaConfig.shopwareEndpoint,
-      shopwareAccessToken: shopwarePwaConfig.shopwareAccessToken,
-      shopwareApiClient: shopwarePwaConfig.shopwareApiClient,
-    },
-  });
-
   let config = merge({}, getDefaultApiParams());
   try {
     /* istanbul ignore next */
@@ -152,10 +142,14 @@ export async function runModule(
   } catch (e) {
     console.error("Cannot resolve API defaults config", e);
   }
+
   moduleObject.addPlugin({
-    fileName: "api-defaults.js",
-    src: path.join(__dirname, "..", "plugins", "api-defaults.js"),
+    fileName: "api-client.js",
+    src: path.join(__dirname, "..", "plugins", "api-client.js"),
     options: {
+      shopwareEndpoint: shopwarePwaConfig.shopwareEndpoint,
+      shopwareAccessToken: shopwarePwaConfig.shopwareAccessToken,
+      shopwareApiClient: shopwarePwaConfig.shopwareApiClient,
       apiDefaults: config,
     },
   });

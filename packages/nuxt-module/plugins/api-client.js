@@ -1,6 +1,20 @@
 import { createInstance } from "@shopware-pwa/shopware-6-client";
-import { useUser, useCart, useSessionContext } from "@shopware-pwa/composables";
-import { reactive } from "vue-demi";
+import {
+  useUser,
+  useCart,
+  useSessionContext,
+  createShopware,
+  ShopwareVuePlugin,
+} from "@shopware-pwa/composables";
+import { reactive, isVue2, Vue2 } from "vue-demi";
+
+if (isVue2) {
+  Vue2.use(ShopwareVuePlugin, {
+    enableDevtools: true,
+  });
+}
+
+const apiDefaults = JSON.parse("<%= JSON.stringify(options.apiDefaults) %>");
 
 export default async ({ app }, inject) => {
   if (!app.$cookies) {
@@ -26,19 +40,14 @@ export default async ({ app }, inject) => {
     languageId,
   });
 
+  let sharedStore;
   if (process.server) {
-    const sharedStore = reactive({});
+    sharedStore = reactive({});
     app.context.ssrContext.nuxt.sharedStore = sharedStore;
-    inject("sharedStore", sharedStore);
   } else {
     // Client side
-    const sharedStore = reactive(window.__NUXT__.sharedStore || {});
-    inject("sharedStore", sharedStore);
+    sharedStore = reactive(window.__NUXT__.sharedStore || {});
   }
-
-  inject("shopwareApiInstance", instance);
-  inject("interceptors", {}); // functionality for useIntercept composable
-
   /**
    * Save current contextToken when its change
    */
@@ -58,6 +67,16 @@ export default async ({ app }, inject) => {
       // Sometimes cookie is set on server after request is send, it can fail silently
     }
   });
+
+  const shopwarePlugin = createShopware(app, {
+    initialStore: sharedStore,
+    shopwareDefaults: apiDefaults,
+    apiInstance: instance,
+  });
+  inject("shopware", shopwarePlugin);
+  if (isVue2) {
+    app.shopware = shopwarePlugin;
+  }
 
   const { setup } = app;
   app.setup = function (...args) {

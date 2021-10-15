@@ -1,6 +1,6 @@
 import { getApplicationContext } from "../src/appContext";
 
-import vueComp from "vue-demi";
+import vueComp, { reactive } from "vue-demi";
 const mockedCompositionAPI = vueComp as jest.Mocked<typeof vueComp>;
 
 import * as Composables from "@shopware-pwa/composables";
@@ -56,7 +56,9 @@ describe("Shopware composables - getAppContext", () => {
     rootContextMock.$shopwareApiInstance = undefined;
     const result = getApplicationContext({ contextName: "test4" });
     expect(result.apiInstance).toBeUndefined();
-    expect(consoleErrorSpy).toBeCalledWith("[test4] No Vue instance detected!");
+    expect(consoleWarnSpy).toBeCalledWith(
+      "[test4] Use createShopware method to setup composables."
+    );
   });
 
   it("should return alternative router from context", () => {
@@ -82,8 +84,16 @@ describe("Shopware composables - getAppContext", () => {
     mockedCompositionAPI.getCurrentInstance.mockReturnValue(null);
     const result = getApplicationContext({ contextName: "test1" });
     expect(result.apiInstance).toBe(undefined);
-    expect(consoleErrorSpy).toHaveBeenCalledWith(
-      "[test1] No Vue instance detected!"
+    expect(consoleWarnSpy).toBeCalledWith(
+      "[test1] Use createShopware method to setup composables."
+    );
+  });
+
+  it("should warn about not using createShopware method", () => {
+    mockedCompositionAPI.getCurrentInstance.mockReturnValue(null);
+    getApplicationContext();
+    expect(consoleWarnSpy).toBeCalledWith(
+      "[getApplicationContext] Use createShopware method to setup composables."
     );
   });
 
@@ -91,7 +101,7 @@ describe("Shopware composables - getAppContext", () => {
     rootContextMock.$shopwareApiInstance = undefined;
     getApplicationContext({ contextName: "test2" });
     expect(consoleWarnSpy).toBeCalledWith(
-      "[SECURITY][test2] Trying to access Application context without Vue instance context. See https://shopware-pwa-docs.vuestorefront.io/landing/fundamentals/security.html#context-awareness"
+      "[test2] Use createShopware method to setup composables."
     );
   });
 
@@ -99,10 +109,7 @@ describe("Shopware composables - getAppContext", () => {
     rootContextMock.$shopwareApiInstance = undefined;
     getApplicationContext({ contextName: "test3" });
     expect(consoleWarnSpy).toBeCalledWith(
-      "[SECURITY][test3] Trying to access Application context without Vue instance context. See https://shopware-pwa-docs.vuestorefront.io/landing/fundamentals/security.html#context-awareness"
-    );
-    expect(consoleErrorSpy).toHaveBeenCalledWith(
-      "[test3] No Vue instance detected!"
+      "[test3] Use createShopware method to setup composables."
     );
   });
 
@@ -110,23 +117,7 @@ describe("Shopware composables - getAppContext", () => {
     rootContextMock.$shopwareApiInstance = undefined;
     getApplicationContext();
     expect(consoleWarnSpy).toBeCalledWith(
-      "[SECURITY][getApplicationContext] Trying to access Application context without Vue instance context. See https://shopware-pwa-docs.vuestorefront.io/landing/fundamentals/security.html#context-awareness"
-    );
-  });
-
-  it("should display performance warning when Vuex store is active", () => {
-    rootContextMock.$store = {};
-    getApplicationContext();
-    expect(consoleWarnSpy).toBeCalledWith(
-      '[PERFORMANCE][getApplicationContext] Vuex store detected. Remove "store" directory and useSharedState instead.'
-    );
-  });
-
-  it("should display performance warning when Vuex store is active", () => {
-    rootContextMock.store = {};
-    getApplicationContext();
-    expect(consoleWarnSpy).toBeCalledWith(
-      '[PERFORMANCE][getApplicationContext] Vuex store detected. Remove "store" directory and useSharedState instead.'
+      "[getApplicationContext] Use createShopware method to setup composables."
     );
   });
 
@@ -145,5 +136,60 @@ describe("Shopware composables - getAppContext", () => {
     (process as any).server = true;
     const { isServer } = getApplicationContext();
     expect(isServer).toEqual(true);
+  });
+
+  describe("$shopware context", () => {
+    it("should return apiInstance from $shopware context", () => {
+      rootContextMock.$shopware = {
+        apiInstance: "myInstance",
+        state: reactive({}),
+      };
+      const { apiInstance } = getApplicationContext();
+      expect(consoleWarnSpy).not.toBeCalled();
+      expect(apiInstance).toEqual("myInstance");
+    });
+
+    it("should return shopwareDefaults from $shopware context", () => {
+      rootContextMock.$shopware = {
+        state: reactive({
+          shopwareDefaults: "mockedValue",
+        }),
+      };
+      const { shopwareDefaults } = getApplicationContext();
+      expect(consoleWarnSpy).not.toBeCalled();
+      expect(shopwareDefaults).toEqual("mockedValue");
+    });
+
+    it("should return interceptors from $shopware context", () => {
+      rootContextMock.$shopware = {
+        state: reactive({
+          interceptors: "mockedValue",
+        }),
+      };
+      const { interceptors } = getApplicationContext();
+      expect(consoleWarnSpy).not.toBeCalled();
+      expect(interceptors).toEqual("mockedValue");
+    });
+
+    it("should return sharedStore from $shopware context", () => {
+      rootContextMock.$shopware = {
+        state: reactive({
+          sharedStore: "mockedValue",
+        }),
+      };
+      const { sharedStore } = getApplicationContext();
+      expect(consoleWarnSpy).not.toBeCalled();
+      expect(sharedStore).toEqual("mockedValue");
+    });
+
+    it("should return devtools from $shopware context", () => {
+      rootContextMock.$shopware = {
+        state: reactive({}),
+        devtools: "mockedValue",
+      };
+      const { devtools } = getApplicationContext();
+      expect(consoleWarnSpy).not.toBeCalled();
+      expect(devtools).toEqual("mockedValue");
+    });
   });
 });

@@ -45,26 +45,17 @@ type SharedStore = UnwrapRef<{ [storeKey: string]: any }>;
 /**
  * @beta
  */
-export type SwInterceptors = {
-  [broadcastKey: string]: Array<IInterceptorCallbackFunction>;
+export type SwInterceptor = {
+  name: string;
+  handler: IInterceptorCallbackFunction;
 };
 
-function checkAppContext(key: string, rootContext: any): boolean {
-  if (!rootContext?.$shopwareApiInstance && !rootContext?.shopwareApiInstance) {
-    process.env.NODE_ENV !== "production" &&
-      console.warn(
-        `[SECURITY][${key}] Trying to access Application context without Vue instance context. See https://shopware-pwa-docs.vuestorefront.io/landing/fundamentals/security.html#context-awareness`
-      );
-    return false;
-  }
-  if (rootContext.$store || rootContext.store) {
-    process.env.NODE_ENV !== "production" &&
-      console.warn(
-        `[PERFORMANCE][${key}] Vuex store detected. Remove "store" directory and useSharedState instead.`
-      );
-  }
-  return true;
-}
+/**
+ * @beta
+ */
+export type SwInterceptors = {
+  [broadcastKey: string]: Array<SwInterceptor>;
+};
 
 interface Process extends NodeJS.Process {
   server: boolean;
@@ -83,8 +74,27 @@ export function getApplicationContext(params?: { contextName?: string }) {
   const injectedContext = getCurrentInstance()?.proxy as any;
   const scopeContext = (getCurrentScope?.() as any)?.vm;
   let context = scopeContext || injectedContext;
-  if (!checkAppContext(key, context)) {
-    console.error(`[${key}] No Vue instance detected!`);
+  const shopwareContext = getContextProperty<any>(context, "shopware");
+  if (!shopwareContext) {
+    console.warn(`[${key}] Use createShopware method to setup composables.`);
+  } else {
+    return {
+      apiInstance: shopwareContext.apiInstance,
+      router: getContextProperty<any>(context, "router"),
+      route: getContextProperty<any>(context, "route"),
+      routing: getContextProperty<SwRouting>(context, "routing"),
+      i18n: getContextProperty<any>(context, "i18n"),
+      cookies: getContextProperty<any>(context, "cookies"),
+      shopwareDefaults: shopwareContext.state.shopwareDefaults,
+      interceptors: shopwareContext.state.interceptors,
+      sharedStore: shopwareContext.state.sharedStore,
+      devtools: shopwareContext.devtools,
+      isServer: !!(
+        getContextProperty<boolean>(context, "isServer") ||
+        (typeof process !== "undefined" && !!(process as Process).server)
+      ),
+      contextName: key,
+    };
   }
 
   return {

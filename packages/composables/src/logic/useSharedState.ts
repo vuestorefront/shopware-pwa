@@ -3,15 +3,10 @@ import {
   onServerPrefetch,
   getCurrentInstance,
   Ref,
-  ref,
   toRef,
   WritableComputedRef,
 } from "vue-demi";
 import { getApplicationContext } from "@shopware-pwa/composables";
-
-const localSharedState: {
-  [key: string]: Ref<any>;
-} = {};
 
 /**
  * Replacement for Vuex. Composable, which enables you to use shared state in your application.
@@ -42,25 +37,12 @@ export function useSharedState() {
     uniqueKey: string,
     defaultValue?: T
   ): WritableComputedRef<T | null> {
-    if (!isServer && !localSharedState[uniqueKey]) {
-      localSharedState[uniqueKey] = ref(sharedStore[uniqueKey]);
-    }
+    const sharedRef: Ref<T | null> = toRef(sharedStore, uniqueKey);
 
-    const sharedRef: Ref<T | null> = isServer
-      ? toRef(sharedStore, uniqueKey)
-      : localSharedState[uniqueKey];
-
-    if (
-      (sharedRef.value === null || typeof sharedRef.value === "undefined") &&
-      defaultValue
-    ) {
-      sharedRef.value = defaultValue;
-    }
+    sharedRef.value ??= defaultValue ?? null;
 
     return computed({
-      get: () => {
-        return sharedRef.value ?? null;
-      },
+      get: () => sharedRef.value,
       set: (val) => {
         sharedRef.value = val;
       },

@@ -174,13 +174,14 @@ describe("Composables - useSharedState", () => {
         expect(result.value).toEqual("test value");
       });
 
-      it("should not modify value from rootContext in CSR", () => {
+      it("should modify value from rootContext in CSR", () => {
         const { sharedRef } = useSharedState();
-        const result = sharedRef("test-modify-key");
+        const result = sharedRef<string>("test-modify-key");
         expect(result.value).toBeNull();
         result.value = "my local change";
-        expect(result.value).toEqual("my local change");
-        expect(rootContextMock.sharedStore["test-modify-key"]).toBeUndefined();
+        expect(rootContextMock.sharedStore["test-modify-key"]).toEqual(
+          "my local change"
+        );
       });
 
       it("should preserve the state locally", () => {
@@ -189,9 +190,9 @@ describe("Composables - useSharedState", () => {
         const result2 = sharedRef("test-preserve-key");
         result.value = "changed value";
         expect(result2.value).toEqual("changed value");
-        expect(
-          rootContextMock.sharedStore["test-preserve-key"]
-        ).toBeUndefined();
+        expect(rootContextMock.sharedStore["test-preserve-key"]).toEqual(
+          "changed value"
+        );
       });
     });
 

@@ -80,13 +80,16 @@ import {
 import { getTranslatedProperty } from "@shopware-pwa/helpers";
 
 export default async ({ app }) => {
-  const { intercept } = useIntercept();
+  const { on } = useIntercept();
   const { pushSuccess } = useNotifications(app);
-  intercept(INTERCEPTOR_KEYS.ADD_TO_CART, ({ product }) => {
+  on({
+    broadcastKey: INTERCEPTOR_KEYS.ADD_TO_CART,
+    name: "show-success-notification"
+    handler: ({ product }) => {
     pushSuccess(
       `${getTranslatedProperty(product, "name")} has been added to cart.`
     );
-  });
+  }});
 };
 ```
 
