@@ -166,12 +166,9 @@ export default {
       contextName: "CmsElementContactForm",
     })
     const { getSalutations, error: salutationsError } = useSalutations()
-    const { resourceIdentifier: defaultIdentifier } = useCms() // fallback for provide/inject, remove in future
-
-    const cmsPage = inject("cms-page")
-    const resourceIdentifier = computed(
-      () => cmsPage?.value?.resourceIdentifier ?? defaultIdentifier.value
-    )
+    const { page } = useCms() // fallback for provide/inject, remove in future
+    const cmsPage = inject("cms-page", page)
+    const resourceIdentifier = computed(() => cmsPage.value?.resourceIdentifier)
 
     const getMappedSalutations = computed(() =>
       mapSalutations(getSalutations.value)
