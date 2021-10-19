@@ -16,7 +16,7 @@ export default {
   data() {
     return {
       map: {
-        newsletter: () => import("@/cms/elements/CmsElementNesletterForm"),
+        newsletter: () => import("@/cms/elements/CmsElementNewsletterForm"),
         contact: () => import("@/cms/elements/CmsElementContactForm"),
       },
     }
