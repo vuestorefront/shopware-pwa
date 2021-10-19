@@ -133,6 +133,7 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
       options: {
         shopwareAccessToken: "mockedToken",
         shopwareEndpoint: "mockedEndpoint",
+        apiDefaults: expect.anything(),
       },
       src: pathForApiClientPlugin,
     });
@@ -217,6 +218,7 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
         shopwareApiClient: {
           timeout: 5,
         },
+        apiDefaults: expect.anything(),
       },
       src: pathForApiClientPlugin,
     });

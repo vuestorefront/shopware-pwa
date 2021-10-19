@@ -190,7 +190,15 @@ export default async ({ app, route, req }, inject) => {
 
         const { languageId, languageLocaleCode, currencyId } = domainConfig;
         app.routing.setCurrentDomain(domainConfig);
-        languageId && app.$shopwareApiInstance.update({ languageId });
+        // to work on the old structure
+        languageId &&
+          app.$shopwareApiInstance &&
+          app.$shopwareApiInstance.update({
+            languageId,
+          });
+        languageId &&
+          app.$shopware &&
+          app.$shopware.apiInstance.update({ languageId });
         app.i18n.locale = languageLocaleCode;
         const currencyPromise = setCurrency({ id: currencyId });
         Promise.all([currencyPromise]).catch((e) => {

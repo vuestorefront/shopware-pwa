@@ -17,6 +17,19 @@ This method will likely change in future in order to provide full Vue3 compabili
 export declare function getApplicationContext(params?: {
     contextName?: string;
 }): {
+    apiInstance: any;
+    router: any;
+    route: any;
+    routing: SwRouting;
+    i18n: any;
+    cookies: any;
+    shopwareDefaults: any;
+    interceptors: any;
+    sharedStore: any;
+    devtools: any;
+    isServer: boolean;
+    contextName: string;
+} | {
     apiInstance: ShopwareApiInstance;
     router: any;
     route: any;
@@ -30,6 +43,7 @@ export declare function getApplicationContext(params?: {
     };
     isServer: boolean;
     contextName: string;
+    devtools?: undefined;
 };
 ```
 
@@ -41,5 +55,5 @@ export declare function getApplicationContext(params?: {
 
 <b>Returns:</b>
 
-{ apiInstance: ShopwareApiInstance; router: any; route: any; routing: [SwRouting](./composables.swrouting.md)<!-- -->; i18n: any; cookies: any; shopwareDefaults: ApiDefaults; interceptors: [SwInterceptors](./composables.swinterceptors.md)<!-- -->; sharedStore: { \[x: string\]: any; }; isServer: boolean; contextName: string; }
+{ apiInstance: any; router: any; route: any; routing: [SwRouting](./composables.swrouting.md)<!-- -->; i18n: any; cookies: any; shopwareDefaults: any; interceptors: any; sharedStore: any; devtools: any; isServer: boolean; contextName: string; } \| { apiInstance: ShopwareApiInstance; router: any; route: any; routing: [SwRouting](./composables.swrouting.md)<!-- -->; i18n: any; cookies: any; shopwareDefaults: ApiDefaults; interceptors: [SwInterceptors](./composables.swinterceptors.md)<!-- -->; sharedStore: { \[x: string\]: any; }; isServer: boolean; contextName: string; devtools?: undefined; }
 

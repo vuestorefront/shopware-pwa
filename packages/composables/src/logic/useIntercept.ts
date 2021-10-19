@@ -1,8 +1,9 @@
 import { getApplicationContext } from "@shopware-pwa/composables";
 import { getCurrentInstance, onUnmounted } from "vue-demi";
+import { SwInterceptor } from "../appContext";
 
 /**
- * Keys used accross composables with the description of incommint parameters.
+ * Keys used accross composables with the name of incommint parameters.
  *
  * @beta
  */
@@ -114,85 +115,112 @@ export const INTERCEPTOR_KEYS = {
 
 /**
  * interface for the callback function of interceptors
- * @beta
+ * @public
  */
 export interface IInterceptorCallbackFunction {
   (payload: any): void;
 }
 
 /**
- * interface for {@link useIntercept} composable
- * @beta
- */
-export interface IUseIntercept {
-  /**
-   * Broadcast new event
-   */
-  broadcast: (broadcastKey: string, value?: any) => void;
-  /**
-   * Intercept broadcasted event
-   */
-  intercept: (
-    broadcastKey: string,
-    method: IInterceptorCallbackFunction
-  ) => void;
-  /**
-   * Stop listening on event
-   */
-  disconnect: (
-    broadcastKey: string,
-    method: IInterceptorCallbackFunction
-  ) => void;
-}
-
-/**
  * Allows to broadcast and intercept events across application.
  *
- * @beta
+ * @public
  */
-export function useIntercept(): IUseIntercept {
+export function useIntercept() {
   const COMPOSABLE_NAME = "useIntercept";
   const contextName = COMPOSABLE_NAME;
 
-  const { interceptors } = getApplicationContext({ contextName });
+  const { interceptors, devtools } = getApplicationContext({ contextName });
 
   const localSubscribers: any[] = [];
   const isVueInstance: boolean = !!getCurrentInstance();
 
+  /**
+   * Broadcast new event
+   */
   const broadcast = (broadcastKey: string, value?: any) => {
+    const event = devtools?.trackEvent(
+      "[useIntercept][broadcast] " + broadcastKey,
+      value
+    );
     if (interceptors[broadcastKey]?.length) {
-      interceptors[broadcastKey].forEach(
-        (broadcastMethod: IInterceptorCallbackFunction) =>
-          broadcastMethod(value)
-      );
+      interceptors[broadcastKey].forEach((interceptor: SwInterceptor) => {
+        event?.log("Run interceptor: " + interceptor.name, value);
+        interceptor.handler(value);
+      });
     }
+    event?.log("Broadcast ended", value);
   };
 
+  /**
+   * Intercept broadcasted event
+   *
+   * @deprecated use `on` instead
+   */
   const intercept = (
     broadcastKey: string,
-    method: IInterceptorCallbackFunction
+    handler: IInterceptorCallbackFunction
   ) => {
-    if (!interceptors[broadcastKey]) interceptors[broadcastKey] = [];
-    interceptors[broadcastKey].push(method);
-    isVueInstance && localSubscribers.push({ broadcastKey, method });
+    devtools?.warning(
+      "[useIntercept][intercept] Anonymous interceptor registration for key: " +
+        broadcastKey +
+        " use 'on' method instead"
+    );
+    on({
+      broadcastKey,
+      name: "annonymous",
+      handler,
+    });
   };
 
+  /**
+   * Stop listening on event.
+   * You can pass interceptor method handler or the interceptor name, which is a identifier.
+   */
   const disconnect = (
     broadcastKey: string,
-    method: IInterceptorCallbackFunction
+    interceptor: string | IInterceptorCallbackFunction
   ) => {
+    devtools?.log("[useIntercept][disconnect] Disconnecting interceptor", {
+      broadcastKey,
+      interceptor,
+    });
     interceptors[broadcastKey] =
       interceptors[broadcastKey]?.filter(
-        (subscribedMethod: IInterceptorCallbackFunction) =>
-          subscribedMethod !== method
+        (registeredInterceptor: any) =>
+          registeredInterceptor.handler !== interceptor &&
+          registeredInterceptor.name !== interceptor
       ) || [];
   };
+
+  /**
+   * Registers interceptor to handle on specific event
+   * Provided name like 'show-notification' helps to
+   * identify what the interceptor role is and helps with debugging.
+   */
+  function on(params: {
+    broadcastKey: string;
+    name: string;
+    handler: IInterceptorCallbackFunction;
+  }) {
+    devtools?.log("[useIntercept][on] Registered interceptor", params);
+    if (!interceptors[params.broadcastKey])
+      interceptors[params.broadcastKey] = [];
+    interceptors[params.broadcastKey].push({
+      name: params.name,
+      handler: params.handler,
+    });
+    localSubscribers.push({
+      broadcastKey: params.broadcastKey,
+      name: params.name,
+    });
+  }
 
   // Automatically clean listener if it was used in Vue component
   isVueInstance &&
     onUnmounted(() => {
-      localSubscribers.forEach(({ broadcastKey, method }) => {
-        disconnect(broadcastKey, method);
+      localSubscribers.forEach(({ broadcastKey, name }) => {
+        disconnect(broadcastKey, name);
       });
     });
 
@@ -200,5 +228,6 @@ export function useIntercept(): IUseIntercept {
     broadcast,
     intercept,
     disconnect,
+    on,
   };
 }

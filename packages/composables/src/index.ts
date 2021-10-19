@@ -4,6 +4,10 @@
  * @packageDocumentation
  */
 
+import { ApiDefaults } from "@shopware-pwa/commons";
+import { ShopwareApiInstance } from "@shopware-pwa/shopware-6-client";
+import { App, markRaw, effectScope, EffectScope, reactive } from "vue-demi";
+
 export * from "./hooks/useCms";
 export * from "./hooks/useProduct";
 export * from "./hooks/useCart";
@@ -39,4 +43,53 @@ export {
   ShopwareDomain,
   SwRouting,
   SwInterceptors,
+  SwInterceptor,
 } from "./appContext";
+
+export { ShopwareVuePlugin } from "./devtools/vue2";
+
+/* istanbul ignore next */
+/**
+ * Create ShopwarePlugin vue instance. Shpware PWA composables rely on this config.
+ *
+ * @beta
+ */
+export function createShopware(
+  app: App,
+  options: {
+    initialStore: any;
+    shopwareDefaults: ApiDefaults;
+    apiInstance: ShopwareApiInstance;
+  }
+) {
+  const scope: EffectScope = effectScope(true);
+  const state = scope.run(() => {
+    return reactive({
+      interceptors: {},
+      sharedStore: options.initialStore || reactive({}),
+      shopwareDefaults: options.shopwareDefaults,
+    });
+  });
+
+  const shopwarePlugin = markRaw({
+    // install(app: App) {
+    //   // TODO: make it work for Vue 3
+    //   // if (!isVue2) {
+    //   //   shopwarePlugin._a = app;
+    //   //   app.provide(shopwareSymbol, shopwarePlugin);
+    //   //   app.config.globalProperties.$shopware = shopwarePlugin;
+    //   //   /* istanbul ignore else */
+    //   //   // if (__DEV__ && IS_CLIENT) {
+    //   //   if (typeof window !== "undefined") {
+    //   //     registerShopwareDevtools(app, state);
+    //   //   }
+    //   // }
+    // },
+    _a: app,
+    _e: scope,
+    apiInstance: options.apiInstance,
+    state,
+  });
+
+  return shopwarePlugin;
+}

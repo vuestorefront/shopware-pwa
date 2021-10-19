@@ -7,7 +7,7 @@
 > This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
 > 
 
-Keys used accross composables with the description of incommint parameters.
+Keys used accross composables with the name of incommint parameters.
 
 <b>Signature:</b>
 

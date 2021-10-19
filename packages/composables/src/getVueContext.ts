@@ -13,6 +13,7 @@ export function extendScopeContext(scope: any, app: any) {
   scope.vm.shopwareDefaults = getContextProperty(app, "shopwareDefaults");
   scope.vm.i18n = getContextProperty(app, "i18n");
   scope.vm.routing = getContextProperty(app, "routing");
+  scope.vm.shopware = getContextProperty(app, "shopware");
 }
 
 /**

@@ -6,6 +6,7 @@
 
 import { AddressType } from '@shopware-pwa/commons/interfaces/models/checkout/customer/CustomerAddress';
 import { ApiDefaults } from '@shopware-pwa/commons';
+import { App } from 'vue-demi';
 import { BillingAddress } from '@shopware-pwa/commons/interfaces/models/checkout/customer/BillingAddress';
 import { Breadcrumb } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { Cart } from '@shopware-pwa/commons/interfaces/models/checkout/cart/Cart';
@@ -22,6 +23,7 @@ import { CustomerResetPasswordParam } from '@shopware-pwa/shopware-6-client';
 import { CustomerUpdateEmailParam } from '@shopware-pwa/shopware-6-client';
 import { CustomerUpdatePasswordParam } from '@shopware-pwa/shopware-6-client';
 import { CustomerUpdateProfileParam } from '@shopware-pwa/shopware-6-client';
+import { EffectScope } from 'vue-demi';
 import { EntityError } from '@shopware-pwa/commons/interfaces/models/common/EntityError';
 import { Includes } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
 import { LineItem } from '@shopware-pwa/commons/interfaces/models/checkout/cart/line-item/LineItem';
@@ -53,6 +55,50 @@ export function createListingComposable<ELEMENTS_TYPE>({ searchMethod, searchDef
     listingKey: string;
 }): IUseListing<ELEMENTS_TYPE>;
 
+// @beta
+export function createShopware(app: App, options: {
+    initialStore: any;
+    shopwareDefaults: ApiDefaults;
+    apiInstance: ShopwareApiInstance;
+}): {
+    _a: App;
+    _e: EffectScope;
+    apiInstance: ShopwareApiInstance;
+    state: {
+        interceptors: {};
+        sharedStore: any;
+        shopwareDefaults: {
+            [x: string]: {
+                p?: number | undefined;
+                limit?: number | undefined;
+                sort?: string | undefined;
+                order?: string | undefined;
+                term?: string | undefined;
+                ids?: string[] | undefined;
+                associations?: {
+                    [x: string]: {
+                        associations?: any | undefined;
+                        sort?: string | {
+                            field: string;
+                            order: string;
+                            naturalSorting: boolean;
+                        }[] | undefined;
+                    };
+                } | undefined;
+                grouping?: {
+                    field: string;
+                } | undefined;
+                properties?: string | never[] | undefined;
+                manufacturer?: string | never[] | undefined;
+                includes?: {
+                    [x: string]: string[];
+                } | undefined;
+                query?: string | undefined;
+            };
+        };
+    } | undefined;
+};
+
 // @alpha
 export function extendScopeContext(scope: any, app: any): void;
 
@@ -60,6 +106,19 @@ export function extendScopeContext(scope: any, app: any): void;
 export function getApplicationContext(params?: {
     contextName?: string;
 }): {
+    apiInstance: any;
+    router: any;
+    route: any;
+    routing: SwRouting;
+    i18n: any;
+    cookies: any;
+    shopwareDefaults: any;
+    interceptors: any;
+    sharedStore: any;
+    devtools: any;
+    isServer: boolean;
+    contextName: string;
+} | {
     apiInstance: ShopwareApiInstance;
     router: any;
     route: any;
@@ -73,6 +132,7 @@ export function getApplicationContext(params?: {
     };
     isServer: boolean;
     contextName: string;
+    devtools?: undefined;
 };
 
 // @beta
@@ -80,7 +140,7 @@ export function getDefaultApiParams(): {
     [composableName: string]: ShopwareSearchParams;
 };
 
-// @beta
+// @public
 export interface IInterceptorCallbackFunction {
     // (undocumented)
     (payload: any): void;
@@ -284,13 +344,6 @@ export interface IUseCustomerPassword {
     resetPassword: (resetPasswordData: CustomerResetPasswordParam) => Promise<boolean>;
     // (undocumented)
     updatePassword: (updatePasswordData: CustomerUpdatePasswordParam) => Promise<boolean>;
-}
-
-// @beta
-export interface IUseIntercept {
-    broadcast: (broadcastKey: string, value?: any) => void;
-    disconnect: (broadcastKey: string, method: IInterceptorCallbackFunction) => void;
-    intercept: (broadcastKey: string, method: IInterceptorCallbackFunction) => void;
 }
 
 // @public
@@ -574,8 +627,19 @@ export interface ShopwareDomain {
 }
 
 // @beta (undocumented)
+export const ShopwareVuePlugin: (_Vue: any, pluginOptions: {
+    enableDevtools: boolean;
+}) => void;
+
+// @beta (undocumented)
+export type SwInterceptor = {
+    name: string;
+    handler: IInterceptorCallbackFunction;
+};
+
+// @beta (undocumented)
 export type SwInterceptors = {
-    [broadcastKey: string]: Array<IInterceptorCallbackFunction>;
+    [broadcastKey: string]: Array<SwInterceptor>;
 };
 
 // @beta
@@ -650,8 +714,17 @@ export function useDefaults(params: {
     getDefaults: () => ShopwareSearchParams;
 };
 
-// @beta
-export function useIntercept(): IUseIntercept;
+// @public
+export function useIntercept(): {
+    broadcast: (broadcastKey: string, value?: any) => void;
+    intercept: (broadcastKey: string, handler: IInterceptorCallbackFunction) => void;
+    disconnect: (broadcastKey: string, interceptor: string | IInterceptorCallbackFunction) => void;
+    on: (params: {
+        broadcastKey: string;
+        name: string;
+        handler: IInterceptorCallbackFunction;
+    }) => void;
+};
 
 // @beta (undocumented)
 export function useListing(params?: {
