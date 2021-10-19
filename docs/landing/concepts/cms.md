@@ -285,7 +285,7 @@ This will have us set up for our custom implementation.
 
 In this section we will show you, how to create custom components and add them to the PWA. This applies to both, contributions as well as custom projects.
 
-If you used the `showpare-pwa init` command to set up your project, you are probably working on a custom project, so the `cms` directory will be empty for you. If you checked out the `shopware-pwa` repository and initiated your test project using `yarn start`, you are ready to make core contributions and the `cms` directory will be located in `packages/default-theme/cms`.
+If you used the `shopware-pwa init` command to set up your project, you are probably working on a custom project, so the `cms` directory will be empty for you. If you checked out the `shopware-pwa` repository and initiated your test project using `yarn start`, you are ready to make core contributions and the `cms` directory will be located in `packages/default-theme/cms`.
 
 ### Adding the mapping
 

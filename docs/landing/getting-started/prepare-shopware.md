@@ -14,14 +14,15 @@ We want Shopware PWA to be in sync with the latest endpoints of Shopware, to be 
 
 Here you may find a compatibility table for the Shopware API.
 
-| Shopware PWA version                                                | Shopware 6 version                                                                                                                |
-| :------------------------------------------------------------------ | :-------------------------------------------------------------------------------------------------------------------------------- |
-| 0.2.x                                                               | [![shopware-ver](https://img.shields.io/badge/version-6.2.3-red)](https://github.com/shopware/platform/releases/tag/v6.2.3)       |
-| 0.3.x                                                               | [![shopware-ver](https://img.shields.io/badge/version-6.3.0.1-green)](https://github.com/shopware/platform/releases/tag/v6.3.0.1) |
-| 0.4.x                                                               | [![shopware-ver](https://img.shields.io/badge/version-6.3.0.1-green)](https://github.com/shopware/platform/releases/tag/v6.3.0.1) |
-| 0.6.x                                             | [![shopware-ver](https://img.shields.io/badge/version-6.3.2.1-green)](https://github.com/shopware/platform/releases/tag/v6.3.2.1) |
-| [![shopware-ver](https://img.shields.io/badge/shopware&#8211;pwa-0.8.2-green)](https://github.com/vuestorefront/shopware-pwa/releases/tag/v0.8.2)                                                               | [![shopware-ver](https://img.shields.io/badge/Shopware-6.3-green)](https://github.com/shopware/platform/releases/tag/v6.4) & [![shopware-ver](https://img.shields.io/badge/PWA%20plugin-0.2.1-green)](https://github.com/elkmod/SwagShopwarePwa/releases/tag/v0.2.1)       |
-| [![shopware-ver](https://img.shields.io/badge/shopware&#8211;pwa-0.10.x-green)](https://github.com/vuestorefront/shopware-pwa/releases/tag/v0.10.0)                                                               | [![shopware-ver](https://img.shields.io/badge/Shopware-6.4.x-green)](https://github.com/shopware/platform/releases/tag/v6.4) & [![shopware-ver](https://img.shields.io/badge/PWA%20plugin-0.3.x-green)](https://github.com/elkmod/SwagShopwarePwa/releases/tag/v0.3.0)        |
+| Shopware PWA version                                                                                                                          | Shopware 6 version                                                                                                                                                                                                                                                     |
+| :-------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 0.2.x                                                                                                                                         | [![shopware-ver](https://img.shields.io/badge/version-6.2.3-red)](https://github.com/shopware/platform/releases/tag/v6.2.3)                                                                                                                                            |
+| 0.3.x                                                                                                                                         | [![shopware-ver](https://img.shields.io/badge/version-6.3.0.1-green)](https://github.com/shopware/platform/releases/tag/v6.3.0.1)                                                                                                                                      |
+| 0.4.x                                                                                                                                         | [![shopware-ver](https://img.shields.io/badge/version-6.3.0.1-green)](https://github.com/shopware/platform/releases/tag/v6.3.0.1)                                                                                                                                      |
+| 0.6.x                                                                                                                                         | [![shopware-ver](https://img.shields.io/badge/version-6.3.2.1-green)](https://github.com/shopware/platform/releases/tag/v6.3.2.1)                                                                                                                                      |
+| [![shopware-ver](https://img.shields.io/badge/shopware–pwa-0.8.2-green)](https://github.com/vuestorefront/shopware-pwa/releases/tag/v0.8.2)   | [![shopware-ver](https://img.shields.io/badge/Shopware-6.3-green)](https://github.com/shopware/platform/releases/tag/v6.4) & [![shopware-ver](https://img.shields.io/badge/PWA%20plugin-0.2.1-green)](https://github.com/elkmod/SwagShopwarePwa/releases/tag/v0.2.1)   |
+| [![shopware-ver](https://img.shields.io/badge/shopware–pwa-0.10.x-green)](https://github.com/vuestorefront/shopware-pwa/releases/tag/v0.10.0) | [![shopware-ver](https://img.shields.io/badge/Shopware-6.4.x-green)](https://github.com/shopware/platform/releases/tag/v6.4) & [![shopware-ver](https://img.shields.io/badge/PWA%20plugin-0.3.x-green)](https://github.com/elkmod/SwagShopwarePwa/releases/tag/v0.3.0) |
+
 Find more information on updating and versioning within our [Upgrade](/landing/operations/migrations) section
 
 ## Installation
@@ -48,7 +49,7 @@ Now your instance is ready to go.
 
 ## Credentials
 
-When running the CLI init function `shopware-pwa init` or editing the `showpare-pwa.config.js` directly, you might be wondering where to get the access token from.
+When running the CLI init function `shopware-pwa init` or editing the `shopware-pwa.config.js` directly, you might be wondering where to get the access token from.
 
 An access token is usually associated with a "Sales Channel". These are defined in you Shopware instance. Log in to your Shopware instance - by default it uses the `admin` and `shopware` credentials.
 

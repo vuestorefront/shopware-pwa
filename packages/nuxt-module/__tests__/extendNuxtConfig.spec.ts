@@ -45,7 +45,6 @@ describe("nuxt-module - extendNuxtConfig", () => {
       const result = extendNuxtConfig({});
 
       expect(result.env?.CHOKIDAR_USEPOLLING).toEqual("1");
-      expect(result.env?.EXPERIMENTAL_IMAGE_PROCESSING_SERVER).toEqual("");
       expect(result.env?.NODE_ENV).toEqual("");
       expect(result.env?.ENABLE_DEVTOOLS).toEqual("");
     });

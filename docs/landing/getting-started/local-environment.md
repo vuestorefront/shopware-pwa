@@ -15,7 +15,7 @@ There are many reasons why you may want to have a whole stack (shopware-pwa + sh
 
 2. **Easy debugging**
 
-   Having Showpare 6 instance locally gives you a direct access to the logs, files and other env specific settings that cannot be accessed from the admin panel.
+   Having Shopware 6 instance locally gives you a direct access to the logs, files and other env specific settings that cannot be accessed from the admin panel.
 
 3. **Shared instance is not affected**
 
