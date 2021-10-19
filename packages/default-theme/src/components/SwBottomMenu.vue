@@ -103,7 +103,9 @@ export default {
       let categoriesToDisplay = this.navigationElements
       for (let i = 0; i < this.categoryBreadcrumbs.length; i++) {
         const foundedCat = categoriesToDisplay.find((cat) => {
-          return cat?.translated?.name === this.categoryBreadcrumbs[i]
+          return (
+            getTranslatedProperty(cat, "name") === this.categoryBreadcrumbs[i]
+          )
         })
         if (foundedCat) {
           categoriesToDisplay = foundedCat.children
