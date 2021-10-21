@@ -1,3 +1,33 @@
+# [1.0.0-RC.3](https://github.com/DivanteLtd/shopware-pwa/compare/v1.0.0-RC.2...v1.0.0-RC.3) (2021-10-21)
+
+
+### Bug Fixes
+
+* **cms:** inject only cms-page ([#1709](https://github.com/DivanteLtd/shopware-pwa/issues/1709)) ([dfa461e](https://github.com/DivanteLtd/shopware-pwa/commit/dfa461ee16e3ca7e4aeb178a2d63d82c90be2f73))
+* **composables:** injected cms page in useListing and useProductConfigurator ([#1706](https://github.com/DivanteLtd/shopware-pwa/issues/1706)) ([e72b5b8](https://github.com/DivanteLtd/shopware-pwa/commit/e72b5b827ce845255fdcdb9df009dd1729899569))
+* **composables:** wrong association on product page ([#1707](https://github.com/DivanteLtd/shopware-pwa/issues/1707)) ([4c3ccf5](https://github.com/DivanteLtd/shopware-pwa/commit/4c3ccf518b130d6ff90f14594aff2641b878b832))
+* **default-theme:** address manager switch problems ([#1690](https://github.com/DivanteLtd/shopware-pwa/issues/1690)) ([fdb1fca](https://github.com/DivanteLtd/shopware-pwa/commit/fdb1fca6218851b4dabc906e1309f717d6167c5d))
+* **default-theme:** bottom navigation modal invocation ([#1695](https://github.com/DivanteLtd/shopware-pwa/issues/1695)) ([89d2fa8](https://github.com/DivanteLtd/shopware-pwa/commit/89d2fa8567334a54293676c842fc8576c2e7dc77))
+* **default-theme:** browsing bottom navi for different language ([#1711](https://github.com/DivanteLtd/shopware-pwa/issues/1711)) ([1c98ecb](https://github.com/DivanteLtd/shopware-pwa/commit/1c98ecbbd61a6ca8d7e10a8a397d47e8ac3865da))
+* **default-theme:** cart items links in checkout ([#1702](https://github.com/DivanteLtd/shopware-pwa/issues/1702)) ([cf029b3](https://github.com/DivanteLtd/shopware-pwa/commit/cf029b3fb0ecdd8d923c93ff7b82f7ead59a861a))
+* **default-theme:** disallow delete default address ([#1703](https://github.com/DivanteLtd/shopware-pwa/issues/1703)) ([84b742c](https://github.com/DivanteLtd/shopware-pwa/commit/84b742c661565c5ba5cfe29baddb98a6fef31de0))
+* **default-theme:** performance issue with scss variables duplication ([#1696](https://github.com/DivanteLtd/shopware-pwa/issues/1696)) ([2324c31](https://github.com/DivanteLtd/shopware-pwa/commit/2324c310f889cb0d4a8272049ffa3ecce3ea1287))
+* **default-theme:** rename incorrect newsletter form element ([#1710](https://github.com/DivanteLtd/shopware-pwa/issues/1710)) ([a65f075](https://github.com/DivanteLtd/shopware-pwa/commit/a65f075a4676834b53621589fcba350ca50608fb))
+* **default-theme:** set negativePattern to default ([#1688](https://github.com/DivanteLtd/shopware-pwa/issues/1688)) ([5213ea1](https://github.com/DivanteLtd/shopware-pwa/commit/5213ea187307e3fe57976100062ae3ee5e2627e7))
+* **nuxt-module:** language based on current route meta config ([#1661](https://github.com/DivanteLtd/shopware-pwa/issues/1661)) ([01eaf2f](https://github.com/DivanteLtd/shopware-pwa/commit/01eaf2f9c4d572aa88ab67bacdc1c254011b65d9))
+* **theme-base:** fix duplicate rendering of cms-page subtree ([#1685](https://github.com/DivanteLtd/shopware-pwa/issues/1685)) ([4030178](https://github.com/DivanteLtd/shopware-pwa/commit/403017819ffe076d33c4ff08cb3068176df74677))
+
+
+### Features
+
+* createShopware to setup composables, devtools integration and improved interceptors mechanism ([#1708](https://github.com/DivanteLtd/shopware-pwa/issues/1708)) ([1c799d2](https://github.com/DivanteLtd/shopware-pwa/commit/1c799d25eaeb3c99c212de69ef678c5bbe36269c))
+* **api-client:** change api definitions to public, single getCmsPage endpoint ([#1691](https://github.com/DivanteLtd/shopware-pwa/issues/1691)) ([23acdb0](https://github.com/DivanteLtd/shopware-pwa/commit/23acdb03324119fc19961884e5bb84a7dca74c9b))
+* **api-client:** expose axios instance from ShopwareApiInstance for advanced use ([#1689](https://github.com/DivanteLtd/shopware-pwa/issues/1689)) ([15489e3](https://github.com/DivanteLtd/shopware-pwa/commit/15489e3d874d7fdb6d0bd64dea896bb82bb877e2))
+* **cms:** proper cms context for cms elements ([#1701](https://github.com/DivanteLtd/shopware-pwa/issues/1701)) ([1de2606](https://github.com/DivanteLtd/shopware-pwa/commit/1de2606d43e06c1d34bd6355430ad31ac8e16110))
+* **default-theme:** add requested plugin slots ([#1700](https://github.com/DivanteLtd/shopware-pwa/issues/1700)) ([8a7cf8b](https://github.com/DivanteLtd/shopware-pwa/commit/8a7cf8b9d9b3cc530d6d21cea942cbfaf2640afa))
+
+
+
 # [1.0.0-RC.2](https://github.com/DivanteLtd/shopware-pwa/compare/v1.0.0-RC.1...v1.0.0-RC.2) (2021-09-22)
 
 
