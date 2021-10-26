@@ -14,7 +14,7 @@ import {
   reactive,
   isVue2,
 } from "vue-demi";
-import { registerShopwareDevtools, shopwareSymbol } from "./devtools/plugin";
+import { registerShopwareDevtools } from "./devtools/plugin";
 
 export * from "./hooks/useCms";
 export * from "./hooks/useProduct";
@@ -88,8 +88,8 @@ export function createShopware(
     ) {
       if (!isVue2) {
         shopwarePlugin._a = app;
-        app.config.globalProperties.$shopware = shopwarePlugin;
-        app.provide("shopware", shopwarePlugin);
+        (app as any).config.globalProperties.$shopware = shopwarePlugin;
+        (app as any).provide("shopware", shopwarePlugin);
         /* istanbul ignore else */
         if (options?.enableDevtools && typeof window !== "undefined") {
           registerShopwareDevtools(app, shopwarePlugin);
