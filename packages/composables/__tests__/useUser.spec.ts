@@ -79,6 +79,11 @@ describe("Composables - useUser", () => {
       });
     });
 
+    it("should return loading state", () => {
+      const { loading } = useUser();
+      expect(loading.value).toEqual(false);
+    });
+
     describe("isLoggedIn", () => {
       it("should return false when no user is set", () => {
         const { isLoggedIn } = useUser();

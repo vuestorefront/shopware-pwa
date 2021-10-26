@@ -18,7 +18,9 @@ describe("Composables - useProductConfigurator", () => {
   const rootContextMock: any = {
     apiInstance: {
       defaults: {
-        headers: {},
+        headers: {
+          common: {},
+        },
       },
       invokePost: jest.fn(),
     },
@@ -271,7 +273,9 @@ describe("Composables - useProductConfigurator", () => {
             },
           },
           {
-            defaults: { headers: { "sw-include-seo-urls": true } },
+            defaults: {
+              headers: { common: { "sw-include-seo-urls": "true" } },
+            },
             invokePost: expect.anything(),
           }
         );
