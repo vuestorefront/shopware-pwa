@@ -28,7 +28,7 @@ export function registerShopwareDevtools(
 
       watch(
         () => shopwarePluginInstance.state.sharedStore,
-        (v) => {
+        () => {
           // refresh window when the state has changed
           api.sendInspectorState(INSPECTOR_ID);
         },
@@ -75,24 +75,24 @@ export function registerShopwareDevtools(
           switch (payload.nodeId) {
             case "api-client":
               payload.state = {
-                config: payload.app.$shopware.apiInstance.config,
+                config: shopwarePluginInstance.apiInstance.config,
               };
               break;
             case "shared-state":
               payload.state = {
                 store:
-                  payload.app.$shopware.state.sharedStore ||
+                  shopwarePluginInstance.state.sharedStore ||
                   payload.app.$sharedStore,
               };
               break;
             case "interceptors":
               payload.state = {
-                registered: payload.app.$shopware.state.interceptors,
+                registered: shopwarePluginInstance.state.interceptors,
               };
               break;
 
             case "api-defaults":
-              payload.state = payload.app.$shopware.state.shopwareDefaults;
+              payload.state = shopwarePluginInstance.state.shopwareDefaults;
               break;
 
             default:

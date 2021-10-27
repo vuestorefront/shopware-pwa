@@ -6,7 +6,15 @@
 
 import { ApiDefaults } from "@shopware-pwa/commons";
 import { ShopwareApiInstance } from "@shopware-pwa/shopware-6-client";
-import { App, markRaw, effectScope, EffectScope, reactive } from "vue-demi";
+import {
+  App,
+  markRaw,
+  effectScope,
+  EffectScope,
+  reactive,
+  isVue2,
+} from "vue-demi";
+import { registerShopwareDevtools } from "./devtools/plugin";
 
 export * from "./hooks/useCms";
 export * from "./hooks/useProduct";
@@ -67,24 +75,27 @@ export function createShopware(
     return reactive({
       interceptors: {},
       sharedStore: options.initialStore || reactive({}),
-      shopwareDefaults: options.shopwareDefaults,
+      shopwareDefaults: options.shopwareDefaults || {},
     });
   });
 
   const shopwarePlugin = markRaw({
-    // install(app: App) {
-    //   // TODO: make it work for Vue 3
-    //   // if (!isVue2) {
-    //   //   shopwarePlugin._a = app;
-    //   //   app.provide(shopwareSymbol, shopwarePlugin);
-    //   //   app.config.globalProperties.$shopware = shopwarePlugin;
-    //   //   /* istanbul ignore else */
-    //   //   // if (__DEV__ && IS_CLIENT) {
-    //   //   if (typeof window !== "undefined") {
-    //   //     registerShopwareDevtools(app, state);
-    //   //   }
-    //   // }
-    // },
+    install(
+      app: App,
+      options?: {
+        enableDevtools: boolean;
+      }
+    ) {
+      if (!isVue2) {
+        shopwarePlugin._a = app;
+        (app as any).config.globalProperties.$shopware = shopwarePlugin;
+        (app as any).provide("shopware", shopwarePlugin);
+        /* istanbul ignore else */
+        if (options?.enableDevtools && typeof window !== "undefined") {
+          registerShopwareDevtools(app, shopwarePlugin);
+        }
+      }
+    },
     _a: app,
     _e: scope,
     apiInstance: options.apiInstance,
