@@ -179,6 +179,11 @@ describe("Composables - useCart", () => {
       });
     });
 
+    it("should return loading state", () => {
+      const { loading } = useCart();
+      expect(loading.value).toEqual(false);
+    });
+
     describe("totalPrice", () => {
       it("should show items totalPrice as 0", () => {
         const { totalPrice } = useCart();

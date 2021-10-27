@@ -277,8 +277,8 @@ export function createListingComposable<ELEMENTS_TYPE>({
     getLimit,
     getAvailableFilters,
     getCurrentFilters,
-    loading,
+    loading: computed(() => loading.value),
     loadMore,
-    loadingMore,
+    loadingMore: computed(() => loadingMore.value),
   };
 }

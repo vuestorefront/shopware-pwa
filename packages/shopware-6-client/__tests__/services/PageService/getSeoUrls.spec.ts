@@ -40,7 +40,7 @@ describe("PageService - getSeoUrls", () => {
     });
     await getSeoUrls("3223232321112257", "someLanguageId");
     expect(mockedPost).toBeCalledTimes(1);
-    expect(mockedApiInstance.defaults.headers["sw-language-id"]).toBe(
+    expect(mockedApiInstance.defaults.headers.common["sw-language-id"]).toBe(
       "someLanguageId"
     );
     expect(mockedPost).toBeCalledWith("/store-api/seo-url", {
