@@ -37,7 +37,7 @@ export async function getSeoUrls(
   }[]
 > {
   if (languageId) {
-    contextInstance.defaults.headers["sw-language-id"] = languageId;
+    contextInstance.defaults.headers.common["sw-language-id"] = languageId;
   }
   const resp = await contextInstance.invoke.post(getSeoUrlEndpoint(), {
     filter: [

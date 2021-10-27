@@ -49,9 +49,9 @@ export function _createInstance(initialConfig: ClientSettings = {}) {
           parseInt(clientConfig.timeout)) ||
         0;
     }
-    apiService.defaults.headers.common["sw-include-seo-urls"] = true;
+    apiService.defaults.headers.common["sw-include-seo-urls"] = "true";
     apiService.defaults.headers.common["sw-access-key"] =
-      clientConfig.accessToken;
+      clientConfig.accessToken as string;
     // convert SearchCriteria into query string
     apiService.defaults.paramsSerializer = getQueryString;
     if (clientConfig.contextToken) {

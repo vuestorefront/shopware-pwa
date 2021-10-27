@@ -111,7 +111,7 @@ export function useProductConfigurator(params: {
     try {
       /* istanbul ignore next */
       if (apiInstance) {
-        apiInstance.defaults.headers["sw-include-seo-urls"] = true;
+        apiInstance.defaults.headers.common["sw-include-seo-urls"] = "true";
       }
       const response = await invokePost(
         {
