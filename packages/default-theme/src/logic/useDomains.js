@@ -3,6 +3,7 @@ import {
   getApplicationContext,
   useCms,
   useNotifications,
+  useSharedState,
 } from "@shopware-pwa/composables"
 import { getSeoUrls } from "@shopware-pwa/shopware-6-client"
 import { getCmsTechnicalPath } from "@shopware-pwa/helpers"
@@ -15,6 +16,8 @@ export function useDomains() {
   const PAGE_RESOLVER_ROUTE_PREFIX = "all"
   const { resourceIdentifier, page } = useCms()
   const { pushWarning } = useNotifications()
+  const { sharedRef } = useSharedState()
+  const currentDomainData = sharedRef("sw-current-domain")
 
   const { router, route, routing, apiInstance, i18n } = getApplicationContext({
     contextName,
@@ -82,6 +85,8 @@ export function useDomains() {
     if (!domainFound) {
       return
     }
+
+    currentDomainData.value = domainFound
 
     const newUrlPath = await getNewDomainUrl(domainFound)
     if (domainFound.origin === routing.getCurrentDomain?.value?.origin) {
