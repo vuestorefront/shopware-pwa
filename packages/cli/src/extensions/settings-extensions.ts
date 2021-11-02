@@ -12,15 +12,6 @@ module.exports = (toolbox: GluegunToolbox) => {
 
   toolbox.settings = {};
 
-  toolbox.settings.createConfigSection = (sectionKey: string) => {
-    toolbox.print.info(`[CLI > settings] creating ${sectionKey} section`);
-    patching.patch(CONFIG_FILENAME, {
-      before: "head: {",
-      insert: `${sectionKey}: {
-},
-`,
-    });
-  };
   toolbox.settings.updateConfigSection = async (
     sectionKey: string,
     sectionData: any
@@ -30,6 +21,16 @@ module.exports = (toolbox: GluegunToolbox) => {
         `[CLI > settings] there's no settings to save. exiting.`
       );
       return;
+    }
+
+    if (!(await patching.exists(CONFIG_FILENAME, sectionKey))) {
+      toolbox.print.info(`[CLI > settings] creating ${sectionKey} section`);
+      await patching.patch(CONFIG_FILENAME, {
+        before: "head: {",
+        insert: `${sectionKey}: {
+  },
+  `,
+      });
     }
 
     for (const [key, value] of Object.entries(sectionData)) {
@@ -48,8 +49,9 @@ module.exports = (toolbox: GluegunToolbox) => {
           );
           await patching.patch(CONFIG_FILENAME, {
             insert: `
-  ${configKey}: ${value},`,
+    ${configKey}: ${value},`,
             after: `${sectionKey}: {`,
+            force: true,
           });
         }
       }
@@ -103,12 +105,8 @@ module.exports = (toolbox: GluegunToolbox) => {
     }
 
     try {
-      if (await patching.exists(CONFIG_FILENAME, target)) {
-        await toolbox.settings.updateConfigSection(target, config);
-      } else {
-        await toolbox.settings.createConfigSection(target);
-        await toolbox.settings.updateConfigSection(target, config);
-      }
+      await toolbox.settings.updateConfigSection(target, config);
+
       toolbox.print.success(
         `[CLI > settings] settings synchronized successfully.`
       );
