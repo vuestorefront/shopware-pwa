@@ -59,13 +59,19 @@ module.exports = {
       return -1;
     }
 
-    const coreRegistrationData = await toolbox.settings.fetchAdminConfigGroup(
-      "loginRegistration",
-      authToken
-    );
-    await toolbox.settings.appendNuxtConfig(
-      coreRegistrationData,
-      "publicRuntimeConfig"
-    );
+    try {
+      const coreRegistrationData = await toolbox.settings.fetchAdminConfigGroup(
+        "loginRegistration",
+        authToken
+      );
+      await toolbox.settings.appendNuxtConfig(
+        coreRegistrationData,
+        "publicRuntimeConfig"
+      );
+    } catch (error) {
+      toolbox.print.error(
+        `[CLI > settings] An error occured during synchronizing settings. Please try again or do it manually.`
+      );
+    }
   },
 };
