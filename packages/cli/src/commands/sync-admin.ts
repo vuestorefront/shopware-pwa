@@ -8,7 +8,8 @@ module.exports = {
   In order to run a specific command, or commands - use --command option, like
   shopware-pwa sync-admin --ci --username admin --password shopware --command domains --command plugins
   
-  The command above will run commands plugins and domains internally, and you will be asked for credentials only once (if there is no --ci option).
+  The command above will run commands plugins and domains internally, and you will be asked for credentials only once.
+  Similar behavior you can achieve by using .env file to keep admin credentials.
   `,
   run: async (toolbox: GluegunToolbox) => {
     const inputParameters: {
@@ -70,9 +71,13 @@ module.exports = {
 
     let promises = [];
     for (const commandName of commands) {
-      toolbox.print.info(`${commandName} command queued to run.`);
+      toolbox.print.info(
+        `[CLI > sync-admin]: ${toolbox.print.colors.bold(
+          commandName as string
+        )} command is queued...`
+      );
       promises.push(
-        await toolbox.runtime.run(commandName, {
+        toolbox.runtime.run(commandName, {
           username,
           password,
           ci,

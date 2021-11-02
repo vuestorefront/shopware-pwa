@@ -2,7 +2,7 @@ import { GluegunToolbox } from "gluegun";
 
 module.exports = {
   name: "settings",
-  description: `Provides synchronising not public exposed config into your nuxt.config.js
+  description: `Provides synchronization of not publicly exposed config into your nuxt.config.js
   
   example of use: shopware-pwa settings
   `,
@@ -65,7 +65,7 @@ module.exports = {
     );
     await toolbox.settings.appendNuxtConfig(
       coreRegistrationData,
-      "privateRuntimeConfig"
+      "publicRuntimeConfig"
     );
   },
 };
