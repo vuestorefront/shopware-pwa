@@ -117,14 +117,16 @@ export default {
         // look for variant with the selected options and perform a redirect to the found product's URL
         const variantFound = await findVariantForSelectedOptions(options)
         if (variantFound) {
-          root.$router.push(getProductUrl(variantFound))
+          root.$router.push(root.$routing.getUrl(getProductUrl(variantFound)))
         } else {
           // if no product was found - reset other options and try to find a first matching product
           const simpleOptionVariant = await findVariantForSelectedOptions({
             option: optionId,
           })
           if (simpleOptionVariant) {
-            root.$router.push(getProductUrl(simpleOptionVariant))
+            root.$router.push(
+              root.$routing.getUrl(getProductUrl(simpleOptionVariant))
+            )
           } else {
             pushInfo(
               root.$t("There is no available product for selected options")
