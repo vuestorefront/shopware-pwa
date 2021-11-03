@@ -63,7 +63,7 @@
 
 ### User Management
 
- * Registration
+ * Registration (including double opt-in mode)
  * Login
  * Personal data
  	* Name
