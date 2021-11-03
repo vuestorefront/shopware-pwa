@@ -16,6 +16,7 @@
 |  [changeCartItemQuantity(itemId, newQuantity, contextInstance)](./shopware-6-client.changecartitemquantity.md) | Changes the current quantity in specific cart line item to given quantity.<!-- -->Example: If current quantity is 3 and you pass 2 as quantity parameter, you will get a new cart's state with quantity 2. |
 |  [changeOrderPaymentMethod(orderId, paymentMethodId, contextInstance)](./shopware-6-client.changeorderpaymentmethod.md) | Change payment method for given order |
 |  [clearCart(contextInstance)](./shopware-6-client.clearcart.md) | When no sw-context-token given then this method return an empty cart with the new sw-context-token.<!-- -->When sw-context-token given then this method simply returns the current state of the cart.<!-- -->As the purpose of this method is not clear we recommend to use <code>getCart</code> method because its behaviour seems to be the same. |
+|  [confirmAccountRegistration(params, contextInstance)](./shopware-6-client.confirmaccountregistration.md) | Confirm an account registration in double opt-in mode |
 |  [confirmPasswordReset(params, contextInstance)](./shopware-6-client.confirmpasswordreset.md) | Confirm a customer's password reset. Set new password for account. |
 |  [createCustomerAddress(params, contextInstance)](./shopware-6-client.createcustomeraddress.md) | Create an address and respond the new address's id |
 |  [createInstance(initialConfig)](./shopware-6-client.createinstance.md) |  |
@@ -109,6 +110,7 @@
 |  [getContextPaymentMethodEndpoint](./shopware-6-client.getcontextpaymentmethodendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getContextSalutationEndpoint](./shopware-6-client.getcontextsalutationendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getContextShippingMethodEndpoint](./shopware-6-client.getcontextshippingmethodendpoint.md) | <b><i>(BETA)</i></b> |
+|  [getCustomerAccountConfirmEndpoint](./shopware-6-client.getcustomeraccountconfirmendpoint.md) |  |
 |  [getCustomerAddAddressEndpoint](./shopware-6-client.getcustomeraddaddressendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getCustomerAddressEndpoint](./shopware-6-client.getcustomeraddressendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getCustomerDefaultBillingAddressEndpoint](./shopware-6-client.getcustomerdefaultbillingaddressendpoint.md) | <b><i>(BETA)</i></b> |

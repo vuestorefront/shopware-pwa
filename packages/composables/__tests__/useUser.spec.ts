@@ -86,14 +86,20 @@ describe("Composables - useUser", () => {
 
     describe("isLoggedIn", () => {
       it("should return false when no user is set", () => {
+        stateUser.value = undefined as any;
         const { isLoggedIn } = useUser();
         expect(isLoggedIn.value).toEqual(false);
       });
 
-      it("should return true when user obnject is set", () => {
-        stateUser.value = { id: "111" };
+      it("should return true when user obnject is set and it's active", () => {
+        stateUser.value = { id: "111", active: true };
         const { isLoggedIn } = useUser();
         expect(isLoggedIn.value).toEqual(true);
+      });
+      it("should return false when user has no id but it's active", () => {
+        stateUser.value = { active: true };
+        const { isLoggedIn } = useUser();
+        expect(isLoggedIn.value).toEqual(false);
       });
     });
     describe("isCustomerSession", () => {
@@ -235,6 +241,7 @@ describe("Composables - useUser", () => {
         } as any);
         mockedApiClient.getCustomer.mockResolvedValue({
           id: "123",
+          active: true,
         } as any);
         const { isLoggedIn, error, login } = useUser();
         const result = await login({
@@ -280,9 +287,7 @@ describe("Composables - useUser", () => {
         ]);
       });
       it("should register user successfully", async () => {
-        mockedApiClient.register.mockResolvedValueOnce({
-          data: "mockedData",
-        });
+        mockedApiClient.register.mockResolvedValueOnce({} as any);
         const { errors, register } = useUser();
         const result = await register({
           firstName: "qwe",
@@ -317,7 +322,7 @@ describe("Composables - useUser", () => {
 
     describe("logout", () => {
       it("should correctly logout user", async () => {
-        stateUser.value = { id: "111" };
+        stateUser.value = { id: "111", active: true };
         mockedApiClient.logout.mockResolvedValueOnce({
           "sw-context-token": "qweqwe",
         } as any);
@@ -330,7 +335,7 @@ describe("Composables - useUser", () => {
       });
 
       it("should refresh cart after logout", async () => {
-        stateUser.value = { id: "111" };
+        stateUser.value = { id: "111", active: true };
         mockedApiClient.logout.mockResolvedValueOnce({
           "sw-context-token": "qweqwe",
         } as any);
@@ -341,12 +346,13 @@ describe("Composables - useUser", () => {
       });
 
       it("should show an error when user is not logged out", async () => {
-        stateUser.value = { id: "111" };
+        stateUser.value = { id: "111", active: true };
         mockedApiClient.logout.mockRejectedValueOnce({
           messages: [{ detail: "Something wrong with logout" }],
         });
         mockedApiClient.getCustomer.mockResolvedValueOnce({
           id: "111",
+          active: true,
         } as any);
         const { isLoggedIn, error, logout } = useUser();
         expect(isLoggedIn.value).toBeTruthy();

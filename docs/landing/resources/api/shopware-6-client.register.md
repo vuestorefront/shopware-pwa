@@ -9,7 +9,7 @@ Register a customer
 <b>Signature:</b>
 
 ```typescript
-export declare function register(params: CustomerRegistrationParams, contextInstance?: ShopwareApiInstance): Promise<CustomerRegisterResponse>;
+export declare function register(params: CustomerRegistrationParams, contextInstance?: ShopwareApiInstance): Promise<Customer>;
 ```
 
 ## Parameters
@@ -21,7 +21,7 @@ export declare function register(params: CustomerRegistrationParams, contextInst
 
 <b>Returns:</b>
 
-Promise&lt;[CustomerRegisterResponse](./shopware-6-client.customerregisterresponse.md)<!-- -->&gt;
+Promise&lt;Customer&gt;
 
 ## Exceptions
 

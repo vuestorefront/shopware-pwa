@@ -110,7 +110,7 @@ export default async ({ app, route, req }, inject) => {
       },
       // get absolute url for current domain
       getAbsoluteUrl: (path) => {
-        return `${currentDomainData.value.url}${path}`;
+        return `${currentDomainData.value?.url || ""}${path}`;
       },
     };
 

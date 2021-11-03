@@ -81,6 +81,12 @@ export interface ConfigChangedArgs {
 }
 
 // @public
+export function confirmAccountRegistration(params: {
+    hash: string;
+    em: string;
+}, contextInstance?: ShopwareApiInstance): Promise<Customer>;
+
+// @public
 export function confirmPasswordReset(params: {
     newPassword: string;
     hash: string;
@@ -252,6 +258,9 @@ export const getContextShippingMethodEndpoint: () => string;
 
 // @public
 export function getCustomer(parameters?: ShopwareSearchParams, contextInstance?: ShopwareApiInstance): Promise<Customer | null>;
+
+// @public (undocumented)
+export const getCustomerAccountConfirmEndpoint: () => string;
 
 // @beta (undocumented)
 export const getCustomerAddAddressEndpoint: () => string;
@@ -450,7 +459,7 @@ export function newsletterUnsubscribe({ email, }: {
 export const onConfigChange: (fn: (context: ConfigChangedArgs) => void) => void;
 
 // @public
-export function register(params: CustomerRegistrationParams, contextInstance?: ShopwareApiInstance): Promise<CustomerRegisterResponse>;
+export function register(params: CustomerRegistrationParams, contextInstance?: ShopwareApiInstance): Promise<Customer>;
 
 // @public
 export function removeCartItem(itemId: string, contextInstance?: ShopwareApiInstance): Promise<Cart>;

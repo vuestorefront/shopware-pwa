@@ -89,6 +89,34 @@ export default async ({ app }) => {
         },
       })
 
+      on({
+        broadcastKey: INTERCEPTOR_KEYS.USER_REGISTER,
+        name: "show-notification",
+        handler: ({ customer }) => {
+          if (!customer) {
+            return
+          }
+
+          if (
+            customer.doubleOptInRegistration &&
+            !customer.doubleOptInConfirmDate
+          ) {
+            return pushSuccess(
+              i18n.t(
+                "Congratulations! You have been successfully registered. Check your email and confirm you account.",
+                {
+                  timeout: 10000,
+                }
+              )
+            )
+          }
+
+          pushSuccess(
+            i18n.t("Congratulations! You have been successfully registered.")
+          )
+        },
+      })
+
       return result
     }
   }
