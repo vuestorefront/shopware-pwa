@@ -148,12 +148,13 @@ export default {
   setup() {
     const isCreatingOrder = ref(false)
     const { setBreadcrumbs } = useBreadcrumbs()
-    const { isLoggedIn, register, errors, user } = useUser()
+    const { isLoggedIn, register, errors } = useUser()
     const { createOrder: invokeCreateOrder, loadings } = useCheckout()
     const { pushError } = useNotifications()
-    const { apiInstance, routing, router, i18n } = getApplicationContext({
-      contextName: "CheckoutPage",
-    })
+    const { apiInstance, routing, router, i18n, devtools } =
+      getApplicationContext({
+        contextName: "CheckoutPage",
+      })
     const { refreshCart } = useCart()
     const errorMessages = ref([])
 
@@ -168,7 +169,7 @@ export default {
       // register user and point /checkout path that may be used in double opt-in (optional usage)
       await register(
         Object.assign({}, registrationFormData.value, {
-          redirectTo: encodeURIComponent(PAGE_CHECKOUT),
+          redirectTo: encodeURIComponent(routing.getUrl(PAGE_CHECKOUT)),
         })
       )
     }
@@ -214,7 +215,7 @@ export default {
         // perform a redirection to the external payment gateway
         window.location.href = redirectUrl
       } catch (error) {
-        console.warn("err place order", error)
+        devtools?.warning("[checkout] Error while placing an order", error)
         pushError(
           i18n.t(
             "Your order cannot be placed. Please check your previous step."

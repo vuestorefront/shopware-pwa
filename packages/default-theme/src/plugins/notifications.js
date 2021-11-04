@@ -103,11 +103,11 @@ export default async ({ app }) => {
           ) {
             return pushSuccess(
               i18n.t(
-                "Congratulations! You have been successfully registered. Check your email and confirm you account.",
-                {
-                  timeout: 10000,
-                }
-              )
+                "Congratulations! You have been successfully registered. Check your email and confirm you account."
+              ),
+              {
+                persistent: true,
+              }
             )
           }
 

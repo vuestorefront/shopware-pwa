@@ -102,12 +102,14 @@ export default {
       () => {
         if (success.value) {
           refreshUser()
-          redirectTo && redirectUser(redirectTo)
+          if (redirectTo) {
+            redirectTimer.value = redirectUser(redirectTo)
+          }
         }
       }
     )
 
-    onDeactivated(() => clearTimeout())
+    onDeactivated(() => clearTimeout(redirectTimer.value))
 
     return {
       success,
