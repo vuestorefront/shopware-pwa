@@ -51,4 +51,7 @@ export interface Customer {
   promotions: Promotion[] | null;
   customFields: CustomField[];
   productReviews: ProductReview[];
+  doubleOptInConfirmDate: null | string;
+  doubleOptInEmailSentDate: string;
+  doubleOptInRegistration: boolean;
 }

@@ -24,16 +24,27 @@
     <SwPromoCode class="promo-code" />
     <SwButton
       class="sw-form__button sf-button--full-width"
-      @click="$emit('create-account')"
+      @click="
+        ;(isDoubleOptInRegistrationRequired &&
+          pushWarning(
+            $t('Check your email and finish registration process first.')
+          )) ||
+          $emit('create-account')
+      "
       data-cy="register-button"
     >
-      {{ $t("Continue") }}
+      {{
+        isDoubleOptInRegistrationRequired
+          ? $t("Confirm your account first")
+          : $t("Continue")
+      }}
     </SwButton>
   </div>
 </template>
 <script>
 import { SfHeading, SfProperty, SfDivider } from "@storefront-ui/vue"
-import { useCart } from "@shopware-pwa/composables"
+import { computed } from "@vue/composition-api"
+import { useCart, useUser, useNotifications } from "@shopware-pwa/composables"
 import SwPromoCode from "@/components/SwPromoCode.vue"
 import SwButton from "@/components/atoms/SwButton.vue"
 import SwCartProduct from "@/components/SwCartProduct.vue"
@@ -52,6 +63,14 @@ export default {
   },
   setup() {
     const { cartItems, count, subtotal, shippingTotal, totalPrice } = useCart()
+    const { user } = useUser()
+    const { pushWarning } = useNotifications()
+    const isDoubleOptInRegistrationRequired = computed(
+      () =>
+        !user.value?.active &&
+        user.value?.doubleOptInRegistration &&
+        !user.value?.doubleOptInConfirmDate
+    )
 
     return {
       count,
@@ -59,6 +78,8 @@ export default {
       shippingTotal,
       totalPrice,
       cartItems,
+      isDoubleOptInRegistrationRequired,
+      pushWarning,
     }
   },
 }

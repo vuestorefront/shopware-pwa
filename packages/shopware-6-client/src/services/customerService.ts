@@ -13,6 +13,7 @@ import {
   getCustomerOrderEndpoint,
   getCustomerAddAddressEndpoint,
   getConfirmPasswordResetEndpoint,
+  getCustomerAccountConfirmEndpoint,
 } from "../endpoints";
 import { Customer } from "@shopware-pwa/commons/interfaces/models/checkout/customer/Customer";
 import { defaultInstance, ShopwareApiInstance } from "../apiService";
@@ -39,7 +40,7 @@ export interface CustomerRegisterResponse {
 export async function register(
   params: CustomerRegistrationParams,
   contextInstance: ShopwareApiInstance = defaultInstance
-): Promise<CustomerRegisterResponse> {
+): Promise<Customer> {
   const resp = await contextInstance.invoke.post(
     getCustomerRegisterEndpoint(),
     params
@@ -343,4 +344,23 @@ export async function updateProfile(
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<void> {
   await contextInstance.invoke.post(getCustomerDetailsUpdateEndpoint(), params);
+}
+
+/**
+ * Confirm an account registration in double opt-in mode
+ * @throws ClientApiError
+ * @public
+ */
+export async function confirmAccountRegistration(
+  params: {
+    hash: string;
+    em: string;
+  },
+  contextInstance: ShopwareApiInstance = defaultInstance
+): Promise<Customer> {
+  const response = await contextInstance.invoke.post(
+    getCustomerAccountConfirmEndpoint(),
+    params
+  );
+  return response.data;
 }
