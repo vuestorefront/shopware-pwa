@@ -148,9 +148,9 @@ export function useUser(): IUseUser {
     loading.value = true;
     errors.register = [];
     try {
-      const userObject = await apiRegister(params, apiInstance);
-      broadcast(INTERCEPTOR_KEYS.USER_REGISTER);
-      storeUser.value = (userObject as any) || {}; // TODO change returning tyoe to customer
+      const customer = await apiRegister(params, apiInstance);
+      broadcast(INTERCEPTOR_KEYS.USER_REGISTER, { customer });
+      storeUser.value = customer || {};
       refreshSessionContext();
       return true;
     } catch (e) {
@@ -252,7 +252,7 @@ export function useUser(): IUseUser {
     return true;
   };
 
-  const isLoggedIn = computed(() => !!user.value?.id);
+  const isLoggedIn = computed(() => !!user.value?.id && !!user.value.active);
   const isCustomerSession = computed(
     () => !!user.value?.id && !user.value.guest
   );

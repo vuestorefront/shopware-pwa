@@ -302,6 +302,9 @@
     },
     "includes": {
       "customer": [
+        "active",
+        "doubleOptInRegistration",
+        "doubleOptInConfirmDate",
         "id",
         "salutation",
         "firstName",
