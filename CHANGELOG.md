@@ -1,3 +1,19 @@
+# [1.0.0](https://github.com/DivanteLtd/shopware-pwa/compare/v1.0.0-RC.3...v1.0.0) (2021-11-08)
+
+
+### Bug Fixes
+
+* **default-theme:** product variant change causes language change to default ([#1720](https://github.com/DivanteLtd/shopware-pwa/issues/1720)) ([57c863c](https://github.com/DivanteLtd/shopware-pwa/commit/57c863c83e4e628d4bd94b9580ecc928b53403e9))
+* composition api mjs support ([#1721](https://github.com/DivanteLtd/shopware-pwa/issues/1721)) ([1bce524](https://github.com/DivanteLtd/shopware-pwa/commit/1bce5242fd488cf9020fc87ff8bba7a3297ee215))
+
+
+### Features
+
+* **default-theme:** plugin slot for listing pagination ([#1725](https://github.com/DivanteLtd/shopware-pwa/issues/1725)) ([00b95bf](https://github.com/DivanteLtd/shopware-pwa/commit/00b95bfefb7316941e7bce4e448ebaedb8b01668))
+* double opt-in registration flow ([#1724](https://github.com/DivanteLtd/shopware-pwa/issues/1724)) ([2f8eb53](https://github.com/DivanteLtd/shopware-pwa/commit/2f8eb53913e1df33d5cf50fc6e4c5eaefc2dcbd1))
+
+
+
 # [1.0.0-RC.3](https://github.com/DivanteLtd/shopware-pwa/compare/v1.0.0-RC.2...v1.0.0-RC.3) (2021-10-21)
 
 

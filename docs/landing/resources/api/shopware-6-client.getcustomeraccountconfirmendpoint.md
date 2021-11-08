@@ -4,6 +4,7 @@
 
 ## getCustomerAccountConfirmEndpoint variable
 
+
 <b>Signature:</b>
 
 ```typescript

@@ -1,6 +1,6 @@
 {
   "name": "shopware-pwa",
-  "version": "1.0.0-RC.3",
+  "version": "1.0.0",
   "private": true,
   "workspaces": {
     "packages": [
