@@ -1,3 +1,12 @@
+## [1.0.1](https://github.com/DivanteLtd/shopware-pwa/compare/v1.0.0...v1.0.1) (2021-11-15)
+
+
+### Bug Fixes
+
+* **composables:** reactivity in shared state ([#1728](https://github.com/DivanteLtd/shopware-pwa/issues/1728)) ([6a7006c](https://github.com/DivanteLtd/shopware-pwa/commit/6a7006c693be4080106045856b45f7d4226acd6d))
+
+
+
 # [1.0.0](https://github.com/DivanteLtd/shopware-pwa/compare/v1.0.0-RC.3...v1.0.0) (2021-11-08)
 
 
