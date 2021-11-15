@@ -1,5 +1,5 @@
 import { setupDevtoolsPlugin, DevtoolsPluginApi } from "@vue/devtools-api";
-import { App, InjectionKey, watch } from "vue-demi";
+import { App, InjectionKey, unref } from "vue-demi";
 
 const TIMELINE_EVENT_LAYER_ID = "shopware:events";
 const INSPECTOR_ID = "shopware";
@@ -12,6 +12,7 @@ export function registerShopwareDevtools(
 ) {
   let devtoolsApi: DevtoolsPluginApi<any>;
   let trackId = 0;
+  let currentSharedState: any = null;
 
   setupDevtoolsPlugin(
     {
@@ -25,15 +26,6 @@ export function registerShopwareDevtools(
     },
     (api) => {
       devtoolsApi = api;
-
-      watch(
-        () => shopwarePluginInstance.state.sharedStore,
-        () => {
-          // refresh window when the state has changed
-          api.sendInspectorState(INSPECTOR_ID);
-        },
-        { deep: true }
-      );
 
       api.addTimelineLayer({
         id: TIMELINE_EVENT_LAYER_ID,
@@ -70,6 +62,15 @@ export function registerShopwareDevtools(
         }
       });
 
+      function displayState(state: any) {
+        if (!state) return null;
+        const res: any = {};
+        Object.keys(state).forEach((refKey) => {
+          res[refKey] = unref(currentSharedState[refKey]);
+        });
+        return res;
+      }
+
       api.on.getInspectorState((payload) => {
         if (payload.app === app && payload.inspectorId === INSPECTOR_ID) {
           switch (payload.nodeId) {
@@ -81,6 +82,7 @@ export function registerShopwareDevtools(
             case "shared-state":
               payload.state = {
                 store:
+                  displayState(currentSharedState) ||
                   shopwarePluginInstance.state.sharedStore ||
                   payload.app.$sharedStore,
               };
@@ -170,6 +172,12 @@ export function registerShopwareDevtools(
           logType: "error",
         },
       });
+    },
+    _internal: {
+      updateSharedState: (state: any) => {
+        currentSharedState = state;
+        devtoolsApi.sendInspectorState(INSPECTOR_ID);
+      },
     },
   };
 
