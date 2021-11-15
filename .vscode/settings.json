@@ -13,5 +13,6 @@
   },
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  },
+  "i18n-ally.localesPaths": ["packages/default-theme/src/locales"]
 }

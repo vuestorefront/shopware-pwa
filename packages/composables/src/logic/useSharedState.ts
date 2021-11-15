@@ -5,8 +5,13 @@ import {
   Ref,
   toRef,
   WritableComputedRef,
+  ref,
 } from "vue-demi";
 import { getApplicationContext } from "@shopware-pwa/composables";
+
+const localSharedState: {
+  [key: string]: Ref<any>;
+} = {};
 
 /**
  * Replacement for Vuex. Composable, which enables you to use shared state in your application.
@@ -18,7 +23,9 @@ export function useSharedState() {
   const COMPOSABLE_NAME = "useSharedState";
   const contextName = COMPOSABLE_NAME;
 
-  const { sharedStore, isServer } = getApplicationContext({ contextName });
+  const { sharedStore, isServer, devtools } = getApplicationContext({
+    contextName,
+  });
 
   if (!sharedStore)
     throw new Error(
@@ -37,7 +44,12 @@ export function useSharedState() {
     uniqueKey: string,
     defaultValue?: T
   ): WritableComputedRef<T | null> {
-    const sharedRef: Ref<T | null> = toRef(sharedStore, uniqueKey);
+    if (!isServer && !localSharedState[uniqueKey]) {
+      localSharedState[uniqueKey] = ref(sharedStore[uniqueKey]);
+    }
+    const sharedRef: Ref<T | null> = isServer
+      ? toRef(sharedStore, uniqueKey)
+      : localSharedState[uniqueKey];
 
     sharedRef.value ??= defaultValue ?? null;
 
@@ -45,6 +57,7 @@ export function useSharedState() {
       get: () => sharedRef.value,
       set: (val) => {
         sharedRef.value = val;
+        devtools?._internal.updateSharedState(localSharedState);
       },
     });
   }
