@@ -8,19 +8,24 @@
       class="product-details__section"
     >
       <div v-for="config in getOptionGroups" :key="config.id">
-        <SwProductSelect
-          v-if="getSelectedOptions[getTranslatedProperty(config, 'name')]"
-          :value="getSelectedOptions[getTranslatedProperty(config, 'name')]"
-          :options="getProductOptions({ product: config })"
-          :label="getTranslatedProperty(config, 'name')"
-          @change="
-            handleChange(
-              getTranslatedProperty(config, 'name'),
-              $event,
-              onOptionChanged($event)
-            )
-          "
-        />
+        <SwPluginSlot
+          name="product-details-option-select"
+          :slot-context="{ config, product }"
+        >
+          <SwProductSelect
+            v-if="getSelectedOptions[getTranslatedProperty(config, 'name')]"
+            :value="getSelectedOptions[getTranslatedProperty(config, 'name')]"
+            :options="getProductOptions({ product: config })"
+            :label="getTranslatedProperty(config, 'name')"
+            @change="
+              handleChange(
+                getTranslatedProperty(config, 'name'),
+                $event,
+                onOptionChanged($event)
+              )
+            "
+          />
+        </SwPluginSlot>
       </div>
     </div>
     <div class="product-details__section">
