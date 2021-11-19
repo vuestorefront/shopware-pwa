@@ -124,7 +124,7 @@ export default async ({ app }) => {
           const accountPath = "/account"
           // TODO: use route from getApplicationContext method after fix from https://github.com/vuestorefront/shopware-pwa/issues/1732 is done
           const currentRoute = app?.context?.route
-          pushSuccess(i18n.t(`You were successfully logged out.`))
+          pushSuccess(i18n.t(`You have been successfully logged out.`))
 
           // if it's an area of restricted user profile - then redirect to the home page
           if (currentRoute?.path?.startsWith(routing.getUrl(accountPath))) {
