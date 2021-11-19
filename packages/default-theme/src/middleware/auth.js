@@ -1,5 +1,9 @@
 import { effectScope } from "vue-demi"
-import { useUser, extendScopeContext } from "@shopware-pwa/composables"
+import {
+  useUser,
+  extendScopeContext,
+  getApplicationContext,
+} from "@shopware-pwa/composables"
 import { PAGE_LOGIN } from "@/helpers/pages"
 
 /**
@@ -13,6 +17,10 @@ export default async function ({ route, redirect, app }) {
   extendScopeContext(scope, app)
 
   await scope.run(async () => {
+    const contextName = "auth-middleware"
+    const { routing } = getApplicationContext({
+      contextName,
+    })
     const { isLoggedIn, logout, refreshUser, isGuestSession } = useUser()
 
     if (route.path === PAGE_LOGIN) {
@@ -27,7 +35,7 @@ export default async function ({ route, redirect, app }) {
     }
 
     if (!isLoggedIn.value || isGuestSession.value) {
-      redirect(PAGE_LOGIN)
+      redirect(routing.getUrl(PAGE_LOGIN))
     }
   })
 

@@ -11,49 +11,49 @@
 </template>
 
 <script>
+import { onMounted, ref } from "@vue/composition-api"
 import SwAddressForm from "@/components/forms/SwAddressForm.vue"
-import { useCustomerAddresses, useUser } from "@shopware-pwa/composables"
+import {
+  useCustomerAddresses,
+  useUser,
+  getApplicationContext,
+} from "@shopware-pwa/composables"
 
 export default {
   components: { SwAddressForm },
-  data() {
-    return {
-      address: "",
-    }
-  },
   setup() {
+    const contextName = "EditAddress"
+    const { route, router, routing } = getApplicationContext({ contextName })
     const { addresses, loadAddresses } = useCustomerAddresses()
-
     const { country, loadCountry, salutation, loadSalutation } = useUser()
+    const address = ref()
+
+    const returnToAddresses = () => {
+      router.push(routing.getUrl("/account/addresses"))
+    }
+
+    onMounted(async () => {
+      const paramsId = route?.params?.id
+      if (!paramsId) {
+        return
+      }
+
+      await loadAddresses({
+        filter: [
+          {
+            type: "equals",
+            field: "id",
+            value: paramsId,
+          },
+        ],
+      })
+      address.value = addresses.value.find((addr) => addr.id === paramsId) || {}
+    })
 
     return {
-      loadAddresses,
-      addresses,
-      loadCountry,
-      country,
-      loadSalutation,
-      salutation,
+      address,
+      returnToAddresses,
     }
-  },
-  async mounted() {
-    await this.loadAddresses()
-    const paramsId = this.$route.params && this.$route.params.id
-    if (paramsId) {
-      const address = this.addresses.find((addr) => addr.id === paramsId)
-      await this.loadCountry(address.countryId)
-      await this.loadSalutation(address.salutationId)
-
-      this.address = {
-        ...address,
-        country: this.country && this.country.data,
-        salutation: this.salutation && this.salutation.data,
-      }
-    }
-  },
-  methods: {
-    returnToAddresses() {
-      this.$router.push(this.$routing.getUrl("/account/addresses"))
-    },
   },
 }
 </script>

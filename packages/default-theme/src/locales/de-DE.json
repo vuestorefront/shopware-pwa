@@ -272,5 +272,6 @@
   "You will be redirected in 5 seconds to finish the checkout...":"You will be redirected in 5 seconds to finish the checkout...",
   "Email confirmation":"Email confirmation",
   "Congratulations! You have been successfully registered. Check your email and confirm you account.":"Congratulations! You have been successfully registered. Check your email and confirm you account.",
-  "Congratulations! You have been successfully registered.":"Congratulations! You have been successfully registered."
+  "Congratulations! You have been successfully registered.":"Congratulations! You have been successfully registered.",
+  "You have been successfully logged out.": "You were successfully logged out."
 }
