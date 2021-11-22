@@ -2,7 +2,7 @@
 
 ## Video demo
 
-[![See video demo!](https://divante.com/github/shopware-pwa/shopware-pwa-miniature.png)](https://youtu.be/t2JJgvvxMG8)
+[![See video demo!](../../assets/movie-yt.png)](https://youtu.be/t2JJgvvxMG8)
 
 Shopware PWA is a project created in a cooperation between [Vue Storefront](https://www.vuestorefront.io/) and [shopware AG](https://shopware.com/) in order to deliver a state-of-the-art customisable frontend for Shopware 6.
 

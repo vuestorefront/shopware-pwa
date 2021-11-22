@@ -101,7 +101,19 @@ Let's assume that you want to contribute a shopware-pwa project and you do have 
 
     There are two possible scenarios: contribution & regular project. Depending on what you want, the paths you need go through are a little bit different.
 
-    6.1. Contributor <a id="contributor"></a>
+    6.1. Regular project (the Shopware 6 instance is up and running and you want to connect a PWA through the API)
+
+    - Create a project using CLI
+
+      ```bash
+          npx @shopware-pwa/cli init
+      ```
+
+    - Answer the questions during project initialization and that's it.
+    - There is `shopware-pwa.config.js` file in your root project's folder. You can edit it anytime.
+      > The next (6.) point shows how to get required data from local Shopware 6 instance.
+
+    6.2. Contributor <a id="contributor"></a>
 
     - Fork a repo and clone it locally
       ```bash
@@ -119,9 +131,9 @@ Let's assume that you want to contribute a shopware-pwa project and you do have 
 
       ````js
       module.exports = {
-      shopwareEndpoint: "https://pwa-demo-api.shopware.com/prev/",
-      shopwareAccessToken: "SWSC40-LJTNO6COUEN7CJMXKLA",
-      shopwareDomainsAllowList: ["https://pwa-demo-api.shopware.com/prev/"],
+        shopwareEndpoint: "https://pwa-demo-api.shopware.com/prev/",
+        shopwareAccessToken: "SWSC40-LJTNO6COUEN7CJMXKLA",
+        shopwareDomainsAllowList: ["https://pwa-demo-api.shopware.com/prev/"],
       };
 
           ```
@@ -139,18 +151,6 @@ Let's assume that you want to contribute a shopware-pwa project and you do have 
     :::
 
     > The next (7.) point shows how to get required data from local Shopware 6 instance.
-
-    6.2. Regular project
-
-    - Create a project using CLI
-
-      ```bash
-          npx @shopware-pwa/cli init
-      ```
-
-    - Answer the questions during project initialization and that's it.
-    - There is `shopware-pwa.config.js` file in your root project's folder. You can edit it anytime.
-      > The next (6.) point shows how to get required data from local Shopware 6 instance.
 
 7.  Get an **access token** and other required data of local Shopware 6 instance's sales channel for shopware-pwa config file and not only!
 

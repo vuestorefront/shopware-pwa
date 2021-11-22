@@ -1,4 +1,4 @@
-# Prepare Shopware
+# Prepare Shopware 6 instance (API)
 
 ::: tip
 This whole guide is also available as a [video tutorial](https://www.youtube.com/watch?v=--jUufVubyE) on Youtube.
@@ -42,6 +42,8 @@ bin/console plugin:refresh && bin/console plugin:install --activate SwagShopware
 
 This will install and activate your plugin.
 
+Alternatively, you can download a plugin as a zip package and upload it directly via admin panel (since v6.4.x: Extensions > My extensions > Upload plugin). Then the plugin can be installed & activated at the extensions view.
+
 Now your instance is ready to go.
 
 ## Credentials
@@ -55,5 +57,7 @@ An access token is usually associated with a "Sales Channel". These are defined 
 Once you are logged in, you can find the configured Sales Channels on the left side of your navigation bar.
 
 Select the `Storefront` sales channel or any sales channel that you've configured manually and the scroll down to the `API access` section. Copy the API access key and you're good to continue with your PWA setup.
+
+![API access](../../assets/api-access.png)
 
 [Continue with the PWA setup](/landing/getting-started#usage)
