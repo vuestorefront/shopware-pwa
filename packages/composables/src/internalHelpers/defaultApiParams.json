@@ -285,13 +285,15 @@
         "city",
         "zipcode",
         "country",
+        "countryId",
         "id",
         "phoneNumber",
         "state",
         "salutation",
+        "salutationId",
         "street"
       ],
-      "country": ["name", "id"],
+      "country": ["name", "id", "translated"],
       "salutation": ["salutationKey", "displayName", "translated", "id"]
     }
   },

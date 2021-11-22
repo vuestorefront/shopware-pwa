@@ -17,7 +17,7 @@ export default async ({ app }) => {
 
       const { on } = useIntercept()
       const { pushSuccess, pushWarning, pushError } = useNotifications()
-      const { i18n } = getApplicationContext()
+      const { i18n, router, routing } = getApplicationContext()
 
       on({
         broadcastKey: INTERCEPTOR_KEYS.ADD_TO_CART,
@@ -114,6 +114,22 @@ export default async ({ app }) => {
           pushSuccess(
             i18n.t("Congratulations! You have been successfully registered.")
           )
+        },
+      })
+
+      on({
+        broadcastKey: INTERCEPTOR_KEYS.USER_LOGOUT,
+        name: "react-on-logout",
+        handler: () => {
+          const accountPath = "/account"
+          // TODO: use route from getApplicationContext method after fix from https://github.com/vuestorefront/shopware-pwa/issues/1732 is done
+          const currentRoute = app?.context?.route
+          pushSuccess(i18n.t(`You have been successfully logged out.`))
+
+          // if it's an area of restricted user profile - then redirect to the home page
+          if (currentRoute?.path?.startsWith(routing.getUrl(accountPath))) {
+            router.push(routing.getUrl("/"))
+          }
         },
       })
 
