@@ -75,7 +75,7 @@ $ npx shopware-pwa/cli init --ci --username [user] --password [pass]
 $ npx shopware-pwa/cli plugins --ci --username [user] --password [pass]
 ```
 
-## Context-Awareness <Badge text="new (0.2.0)" type="info"/>
+## Context-Awareness <Badge text="(0.2.0)" type="info"/>
 
 As described above, `universal` applications may share the data between different server requests. It's very important to keep this in mind. To ensure, that data is always assiociated with the correct invocation we introduced `context awareness` forclient logic.
 
@@ -94,9 +94,11 @@ import {
 import { getApplicationContext } from "@shopware-pwa/composables"
 
 // later in component
-setup(params, {root}) {
-  // we can pass component name, to easily track where the context is not passed
-  const { apiInstance } = getApplicationContext(root, "myComponent")
+setup(props, {}) {
+  // we can pass a context name, to easily track where the context is not passed
+  const { apiInstance } = getApplicationContext({
+    contextName: "some-component"
+  })
   const someShippingMethodId = "123"
   const shippingMethod = await getShippingMethodDetails(
       someShippingMethodId,
@@ -109,29 +111,23 @@ You should check all your imports for `@shopware-pwa/shopware-6-client` and add 
 
 ### Composables
 
-::: warning Deprecated section
-From `1.0.0-RC.1` Context awareness in composables is handled automatically. You don't need to add the `root` property to your composable.
-:::
-
 To ensure, that the whole logic is connected, we now require that every composable usage needs to have th `Vue` context as its first parameter. It's effortless and straightforward but ensures that all data is secured.
 
 ```js
 import { useUser } from "@shopware-pwa/composables"
 
 // later in component
-setup(props, { root }) {
-  const { isLoggedIn } = useUser(root) // you're passing root to any composable as a first argument
+setup(props, context) {
+  const { isLoggedIn } = useUser()
 }
 ```
-
-`root` is an equivalent of the component context `this`, so we're passing our Vue instance. In asyncData and Nuxt plugins, we use `app` instead.
 
 ```js
 import { useUser } from "@shopware-pwa/composables"
 
 // later in component
-asyncData: async ({ params, app, }) => {
-  const { isLoggedIn } = useUser(app)
+asyncData: async ({ params }) => {
+  const { isLoggedIn } = useUser()
 })
 ```
 
