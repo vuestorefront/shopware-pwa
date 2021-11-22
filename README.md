@@ -10,7 +10,7 @@ The only Official Progressive Web App for <a href="https://github.com/shopware/p
 
 | Shopware PWA version                                                                                                                          | Shopware 6 version                                                                                                                                                                                                                                                     |
 | :-------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [![shopware-ver](https://img.shields.io/badge/shopware–pwa-0.10.x-green)](https://github.com/vuestorefront/shopware-pwa/releases/tag/v0.10.0) | [![shopware-ver](https://img.shields.io/badge/Shopware-6.4.x-green)](https://github.com/shopware/platform/releases/tag/v6.4) & [![shopware-ver](https://img.shields.io/badge/PWA%20plugin-0.3.x-green)](https://github.com/elkmod/SwagShopwarePwa/releases/tag/v0.3.0) |
+| [![shopware-ver](https://img.shields.io/badge/shopware–pwa-1.0.x-green)](https://github.com/vuestorefront/shopware-pwa/releases/tag/v1.0.1) | [![shopware-ver](https://img.shields.io/badge/Shopware-6.4.x-green)](https://github.com/shopware/platform/releases/tag/v6.4) & [![shopware-ver](https://img.shields.io/badge/PWA%20plugin-0.3.x-green)](https://github.com/elkmod/SwagShopwarePwa/releases/tag/v0.3.0) |
 | [![shopware-ver](https://img.shields.io/badge/shopware–pwa-0.8.2-green)](https://github.com/vuestorefront/shopware-pwa/releases/tag/v0.8.2)   | [![shopware-ver](https://img.shields.io/badge/Shopware-6.3.x-green)](https://github.com/shopware/platform/releases/tag/v6.4) & [![shopware-ver](https://img.shields.io/badge/PWA%20plugin-0.2.1-green)](https://github.com/elkmod/SwagShopwarePwa/releases/tag/v0.2.1) |
 
 &nbsp;
@@ -62,8 +62,8 @@ If you have any questions or ideas feel free to join our discord: https://discor
 Before you start testing it locally, **try it out on CodeSandbox**
 _(including shopware-pwa CLI commands in embedded terminal)_
 
-[![Edit shopware-pwa v0.9.x](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/shopware-pwa-v09x-gp02u?file=/README.md)
-v0.9.x
+[![Edit Shopware PWA v1.0.1](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/sleepy-shannon-rnv8l?file=/README.md)
+v1.0.1
 
 ### Usage
 
