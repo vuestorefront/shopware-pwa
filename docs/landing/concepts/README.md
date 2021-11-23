@@ -20,11 +20,24 @@ Checkout and payment are critical parts within every eCommerce application. Lear
 
 → [Payment Guide](./payment)
 
+## Events Interceptor
+
+Broadcast or/and intercept events across the application between the layers. With interceptors you can react on some system events broadcasted from other parts of the application.
+
+→ [Interceptors Guide](./interceptor)
+
 ## Client API Errors and handling
 
 Shopware-pwa provides an unified error's structure for all errors that may appear during working with Shopware 6 API.
 
 → [API Errors Guide](./api-client-errors)
+
+## Routing
+
+Shopware PWA supports a configuration for specific domains and subdomains within one Shopware PWA instance. The guide explains also how Shopware PWA handles the multilanguage features.
+
+→ [Routing Guide](./routing)
+
 
 ## User Management <Badge text="coming soon"/>
 

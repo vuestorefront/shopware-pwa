@@ -12,6 +12,7 @@
     "skipLibCheck": true,
     "noImplicitAny": false,
     "strictNullChecks": false,
+    "resolveJsonModule": true,
     "baseUrl": ".",
     "paths": {
       "~/*": ["./*"],

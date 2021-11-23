@@ -30,6 +30,12 @@ The plugin is accessible under `$routing` key, within Nuxt context. It provides 
 
 Thanks to this process, the application is aware of the language and currency the customer is using at the moment.
 
+## Default Theme Behavior
+
+See the [Default Theme Implementation](https://github.com/vuestorefront/shopware-pwa/blob/master/packages/default-theme/src/components/SwLanguageSwitcher.vue#L35) beforehand.
+
+Once the domains are set and the `domains.json` file contains a mandatory data, the `useDomains` built-in theme composable provides an interface to fetch all available translations and its corresponding domains (sub-domains, internal paths as well), check the current domain config, and to trigger a domain's change. [See the code](https://github.com/vuestorefront/shopware-pwa/blob/master/packages/default-theme/src/logic/useDomains.js#L102).
+
 ## Configuration
 Sample of configuration for developers
 ### Backend
