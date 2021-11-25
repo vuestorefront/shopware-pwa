@@ -1,4 +1,4 @@
-# Prepare Shopware 6 instance (API)
+# Set up your Shopware 6 instance
 
 ::: tip
 This whole guide is also available as a [video tutorial](https://www.youtube.com/watch?v=--jUufVubyE) on Youtube.
@@ -6,13 +6,22 @@ This whole guide is also available as a [video tutorial](https://www.youtube.com
 Some paths and namings might not be 100% up to date in the video, so be aware of that.
 :::
 
-In order to make Shopware work with shopware-pwa you have to follow a few simple steps.
+In order to **make Shopware work with shopware-pwa** you have to follow a few simple steps.
+
+## Table of contents
+1. Shopware 6 instance (the most recent version, the better)
+2. PWA plugin installed
+    - 2.1. Check [Compatibility Table](#compatibility-table)
+    - 2.2. [Install a plugin](#installation-of-pwa-plugin)
+3. Sales Channel configured
+    - 3.1. [Set up the Sales Channel](#set-up-a-sales-channel)
+    - 3.2. [Get the API access key](#api-credentials)
 
 ## Compatibility Table
 
 We want Shopware PWA to be in sync with the latest endpoints of Shopware, to be able to ship new features to you as soon as they are released within Shopware.
 
-Here you may find a compatibility table for the Shopware API.
+Here you may find a compatibility table for the Shopware API with corresponding PWA plugin.
 | Shopware PWA version                                                                                                                          | Shopware 6 version                                                                                                                                                                                                                                                     |
 | :-------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [![shopware-ver](https://img.shields.io/badge/shopware–pwa-1.0.x-green)](https://github.com/vuestorefront/shopware-pwa/releases/tag/v1.0.1) | [![shopware-ver](https://img.shields.io/badge/Shopware-6.4.x-green)](https://github.com/shopware/platform/releases/tag/v6.4) & [![shopware-ver](https://img.shields.io/badge/PWA%20plugin-0.3.x-green)](https://github.com/elkmod/SwagShopwarePwa/releases/tag/v0.3.0) |
@@ -22,7 +31,7 @@ Here you may find a compatibility table for the Shopware API.
 
 Find more information on updating and versioning within our [Upgrade](/landing/operations/migrations) section
 
-## Installation
+## Installation of PWA plugin
 
 Make sure you've installed a compatible version of Shopware according to the compatibility table above.
 
@@ -46,7 +55,30 @@ Alternatively, you can download a plugin as a zip package and upload it directly
 
 Now your instance is ready to go.
 
-## Credentials
+## Set up a Sales Channel
+
+Sales channel **must** follow few rules to become a PWA ready:
+
+### Must have a **storefront** type
+
+Thanks to this, the Shopware PWA will be a Shopware 6 routing aware (used for dynamic pages).
+
+![storefront sales channel](../assets/storefront-sales-channel.png)
+
+### Must have a main menu entrypoint selected
+
+The main navigation is based on that option.
+
+![entrypoint](../assets/entry-point-selected.png)
+
+### Must have the **domains** section configured properly.
+
+In general, the domain's URL should correspond to the real URL (domain) used for that specific Shopware PWA instance.
+The URL of each domain will be used later on, during project configuration. 
+
+![domains config](../assets/domains-settings.png)
+
+## API Credentials
 
 When running the CLI init function `shopware-pwa init` or editing the `shopware-pwa.config.js` directly, you might be wondering where to get the access token from.
 
@@ -60,4 +92,7 @@ Select the `Storefront` sales channel or any sales channel that you've configure
 
 ![API access](../../assets/api-access.png)
 
-[Continue with the PWA setup](/landing/getting-started#usage)
+
+### Great! You've got everything you need.
+
+[Continue with the PWA setup](/landing/getting-started/create-project)

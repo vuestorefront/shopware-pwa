@@ -244,7 +244,7 @@ That means that before starting a nuxt application, the custom theme should be p
 
    > notice that there is a `Using theme` information above the Nuxt.js output - it points your custom theme now.
 
-## How to install and register a nuxt plugin <a id="no7"></a>
+## 7. How to install and register a nuxt plugin <a id="no7"></a>
 
 The main project's config file is still a `nuxt.config.js`, so there is no problem to use it anyway.
 
@@ -269,7 +269,7 @@ export default extendNuxtConfig({
 
 3. Now the GTM module is enabled and ready to use
 
-## How to add another language <a id="no8"></a>
+## 8. How to add another language <a id="no8"></a>
 
 ::: tip
 Before you start, learn about [routing in Shopware PWA](../concepts/routing.md) itself. As an additional resource [learn the details](../operations/migrations/0.6.x_to_0.7.x.md#domain-route-handling) regarding the mechanism itself.
@@ -306,7 +306,7 @@ How to change the language switcher's label (visible in top navigation bar)?
 
 - go to `.shopware-pwa/sw-plugins/domains.json` and edit a chosen `languageLabel` property.
 
-## Overwrite API defaults <a id="no9"></a>
+## 9. Overwrite API defaults <a id="no9"></a>
 
 You can have full control over API defaults ued by composables.
 

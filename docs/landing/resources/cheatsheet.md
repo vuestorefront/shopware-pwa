@@ -15,7 +15,7 @@ There will be a more streamlined, interactive development setup, but for now we'
 ### Prerequisites
 
 - `shopware/platform` running within either `shopware/development` or `shopware/production`
-- `node@^12` installed
+- `node@^14` installed
 - `yarn` package manager installed
 
 ### Installation steps
@@ -61,4 +61,4 @@ module.exports = {
 
 If you'd like to develop Shopware PWA, then run inside your created project `shopware-pwa dev` instead of `yarn dev`. It will watch files and components in `shopware-pwa/packages/default-theme` and instantly copy changes to your project.
 
-### Common errors
+

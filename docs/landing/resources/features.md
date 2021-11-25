@@ -38,7 +38,7 @@
 
 ### Navigation
 
- * Menu
+ * Menu (main, footer)
  * User Account Icon
  * Search Bar
 
@@ -53,6 +53,7 @@
  	* Listing pages
  	* Shop pages
  	* Landing pages
+	* Product details page
  * Sections
  	* Default and sidebar
  * Blocks
@@ -69,6 +70,8 @@
  	* Name
  	* Title
  	* Salutation
+ * Password management
+ * Newsletter sign-up
  * Address management
  	* Create new 
  	* Set default for shipping & billing
@@ -112,9 +115,12 @@
 
 ### Theme system
 
+ * Theme inheritance
+
 ## Integrations
 
 ### Payment
+ * Any async payment method provided by Shopware 6 API
 
 #### PayPal Checkout
 

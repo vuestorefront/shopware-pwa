@@ -1,4 +1,4 @@
-# Getting started
+# Get started
 
 This guide will help you get started with shopware-pwa.
 
