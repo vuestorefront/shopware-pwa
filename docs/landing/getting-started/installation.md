@@ -17,7 +17,7 @@ See how it's working without any installation on CodeSandbox.
 - IDE - [VS Code](https://code.visualstudio.com/) recommended (then you can install extensions for Vue and Nuxt)
 
 
-## Set up the Shopware 6 instance
+## Set up the Shopware 6 instance first!
 
 Before you start the installation of PWA, make sure that your Shopware 6 instance is ready
 

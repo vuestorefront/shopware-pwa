@@ -27,9 +27,13 @@ module.exports = {
             },
           ],
         },
-        // "/landing/getting-started/local-environment",
-        // "/landing/getting-started/env-variables",
-        // "/landing/project/contribution",
+        {
+          title: "Configuration",
+          path: "/landing/getting-started/configuration",
+          collapsable: true,
+        },
+        "/landing/getting-started/local-environment",
+        "/landing/project/contribution",
       ],
     },
     {

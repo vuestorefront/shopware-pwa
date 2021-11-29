@@ -8,6 +8,11 @@ This guide will help you get started with shopware-pwa.
 
 Set up shopware-pwa in less than 10 minutes.
 
+::: tip
+If it's not enough, or you are not familiar with Shopware 6 or Nuxt based projects, please visit a dedicated [Installation guide](./installation.md) which lead you from backend to the frontend aspects of the installation.
+:::
+
+
 ### Create project
 
 Create a directory for your project and enter it

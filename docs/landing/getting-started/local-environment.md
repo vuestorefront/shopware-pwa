@@ -1,5 +1,7 @@
 # Local environment
 
+This section explains how to set up a local environment for development purposes.
+
 ## Default setup
 
 Normally, we provide a default setup for contributors. It means that you don't need anything to install and setup except the shopware-pwa application installed locally.
@@ -129,18 +131,19 @@ Let's assume that you want to contribute a shopware-pwa project and you do have 
       ```
     - After that, go to `test-project` subfolder and **edit** `shopware-pwa.config.js` file which may look like by default:
 
-      ````js
+      ```js
       module.exports = {
-        shopwareEndpoint: "https://pwa-demo-api.shopware.com/prev/",
+        shopwareEndpoint: "http://localhost:8000",
         shopwareAccessToken: "SWSC40-LJTNO6COUEN7CJMXKLA",
-        shopwareDomainsAllowList: ["https://pwa-demo-api.shopware.com/prev/"],
+        shopwareDomainsAllowList: ["http://localhost:3000"],
       };
 
-          ```
+      ```
 
-      :::warning There are some useful commands to make development work easy:
-      yarn dev:<package name\*>
-      ````
+    :::warning There are some useful commands to make development work easy:
+    ```
+    yarn dev:<package name\*>
+    ```
 
     for example: `yarn dev composables`
 
