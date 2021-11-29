@@ -3,7 +3,7 @@
 ### Table of contents
 1. [Installation](#installation)
 2. Post install [configuration](#configuration)
-3. [Continuous integration mode](#continuous-integration-mode-ci) (--ci)
+3. [Continuous integration mode](#continuous-integration-mode) (--ci)
 
 
 ## Initialization of a project
