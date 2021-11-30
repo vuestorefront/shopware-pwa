@@ -29,4 +29,4 @@ export const formatDate = (date, format = `DD-MM-YYYY HH:mm:ss`) =>
   dayjs(date).format(format)
 
 export const getSearchPageUrl = (searchTerm) =>
-  `${PAGE_SEARCH}?query=${searchTerm}`
+  `${PAGE_SEARCH}?query=${encodeURIComponent(searchTerm)}`
