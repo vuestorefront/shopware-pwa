@@ -129,45 +129,61 @@ export default async ({ app, route, req }, inject) => {
 
       /**
        * If the origin gets changed, this is always a initial request to the server.
-       * The currentDomain then is already set correctly by the plugin (see line 103).
+       * The currentDomain then is already set correctly by the plugin (see line 117).
        *
        * If the prefixPath gets changed, the corresponding domain-config can be detected from the route.
        * The detected domain config from the new route has to be compared with the current one, if they don't match, the
        * current domain config has to be changed to the config detected from the route
        *
-       * Only routes with prefixPath have to have the domainConfig added in the meta-object
        * Edgecase that is currently not supported: domains with the same prefixPath on different origins, because during route-building,
        * only the domainConfig from the last origin gets added to the meta-object
        */
 
+      const hasPrefixPath = (domainConfig) => {
+        return domainConfig.pathPrefix !== "/";
+      };
+
       // a route can have multiple metadata objects inside - find the one with domainId - it comes from compiled routes (domains nuxt-module)
       let domainConfig =
         Array.isArray(route.meta) && route.meta.find((data) => !!data.domainId);
-      if (!domainConfig) {
-        // If domainConfig is not set, this means that the route has no prefixPath and has to be loaded seperately
+
+      /* For pages that don't have a prefix path, the domainConfig has to be determined separately,
+       * because every nuxt route has the same path (e.g. TLD.de/search and TLD.com/search)
+       * The nuxt-router always picks the first route that matches the new path, so for these pages the
+       * domainConfig attached to the route doesn't have to be the right one.
+       */
+      if (!hasPrefixPath(domainConfig)) {
         if (process.client) {
           // During client-side navigation the domain config can be manually loaded through the location origin.
           const currentOrigin = location.origin;
           domainConfig = app.routing.availableDomains.find(
-            (data) => data.origin === currentOrigin && data.pathPrefix === "/"
+            (domain) =>
+              domain.origin === currentOrigin && !hasPrefixPath(domain)
           );
         } else {
-          // Server-side, the currentDomain then is already set correctly by the plugin (see line 103).
+          // Server-side, the currentDomain then is already set correctly by the plugin (see line 117).
           domainConfig = app.routing.getCurrentDomain.value;
         }
       }
 
+      /*
+       * The following block is important for this case: switch from a domainConfig without prefixPath to a domainConfig
+       * with prefixPath, e.g. TLD.com/search to TLD.com/de/search
+       */
       let fromDomainConfig = from?.meta.find(
         (metaEntry) => !!metaEntry.domainId
       );
-      if (!fromDomainConfig) {
-        // If fromDomainConfig is not set, this means that the from-route had no prefixPath and has to be loaded seperately
+      /* Same cause as in the above block:
+       * the fromDomainConfig has to be determined separately for routes with a domainConfig without prefixPath
+       */
+      if (!hasPrefixPath(fromDomainConfig)) {
         if (process.client) {
           // During client-side navigation the domain config can be manually loaded through the location origin,
           // because the origin is still the same
           const currentOrigin = location.origin;
           fromDomainConfig = app.routing.availableDomains.find(
-            (data) => data.origin === currentOrigin && data.pathPrefix === "/"
+            (domain) =>
+              domain.origin === currentOrigin && !hasPrefixPath(domain)
           );
         }
         // Note: There is no need to determine the fromDomainConfig on the server side request, so there is no else-case here
