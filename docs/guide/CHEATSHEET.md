@@ -37,7 +37,7 @@ Note: You can skip this section if you just want to try the PWA. It will be prec
 
 #### PWA setup
 
-1.  Clone the [showpare-pwa](https://github.com/DivanteLtd/shopware-pwa) project into a directory of your choice.
+1.  Clone the [shopware-pwa](https://github.com/DivanteLtd/shopware-pwa) project into a directory of your choice.
 2.  Run `yarn` in the root and then `yarn build --types`.
 3.  Go anywhere outside the project
 4.  Create your own project directory `mkdir my-project` and go inside `cd my-project`

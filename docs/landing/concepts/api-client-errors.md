@@ -140,9 +140,13 @@ export default ({ app }) => {
   });
   const logger = getLogger(); // get the logstash client instance
 
-  const { intercept } = useIntercept();
-  intercept(INTERCEPTOR_KEYS.ERROR, (payload, rootContext) => {
-    logger.error(payload); // send the error to the logstash server
+  const { on } = useIntercept();
+  on({
+    broadcastKey: INTERCEPTOR_KEYS.ERROR,
+    name: "logstash-logger",
+    handler: (payload, rootContext) => {
+      logger.error(payload); // send the error to the logstash server
+    },
   });
 };
 ```

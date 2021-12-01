@@ -18,33 +18,36 @@
         :product="product"
         hidden-remove-button
         v-model="product.qty"
+        :additionalItemsData="additionalItemsData"
       />
     </div>
     <TotalsSummary />
     <SwPromoCode class="promo-code" />
     <SwTermsAgreementCheckbox />
     <div class="actions">
-      <SwButton
-        class="actions__button color-secondary sw-form__button"
-        data-cy="go-back-to-payment"
-        @click="goToShop"
-      >
-        {{ $t("Go Back to shop") }}
-      </SwButton>
-      <SwButton
-        :disabled="loadings.createOrder"
-        class="actions__button sw-form__button"
-        data-cy="place-my-order"
-        @click="$emit('create-order')"
-      >
-        {{ $t("Place my order") }}
-      </SwButton>
+      <SwPluginSlot name="order-summary-actions">
+        <SwButton
+          class="actions__button color-secondary sw-form__button"
+          data-cy="go-back-to-payment"
+          @click="goToShop"
+        >
+          {{ $t("Go Back to shop") }}
+        </SwButton>
+        <SwButton
+          :disabled="loadings.createOrder"
+          class="actions__button sw-form__button"
+          data-cy="place-my-order"
+          @click="$emit('create-order')"
+        >
+          {{ $t("Place my order") }}
+        </SwButton>
+      </SwPluginSlot>
     </div>
   </div>
 </template>
 <script>
 import { SfHeading, SfCircleIcon, SfProperty } from "@storefront-ui/vue"
-import { computed } from "@vue/composition-api"
+import { computed, onMounted, ref } from "@vue/composition-api"
 import { useCart, useCheckout } from "@shopware-pwa/composables"
 import SwInput from "@/components/atoms/SwInput.vue"
 import SwButton from "@/components/atoms/SwButton.vue"
@@ -52,6 +55,7 @@ import TotalsSummary from "@/components/checkout/summary/TotalsSummary.vue"
 import SwCartProduct from "@/components/SwCartProduct.vue"
 import SwPromoCode from "@/components/SwPromoCode.vue"
 import SwTermsAgreementCheckbox from "@/components/checkout/summary/SwTermsAgreementCheckbox.vue"
+import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
 
 export default {
   name: "SidebarOrderReview",
@@ -65,6 +69,7 @@ export default {
     SwCartProduct,
     SfProperty,
     SwTermsAgreementCheckbox,
+    SwPluginSlot,
   },
   data() {
     return {
@@ -73,16 +78,33 @@ export default {
   },
   setup(props, { root }) {
     const { createOrder, loadings } = useCheckout()
-    const { count, cartItems } = useCart()
-
-    const { appliedPromotionCodes, addPromotionCode, removeItem } = useCart()
-
+    const {
+      count,
+      cartItems,
+      getProductItemsSeoUrlsData,
+      appliedPromotionCodes,
+      addPromotionCode,
+      removeItem,
+    } = useCart()
+    const additionalItemsData = ref([])
     const showPromotionCodes = computed(
       () => appliedPromotionCodes.value?.length > 0
     )
     function goToShop() {
       root.$router.push(root.$routing.getUrl("/"))
     }
+
+    const loadAdditionalData = async () => {
+      if (!count.value) {
+        return
+      }
+
+      additionalItemsData.value = await getProductItemsSeoUrlsData()
+    }
+
+    onMounted(async () => {
+      await loadAdditionalData()
+    })
 
     return {
       addPromotionCode,
@@ -94,6 +116,7 @@ export default {
       goToShop,
       cartItems,
       count,
+      additionalItemsData,
     }
   },
 }

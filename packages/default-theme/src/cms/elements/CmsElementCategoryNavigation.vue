@@ -64,7 +64,7 @@
 import { SfList, SfMenuItem, SfHeading, SfChevron } from "@storefront-ui/vue"
 import { getStoreNavigation } from "@shopware-pwa/shopware-6-client"
 import { useCms, getApplicationContext } from "@shopware-pwa/composables"
-import { ref, computed, onMounted } from "@vue/composition-api"
+import { ref, computed, onMounted, inject } from "@vue/composition-api"
 import SwButton from "@/components/atoms/SwButton.vue"
 import SwAccordion from "@/components/organisms/SwAccordion.vue"
 import { getCategoryUrl, getTranslatedProperty } from "@shopware-pwa/helpers"
@@ -89,7 +89,10 @@ export default {
     const { apiInstance } = getApplicationContext({
       contextName: "CmsElementCategoryNavigation",
     })
-    const { resourceIdentifier } = useCms()
+    const { page } = useCms() // fallback for provide/inject, remove in future
+    const cmsPage = inject("cms-page", page)
+    const resourceIdentifier = computed(() => cmsPage.value?.resourceIdentifier)
+
     const navTitle = ref(root.$t("Subcategories"))
     const navigationElements = ref([])
     const navigation = computed(() => navigationElements.value)

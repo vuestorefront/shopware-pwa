@@ -4,15 +4,12 @@
 
 ## register() function
 
-> This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
-> 
-
 Register a customer
 
 <b>Signature:</b>
 
 ```typescript
-export declare function register(params: CustomerRegistrationParams, contextInstance?: ShopwareApiInstance): Promise<CustomerRegisterResponse>;
+export declare function register(params: CustomerRegistrationParams, contextInstance?: ShopwareApiInstance): Promise<Customer>;
 ```
 
 ## Parameters
@@ -24,7 +21,7 @@ export declare function register(params: CustomerRegistrationParams, contextInst
 
 <b>Returns:</b>
 
-Promise&lt;[CustomerRegisterResponse](./shopware-6-client.customerregisterresponse.md)<!-- -->&gt;
+Promise&lt;Customer&gt;
 
 ## Exceptions
 

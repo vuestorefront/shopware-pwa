@@ -18,6 +18,7 @@ describe("Composables - useSharedState", () => {
     rootContextMock.sharedStore = reactive({});
     rootContextMock.isServer = false;
     serverPrefetchMethods = [];
+    rootContextMock.devtools = null;
 
     mockedCompositionAPI.getCurrentInstance.mockImplementation(
       () => rootContextMock
@@ -176,10 +177,9 @@ describe("Composables - useSharedState", () => {
 
       it("should not modify value from rootContext in CSR", () => {
         const { sharedRef } = useSharedState();
-        const result = sharedRef("test-modify-key");
+        const result = sharedRef<string>("test-modify-key");
         expect(result.value).toBeNull();
         result.value = "my local change";
-        expect(result.value).toEqual("my local change");
         expect(rootContextMock.sharedStore["test-modify-key"]).toBeUndefined();
       });
 
@@ -192,6 +192,22 @@ describe("Composables - useSharedState", () => {
         expect(
           rootContextMock.sharedStore["test-preserve-key"]
         ).toBeUndefined();
+      });
+
+      it("should broadcast message to devtools about the state change", () => {
+        rootContextMock.devtools = {
+          _internal: {
+            updateSharedState: jest.fn(),
+          },
+        };
+
+        const { sharedRef } = useSharedState();
+        const result = sharedRef("test-devtools-broadcast");
+        result.value = "changed value";
+        result.value = "another changed value";
+        expect(
+          rootContextMock.devtools._internal.updateSharedState
+        ).toBeCalledTimes(2);
       });
     });
 

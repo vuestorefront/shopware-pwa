@@ -4,9 +4,6 @@
 
 ## ClientSettings interface
 
-> This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
-> 
-
 
 <b>Signature:</b>
 
@@ -18,10 +15,10 @@ export interface ClientSettings
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [accessToken?](./shopware-6-client.clientsettings.accesstoken.md) | string | <b><i>(BETA)</i></b> <i>(Optional)</i> id specific for each sales channel |
-|  [contextToken?](./shopware-6-client.clientsettings.contexttoken.md) | string | <b><i>(BETA)</i></b> <i>(Optional)</i> session id (dynamic) |
-|  [defaultPaginationLimit?](./shopware-6-client.clientsettings.defaultpaginationlimit.md) | number | <b><i>(BETA)</i></b> <i>(Optional)</i> default amount of products shown on listings |
-|  [endpoint?](./shopware-6-client.clientsettings.endpoint.md) | string | <b><i>(BETA)</i></b> <i>(Optional)</i> shopware URL |
-|  [languageId?](./shopware-6-client.clientsettings.languageid.md) | string | <b><i>(BETA)</i></b> <i>(Optional)</i> id of current language |
-|  [timeout?](./shopware-6-client.clientsettings.timeout.md) | number | <b><i>(BETA)</i></b> <i>(Optional)</i> timeout limit (ms) |
+|  [accessToken?](./shopware-6-client.clientsettings.accesstoken.md) | string | <i>(Optional)</i> id specific for each sales channel |
+|  [contextToken?](./shopware-6-client.clientsettings.contexttoken.md) | string | <i>(Optional)</i> session id (dynamic) |
+|  [defaultPaginationLimit?](./shopware-6-client.clientsettings.defaultpaginationlimit.md) | number | <i>(Optional)</i> default amount of products shown on listings |
+|  [endpoint?](./shopware-6-client.clientsettings.endpoint.md) | string | <i>(Optional)</i> shopware URL |
+|  [languageId?](./shopware-6-client.clientsettings.languageid.md) | string | <i>(Optional)</i> id of current language |
+|  [timeout?](./shopware-6-client.clientsettings.timeout.md) | number | <i>(Optional)</i> timeout limit (ms) |
 

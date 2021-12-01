@@ -1,11 +1,5 @@
 $tablet: 768px;
 
-// Global variables for theme
-#__nuxt {
-  --boxed-mode-max-width: 1366px;
-  --bottom-navigation-height: 3.35rem;
-}
-
 @mixin for-tablet {
   @media screen and (min-width: $tablet) {
     @content;

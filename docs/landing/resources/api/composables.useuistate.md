@@ -45,7 +45,6 @@ switchState()
 // Component 2
 const {isOpen} = useUIState({stateName: 'SIDEBAR_STATE'})
 // isOpen will be true
-
 ```
 If you'll not use KEY on composable init, then state is only local
 
@@ -57,6 +56,5 @@ switchState()
 // Component 2
 const {isOpen} = useUIState()
 // isOpen will be false
-
 ```
 

@@ -3,9 +3,9 @@ import {
   onServerPrefetch,
   getCurrentInstance,
   Ref,
-  ref,
   toRef,
   WritableComputedRef,
+  ref,
 } from "vue-demi";
 import { getApplicationContext } from "@shopware-pwa/composables";
 
@@ -23,7 +23,9 @@ export function useSharedState() {
   const COMPOSABLE_NAME = "useSharedState";
   const contextName = COMPOSABLE_NAME;
 
-  const { sharedStore, isServer } = getApplicationContext({ contextName });
+  const { sharedStore, isServer, devtools } = getApplicationContext({
+    contextName,
+  });
 
   if (!sharedStore)
     throw new Error(
@@ -45,24 +47,17 @@ export function useSharedState() {
     if (!isServer && !localSharedState[uniqueKey]) {
       localSharedState[uniqueKey] = ref(sharedStore[uniqueKey]);
     }
-
     const sharedRef: Ref<T | null> = isServer
       ? toRef(sharedStore, uniqueKey)
       : localSharedState[uniqueKey];
 
-    if (
-      (sharedRef.value === null || typeof sharedRef.value === "undefined") &&
-      defaultValue
-    ) {
-      sharedRef.value = defaultValue;
-    }
+    sharedRef.value ??= defaultValue ?? null;
 
     return computed({
-      get: () => {
-        return sharedRef.value ?? null;
-      },
+      get: () => sharedRef.value,
       set: (val) => {
         sharedRef.value = val;
+        devtools?._internal.updateSharedState(localSharedState);
       },
     });
   }

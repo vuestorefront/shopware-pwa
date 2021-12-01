@@ -4,17 +4,23 @@
 
 ## useIntercept() function
 
-> This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
-> 
-
 Allows to broadcast and intercept events across application.
 
 <b>Signature:</b>
 
 ```typescript
-export declare function useIntercept(): IUseIntercept;
+export declare function useIntercept(): {
+    broadcast: (broadcastKey: string, value?: any) => void;
+    intercept: (broadcastKey: string, handler: IInterceptorCallbackFunction) => void;
+    disconnect: (broadcastKey: string, interceptor: string | IInterceptorCallbackFunction) => void;
+    on: (params: {
+        broadcastKey: string;
+        name: string;
+        handler: IInterceptorCallbackFunction;
+    }) => void;
+};
 ```
 <b>Returns:</b>
 
-[IUseIntercept](./composables.iuseintercept.md)
+{ broadcast: (broadcastKey: string, value?: any) =&gt; void; intercept: (broadcastKey: string, handler: [IInterceptorCallbackFunction](./composables.iinterceptorcallbackfunction.md)<!-- -->) =&gt; void; disconnect: (broadcastKey: string, interceptor: string \| [IInterceptorCallbackFunction](./composables.iinterceptorcallbackfunction.md)<!-- -->) =&gt; void; on: (params: { broadcastKey: string; name: string; handler: [IInterceptorCallbackFunction](./composables.iinterceptorcallbackfunction.md)<!-- -->; }) =&gt; void; }
 

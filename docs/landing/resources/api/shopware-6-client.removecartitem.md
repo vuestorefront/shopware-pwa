@@ -4,9 +4,6 @@
 
 ## removeCartItem() function
 
-> This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
-> 
-
 Deletes the cart line item by id.
 
 This method may be used for deleting "product" type item lines as well as "promotion" type item lines.

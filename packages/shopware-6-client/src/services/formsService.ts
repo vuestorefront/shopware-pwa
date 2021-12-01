@@ -6,7 +6,7 @@ import {
 import { defaultInstance, ShopwareApiInstance } from "../apiService";
 
 /**
- * @beta
+ * @public
  */
 export interface ContactFormData {
   salutationId: string;
@@ -20,7 +20,7 @@ export interface ContactFormData {
 }
 
 /**
- * @beta
+ * @public
  */
 export async function sendContactForm(
   params: ContactFormData,
@@ -30,7 +30,7 @@ export async function sendContactForm(
 }
 
 /**
- * @beta
+ * @public
  */
 export interface NewsletterSubscribeData {
   email: string;
@@ -44,7 +44,7 @@ export interface NewsletterSubscribeData {
   storefrontUrl: string;
 }
 /**
- * @beta
+ * @public
  */
 export async function newsletterSubscribe(
   params: NewsletterSubscribeData,
@@ -57,7 +57,7 @@ export async function newsletterSubscribe(
 }
 
 /**
- * @beta
+ * @public
  */
 export async function newsletterUnsubscribe(
   {

@@ -29,7 +29,7 @@
       </div>
       <div class="inputs-group">
         <SfComponentSelect
-          v-model="address.salutation.value"
+          v-model="address.salutation"
           :label="$t('Salutation')"
           :error-message="$t('Salutation must be selected')"
           required
@@ -98,7 +98,7 @@
         />
 
         <SfComponentSelect
-          v-model="address.country.value"
+          v-model="address.country"
           :label="$t('Country')"
           :error-message="$t('Country must be selected')"
           :valid="!$v.address.country.$error"
@@ -210,12 +210,12 @@ export default {
     // compute selected id
     const selectedCountryId = computed(
       () =>
-        (props.address.country.value && props.address.country.value.id) ||
+        (props.address.country && props.address.country.id) ||
         props.address.countryId
     )
     const selectedSalutationId = computed(
       () =>
-        (props.address.salutation.value && props.address.salutation.value.id) ||
+        (props.address.salutation && props.address.salutation.id) ||
         props.address.salutationId
     )
     // check whether state is required
@@ -225,7 +225,7 @@ export default {
 
     // address model ready to be sent to API
     const getAddressModel = computed(() => ({
-      id: props.address._uniqueIdentifier,
+      id: props.address.id,
       firstName: props.address.firstName,
       lastName: props.address.lastName,
       zipcode: props.address.zipcode,
@@ -244,7 +244,6 @@ export default {
 
     return {
       addAddress,
-      userError,
       countriesError,
       getMappedCountries,
       getMappedSalutations,
@@ -266,7 +265,7 @@ export default {
         return
       }
       const addressId = await this.saveAddress()
-      if (this.userError) {
+      if (this.formErrors?.length) {
         return this.pushError(
           this.$t("Your address couldn't be updated due to some errors")
         )

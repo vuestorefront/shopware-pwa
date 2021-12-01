@@ -8,6 +8,12 @@ Shopware PWA comes with a command line interace `shopware-pwa` with useful funct
 
 → [CLI](./cli)
 
+## Devtools <Badge text="new" type="info"/>
+
+See how do we want to support development process and your understanding of what's going on when the application is running.
+
+→ [Devtools](./devtools)
+
 ## Security
 
 It is critical to understand which authentication mechanisms are utilized to make sure that your application is safe. Read this to see how Shopware PWA handles this regarding the usage of APIs.

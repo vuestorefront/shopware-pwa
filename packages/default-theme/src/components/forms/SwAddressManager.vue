@@ -42,14 +42,14 @@
       <div v-if="isEditModeOpen" class="address-manager__list">
         <div
           v-for="address in addresses"
-          :key="address._uniqueIdentifier"
+          :key="address.id"
           class="address-manager__list-item"
         >
           <SfAddressPicker
             :selected="activeAddress.id"
             @change="onAddressChange"
           >
-            <SfAddress :name="address._uniqueIdentifier">
+            <SfAddress :name="address.id">
               <span>{{ address.firstName }} {{ address.lastName }}</span>
               <p>{{ address.street }}</p>
               <span>{{ address.zipcode }} {{ address.city }}</span>

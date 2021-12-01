@@ -20,6 +20,8 @@ const defaultConfig: NuxtConfig = {
     CHOKIDAR_USEPOLLING: process.env.NODE_ENV == "production" ? "0" : "1",
     EXPERIMENTAL_IMAGE_PROCESSING_SERVER:
       process.env.EXPERIMENTAL_IMAGE_PROCESSING_SERVER || "",
+    NODE_ENV: process.env.NODE_ENV || "",
+    ENABLE_DEVTOOLS: process.env.ENABLE_DEVTOOLS || "",
   },
   server: {
     port: process.env.PORT || 3000,

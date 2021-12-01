@@ -8,9 +8,10 @@ import {
 const FALLBACK_DOMAIN = "<%= options.fallbackDomain %>" || "/";
 const FALLBACK_LOCALE = "<%= options.fallbackLocale %>";
 const SHOPWARE_DOMAINS_ALLOW_LIST = "<%= options.shopwareDomainsAllowList %>";
+const domainsAllowListArray = SHOPWARE_DOMAINS_ALLOW_LIST?.split(",") || [];
 const domains = require("sw-plugins/domains");
 const domainsList = Object.values(domains).filter(
-  ({ url }) => SHOPWARE_DOMAINS_ALLOW_LIST?.includes(url) // TODO: possibly problematic with prefix paths
+  ({ url }) => domainsAllowListArray.includes(url) // TODO: possibly problematic with prefix paths
 );
 
 // register domains based routing and configuration
@@ -109,7 +110,7 @@ export default async ({ app, route, req }, inject) => {
       },
       // get absolute url for current domain
       getAbsoluteUrl: (path) => {
-        return `${currentDomainData.value.url}${path}`;
+        return `${currentDomainData.value?.url || ""}${path}`;
       },
     };
 
@@ -173,22 +174,31 @@ export default async ({ app, route, req }, inject) => {
         // This is because on the initial request the following has to run nevertheless
       }
 
+      if (!domainConfig) {
+        return;
+      }
+
       if (
-        process.server ||
-        (fromDomainConfig &&
-          domainConfig.domainId !== fromDomainConfig.domainId)
+        domainConfig &&
+        domainConfig.domainId !== fromDomainConfig?.domainId
       ) {
         /*
          This only runs:
           - on initial request on the server (also change of origin)
           - on change of prefixPath
          */
-        if (!domainConfig) {
-          return;
-        }
+
         const { languageId, languageLocaleCode, currencyId } = domainConfig;
         app.routing.setCurrentDomain(domainConfig);
-        languageId && app.$shopwareApiInstance.update({ languageId });
+        // to work on the old structure
+        languageId &&
+          app.$shopwareApiInstance &&
+          app.$shopwareApiInstance.update({
+            languageId,
+          });
+        languageId &&
+          app.$shopware &&
+          app.$shopware.apiInstance.update({ languageId });
         app.i18n.locale = languageLocaleCode;
         const currencyPromise = setCurrency({ id: currencyId });
         Promise.all([currencyPromise]).catch((e) => {

@@ -31,7 +31,7 @@ import { useUser, useUIState, useDefaults } from "@shopware-pwa/composables"
 import SwGoBackArrow from "@/components/atoms/SwGoBackArrow.vue"
 import SwProductAdvertisement from "@/components/SwProductAdvertisement.vue"
 import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
-import { computed, onMounted, ref } from "@vue/composition-api"
+import { computed, provide } from "@vue/composition-api"
 const SwProductGallery = () => import("@/components/SwProductGallery.vue")
 const SwProductDetails = () => import("@/components/SwProductDetails.vue")
 const SwProductCrossSells = () =>

@@ -12,7 +12,7 @@
 |  [getCmsLayoutConfiguration(content)](./helpers.getcmslayoutconfiguration.md) | <b><i>(BETA)</i></b> |
 |  [getCmsLink(content)](./helpers.getcmslink.md) | Gets the link of a cms slot |
 |  [getCmsLinkTarget(content)](./helpers.getcmslinktarget.md) | Return the target attribute for the cms link |
-|  [getCmsTechnicalPath(page)](./helpers.getcmstechnicalpath.md) | <b><i>(BETA)</i></b> |
+|  [getCmsTechnicalPath(page)](./helpers.getcmstechnicalpath.md) |  |
 |  [getListingFilters(aggregations)](./helpers.getlistingfilters.md) | <b><i>(BETA)</i></b> |
 |  [getProductCalculatedListingPrice(product)](./helpers.getproductcalculatedlistingprice.md) | <b><i>(BETA)</i></b> Get the calculated list price |
 |  [getProductCalculatedPrice(product)](./helpers.getproductcalculatedprice.md) | <b><i>(BETA)</i></b> Get the calculated list price |

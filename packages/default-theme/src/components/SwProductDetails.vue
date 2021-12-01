@@ -8,19 +8,24 @@
       class="product-details__section"
     >
       <div v-for="config in getOptionGroups" :key="config.id">
-        <SwProductSelect
-          v-if="getSelectedOptions[getTranslatedProperty(config, 'name')]"
-          :value="getSelectedOptions[getTranslatedProperty(config, 'name')]"
-          :options="getProductOptions({ product: config })"
-          :label="getTranslatedProperty(config, 'name')"
-          @change="
-            handleChange(
-              getTranslatedProperty(config, 'name'),
-              $event,
-              onOptionChanged($event)
-            )
-          "
-        />
+        <SwPluginSlot
+          name="product-details-option-select"
+          :slot-context="{ config, product }"
+        >
+          <SwProductSelect
+            v-if="getSelectedOptions[getTranslatedProperty(config, 'name')]"
+            :value="getSelectedOptions[getTranslatedProperty(config, 'name')]"
+            :options="getProductOptions({ product: config })"
+            :label="getTranslatedProperty(config, 'name')"
+            @change="
+              handleChange(
+                getTranslatedProperty(config, 'name'),
+                $event,
+                onOptionChanged($event)
+              )
+            "
+          />
+        </SwPluginSlot>
       </div>
     </div>
     <div class="product-details__section">
@@ -70,7 +75,7 @@ import {
   useNotifications,
 } from "@shopware-pwa/composables"
 import { getProductUrl, getTranslatedProperty } from "@shopware-pwa/helpers"
-import { computed, onMounted, watch, toRefs } from "@vue/composition-api"
+import { computed, watch, toRefs } from "@vue/composition-api"
 import SwButton from "@/components/atoms/SwButton.vue"
 import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
 
@@ -117,14 +122,16 @@ export default {
         // look for variant with the selected options and perform a redirect to the found product's URL
         const variantFound = await findVariantForSelectedOptions(options)
         if (variantFound) {
-          root.$router.push(getProductUrl(variantFound))
+          root.$router.push(root.$routing.getUrl(getProductUrl(variantFound)))
         } else {
           // if no product was found - reset other options and try to find a first matching product
           const simpleOptionVariant = await findVariantForSelectedOptions({
             option: optionId,
           })
           if (simpleOptionVariant) {
-            root.$router.push(getProductUrl(simpleOptionVariant))
+            root.$router.push(
+              root.$routing.getUrl(getProductUrl(simpleOptionVariant))
+            )
           } else {
             pushInfo(
               root.$t("There is no available product for selected options")

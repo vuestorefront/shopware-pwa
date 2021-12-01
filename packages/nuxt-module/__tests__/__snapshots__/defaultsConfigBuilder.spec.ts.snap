@@ -12,5 +12,6 @@ Array [
   "useCustomerOrders",
   "useCustomerAddresses",
   "useUser",
+  "useCart",
 ]
 `;

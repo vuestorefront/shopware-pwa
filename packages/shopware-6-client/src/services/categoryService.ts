@@ -6,7 +6,7 @@ import { defaultInstance, ShopwareApiInstance } from "../apiService";
 
 /**
  * @throws ClientApiError
- * @beta
+ * @public
  */
 export async function getCategories(
   searchCriteria?: ShopwareSearchParams,
@@ -22,7 +22,7 @@ export async function getCategories(
 
 /**
  * @throws ClientApiError
- * @beta
+ * @public
  */
 export async function getCategory(
   categoryId: string,

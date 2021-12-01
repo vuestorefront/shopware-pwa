@@ -11,6 +11,7 @@ Vue's composables to be used in Shopware frontend application.
 |  Function | Description |
 |  --- | --- |
 |  [createListingComposable({ searchMethod, searchDefaults, listingKey, })](./composables.createlistingcomposable.md) | Factory to create your own listing. By default you can use useListing composable, which provides you predefined listings for category(cms) listing and product search listing. Using factory you can provide our own compatible search method and use it for example for creating listing of orders in my account. |
+|  [createShopware(app, options)](./composables.createshopware.md) | <b><i>(BETA)</i></b> Create ShopwarePlugin vue instance. Shpware PWA composables rely on this config. |
 |  [getApplicationContext(params)](./composables.getapplicationcontext.md) | <b><i>(BETA)</i></b> Get the current application context values. The context is either a scope or a component instance. This method checks if the context contains all the necessary data.<!-- -->This method will likely change in future in order to provide full Vue3 compability. |
 |  [getDefaultApiParams()](./composables.getdefaultapiparams.md) | <b><i>(BETA)</i></b> Returns default system API params |
 |  [useAddToCart(params)](./composables.useaddtocart.md) | <b><i>(BETA)</i></b> Add product to cart. Options - [IUseAddToCart](./composables.iuseaddtocart.md) |
@@ -25,7 +26,7 @@ Vue's composables to be used in Shopware frontend application.
 |  [useCustomerOrders()](./composables.usecustomerorders.md) | <b><i>(BETA)</i></b> Composable for listing customer orders. Options - [IUseCustomerOrders](./composables.iusecustomerorders.md) |
 |  [useCustomerPassword()](./composables.usecustomerpassword.md) | <b><i>(BETA)</i></b> Composable for customer password management. Options - [IUseCustomerPassword](./composables.iusecustomerpassword.md) |
 |  [useDefaults(params)](./composables.usedefaults.md) | <b><i>(BETA)</i></b> Returns default config depending on config key. It is used in composables, so defaultsKey is in most cases composable name (ex. <code>useDefaults({ defaultsKey: &quot;useCms&quot; })</code>) |
-|  [useIntercept()](./composables.useintercept.md) | <b><i>(BETA)</i></b> Allows to broadcast and intercept events across application. |
+|  [useIntercept()](./composables.useintercept.md) | Allows to broadcast and intercept events across application. |
 |  [useListing(params)](./composables.uselisting.md) | <b><i>(BETA)</i></b> |
 |  [useNavigation(params)](./composables.usenavigation.md) | <b><i>(BETA)</i></b> Composable for navigation. Options - [IUseNavigation](./composables.iusenavigation.md) |
 |  [useNotifications()](./composables.usenotifications.md) | <b><i>(BETA)</i></b> |
@@ -45,7 +46,7 @@ Vue's composables to be used in Shopware frontend application.
 
 |  Interface | Description |
 |  --- | --- |
-|  [IInterceptorCallbackFunction](./composables.iinterceptorcallbackfunction.md) | <b><i>(BETA)</i></b> interface for the callback function of interceptors |
+|  [IInterceptorCallbackFunction](./composables.iinterceptorcallbackfunction.md) | interface for the callback function of interceptors |
 |  [IUseAddToCart](./composables.iuseaddtocart.md) | <b><i>(BETA)</i></b> interface for [useAddToCart()](./composables.useaddtocart.md) composable |
 |  [IUseCart](./composables.iusecart.md) | <b><i>(BETA)</i></b> interface for [useCart()](./composables.usecart.md) composable |
 |  [IUseCheckout](./composables.iusecheckout.md) | <b><i>(BETA)</i></b> interface for [useCheckout()](./composables.usecheckout.md) composable |
@@ -55,7 +56,6 @@ Vue's composables to be used in Shopware frontend application.
 |  [IUseCustomerAddresses](./composables.iusecustomeraddresses.md) | <b><i>(BETA)</i></b> interface for [useCustomerAddresses()](./composables.usecustomeraddresses.md) composable |
 |  [IUseCustomerOrders](./composables.iusecustomerorders.md) | <b><i>(BETA)</i></b> interface for [useCustomerOrders()](./composables.usecustomerorders.md) composable |
 |  [IUseCustomerPassword](./composables.iusecustomerpassword.md) | <b><i>(BETA)</i></b> interface for [useCustomerPassword()](./composables.usecustomerpassword.md) composable |
-|  [IUseIntercept](./composables.iuseintercept.md) | <b><i>(BETA)</i></b> interface for [useIntercept()](./composables.useintercept.md) composable |
 |  [IUseListing](./composables.iuselisting.md) | Listing interface, can be used to display category products, search products or any other Shopware search interface (ex. orders with pagination) |
 |  [IUseNavigation](./composables.iusenavigation.md) | <b><i>(BETA)</i></b> interface for [useNavigation()](./composables.usenavigation.md) composable<!-- -->Provides state for navigation trees depending on navigation type. |
 |  [IUseProduct](./composables.iuseproduct.md) | <b><i>(BETA)</i></b> |
@@ -73,7 +73,8 @@ Vue's composables to be used in Shopware frontend application.
 
 |  Variable | Description |
 |  --- | --- |
-|  [INTERCEPTOR\_KEYS](./composables.interceptor_keys.md) | <b><i>(BETA)</i></b> Keys used accross composables with the description of incommint parameters. |
+|  [INTERCEPTOR\_KEYS](./composables.interceptor_keys.md) | <b><i>(BETA)</i></b> Keys used accross composables with the name of incommint parameters. |
+|  [ShopwareVuePlugin](./composables.shopwarevueplugin.md) | <b><i>(BETA)</i></b> |
 
 ## Type Aliases
 
@@ -81,6 +82,7 @@ Vue's composables to be used in Shopware frontend application.
 |  --- | --- |
 |  [ListingType](./composables.listingtype.md) | <b><i>(BETA)</i></b> |
 |  [Search](./composables.search.md) | <b><i>(BETA)</i></b> |
+|  [SwInterceptor](./composables.swinterceptor.md) | <b><i>(BETA)</i></b> |
 |  [SwInterceptors](./composables.swinterceptors.md) | <b><i>(BETA)</i></b> |
 |  [SwRouting](./composables.swrouting.md) | <b><i>(BETA)</i></b> Routing type for Shopware SEO path resolvers |
 

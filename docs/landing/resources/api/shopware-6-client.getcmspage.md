@@ -4,13 +4,10 @@
 
 ## getCmsPage() function
 
-> This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
-> 
-
 <b>Signature:</b>
 
 ```typescript
-export declare function getCmsPage(path: string, criteria?: ShopwareSearchParams, contextInstance?: ShopwareApiInstance): Promise<PageResolverResult<CmsPage>>;
+export declare function getCmsPage(path: string, criteria?: ShopwareSearchParams, contextInstance?: ShopwareApiInstance): Promise<CmsPageResponse>;
 ```
 
 ## Parameters
@@ -23,7 +20,7 @@ export declare function getCmsPage(path: string, criteria?: ShopwareSearchParams
 
 <b>Returns:</b>
 
-Promise&lt;PageResolverResult&lt;CmsPage&gt;&gt;
+Promise&lt;CmsPageResponse&gt;
 
 ## Exceptions
 

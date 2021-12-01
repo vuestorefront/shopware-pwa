@@ -4,9 +4,6 @@
 
 ## GetStoreNavigationParams interface
 
-> This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
-> 
-
 More about the navigation parameters: https://docs.shopware.com/en/shopware-platform-dev-en/store-api-guide/navigation?category=shopware-platform-dev-en/store-api-guide
 
 <b>Signature:</b>
@@ -19,9 +16,9 @@ export interface GetStoreNavigationParams
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [buildTree?](./shopware-6-client.getstorenavigationparams.buildtree.md) | boolean | <b><i>(BETA)</i></b> <i>(Optional)</i> |
-|  [depth?](./shopware-6-client.getstorenavigationparams.depth.md) | number | <b><i>(BETA)</i></b> <i>(Optional)</i> |
-|  [requestActiveId](./shopware-6-client.getstorenavigationparams.requestactiveid.md) | StoreNavigationType | <b><i>(BETA)</i></b> |
-|  [requestRootId](./shopware-6-client.getstorenavigationparams.requestrootid.md) | StoreNavigationType | <b><i>(BETA)</i></b> |
-|  [searchCriteria?](./shopware-6-client.getstorenavigationparams.searchcriteria.md) | ShopwareSearchParams | <b><i>(BETA)</i></b> <i>(Optional)</i> |
+|  [buildTree?](./shopware-6-client.getstorenavigationparams.buildtree.md) | boolean | <i>(Optional)</i> |
+|  [depth?](./shopware-6-client.getstorenavigationparams.depth.md) | number | <i>(Optional)</i> |
+|  [requestActiveId](./shopware-6-client.getstorenavigationparams.requestactiveid.md) | StoreNavigationType |  |
+|  [requestRootId](./shopware-6-client.getstorenavigationparams.requestrootid.md) | StoreNavigationType |  |
+|  [searchCriteria?](./shopware-6-client.getstorenavigationparams.searchcriteria.md) | ShopwareSearchParams | <i>(Optional)</i> |
 

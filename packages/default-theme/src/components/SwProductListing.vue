@@ -2,80 +2,86 @@
   <div class="cms-element-product-listing">
     <SfLoader :loading="loading" class="cms-element-product-listing__loader" />
     <div v-if="getElements.length" class="cms-element-product-listing__wrapper">
-      <div
-        tag="div"
-        appear
-        name="cms-element-product-listing__slide"
-        class="cms-element-product-listing__list"
-        :class="{ 'cms-element-product-listing__list--blur': loading }"
-      >
-        <template v-if="!isListView">
-          <SwProductCard
-            v-for="(product, i) in getElements"
-            :key="i + product.id"
-            class="cms-element-product-listing__product-card"
-            :product="product"
-            :style="{ '--index': i }"
-          />
-        </template>
-        <template v-else>
-          <SwProductCardHorizontal
-            v-for="(product, i) in getElements"
-            :key="i + product.id"
-            class="cms-element-product-listing__product-card-horizontal"
-            :product="product"
-            :style="{ '--index': i }"
-          />
-        </template>
-        <div key="holder" class="cms-element-product-listing__place-holder" />
-      </div>
-      <SfPagination
-        v-if="getCurrentPage && !isListView"
-        class="cms-element-product-listing__pagination"
-        :current="getCurrentPage"
-        :total="getTotalPagesCount"
-        :visible="5"
-        pageParamName="p"
-        @click="changePage"
-      >
-        <template #prev>
-          <span
-            class="cms-element-product-listing__pagination__number"
-            @click="changePage(getCurrentPage - 1)"
-          >
-            &lt;
-          </span>
-        </template>
-        <template #number="{ page }">
-          <span
-            class="cms-element-product-listing__pagination__number"
-            :style="{
-              'font-weight': getCurrentPage === page ? 700 : 300,
-            }"
-            @click="changePage(page)"
-          >
-            {{ page }}
-          </span>
-        </template>
-        <template #next>
-          <span
-            :class="{ 'next-disabled': getCurrentPage === getTotalPagesCount }"
-            class="cms-element-product-listing__pagination__number"
-            @click="changePage(getCurrentPage + 1)"
-          >
-            &gt;
-          </span>
-        </template>
-      </SfPagination>
-      <div v-else-if="getCurrentPage < getTotalPagesCount" class="load-more">
-        <SwButton
-          class="sf-button--outline"
-          @click="loadMore"
-          :disabled="loadingMore"
+      <SwPluginSlot name="product-listing" :slot-context="getElements">
+        <div
+          tag="div"
+          appear
+          name="cms-element-product-listing__slide"
+          class="cms-element-product-listing__list"
+          :class="{ 'cms-element-product-listing__list--blur': loading }"
         >
-          {{ $t("load more") }}...
-        </SwButton>
-      </div>
+          <template v-if="!isListView">
+            <SwProductCard
+              v-for="(product, i) in getElements"
+              :key="i + product.id"
+              class="cms-element-product-listing__product-card"
+              :product="product"
+              :style="{ '--index': i }"
+            />
+          </template>
+          <template v-else>
+            <SwProductCardHorizontal
+              v-for="(product, i) in getElements"
+              :key="i + product.id"
+              class="cms-element-product-listing__product-card-horizontal"
+              :product="product"
+              :style="{ '--index': i }"
+            />
+          </template>
+          <div key="holder" class="cms-element-product-listing__place-holder" />
+        </div>
+      </SwPluginSlot>
+      <SwPluginSlot name="product-listing-pagination">
+        <SfPagination
+          v-if="getCurrentPage && !isListView"
+          class="cms-element-product-listing__pagination"
+          :current="getCurrentPage"
+          :total="getTotalPagesCount"
+          :visible="5"
+          pageParamName="p"
+          @click="changePage"
+        >
+          <template #prev>
+            <span
+              class="cms-element-product-listing__pagination__number"
+              @click="changePage(getCurrentPage - 1)"
+            >
+              &lt;
+            </span>
+          </template>
+          <template #number="{ page }">
+            <span
+              class="cms-element-product-listing__pagination__number"
+              :style="{
+                'font-weight': getCurrentPage === page ? 700 : 300,
+              }"
+              @click="changePage(page)"
+            >
+              {{ page }}
+            </span>
+          </template>
+          <template #next>
+            <span
+              :class="{
+                'next-disabled': getCurrentPage === getTotalPagesCount,
+              }"
+              class="cms-element-product-listing__pagination__number"
+              @click="changePage(getCurrentPage + 1)"
+            >
+              &gt;
+            </span>
+          </template>
+        </SfPagination>
+        <div v-else-if="getCurrentPage < getTotalPagesCount" class="load-more">
+          <SwButton
+            class="sf-button--outline"
+            @click="loadMore"
+            :disabled="loadingMore"
+          >
+            {{ $t("load more") }}...
+          </SwButton>
+        </div>
+      </SwPluginSlot>
     </div>
     <SfHeading
       v-else-if="!loading && !getElements.length"
@@ -93,6 +99,7 @@ const SwProductCard = () => import("@/components/SwProductCard.vue")
 const SwButton = () => import("@/components/atoms/SwButton.vue")
 const SwProductCardHorizontal = () =>
   import("@/components/SwProductCardHorizontal.vue")
+import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
 
 export default {
   name: "SwProductListing",
@@ -103,6 +110,7 @@ export default {
     SfHeading,
     SfLoader,
     SwButton,
+    SwPluginSlot,
   },
   props: {
     initialListing: {

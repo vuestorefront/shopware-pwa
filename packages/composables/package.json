@@ -1,6 +1,6 @@
 {
   "name": "@shopware-pwa/composables",
-  "version": "1.0.0-RC.2",
+  "version": "1.0.1",
   "description": "@shopware-pwa/composables",
   "main": "dist/composables.cjs.js",
   "module": "dist/composables.esm.js",
@@ -23,16 +23,17 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@shopware-pwa/helpers": "1.0.0-RC.2",
-    "@shopware-pwa/shopware-6-client": "1.0.0-RC.2",
-    "axios": "^0.21.1",
+    "@shopware-pwa/helpers": "1.0.1",
+    "@shopware-pwa/shopware-6-client": "1.0.1",
+    "@vue/devtools-api": "^6.0.0-beta.19",
+    "axios": "^0.24.0",
     "cookie-universal": "^2.1.5",
+    "lodash": "^4.17.21",
     "query-string": "^7.0.1",
-    "vue-demi": "^0.11.3",
-    "lodash": "^4.17.21"
+    "vue-demi": "^0.12.0"
   },
   "peerDependencies": {
-    "@vue/composition-api": "^1.1.1",
+    "@vue/composition-api": "^1.3.1",
     "vue": "^2.0.0 || >=3.0.0-rc.0"
   },
   "peerDependenciesMeta": {
@@ -41,8 +42,8 @@
     }
   },
   "devDependencies": {
-    "vue": "^2.6.14",
-    "@vue/composition-api": "^1.1.1"
+    "@vue/composition-api": "^1.3.1",
+    "vue": "^2.6.14"
   },
   "publishConfig": {
     "access": "public"

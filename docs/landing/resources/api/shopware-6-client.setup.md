@@ -4,9 +4,6 @@
 
 ## setup variable
 
-> This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
-> 
-
 Setup configuration. Merge default values with provided in param. This method will override existing config. For config update invoke \*\*update\*\* method.
 
 <b>Signature:</b>

@@ -4,17 +4,67 @@ import { Product } from "@shopware-pwa/commons/interfaces/models/content/product
 import { Aggregation } from "@shopware-pwa/commons/interfaces/search/Aggregation";
 
 /**
+ * Cms page type
+ *
+ * @public
+ */
+export type CmsPageType = "product_list" | "landingpage" | "product_detail";
+
+/**
  * Cms page resource type
  *
- * @beta
+ * @public
  */
-export type CmsPageType =
+export type CmsResourceType =
   | "frontend.navigation.page"
   | "frontend.landing.page"
   | "frontend.detail.page";
 
 /**
- * @beta
+ * @public
+ */
+export type CmsResponse = {
+  apiAlias: "pwa_page_result";
+  resourceIdentifier: string;
+  canonicalPathInfo: string;
+  breadcrumb: PageBreadcrumb;
+  cmsPage: CmsPage;
+};
+
+/**
+ * @public
+ */
+export type CmsProductPageResponse = CmsResponse & {
+  resourceType: "frontend.detail.page";
+  cmsPage: CmsPage | null;
+  product: Product;
+};
+
+/**
+ * @public
+ */
+export type CmsCategoryPageResponse = CmsResponse & {
+  resourceType: "frontend.navigation.page";
+  category: Category;
+};
+
+/**
+ * @public
+ */
+export type CmsStaticPageResponse = CmsResponse & {
+  resourceType: "frontend.landing.page";
+};
+
+/**
+ * @public
+ */
+export type CmsPageResponse =
+  | CmsCategoryPageResponse
+  | CmsProductPageResponse
+  | CmsStaticPageResponse;
+
+/**
+ * @public
  */
 export interface Breadcrumb {
   name: string;
@@ -22,14 +72,14 @@ export interface Breadcrumb {
 }
 
 /**
- * @beta
+ * @public
  */
 export interface PageBreadcrumb {
   [id: string]: Breadcrumb;
 }
 
 /**
- * @beta
+ * @deprecated use CmsPageResponse instead
  */
 export interface PageResolverResult<T> {
   cmsPage: T;
@@ -41,7 +91,7 @@ export interface PageResolverResult<T> {
 }
 
 /**
- * @beta
+ * @deprecated use CmsPageResponse or CmsProductPageResponse instead
  */
 export interface PageResolverProductResult {
   product: Partial<Product>;
@@ -78,14 +128,16 @@ export interface CmsPage {
   previewMedia: any | null;
 }
 
-export enum CmsSlotType {
-  IMAGE = "image",
-  PRODUCT_SLIDER = "product-slider",
-  PRODUCT_LISTING = "product-listing",
-  PRODUCT_BOX = "product-box",
-  SLOT = "slot",
-  TEXT = "text",
-}
+/**
+ * @public
+ */
+export type CmsSlotType =
+  | "image"
+  | "product-slider"
+  | "product-listing"
+  | "product-box"
+  | "slot"
+  | "text";
 
 /**
  * @public
@@ -137,36 +189,27 @@ export interface CmsBlock {
 }
 
 /**
- * @beta
+ * @public
  */
-export enum SectionType {
-  DEFAULT = "default",
-}
+export type SectionType = "default";
 
 /**
- * @beta
+ * @public
  */
-export enum SizingMode {
-  BOXED = "boxed",
-}
+export type SizingMode = "boxed";
 
 /**
- * @beta
+ * @public
  */
-export enum MobileBehavior {
-  BOXED = "boxed",
-  WRAP = "wrap",
-}
+export type MobileBehavior = "boxed" | "wrap";
 
 /**
- * @beta
+ * @public
  */
-export enum BackgroundMediaMode {
-  COVER = "cover",
-}
+export type BackgroundMediaMode = "cover";
 
 /**
- * @beta
+ * @public
  */
 export interface CmsSection {
   type: SectionType;

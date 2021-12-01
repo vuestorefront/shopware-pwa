@@ -5,8 +5,10 @@ import { getApplicationContext } from "@shopware-pwa/composables";
 /**
  * @deprecated - in case changing a language - use `useDomains` instead
  */
-export const useLocales = (rootContext) => {
-  const { i18n, router } = getApplicationContext(rootContext, "useLocales");
+export const useLocales = () => {
+  const { i18n, router, route } = getApplicationContext({
+    contextName: "useLocales",
+  });
 
   const availableLanguages = computed(() => Object.values(languagesMap) || []);
   const currentLocale = computed(() => i18n.locale);
@@ -14,9 +16,9 @@ export const useLocales = (rootContext) => {
   const changeLocale = async (localeCode) => {
     if (localeCode === i18n.locale) return;
     if (localeCode === i18n.fallbackLocale) {
-      router.push(rootContext.$route.fullPath.replace(/^\/[^\/]+/, ""));
+      router.push(route.fullPath.replace(/^\/[^\/]+/, ""));
     } else {
-      router.push(`/${localeCode}${rootContext.$route.fullPath}`);
+      router.push(`/${localeCode}${route.fullPath}`);
     }
   };
 

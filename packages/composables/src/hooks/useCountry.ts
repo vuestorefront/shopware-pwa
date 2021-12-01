@@ -22,8 +22,9 @@ export function useCountry(props: {
   const currentCountry = computed(() => {
     if (!countryId.value) return null;
     return (
-      getCountries.value.find((country) => country.id === countryId.value) ??
-      null
+      getCountries.value.find(
+        (country: Country) => country.id === countryId.value
+      ) ?? null
     );
   });
 

@@ -1,6 +1,6 @@
 {
   "name": "@shopware-pwa/theme-base",
-  "version": "1.0.0-RC.2",
+  "version": "1.0.1",
   "author": "patzick <13100280+patzick@users.noreply.github.com>",
   "license": "MIT",
   "files": [

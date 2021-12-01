@@ -16,7 +16,7 @@ import { LineItem } from "@shopware-pwa/commons/interfaces/models/checkout/cart/
  *
  * @throws ClientApiError
  *
- * @beta
+ * @public
  */
 export async function clearCart(
   contextInstance: ShopwareApiInstance = defaultInstance
@@ -29,7 +29,7 @@ export async function clearCart(
 /**
  * Gets the current cart for the sw-context-token.
  * @throws ClientApiError
- * @beta
+ * @public
  */
 export async function getCart(
   contextInstance: ShopwareApiInstance = defaultInstance
@@ -45,7 +45,7 @@ export async function getCart(
  * Warning: This method does not change the state of the cart in any way if productId already exists in a cart. For changing the quantity use addQuantityToCartLineItem() or changeCartLineItemQuantity() methods.
  *
  * @throws ClientApiError
- * @beta
+ * @public
  */
 export async function addProductToCart(
   productId: string,
@@ -75,7 +75,7 @@ export async function addProductToCart(
  * Example: If current quantity is 3 and you pass 2 as quantity parameter, you will get a new cart's state with quantity 2.
  *
  * @throws ClientApiError
- * @beta
+ * @public
  */
 export async function changeCartItemQuantity(
   itemId: string,
@@ -104,7 +104,7 @@ export async function changeCartItemQuantity(
  * This method may be used for deleting "product" type item lines as well as "promotion" type item lines.
  *
  * @throws ClientApiError
- * @beta
+ * @public
  */
 export async function removeCartItem(
   itemId: string,
@@ -123,7 +123,7 @@ export async function removeCartItem(
  * Promotion code is being added as separate cart item line.
  *
  * @throws ClientApiError
- * @beta
+ * @public
  */
 export async function addPromotionCode(
   promotionCode: string,
@@ -148,7 +148,7 @@ export async function addPromotionCode(
  * Accepts every type of cart item.
  *
  * @throws ClientApiError
- * @beta
+ * @public
  */
 export async function addCartItems(
   items: Partial<LineItem>[],

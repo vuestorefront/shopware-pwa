@@ -36,15 +36,22 @@ export async function runModule(
 
   moduleObject.options.alias = moduleObject.options.alias || {};
   // fixes problem with multiple composition-api instances
+  // + added mjs support
   moduleObject.options.alias[
-    "@vue/composition-api/dist/vue-composition-api.esm.js"
+    "@vue/composition-api/dist/vue-composition-api.mjs"
   ] = moduleObject.nuxt.resolver.resolveModule(
-    "@vue/composition-api/dist/vue-composition-api.esm.js"
+    "@vue/composition-api/dist/vue-composition-api.mjs"
   );
   moduleObject.options.alias["@vue/composition-api"] =
     moduleObject.nuxt.resolver.resolveModule(
-      "@vue/composition-api/dist/vue-composition-api.esm.js"
+      "@vue/composition-api/dist/vue-composition-api.mjs"
     );
+  // fallback for old plugin version
+  moduleObject.options.alias[
+    "@vue/composition-api/dist/vue-composition-api.esm.js"
+  ] = moduleObject.nuxt.resolver.resolveModule(
+    "@vue/composition-api/dist/vue-composition-api.mjs"
+  );
 
   moduleObject.options.alias["vue"] =
     moduleObject.options.alias["vue"] ||
@@ -132,16 +139,6 @@ export async function runModule(
     });
   });
 
-  moduleObject.addPlugin({
-    fileName: "api-client.js",
-    src: path.join(__dirname, "..", "plugins", "api-client.js"),
-    options: {
-      shopwareEndpoint: shopwarePwaConfig.shopwareEndpoint,
-      shopwareAccessToken: shopwarePwaConfig.shopwareAccessToken,
-      shopwareApiClient: shopwarePwaConfig.shopwareApiClient,
-    },
-  });
-
   let config = merge({}, getDefaultApiParams());
   try {
     /* istanbul ignore next */
@@ -152,10 +149,14 @@ export async function runModule(
   } catch (e) {
     console.error("Cannot resolve API defaults config", e);
   }
+
   moduleObject.addPlugin({
-    fileName: "api-defaults.js",
-    src: path.join(__dirname, "..", "plugins", "api-defaults.js"),
+    fileName: "api-client.js",
+    src: path.join(__dirname, "..", "plugins", "api-client.js"),
     options: {
+      shopwareEndpoint: shopwarePwaConfig.shopwareEndpoint,
+      shopwareAccessToken: shopwarePwaConfig.shopwareAccessToken,
+      shopwareApiClient: shopwarePwaConfig.shopwareApiClient,
       apiDefaults: config,
     },
   });

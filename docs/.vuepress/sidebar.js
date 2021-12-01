@@ -22,7 +22,11 @@ module.exports = {
       path: "/landing/fundamentals/",
       title: "Fundamentals",
       collapsable: false,
-      children: ["/landing/fundamentals/cli", "/landing/fundamentals/security"],
+      children: [
+        "/landing/fundamentals/cli",
+        "/landing/fundamentals/devtools",
+        "/landing/fundamentals/security",
+      ],
     },
     {
       path: "/landing/cookbook/",
