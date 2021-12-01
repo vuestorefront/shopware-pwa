@@ -18,7 +18,7 @@ You will be asked for:
 | | Description |
 | --- | --- |
 | Shopware instance address | URL of Shopware 6 instance you want be connected to |
-|  Shopware instance access token | API access key (got from [this step](./prepare-shopware.html#api-credentials)) |
+| Shopware instance access token | API access key (got from [this step](./prepare-shopware.html#api-credentials)) |
 | Shopware admin username* | Admin panel user - _to fetch required data from Shopware 6 instance via admin API_ |
 | Shopware admin username* | Password for given username |
 | Do you want to allow dev mode for slots? (Don't use for production!)| To determine if _see slots_ mode for [plugins](../concepts/plugins) is enabled |
