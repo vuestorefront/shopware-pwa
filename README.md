@@ -1,6 +1,9 @@
 # Shopware PWA
 
-The only Official Progressive Web App for <a href="https://github.com/shopware/platform">Shopware 6</a>.
+The only **Official Modern Frontend** with Progressive Web App features for <a href="https://github.com/shopware/platform">Shopware 6</a>.
+
+ ![NuxtJS](https://img.shields.io/badge/Nuxt-black?style=for-the-badge&logo=nuxt.js&logoColor=white) ![Vue.js](https://img.shields.io/badge/vuejs-%2335495e.svg?style=for-the-badge&logo=vuedotjs&logoColor=%234FC08D) ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
+
 
 [![CircleCI](https://circleci.com/gh/vuestorefront/shopware-pwa.svg?style=svg)](https://circleci.com/gh/DivanteLtd/shopware-pwa) [![Coverage Status](https://coveralls.io/repos/github/vuestorefront/shopware-pwa/badge.svg?branch=master)](https://coveralls.io/github/DivanteLtd/shopware-pwa) [![Snyk badge](https://snyk.io/test/github/vuestorefront/shopware-pwa/badge.svg)](https://snyk.io/)
 
@@ -10,7 +13,7 @@ The only Official Progressive Web App for <a href="https://github.com/shopware/p
 
 | Shopware PWA version                                                                                                                          | Shopware 6 version                                                                                                                                                                                                                                                     |
 | :-------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [![shopware-ver](https://img.shields.io/badge/shopware–pwa-1.0.x-green)](https://github.com/vuestorefront/shopware-pwa/releases/tag/v1.0.1) | [![shopware-ver](https://img.shields.io/badge/Shopware-6.4.x-green)](https://github.com/shopware/platform/releases/tag/v6.4) & [![shopware-ver](https://img.shields.io/badge/PWA%20plugin-0.3.x-green)](https://github.com/elkmod/SwagShopwarePwa/releases/tag/v0.3.0) |
+| [![shopware-ver](https://img.shields.io/badge/shopware–pwa-1.0.x-green)](https://github.com/vuestorefront/shopware-pwa/releases/tag/v1.0.1) | [![shopware-ver](https://img.shields.io/badge/Shopware-6.4.x-green)](https://github.com/shopware/platform/releases/tag/v6.4) & [![shopware-ver](https://img.shields.io/badge/PWA%20plugin-0.3.1-green)](https://github.com/elkmod/SwagShopwarePwa/releases/tag/v0.3.1) |
 | [![shopware-ver](https://img.shields.io/badge/shopware–pwa-0.8.2-green)](https://github.com/vuestorefront/shopware-pwa/releases/tag/v0.8.2)   | [![shopware-ver](https://img.shields.io/badge/Shopware-6.3.x-green)](https://github.com/shopware/platform/releases/tag/v6.4) & [![shopware-ver](https://img.shields.io/badge/PWA%20plugin-0.2.1-green)](https://github.com/elkmod/SwagShopwarePwa/releases/tag/v0.2.1) |
 
 &nbsp;
@@ -37,7 +40,7 @@ PS: Check [StorefrontUI](https://github.com/DivanteLtd/storefront-ui/) - our UI 
       <td align="center" valign="middle">
         <a href="https://shopware-pwa.storefrontcloud.io" target="_blank" rel=”noopener”>
           <img
-            src="https://divante.co/open-graph/vuestorefront/GitHub-Readme-Try-Demo.png"
+            src="./docs/assets/yt-movie.png"
             alt="B2C Theme demo"
             style="width: 100px;">
         </a>
@@ -51,7 +54,7 @@ PS: Check [StorefrontUI](https://github.com/DivanteLtd/storefront-ui/) - our UI 
 
 ## Video demo
 
-[![See video demo!](https://divante.com/github/shopware-pwa/shopware-pwa-miniature.png)](https://youtu.be/t2JJgvvxMG8)
+[![See video demo!](./docs/assets/movie-yt.png)](https://youtu.be/t2JJgvvxMG8)
 
 ## Join the community on Discord
 
