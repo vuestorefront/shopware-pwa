@@ -20,7 +20,7 @@ export interface IUseCheckout
 |  Property | Type | Description |
 |  --- | --- | --- |
 |  [billingAddress](./composables.iusecheckout.billingaddress.md) | ComputedRef&lt;Partial&lt;BillingAddress&gt; \| undefined&gt; | <b><i>(BETA)</i></b> |
-|  [createOrder](./composables.iusecheckout.createorder.md) | () =&gt; Promise&lt;Order&gt; | <b><i>(BETA)</i></b> |
+|  [createOrder](./composables.iusecheckout.createorder.md) | (params?: CreateOrderParams) =&gt; Promise&lt;Order&gt; | <b><i>(BETA)</i></b> |
 |  [getPaymentMethods](./composables.iusecheckout.getpaymentmethods.md) | (options?: { forceReload: boolean; }) =&gt; Promise&lt;ComputedRef&lt;PaymentMethod\[\]&gt;&gt; | <b><i>(BETA)</i></b> |
 |  [getShippingMethods](./composables.iusecheckout.getshippingmethods.md) | (options?: { forceReload: boolean; }) =&gt; Promise&lt;ComputedRef&lt;ShippingMethod\[\]&gt;&gt; | <b><i>(BETA)</i></b> |
 |  [loadings](./composables.iusecheckout.loadings.md) | UnwrapRef&lt;{ createOrder: boolean; }&gt; | <b><i>(BETA)</i></b> |

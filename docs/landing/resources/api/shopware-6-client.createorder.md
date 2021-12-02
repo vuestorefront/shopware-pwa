@@ -4,18 +4,19 @@
 
 ## createOrder() function
 
-Creates an order for logged in users
+Creates an order for logged in and guest users
 
 <b>Signature:</b>
 
 ```typescript
-export declare function createOrder(contextInstance?: ShopwareApiInstance): Promise<Order>;
+export declare function createOrder(params?: CreateOrderParams, contextInstance?: ShopwareApiInstance): Promise<Order>;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
+|  params | CreateOrderParams |  |
 |  contextInstance | [ShopwareApiInstance](./shopware-6-client.shopwareapiinstance.md) |  |
 
 <b>Returns:</b>
