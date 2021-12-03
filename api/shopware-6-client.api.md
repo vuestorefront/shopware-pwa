@@ -10,6 +10,7 @@ import { Category } from '@shopware-pwa/commons/interfaces/models/content/catego
 import { CmsPageResponse } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { ContextTokenResponse } from '@shopware-pwa/commons/interfaces/response/SessionContext';
 import { Country } from '@shopware-pwa/commons/interfaces/models/system/country/Country';
+import { CreateOrderParams } from '@shopware-pwa/commons/interfaces/request/CreateOrder';
 import { Currency } from '@shopware-pwa/commons/interfaces/models/system/currency/Currency';
 import { Customer } from '@shopware-pwa/commons/interfaces/models/checkout/customer/Customer';
 import { CustomerAddress } from '@shopware-pwa/commons/interfaces/models/checkout/customer/CustomerAddress';
@@ -120,7 +121,7 @@ export function createCustomerAddress(params: Partial<CustomerAddress>, contextI
 export function createInstance(initialConfig?: ClientSettings): ShopwareApiInstance;
 
 // @public
-export function createOrder(contextInstance?: ShopwareApiInstance): Promise<Order>;
+export function createOrder(params?: CreateOrderParams, contextInstance?: ShopwareApiInstance): Promise<Order>;
 
 // @public (undocumented)
 export interface CustomerRegisterResponse {

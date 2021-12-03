@@ -14,6 +14,7 @@ import { CmsPageResponse } from '@shopware-pwa/commons/interfaces/models/content
 import { CmsResourceType } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
 import { ComputedRef } from 'vue-demi';
 import { Country } from '@shopware-pwa/commons/interfaces/models/system/country/Country';
+import { CreateOrderParams } from '@shopware-pwa/commons/interfaces/request/CreateOrder';
 import { CrossSelling } from '@shopware-pwa/commons/interfaces/models/content/product/Product';
 import { Currency } from '@shopware-pwa/commons/interfaces/models/system/currency/Currency';
 import { Customer } from '@shopware-pwa/commons/interfaces/models/checkout/customer/Customer';
@@ -232,7 +233,7 @@ export interface IUseCheckout {
     // (undocumented)
     billingAddress: ComputedRef<Partial<BillingAddress> | undefined>;
     // (undocumented)
-    createOrder: () => Promise<Order>;
+    createOrder: (params?: CreateOrderParams) => Promise<Order>;
     // (undocumented)
     getPaymentMethods: (options?: {
         forceReload: boolean;
