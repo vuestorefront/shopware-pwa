@@ -9,6 +9,6 @@
 |  Package | Description |
 |  --- | --- |
 |  [@shopware-pwa/composables](./composables.md) | Vue's composables to be used in Shopware frontend application. |
-|  [@shopware-pwa/helpers](./helpers.md) | Helper function that may be used in other packages. |
-|  [@shopware-pwa/shopware-6-client](./shopware-6-client.md) | API Client built on Axios. |
+|  [@shopware-pwa/helpers](./helpers.md) |  |
+|  [@shopware-pwa/shopware-6-client](./shopware-6-client.md) |  |
 

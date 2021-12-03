@@ -1,6 +1,6 @@
 {
   "name": "@shopware-pwa/shopware-6-client",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Rest API client for Shopware 6.",
   "main": "dist/shopware-6-client.cjs.js",
   "module": "dist/shopware-6-client.esm.js",

@@ -1,3 +1,21 @@
+# [1.1.0](https://github.com/vuestorefront/shopware-pwa/compare/v1.0.1...v1.1.0) (2021-12-03)
+
+
+### Bug Fixes
+
+* **default-theme:** log out and edit address improvements ([#1733](https://github.com/vuestorefront/shopware-pwa/issues/1733)) ([6292601](https://github.com/vuestorefront/shopware-pwa/commit/62926014afbc10ec9965e945e7b83c5979141789))
+* **default-theme:** top navigation hydration problem ([#1748](https://github.com/vuestorefront/shopware-pwa/issues/1748)) ([aabde93](https://github.com/vuestorefront/shopware-pwa/commit/aabde9396bb37b1766074e84b75d8df98b0a0b5e))
+* **nuxt-module:** current domain configuration is now detected properly ([#1746](https://github.com/vuestorefront/shopware-pwa/issues/1746)) ([ce9764f](https://github.com/vuestorefront/shopware-pwa/commit/ce9764f85081544a390eb912b91c56720823bd29))
+
+
+### Features
+
+* **client:** allow to pass additional params in createOrder method ([#1747](https://github.com/vuestorefront/shopware-pwa/issues/1747)) ([96f15b1](https://github.com/vuestorefront/shopware-pwa/commit/96f15b1ce8d5b7e3d0b05cc7e08be599e466ce1a))
+* **client:** encode search query ([#1742](https://github.com/vuestorefront/shopware-pwa/issues/1742)) ([2001011](https://github.com/vuestorefront/shopware-pwa/commit/200101123200c2bc06138e11da584af00e8111b8))
+* **default-theme:** product variant select slot ([#1731](https://github.com/vuestorefront/shopware-pwa/issues/1731)) ([81e8e24](https://github.com/vuestorefront/shopware-pwa/commit/81e8e244c6ef780c0106d6cd1433f1305d74acd6))
+
+
+
 ## [1.0.1](https://github.com/DivanteLtd/shopware-pwa/compare/v1.0.0...v1.0.1) (2021-11-15)
 
 
