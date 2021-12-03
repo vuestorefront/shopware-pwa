@@ -14,7 +14,9 @@ export async function searchProducts(
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<ProductListingResult> {
   const resp = await contextInstance.invoke.post(
-    `${getSearchEndpoint()}?search=${criteria?.query || ""}`,
+    `${getSearchEndpoint()}?search=${encodeURIComponent(
+      criteria?.query || ""
+    )}`,
     criteria
   );
 
@@ -32,7 +34,9 @@ export async function searchSuggestedProducts(
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<ProductListingResult> {
   const resp = await contextInstance.invoke.post(
-    `${getSuggestSearchEndpoint()}?search=${criteria?.query || ""}`,
+    `${getSuggestSearchEndpoint()}?search=${encodeURIComponent(
+      criteria?.query || ""
+    )}`,
     criteria
   );
 
