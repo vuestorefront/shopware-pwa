@@ -2,9 +2,9 @@
 
 Find a list of project related resources below.
 
-- [Github Repository](https://github.com/DivanteLtd/shopware-pwa) Visit our Github repository and leave a star ⭐️
+- [Github Repository](https://github.com/vuestorefront/shopware-pwa) Visit our Github repository and leave a star ⭐️
 
-- [Roadmap](./roadmap) See the current roadmap for the project
+- [Roadmap](./roadmap) See the current roadmap for the project <Badge text="Soon" type="info"/>
 
 - [Package API](./api) API reference for the package libraries
 

@@ -22,10 +22,10 @@ It introduces a new type of methods `onXXX`, in our case it's `onAddToCart`
 so when you'd like to react on that event:
 
 ```js
-  setup(props, { root }) {
+  setup(props) {
     const {
       onAddToCart,
-    } = useAddToCart(root, props.product)
+    } = useAddToCart({ product: props.product})
 
     onAddToCart(({props.product, quantity}) => {
       // here you can show notification, or send GTM event
@@ -41,10 +41,10 @@ Remember, that when you listen on the event in component, then you listen to it 
 :::
 
 ```js
-  setup(props, { root }) {
+  setup(props) {
     const {
       addToCart
-    } = useAddToCart(root, props.product)
+    } = useAddToCart({ product: props.product})
 
     const yourAddToCartWrapper = async () => {
       await addToCart()
@@ -79,9 +79,9 @@ import {
 } from "@shopware-pwa/composables";
 import { getTranslatedProperty } from "@shopware-pwa/helpers";
 
-export default async ({ app }) => {
+export default async () => {
   const { on } = useIntercept();
-  const { pushSuccess } = useNotifications(app);
+  const { pushSuccess } = useNotifications();
   on({
     broadcastKey: INTERCEPTOR_KEYS.ADD_TO_CART,
     name: "show-success-notification"

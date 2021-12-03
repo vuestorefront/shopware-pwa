@@ -1,4 +1,4 @@
-# Getting started
+# Get started
 
 This guide will help you get started with shopware-pwa.
 
@@ -7,6 +7,10 @@ This guide will help you get started with shopware-pwa.
 ## Quickstart
 
 Set up shopware-pwa in less than 10 minutes.
+
+::: tip
+If it's not enough, or you are not familiar with Shopware 6 or Nuxt based projects, please visit a dedicated [Installation guide](./installation.md) which lead you from backend to the frontend aspects of the installation.
+:::
 
 ### Create project
 
@@ -23,7 +27,7 @@ Initialize the project inside the directory by running
 npx @shopware-pwa/cli init
 ```
 
-It will ask for the address to your shopware instance, access token, and admin credentials to load plugins. Only the first two are required to start the instance, and default settings will point to our demo instance.
+It will ask for the address to your shopware instance, access token, and admin credentials to sync routing data or load plugins. Only the first two are required to start the instance, and default settings will point to our demo instance.
 
 ::: tip
 Don't let this step throw you off. As you are starting the PWA, it requires a backend to get its products, content etc. By default, shopware-pwa init will connect you to a generic Shopware backend hosted by us. However, at this point you can already connect your custom shop instance.
@@ -66,6 +70,7 @@ Instead of using the interactive CLI to configure your backend connection, you c
 
 1. Edit the `shopware-pwa.config.js` file inside the root directory of your project
 2. Fill it with the data from your instance ([how to prepare your Shopware 6 instance](./prepare-shopware))
+3. Define allowed hosts to be used in your PWA instance
 
 ```js
 module.exports = {
@@ -75,10 +80,15 @@ module.exports = {
     // optional, allow to override the default settings
     timeout: 5000, // timeout limit in ms
   },
+  shopwareDomainsAllowList: [
+    "http://localhost:3000",
+    "http://localhost:3000/de",
+    "https://pwa=shop.com",
+  ],
 };
 ```
 
-3. Restart the PWA dev server (you might have to stop it before)
+4. Restart the PWA dev server (you might have to stop it before)
 
 ```bash
 yarn dev
@@ -91,7 +101,8 @@ Available settings inside the `shopware-pwa.config.js` file:
 ```ts
 export interface ShopwarePwaConfigFile {
   /**
-   * list of allowed domains for this pwa instance from saleschannel configuration
+   * List of allowed domains that must be handled by PWA (multilanguage routing requires that config)
+   * It's related to the Sales channel configuration.
    */
   shopwareDomainsAllowList?: string[];
   /**

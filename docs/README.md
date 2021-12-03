@@ -16,9 +16,9 @@ yarn dev 						# start dev server
 ```
 
 <center>
-The v0.9.x of shopware-pwa is also available to play on at:
+...or play 🎲 on CodeSandbox:
 
-[![Edit shopware-pwa v0.9.x](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/shopware-pwa-v09x-gp02u?file=/README.md)
+[![Edit shopware-pwa v1.0.1](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/sleepy-shannon-rnv8l?file=/README.md)
 
 </center>
 

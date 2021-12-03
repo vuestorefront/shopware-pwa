@@ -9,13 +9,31 @@ module.exports = {
     },
     {
       path: "/landing/getting-started/",
-      title: "Getting Started",
-      collapsable: false,
+      title: "Get Started",
+      collapsable: true,
       children: [
-        "/landing/getting-started/prepare-shopware",
-        "/landing/project/contribution",
+        {
+          title: "Installation",
+          path: "/landing/getting-started/installation",
+          collapsable: true,
+          children: [
+            {
+              title: "Setup up your Shopware 6",
+              path: "/landing/getting-started/prepare-shopware",
+            },
+            {
+              title: "Create a project",
+              path: "/landing/getting-started/create-project",
+            },
+          ],
+        },
+        {
+          title: "Configuration",
+          path: "/landing/getting-started/configuration",
+          collapsable: true,
+        },
         "/landing/getting-started/local-environment",
-        "/landing/getting-started/env-variables",
+        "/landing/project/contribution",
       ],
     },
     {

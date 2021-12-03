@@ -17,19 +17,17 @@ The great example is a helper for getting images with optional image processor (
 
 ```
 
-Shopware-pwa provides the optional way of setting env variables by using `.env` file, instead of setting them up using system environment variables explicitly like: 
+Shopware-pwa provides the optional way of setting env variables by using `.env` file, instead of setting them up using system environment variables explicitly like:
 
 `EXPERIMENTAL_IMAGE_PROCESSING_SERVER=https://someserver.com/img/ shopware-pwa dev` or even before running the nodejs process, manually.
 
-
 ## Setup
 
-A generated project contains `.env.template` among other files placed in root directory. 
+A generated project contains `.env.template` among other files placed in root directory.
 
 ::: tip
 Remember that the `.env` file is listed in `.gitignore` and shouldn't be versioned because it may contain some sensitive data.
 :::
-
 
 The `.env.template` file's content may look similar to this one:
 
@@ -51,14 +49,14 @@ The default environment variables
 
 - `HOST` - nuxt server host name (`0.0.0.0` by default)
 - `PORT` - nuxt server port number (`3000` by default)
-- `ADMIN_USER` - Shopware 6 admin user name (`admin` by default) 
+- `ADMIN_USER` - Shopware 6 admin user name (`admin` by default)
 - `ADMIN_PASSWORD` - Shopware 6 admin password (`shopware` by default)
 - `ENABLE_DEVTOOLS` - config turning on the nuxt dev tools (`true` by default)
 - `NODE_ENV` - application mode: dev or production (`dev` by default)
 - `EXPERIMENTAL_IMAGE_PROCESSING_SERVER` - URL to the custom image processor (well described [here](https://github.com/vuestorefront/shopware-pwa/blob/master/packages/default-theme/src/helpers/images/getResizedImage.js))
 
 ::: tip
-shopware-pwa CLI tool can also detect the current state of environment variables and use given `ADMIN_USER` and `ADMIN_PASSWORD` values in `plugins` and `domains` commands (suggest credentials). 
+shopware-pwa CLI tool can also detect the current state of environment variables and use given `ADMIN_USER` and `ADMIN_PASSWORD` values in `plugins` and `domains` commands (suggest credentials).
 
 ![cli](./../../assets/env_cli.png)
 :::

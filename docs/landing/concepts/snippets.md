@@ -4,9 +4,9 @@ In this chapter you'll learn how to work with snippets, locales and translations
 
 The guide is structured into multiple sections answering the following questions
 
- * How are snippets handled and how do snippet files work
- * How do I add my custom snippets to my project or correctly override existing ones
- * How can I use Shopware to manage my application snippets
+- How are snippets handled and how do snippet files work
+- How do I add my custom snippets to my project or correctly override existing ones
+- How can I use Shopware to manage my application snippets
 
 ## Snippet files
 
@@ -14,7 +14,7 @@ Shopware PWA comes prepackaged with several snippet files which can be used in y
 
 ```bash
 $ shopware-pwa languages
-``` 
+```
 
 the CLI will collect all files and merge them into a single file **per locale** located in
 
@@ -94,9 +94,9 @@ Snippet changes are not applied during runtime. Any change of snippets in a prod
 
 When we're using Shopware to manage our snippets, it is not clearly defined which part "owns" the snippets. Is it the PWA application's snippet files or rather Shopware's database? Or both? We take the following considerations:
 
- * The single source of truth for all snippets is located in `.shopware-pwa/sw-plugins/locales/*.json`
- * The single source of truth for custom snippets is located in `locales/*.json`
- * Shopware acts as a snippet manager and snippets are synced (between Shopware and PWA) using CLI commands
+- The single source of truth for all snippets is located in `.shopware-pwa/sw-plugins/locales/*.json`
+- The single source of truth for custom snippets is located in `locales/*.json`
+- Shopware acts as a snippet manager and snippets are synced (between Shopware and PWA) using CLI commands
 
 ## CLI Command
 
@@ -108,18 +108,18 @@ $ shopware-pwa snippets
 
 ### Arguments
 
-|Argument|Description|
-|:---|:---|
+| Argument     | Description                                      |
+| :----------- | :----------------------------------------------- |
 | `--username` | Admin user name with privileges to read snippets |
-| `--password` | Admin user password |
+| `--password` | Admin user password                              |
 
 ### Options
 
-|Option|Description|
-|:---|:---|
+| Option         | Description                                        |
+| :------------- | :------------------------------------------------- |
 | `--keep-local` | Prioritize local snippets when merging with remote |
-| `--export`     | Push local snippets to Shopware |
-| `--ci`         | No interactive CLI (suppress questions) |
+| `--export`     | Push local snippets to Shopware                    |
+| `--ci`         | No interactive CLI (suppress questions)            |
 
 ### Description
 
@@ -147,7 +147,7 @@ $ shopware-pwa snippets --export
 
 Now, log in to your Admin Panel, navigate to **Settings** > **Snippets** and select a snippet set.
 
-To filter for pwa snippets, open the filtering dialog from the right toolbar, expand the *Author* section and hit the switch next to `app/pwa`. You can see all the snippets you've exported. 
+To filter for pwa snippets, open the filtering dialog from the right toolbar, expand the _Author_ section and hit the switch next to `app/pwa`. You can see all the snippets you've exported.
 
 Change some snippet values by clicking the snippet name and editing the fields in the **Translations** card.
 
@@ -171,5 +171,5 @@ $ shopware-pwa snippets --keep-local --export
 
 The current implementation does have some limitations and issues which we are aware of:
 
- * When there are multiple snippet sets with the same locale configured in Shopware, the management won't work.
- * We have not yet tested to which limit the snippet import works
+- When there are multiple snippet sets with the same locale configured in Shopware, the management won't work.
+- We have not yet tested to which limit the snippet import works
