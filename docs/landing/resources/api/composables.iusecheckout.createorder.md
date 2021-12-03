@@ -10,5 +10,5 @@
 <b>Signature:</b>
 
 ```typescript
-createOrder: () => Promise<Order>;
+createOrder: (params?: CreateOrderParams) => Promise<Order>;
 ```

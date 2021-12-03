@@ -20,7 +20,7 @@
 |  [confirmPasswordReset(params, contextInstance)](./shopware-6-client.confirmpasswordreset.md) | Confirm a customer's password reset. Set new password for account. |
 |  [createCustomerAddress(params, contextInstance)](./shopware-6-client.createcustomeraddress.md) | Create an address and respond the new address's id |
 |  [createInstance(initialConfig)](./shopware-6-client.createinstance.md) |  |
-|  [createOrder(contextInstance)](./shopware-6-client.createorder.md) | Creates an order for logged in users |
+|  [createOrder(params, contextInstance)](./shopware-6-client.createorder.md) | Creates an order for logged in and guest users |
 |  [deleteCustomerAddress(addressId, contextInstance)](./shopware-6-client.deletecustomeraddress.md) | Delete's the customer's address by id |
 |  [getAvailableCountries(contextInstance)](./shopware-6-client.getavailablecountries.md) | Get all available countries |
 |  [getAvailableCurrencies(contextInstance)](./shopware-6-client.getavailablecurrencies.md) |  |
