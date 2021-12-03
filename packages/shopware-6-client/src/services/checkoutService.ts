@@ -6,19 +6,24 @@ import {
   getCancelOrderEndpoint,
   getChangeOrderPaymentMethodEndpoint,
 } from "../endpoints";
+import { CreateOrderParams } from "@shopware-pwa/commons/interfaces/request/CreateOrder";
 import { Order } from "@shopware-pwa/commons/interfaces/models/checkout/order/Order";
 import { OrderState } from "@shopware-pwa/commons/interfaces/models/checkout/order/OrderState";
 import { SearchFilterType } from "@shopware-pwa/commons/interfaces/search/SearchFilter";
 import { ShopwareSearchParams } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 
 /**
- * Creates an order for logged in users
+ * Creates an order for logged in and guest users
  * @public
  */
 export async function createOrder(
+  params?: CreateOrderParams,
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<Order> {
-  const resp = await contextInstance.invoke.post(getCheckoutOrderEndpoint());
+  const resp = await contextInstance.invoke.post(
+    getCheckoutOrderEndpoint(),
+    params
+  );
 
   return resp.data;
 }
