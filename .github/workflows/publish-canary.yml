@@ -10,7 +10,6 @@ on:
       - master
     paths-ignore:
       - "*.md"
-      - ".github/**"
       - "docs/**"
 jobs:
   init:
@@ -388,6 +387,11 @@ jobs:
     runs-on: ubuntu-latest
     needs: publish
     steps:
+      - name: Setup node
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14"
+          registry-url: https://registry.npmjs.org/
       - name: Create default-theme project
         run: |
           mkdir app
