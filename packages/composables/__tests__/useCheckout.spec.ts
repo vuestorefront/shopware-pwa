@@ -322,6 +322,18 @@ describe("Composables - useCheckout", () => {
         expect(refreshCartMock).toHaveBeenCalled();
       });
 
+      it("should pass additional params to the API client's method", async () => {
+        mockedApiClient.createOrder.mockResolvedValueOnce({} as any);
+        const { createOrder } = useCheckout();
+        await createOrder({
+          customerComment: "Please don't use plastic materials.",
+        });
+        expect(mockedApiClient.createOrder).toBeCalledWith(
+          { customerComment: "Please don't use plastic materials." },
+          expect.any(Function)
+        );
+      });
+
       describe("for logged in user", () => {
         beforeEach(() => {
           isLoggedIn.value = true;

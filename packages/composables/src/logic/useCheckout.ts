@@ -3,6 +3,7 @@ import { ShippingAddress } from "@shopware-pwa/commons/interfaces/models/checkou
 import { ShippingMethod } from "@shopware-pwa/commons/interfaces/models/checkout/shipping/ShippingMethod";
 import { PaymentMethod } from "@shopware-pwa/commons/interfaces/models/checkout/payment/PaymentMethod";
 import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
+import { CreateOrderParams } from "@shopware-pwa/commons/interfaces/request/CreateOrder";
 import { Order } from "@shopware-pwa/commons/interfaces/models/checkout/order/Order";
 import {
   getAvailableShippingMethods,
@@ -34,7 +35,7 @@ export interface IUseCheckout {
     forceReload: boolean;
   }) => Promise<ComputedRef<PaymentMethod[]>>;
   paymentMethods: ComputedRef<PaymentMethod[]>;
-  createOrder: () => Promise<Order>;
+  createOrder: (params?: CreateOrderParams) => Promise<Order>;
   shippingAddress: ComputedRef<ShippingAddress | undefined>;
   billingAddress: ComputedRef<Partial<BillingAddress> | undefined>;
   onOrderPlace: (fn: (params: { order: Order }) => void) => void;
@@ -96,10 +97,10 @@ export function useCheckout(): IUseCheckout {
     return paymentMethods;
   };
 
-  const createOrder = async () => {
+  const createOrder = async (params?: CreateOrderParams) => {
     try {
       loadings.createOrder = true;
-      const order = await createApiOrder(apiInstance);
+      const order = await createApiOrder(params, apiInstance);
 
       broadcast(INTERCEPTOR_KEYS.ORDER_PLACE, {
         order,
@@ -116,7 +117,7 @@ export function useCheckout(): IUseCheckout {
       throw err;
     } finally {
       loadings.createOrder = false;
-      await refreshCart();
+      refreshCart();
     }
   };
 
