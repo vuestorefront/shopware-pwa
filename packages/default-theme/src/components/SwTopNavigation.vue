@@ -88,7 +88,7 @@ export default {
     const { switchState: switchOverlay } = useUIState({
       stateName: "MEGA_MENU_OVERLAY_STATE",
     })
-    const unwrappedElements = ref(4)
+    const unwrappedElements = ref(5)
     const { loadNavigationElements, navigationElements } = useNavigation()
     const { currentDomainId } = useDomains()
     const currentCategoryName = ref(null)
