@@ -12,7 +12,6 @@ Set up shopware-pwa in less than 10 minutes.
 If it's not enough, or you are not familiar with Shopware 6 or Nuxt based projects, please visit a dedicated [Installation guide](./installation.md) which lead you from backend to the frontend aspects of the installation.
 :::
 
-
 ### Create project
 
 Create a directory for your project and enter it
@@ -81,7 +80,11 @@ module.exports = {
     // optional, allow to override the default settings
     timeout: 5000, // timeout limit in ms
   },
-  shopwareDomainsAllowList: ["http://localhost:3000", "http://localhost:3000/de", "https://pwa=shop.com"],
+  shopwareDomainsAllowList: [
+    "http://localhost:3000",
+    "http://localhost:3000/de",
+    "https://pwa=shop.com",
+  ],
 };
 ```
 

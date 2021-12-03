@@ -4,7 +4,7 @@ No matter whether you're familiar with Shopware or not - you might have come acr
 
 ## Shopping Experiences
 
-The content management system is certainly one of the most prominent features built into Shopware. We have prepared a guide to dig into the structure of our CMS and how to use and extend it within the PWA. 
+The content management system is certainly one of the most prominent features built into Shopware. We have prepared a guide to dig into the structure of our CMS and how to use and extend it within the PWA.
 
 → [CMS Guide](./cms)
 
@@ -37,7 +37,6 @@ Shopware-pwa provides an unified error's structure for all errors that may appea
 Shopware PWA supports a configuration for specific domains and subdomains within one Shopware PWA instance. The guide explains also how Shopware PWA handles the multilanguage features.
 
 → [Routing Guide](./routing)
-
 
 ## User Management <Badge text="coming soon"/>
 

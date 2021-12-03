@@ -4,7 +4,6 @@
 Setting the project for contributors is briefly described as a part of [local environment](/landing/getting-started/local-environment.html#contributor) post - **chapter 6.1**.
 :::
 
-
 ## How to start
 
 Before you start contributing, you should fork this repository and pick up the issue.

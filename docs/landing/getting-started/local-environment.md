@@ -113,9 +113,10 @@ Let's assume that you want to contribute a shopware-pwa project and you do have 
 
     - Answer the questions during project initialization and that's it.
     - There is `shopware-pwa.config.js` file in your root project's folder. You can edit it anytime.
+
       > The next (6.) point shows how to get required data from local Shopware 6 instance.
 
-    6.2. Contributor <a id="contributor"></a>
+      6.2. Contributor <a id="contributor"></a>
 
     - Fork a repo and clone it locally
       ```bash
@@ -137,10 +138,10 @@ Let's assume that you want to contribute a shopware-pwa project and you do have 
         shopwareAccessToken: "SWSC40-LJTNO6COUEN7CJMXKLA",
         shopwareDomainsAllowList: ["http://localhost:3000"],
       };
-
       ```
 
     :::warning There are some useful commands to make development work easy:
+
     ```
     yarn dev:<package name\*>
     ```

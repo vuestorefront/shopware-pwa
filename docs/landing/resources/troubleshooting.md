@@ -49,7 +49,9 @@ You should check all your imports for @shopware-pwa/shopware-6-client and add ap
 See: [Context-awareness](/landing/fundamentals/security.html#context-awareness) section. It's explained in details.
 
 ## Issue: The API Client's timeout is too low. I'm getting HTTP 408 errors.
+
 You can increase the timeout setting, to do so:
+
 - Edit _shopware-pwa.config.js_ file
 - Add entry:
 
@@ -77,8 +79,10 @@ Learn [the details](../cookbook/#how-to-add-another-language) how to set the new
   - adjust every `handlePayment` usages to pass the context token parameter as a part of success/failure URL.
 
 ## Console errors during initialization of a project via @shopware-pwa/cli package
+
 - Currently Shopware PWA uses node v14.15.3
 - Check if you node version meets the requirements from package.json
 
 ## Specific version of Shopware PWA cannot be installed via CLI (CI/CD process)
+
 - pass a version using a `--stage` option like `npx @shopware-pwa/cli@canary --stage=^0.9.1 --ci`

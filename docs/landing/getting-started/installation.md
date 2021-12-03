@@ -2,7 +2,7 @@
 
 Here you can find information on creating a Shopware PWA project, and how to prepare Shopware 6 instance beforehand.
 
-----
+---
 
 ### Play on CodeSandbox
 
@@ -10,12 +10,10 @@ See how it's working without any installation on CodeSandbox.
 
 [![Edit shopware-pwa v1.0.1](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/sleepy-shannon-rnv8l?file=/README.md)
 
-
 ### Environment requirements
 
 - [node](https://nodejs.org/) - we use **v14.15.3**, currently (you can use [nvm](https://github.com/nvm-sh/nvm) to easily switch between versions)
 - IDE - [VS Code](https://code.visualstudio.com/) recommended (then you can install extensions for Vue and Nuxt)
-
 
 ## Set up the Shopware 6 instance first!
 

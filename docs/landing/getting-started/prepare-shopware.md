@@ -9,23 +9,24 @@ Some paths and namings might not be 100% up to date in the video, so be aware of
 In order to **make Shopware work with shopware-pwa** you have to follow a few simple steps.
 
 ## Table of contents
+
 1. Shopware 6 instance (the most recent version, the better)
 2. PWA plugin installed
-    - 2.1. Check [Compatibility Table](#compatibility-table)
-    - 2.2. [Install a plugin](#installation-of-pwa-plugin)
+   - 2.1. Check [Compatibility Table](#compatibility-table)
+   - 2.2. [Install a plugin](#installation-of-pwa-plugin)
 3. Sales Channel configured
-    - 3.1. [Set up the Sales Channel](#set-up-a-sales-channel)
-    - 3.2. [Get the API access key](#api-credentials)
+   - 3.1. [Set up the Sales Channel](#set-up-a-sales-channel)
+   - 3.2. [Get the API access key](#api-credentials)
 
 ## Compatibility Table
 
 We want Shopware PWA to be in sync with the latest endpoints of Shopware, to be able to ship new features to you as soon as they are released within Shopware.
 
 Here you may find a compatibility table for the Shopware API with corresponding PWA plugin.
-| Shopware PWA version                                                                                                                          | Shopware 6 version                                                                                                                                                                                                                                                     |
+| Shopware PWA version | Shopware 6 version |
 | :-------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [![shopware-ver](https://img.shields.io/badge/shopware–pwa-1.0.x-green)](https://github.com/vuestorefront/shopware-pwa/releases/tag/v1.0.1) | [![shopware-ver](https://img.shields.io/badge/Shopware-6.4.x-green)](https://github.com/shopware/platform/releases/tag/v6.4) & [![shopware-ver](https://img.shields.io/badge/PWA%20plugin-0.3.x-green)](https://github.com/elkmod/SwagShopwarePwa/releases/tag/v0.3.0) |
-| [![shopware-ver](https://img.shields.io/badge/shopware–pwa-0.8.2-green)](https://github.com/vuestorefront/shopware-pwa/releases/tag/v0.8.2)   | [![shopware-ver](https://img.shields.io/badge/Shopware-6.3.x-green)](https://github.com/shopware/platform/releases/tag/v6.4) & [![shopware-ver](https://img.shields.io/badge/PWA%20plugin-0.2.1-green)](https://github.com/elkmod/SwagShopwarePwa/releases/tag/v0.2.1) |
+| [![shopware-ver](https://img.shields.io/badge/shopware–pwa-0.8.2-green)](https://github.com/vuestorefront/shopware-pwa/releases/tag/v0.8.2) | [![shopware-ver](https://img.shields.io/badge/Shopware-6.3.x-green)](https://github.com/shopware/platform/releases/tag/v6.4) & [![shopware-ver](https://img.shields.io/badge/PWA%20plugin-0.2.1-green)](https://github.com/elkmod/SwagShopwarePwa/releases/tag/v0.2.1) |
 
 &nbsp;
 
@@ -74,7 +75,7 @@ The main navigation is based on that option.
 ### Must have the **domains** section configured properly.
 
 In general, the domain's URL should correspond to the real URL (domain) used for that specific Shopware PWA instance.
-The URL of each domain will be used later on, during project configuration. 
+The URL of each domain will be used later on, during project configuration.
 
 ![domains config](../assets/domains-settings.png)
 
@@ -91,7 +92,6 @@ Once you are logged in, you can find the configured Sales Channels on the left s
 Select the `Storefront` sales channel or any sales channel that you've configured manually and the scroll down to the `API access` section. Copy the API access key and you're good to continue with your PWA setup.
 
 ![API access](../../assets/api-access.png)
-
 
 ### Great! You've got everything you need.
 

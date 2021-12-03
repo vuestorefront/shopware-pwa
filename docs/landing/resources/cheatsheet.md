@@ -60,5 +60,3 @@ module.exports = {
 ##### Developing Shopware PWA
 
 If you'd like to develop Shopware PWA, then run inside your created project `shopware-pwa dev` instead of `yarn dev`. It will watch files and components in `shopware-pwa/packages/default-theme` and instantly copy changes to your project.
-
-

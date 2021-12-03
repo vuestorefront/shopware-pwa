@@ -2,11 +2,11 @@
 
 In this section, you will find information how to change the default _static_ configuration of your project (not a backend side).
 
-Shopware PWA, as it's built upon a NuxtJS, provides many options of configuration in the Nuxtjs style, accepting a `nuxt.config.js` file entirely! 
+Shopware PWA, as it's built upon a NuxtJS, provides many options of configuration in the Nuxtjs style, accepting a `nuxt.config.js` file entirely!
 
 Furthermore, the Shopware PWA part, which is delivered as a Nuxt module, also has its own config file named `shopware-pwa.config.js`. Both files are located in the root dir of a project.
 
-----
+---
 
 ## shopware-pwa.config.js
 
@@ -64,29 +64,31 @@ module.exports = {
     // optional, allow to override the default settings
     timeout: 5000, // timeout limit in ms
   },
-  shopwareDomainsAllowList: ["http://localhost:3000", "http://localhost:3000/de", "https://pwa-shop.com"],
+  shopwareDomainsAllowList: [
+    "http://localhost:3000",
+    "http://localhost:3000/de",
+    "https://pwa-shop.com",
+  ],
 };
 ```
-
 
 ## nuxt.config.js
 
 As default setup, you will probably not need to customize the origin `nuxt.config.js` file as it's described in the [Official Documentation](https://nuxtjs.org/docs/directory-structure/nuxt-config). The project has its own preconfigured nuxt configuration to work with PWA in the best setup. You can easily extend it by using `extendNuxtConfig` method (RECOMMENDED).
 
-
 ```js
 // nuxt.config.js
-import extendNuxtConfig from "@shopware-pwa/nuxt-module/config"
+import extendNuxtConfig from "@shopware-pwa/nuxt-module/config";
 
 export default extendNuxtConfig({
-  head: { // the title and meta sections of head area is using now values from this files.
+  head: {
+    // the title and meta sections of head area is using now values from this files.
     title: "Shopware PWA",
     meta: [{ hid: "description", name: "description", content: "" }],
   },
-    // everything else is inherited
-})
+  // everything else is inherited
+});
 ```
-
 
 You can also provide the entire config on your own (but then, **don't forget to ensure what's required** in the base [Shopware PWA config](https://github.com/vuestorefront/shopware-pwa/blob/master/packages/nuxt-module/src/extendNuxtConfig.ts#L10) - it's NOT RECOMMENDED anyway, because doing this, you will loose compatibility with core api during further upgrades).
 
@@ -127,19 +129,17 @@ The great example is a helper for getting images with optional image processor (
 
 ```
 
-Shopware-pwa provides the optional way of setting env variables by using `.env` file, instead of setting them up using system environment variables explicitly like: 
+Shopware-pwa provides the optional way of setting env variables by using `.env` file, instead of setting them up using system environment variables explicitly like:
 
 `EXPERIMENTAL_IMAGE_PROCESSING_SERVER=https://someserver.com/img/ shopware-pwa dev` or even before running the nodejs process, manually.
 
-
 ### Setup
 
-A generated project contains `.env.template` among other files placed in root directory. 
+A generated project contains `.env.template` among other files placed in root directory.
 
 ::: tip
 Remember that the `.env` file is listed in `.gitignore` and shouldn't be versioned because it may contain some sensitive data.
 :::
-
 
 The `.env.template` file's content may look similar to this one:
 
@@ -161,14 +161,14 @@ The default environment variables
 
 - `HOST` - nuxt server host name (`0.0.0.0` by default)
 - `PORT` - nuxt server port number (`3000` by default)
-- `ADMIN_USER` - Shopware 6 admin user name (`admin` by default) 
+- `ADMIN_USER` - Shopware 6 admin user name (`admin` by default)
 - `ADMIN_PASSWORD` - Shopware 6 admin password (`shopware` by default)
 - `ENABLE_DEVTOOLS` - config turning on the nuxt dev tools (`true` by default)
 - `NODE_ENV` - application mode: dev or production (`dev` by default)
 - `EXPERIMENTAL_IMAGE_PROCESSING_SERVER` - URL to the custom image processor (well described [here](https://github.com/vuestorefront/shopware-pwa/blob/master/packages/default-theme/src/helpers/images/getResizedImage.js))
 
 ::: tip
-shopware-pwa CLI tool can also detect the current state of environment variables and use given `ADMIN_USER` and `ADMIN_PASSWORD` values in `plugins` and `domains` commands (suggest credentials). 
+shopware-pwa CLI tool can also detect the current state of environment variables and use given `ADMIN_USER` and `ADMIN_PASSWORD` values in `plugins` and `domains` commands (suggest credentials).
 
 ![cli](./../../assets/env_cli.png)
 :::

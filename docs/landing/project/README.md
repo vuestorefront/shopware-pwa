@@ -8,20 +8,20 @@ Shopware PWA is a project created in a cooperation between [Vue Storefront](http
 
 It takes the capabilities of Shopware 6 and brings it to the hands of the frontend developers to create outstanding customer experiences based on modern frontend technologies like:
 
- * Vue.js
- * Nuxt.js
- * Typescript
- * Jest
- * and many more
+- Vue.js
+- Nuxt.js
+- Typescript
+- Jest
+- and many more
 
 Many of the Shopware Core concepts you are used to will be available as well, including:
 
- * Shopping Experiences (CMS)
- * Search and filters
- * Product variants
- * Checkout and payment
- * User self-management
- * Plugin system
+- Shopping Experiences (CMS)
+- Search and filters
+- Product variants
+- Checkout and payment
+- User self-management
+- Plugin system
 
 If you have a specific set of features, feel free to compare it against our curated and regularly updated [Feature List](/landing/resources/features)
 
@@ -33,7 +33,7 @@ We are observing a paradigm shift that lets more and more projects and customers
 
 The full frontend stack can be JavaScript based and, depending on your requirements, use features like SEO-friendly server-side rendering, smart pre-compilation or reactive elements and PWA. It can also provide fully static pages if you wish so.
 
-This new generation of frontend applications is also often referred to as *JAMstack* (short for JavaScript, API and Markup) as coined by frameworks like (Next.js and Gatsby).
+This new generation of frontend applications is also often referred to as _JAMstack_ (short for JavaScript, API and Markup) as coined by frameworks like (Next.js and Gatsby).
 
 <!-- Great chance for another article to elaborate on why PMs / SIs would opt for PWA instead of default storefront -->
 

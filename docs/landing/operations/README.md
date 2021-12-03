@@ -32,4 +32,3 @@ Potential sections
 - Hosting
 - Testing / CI
 - Deployment / Updates
-

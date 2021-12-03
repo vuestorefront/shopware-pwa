@@ -1,4 +1,5 @@
 # Structure
+
 Short description of project structure.
 
 ## Packages description
@@ -12,17 +13,19 @@ They are located in ./packages and can be developing and published separately.
 5. **helpers** [_@shopware-pwa/helpers_](https://www.npmjs.com/package/@shopware-pwa/helpers) - Functions that transform/convert Shopware 6 specific data that comes from the API. Widely used by _composables_ or _default-theme_.
 6. **nuxt-module** [_@shopware-pwa/nuxt-module_](https://www.npmjs.com/package/@shopware-pwa/nuxt-module) - It makes the whole project working properly. Connects some part of the project and enables modifications.
 7. **shopware-6-client** [_@shopware-pwa/shopware-6-client_](https://www.npmjs.com/package/@shopware-pwa/shopware-6-client) - Shopware 6 API client. Tailored to the sales-channel-api.
+
 ---
 
 ## Project tree
 
 The files structure shows the tree below
+
 ```
 .
 ├── api                     <- API extractor docs
 ├── coverage*               <- code coverage reports
 ├── docs
-├── packages                <- standalone packages 
+├── packages                <- standalone packages
 │   ├── cli                 <- @shopware-pwa/cli
 │   │   ├── bin
 │   │   ├── src
@@ -56,7 +59,7 @@ The files structure shows the tree below
 │       └── __tests__
 ├── rfc                     <- place for Requests for comments
 ├── scripts                 <- scripts helping set up the project
-├── test-project*           <- developer's instance of default-theme package           
+├── test-project*           <- developer's instance of default-theme package
 
 * - available locally in development mode
 ```
