@@ -67,12 +67,11 @@
 import {
   useNavigation,
   useSharedState,
-  useSSR,
   useUIState,
 } from "@shopware-pwa/composables"
 
 import SwMegaMenu from "@/components/SwMegaMenu.vue"
-import { ref, watch, onServerPrefetch, computed } from "@vue/composition-api"
+import { ref, watch, computed } from "@vue/composition-api"
 import { getCategoryUrl, isLinkCategory } from "@shopware-pwa/helpers"
 import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
 import { useDomains } from "@/logic"
@@ -89,10 +88,9 @@ export default {
     const { switchState: switchOverlay } = useUIState({
       stateName: "MEGA_MENU_OVERLAY_STATE",
     })
+    const unwrappedElements = ref(4)
     const { loadNavigationElements, navigationElements } = useNavigation()
-
     const { currentDomainId } = useDomains()
-
     const currentCategoryName = ref(null)
 
     const changeCurrentCategory = (categoryName) => {
@@ -105,42 +103,38 @@ export default {
       await loadNavigationElements({ depth: 3 })
     })
 
+    const unvisibleCategories = computed(() => {
+      if (
+        navigationElements.value?.slice(unwrappedElements.value).length === 0
+      ) {
+        return
+      }
+
+      return {
+        children: navigationElements.value.slice(unwrappedElements.value),
+        name: "categories",
+        translated: {
+          name: "categories",
+        },
+      }
+    })
+
     watch(currentDomainId, async () => {
       await loadNavigationElements({ depth: 3 })
     })
 
     return {
       navigationElements: computed(() => navigationElements.value || []),
+      visibleCategories: computed(() =>
+        navigationElements.value?.slice(0, unwrappedElements.value)
+      ),
+      unvisibleCategories,
       getCategoryUrl,
       isLinkCategory,
       currentCategoryName,
       changeCurrentCategory,
       getTranslatedProperty,
     }
-  },
-
-  data() {
-    return { unwrappedElements: 4 }
-  },
-
-  computed: {
-    visibleCategories() {
-      return this.navigationElements.slice(0, this.unwrappedElements)
-    },
-
-    unvisibleCategories() {
-      if (this.navigationElements.slice(this.unwrappedElements).length === 0) {
-        return undefined
-      }
-
-      return {
-        children: this.navigationElements.slice(this.unwrappedElements),
-        name: "categories",
-        translated: {
-          name: "categories",
-        },
-      }
-    },
   },
 
   watch: {
