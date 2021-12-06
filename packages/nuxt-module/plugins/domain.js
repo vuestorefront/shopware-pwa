@@ -140,7 +140,7 @@ export default async ({ app, route, req }, inject) => {
        */
 
       const hasPrefixPath = (domainConfig) => {
-        return domainConfig.pathPrefix !== "/";
+        return domainConfig?.pathPrefix !== "/";
       };
 
       // a route can have multiple metadata objects inside - find the one with domainId - it comes from compiled routes (domains nuxt-module)
