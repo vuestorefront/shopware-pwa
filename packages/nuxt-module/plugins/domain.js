@@ -140,6 +140,8 @@ export default async ({ app, route, req }, inject) => {
        */
 
       const hasPrefixPath = (domainConfig) => {
+        if (!domainConfig) return false;
+
         return domainConfig?.pathPrefix !== "/";
       };
 
