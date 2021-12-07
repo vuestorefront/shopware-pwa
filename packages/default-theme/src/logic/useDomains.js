@@ -27,15 +27,11 @@ export function useDomains() {
 
   const availableDomains = computed(() => routing.availableDomains || [])
   const currentDomainId = computed(
-    () =>
-      routing.getCurrentDomain?.value &&
-      routing.getCurrentDomain?.value?.domainId
+    () => currentDomainData?.value && currentDomainData?.value?.domainId
   )
   const trimDomain = (url) =>
     url.replace(
-      routing.getCurrentDomain.value
-        ? routing.getCurrentDomain.value?.pathPrefix
-        : "",
+      currentDomainData.value ? currentDomainData.value?.pathPrefix : "",
       ""
     )
 
@@ -90,9 +86,8 @@ export function useDomains() {
       return
     }
 
-    currentDomainData.value = domainFound
-
     const newUrlPath = await getNewDomainUrl(domainFound)
+
     if (domainFound.origin === routing.getCurrentDomain?.value?.origin) {
       // Same Origin, use routing to push the new path
       router.push(newUrlPath)
