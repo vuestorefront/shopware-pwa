@@ -152,7 +152,7 @@ export default async ({ app, route, req }, inject) => {
        * The nuxt-router always picks the first route that matches the new path, so for these pages the
        * domainConfig attached to the route doesn't have to be the right one.
        */
-      if (!hasPrefixPath(domainConfig)) {
+      if (domainConfig && !hasPrefixPath(domainConfig)) {
         if (process.client) {
           // During client-side navigation the domain config can be manually loaded through the location origin.
           const currentOrigin = location.origin;
@@ -176,7 +176,7 @@ export default async ({ app, route, req }, inject) => {
       /* Same cause as in the above block:
        * the fromDomainConfig has to be determined separately for routes with a domainConfig without prefixPath
        */
-      if (!hasPrefixPath(fromDomainConfig)) {
+      if (fromDomainConfig && !hasPrefixPath(fromDomainConfig)) {
         if (process.client) {
           // During client-side navigation the domain config can be manually loaded through the location origin,
           // because the origin is still the same
