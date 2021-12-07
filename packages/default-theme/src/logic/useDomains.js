@@ -1,4 +1,5 @@
 import { computed } from "@vue/composition-api"
+import { getCurrentInstance } from "vue-demi"
 import {
   getApplicationContext,
   useCms,
@@ -12,6 +13,7 @@ export function useDomains() {
   const COMPOSABLE_NAME = "useDomains"
   const contextName = COMPOSABLE_NAME
 
+  const app = getCurrentInstance()
   // the "last-chance route always has a name starting with `all` - nuxt default"
   const PAGE_RESOLVER_ROUTE_PREFIX = "all"
   const { resourceIdentifier, page } = useCms()
@@ -36,7 +38,9 @@ export function useDomains() {
         : "",
       ""
     )
-  const getCurrentPathWithoutDomain = () => trimDomain(route.fullPath)
+
+  const getCurrentPathWithoutDomain = () =>
+    trimDomain(app?.proxy?.$route?.fullPath)
   const isHomePage = () => {
     const currentPath = getCurrentPathWithoutDomain()
     return currentPath === "/" || currentPath === ""
