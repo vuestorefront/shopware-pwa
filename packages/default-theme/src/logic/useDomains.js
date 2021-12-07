@@ -21,7 +21,7 @@ export function useDomains() {
   const { sharedRef } = useSharedState()
   const currentDomainData = sharedRef("sw-current-domain")
 
-  const { router, route, routing, apiInstance, i18n } = getApplicationContext({
+  const { router, routing, apiInstance, i18n } = getApplicationContext({
     contextName,
   })
 
@@ -29,21 +29,22 @@ export function useDomains() {
   const currentDomainId = computed(
     () => currentDomainData?.value && currentDomainData?.value?.domainId
   )
+  const route = computed(() => app?.proxy?.$route)
+
   const trimDomain = (url) =>
     url.replace(
       currentDomainData.value ? currentDomainData.value?.pathPrefix : "",
       ""
     )
 
-  const getCurrentPathWithoutDomain = () =>
-    trimDomain(app?.proxy?.$route?.fullPath)
+  const getCurrentPathWithoutDomain = () => trimDomain(route.value?.fullPath)
   const isHomePage = () => {
     const currentPath = getCurrentPathWithoutDomain()
     return currentPath === "/" || currentPath === ""
   }
 
   const isRouteStatic = computed(() => {
-    return !route.name.startsWith(PAGE_RESOLVER_ROUTE_PREFIX)
+    return !route.value?.name?.startsWith(PAGE_RESOLVER_ROUTE_PREFIX)
   })
   const getNewDomainUrl = async (domain) => {
     let url = `${domain.pathPrefix !== "/" ? `${domain.pathPrefix}` : ""}`
