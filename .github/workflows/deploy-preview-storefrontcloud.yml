@@ -280,7 +280,7 @@ jobs:
         with:
           path: |
             packages/default-theme/dist
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}-${{ steps.folder-hash-step-default-theme.outputs.hash }}-force
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}-${{ steps.folder-hash-step-default-theme.outputs.hash }}
       - name: Cache node_modules
         if: steps.step-cache-build.outputs.cache-hit != 'true'
         uses: actions/cache@v2
@@ -290,7 +290,7 @@ jobs:
           path: |
             node_modules
             packages/*/node_modules
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}-force
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}
       - name: Build default-theme
         if: steps.step-cache-build.outputs.cache-hit != 'true'
         run: |
@@ -359,7 +359,7 @@ jobs:
       - name: Cache default-theme build
         uses: actions/cache@v2
         env:
-          cache-name: test-cache-default-theme-build-force
+          cache-name: test-cache-default-theme-build
         with:
           path: |
             packages/default-theme/dist
@@ -378,17 +378,17 @@ jobs:
         run: |
           node ./scripts/linkDependencies.js
       # Step to speed up project init
-      - name: Cache test-project
-        uses: actions/cache@v2
-        env:
-          cache-name: test-cache-test-project
-        with:
-          path: |
-            test-project
-            !test-project/.shopware-pwa
-            !test-project/.yalc
-            !test-project/.yalc.lock
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}-${{ needs.build-cli.outputs.package-hash }}-force
+      # - name: Cache test-project
+      #   uses: actions/cache@v2
+      #   env:
+      #     cache-name: test-cache-test-project
+      #   with:
+      #     path: |
+      #       test-project
+      #       !test-project/.shopware-pwa
+      #       !test-project/.yalc
+      #       !test-project/.yalc.lock
+      #     key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}-${{ needs.build-cli.outputs.package-hash }}
       - name: Create a project
         run: |
           mkdir -p test-project
