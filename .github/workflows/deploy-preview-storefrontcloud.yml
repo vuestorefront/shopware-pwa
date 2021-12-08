@@ -327,7 +327,7 @@ jobs:
       - name: Cache composables build
         uses: actions/cache@v2
         env:
-          cache-name: test-cache-composables-build
+          cache-name: test-cache-composables-build-update
         with:
           path: |
             packages/composables/dist
@@ -359,7 +359,7 @@ jobs:
       - name: Cache default-theme build
         uses: actions/cache@v2
         env:
-          cache-name: test-cache-default-theme-build
+          cache-name: test-cache-default-theme-build-update
         with:
           path: |
             packages/default-theme/dist
