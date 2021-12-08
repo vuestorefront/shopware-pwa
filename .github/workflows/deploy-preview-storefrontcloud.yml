@@ -272,25 +272,25 @@ jobs:
           HASH=$(git rev-parse HEAD:packages/default-theme)
           echo "::set-output name=hash::$HASH"
           echo "Hash is: $HASH"
-      - name: Cache default-theme build
-        id: step-cache-build
-        uses: actions/cache@v2
-        env:
-          cache-name: test-cache-default-theme-build-update
-        with:
-          path: |
-            packages/default-theme/dist
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}-${{ steps.folder-hash-step-default-theme.outputs.hash }}
-      - name: Cache node_modules
-        #if: steps.step-cache-build.outputs.cache-hit != 'true'
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-node-modules-test-update
-        with:
-          path: |
-            node_modules
-            packages/*/node_modules
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}
+      # - name: Cache default-theme build
+      #   id: step-cache-build
+      #   uses: actions/cache@v2
+      #   env:
+      #     cache-name: test-cache-default-theme-build-update
+      #   with:
+      #     path: |
+      #       packages/default-theme/dist
+      #     key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}-${{ steps.folder-hash-step-default-theme.outputs.hash }}
+      # - name: Cache node_modules
+      #   #if: steps.step-cache-build.outputs.cache-hit != 'true'
+      #   uses: actions/cache@v2
+      #   env:
+      #     cache-name: cache-node-modules-test-update
+      #   with:
+      #     path: |
+      #       node_modules
+      #       packages/*/node_modules
+      #     key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}
       - name: Build default-theme
         #if: steps.step-cache-build.outputs.cache-hit != 'true'
         run: |
@@ -356,24 +356,24 @@ jobs:
           path: |
             packages/shopware-6-client/dist
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}-${{ needs.build-shopware-6-client.outputs.package-hash }}
-      - name: Cache default-theme build
-        uses: actions/cache@v2
-        env:
-          cache-name: test-cache-default-theme-build-update
-        with:
-          path: |
-            packages/default-theme/dist
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}-${{ needs.build-default-theme.outputs.package-hash }}
+      # - name: Cache default-theme build
+      #   uses: actions/cache@v2
+      #   env:
+      #     cache-name: test-cache-default-theme-build-update
+      #   with:
+      #     path: |
+      #       packages/default-theme/dist
+      #     key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}-${{ needs.build-default-theme.outputs.package-hash }}
       # Step to speed up project init
-      - name: Cache node_modules
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-node-modules-test-update
-        with:
-          path: |
-            node_modules
-            packages/*/node_modules
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}
+      # - name: Cache node_modules
+      #   uses: actions/cache@v2
+      #   env:
+      #     cache-name: cache-node-modules-test-update
+      #   with:
+      #     path: |
+      #       node_modules
+      #       packages/*/node_modules
+      #     key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}
       - name: Link packages
         run: |
           node ./scripts/linkDependencies.js
