@@ -123,7 +123,7 @@ module.exports = {
     });
 
     if (isLocalSetup) {
-      await run(`npx yalc add -D ${localCoreDevPackages.join(" ")}`);
+      //await run(`npx yalc add -D ${localCoreDevPackages.join(" ")}`);
       await run(`yarn link ${localCoreDevPackages.join(" ")}`);
     }
 
