@@ -26,14 +26,14 @@ jobs:
         uses: actions/cache@v2
         id: step-cache-node-modules
         env:
-          cache-name: cache-node-modules-test
+          cache-name: cache-node-modules-test-update
         with:
           path: |
             node_modules
             packages/*/node_modules
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}
       - name: Install dependencies
-        #if: steps.step-cache-node-modules.outputs.cache-hit != 'true'
+        if: steps.step-cache-node-modules.outputs.cache-hit != 'true'
         run: |
           yarn --frozen-lockfile
 
@@ -60,7 +60,7 @@ jobs:
         id: step-cache-build
         uses: actions/cache@v2
         env:
-          cache-name: test-cache-cli-build
+          cache-name: test-cache-cli-build-update
         with:
           path: |
             packages/cli/build
@@ -69,14 +69,14 @@ jobs:
         if: steps.step-cache-build.outputs.cache-hit != 'true'
         uses: actions/cache@v2
         env:
-          cache-name: cache-node-modules-test
+          cache-name: cache-node-modules-test-update
         with:
           path: |
             node_modules
             packages/*/node_modules
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}
       - name: Build CLI
-        #if: steps.step-cache-build.outputs.cache-hit != 'true'
+        if: steps.step-cache-build.outputs.cache-hit != 'true'
         run: |
           cd ./packages/cli/
           yarn build
@@ -276,7 +276,7 @@ jobs:
         id: step-cache-build
         uses: actions/cache@v2
         env:
-          cache-name: test-cache-default-theme-build
+          cache-name: test-cache-default-theme-build-update
         with:
           path: |
             packages/default-theme/dist
@@ -285,14 +285,14 @@ jobs:
         if: steps.step-cache-build.outputs.cache-hit != 'true'
         uses: actions/cache@v2
         env:
-          cache-name: cache-node-modules-test
+          cache-name: cache-node-modules-test-update
         with:
           path: |
             node_modules
             packages/*/node_modules
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}
       - name: Build default-theme
-        #if: steps.step-cache-build.outputs.cache-hit != 'true'
+        if: steps.step-cache-build.outputs.cache-hit != 'true'
         run: |
           node scripts/linkDependencies.js && yarn lerna link
           yarn build default-theme --ci
@@ -319,7 +319,7 @@ jobs:
       - name: Cache cli build
         uses: actions/cache@v2
         env:
-          cache-name: test-cache-cli-build
+          cache-name: test-cache-cli-build-update
         with:
           path: |
             packages/cli/build
@@ -368,7 +368,7 @@ jobs:
       - name: Cache node_modules
         uses: actions/cache@v2
         env:
-          cache-name: cache-node-modules-test
+          cache-name: cache-node-modules-test-update
         with:
           path: |
             node_modules
@@ -378,17 +378,17 @@ jobs:
         run: |
           node ./scripts/linkDependencies.js
       # Step to speed up project init
-      # - name: Cache test-project
-      #   uses: actions/cache@v2
-      #   env:
-      #     cache-name: test-cache-test-project
-      #   with:
-      #     path: |
-      #       test-project
-      #       !test-project/.shopware-pwa
-      #       !test-project/.yalc
-      #       !test-project/.yalc.lock
-      #     key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}-${{ needs.build-cli.outputs.package-hash }}
+      - name: Cache test-project
+        uses: actions/cache@v2
+        env:
+          cache-name: test-cache-test-project-update
+        with:
+          path: |
+            test-project
+            !test-project/.shopware-pwa
+            !test-project/.yalc
+            !test-project/.yalc.lock
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}-${{ needs.build-cli.outputs.package-hash }}
       - name: Create a project
         run: |
           mkdir -p test-project
