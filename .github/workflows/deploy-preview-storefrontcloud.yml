@@ -33,7 +33,7 @@ jobs:
             packages/*/node_modules
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}
       - name: Install dependencies
-        if: steps.step-cache-node-modules.outputs.cache-hit != 'true'
+        #if: steps.step-cache-node-modules.outputs.cache-hit != 'true'
         run: |
           yarn --frozen-lockfile
 
@@ -76,7 +76,7 @@ jobs:
             packages/*/node_modules
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}
       - name: Build CLI
-        if: steps.step-cache-build.outputs.cache-hit != 'true'
+        #if: steps.step-cache-build.outputs.cache-hit != 'true'
         run: |
           cd ./packages/cli/
           yarn build
@@ -292,7 +292,7 @@ jobs:
             packages/*/node_modules
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}
       - name: Build default-theme
-        if: steps.step-cache-build.outputs.cache-hit != 'true'
+        #if: steps.step-cache-build.outputs.cache-hit != 'true'
         run: |
           node scripts/linkDependencies.js && yarn lerna link
           yarn build default-theme --ci
