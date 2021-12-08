@@ -282,7 +282,7 @@ jobs:
             packages/default-theme/dist
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}-${{ steps.folder-hash-step-default-theme.outputs.hash }}
       - name: Cache node_modules
-        if: steps.step-cache-build.outputs.cache-hit != 'true'
+        #if: steps.step-cache-build.outputs.cache-hit != 'true'
         uses: actions/cache@v2
         env:
           cache-name: cache-node-modules-test-update
