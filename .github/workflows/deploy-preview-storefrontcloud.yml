@@ -190,7 +190,7 @@ jobs:
         id: step-cache-build
         uses: actions/cache@v2
         env:
-          cache-name: test-cache-nuxt-module-build
+          cache-name: test-cache-nuxt-module-build-force
         with:
           path: |
             packages/nuxt-module/dist
@@ -343,7 +343,7 @@ jobs:
       - name: Cache nuxt-module build
         uses: actions/cache@v2
         env:
-          cache-name: test-cache-nuxt-module-build
+          cache-name: test-cache-nuxt-module-build-force
         with:
           path: |
             packages/nuxt-module/dist
@@ -385,7 +385,6 @@ jobs:
         with:
           path: |
             test-project
-            !test-project/node_modules
             !test-project/.shopware-pwa
             !test-project/.yalc
             !test-project/.yalc.lock
