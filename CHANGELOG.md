@@ -1,3 +1,13 @@
+## [1.1.1](https://github.com/vuestorefront/shopware-pwa/compare/v1.1.0...v1.1.1) (2021-12-07)
+
+
+### Bug Fixes
+
+* **default-theme:** homepage path on domain switch ([#1753](https://github.com/vuestorefront/shopware-pwa/issues/1753)) ([1848c37](https://github.com/vuestorefront/shopware-pwa/commit/1848c379b274ccc3ea00b7e195839c9395a0b3b9))
+* **nuxt-module:** optional chaining to hasPrefixPath ([f2a9903](https://github.com/vuestorefront/shopware-pwa/commit/f2a990399af4673335d778353aace3ea8d18672f))
+
+
+
 # [1.1.0](https://github.com/vuestorefront/shopware-pwa/compare/v1.0.1...v1.1.0) (2021-12-03)
 
 

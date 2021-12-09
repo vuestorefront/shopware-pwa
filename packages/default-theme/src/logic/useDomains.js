@@ -1,4 +1,5 @@
 import { computed } from "@vue/composition-api"
+import { getCurrentInstance } from "vue-demi"
 import {
   getApplicationContext,
   useCms,
@@ -12,6 +13,7 @@ export function useDomains() {
   const COMPOSABLE_NAME = "useDomains"
   const contextName = COMPOSABLE_NAME
 
+  const app = getCurrentInstance()
   // the "last-chance route always has a name starting with `all` - nuxt default"
   const PAGE_RESOLVER_ROUTE_PREFIX = "all"
   const { resourceIdentifier, page } = useCms()
@@ -19,31 +21,30 @@ export function useDomains() {
   const { sharedRef } = useSharedState()
   const currentDomainData = sharedRef("sw-current-domain")
 
-  const { router, route, routing, apiInstance, i18n } = getApplicationContext({
+  const { router, routing, apiInstance, i18n } = getApplicationContext({
     contextName,
   })
 
   const availableDomains = computed(() => routing.availableDomains || [])
   const currentDomainId = computed(
-    () =>
-      routing.getCurrentDomain?.value &&
-      routing.getCurrentDomain?.value?.domainId
+    () => currentDomainData?.value && currentDomainData?.value?.domainId
   )
+  const route = computed(() => app?.proxy?.$route)
+
   const trimDomain = (url) =>
     url.replace(
-      routing.getCurrentDomain.value
-        ? routing.getCurrentDomain.value?.pathPrefix
-        : "",
+      currentDomainData.value ? currentDomainData.value?.pathPrefix : "",
       ""
     )
-  const getCurrentPathWithoutDomain = () => trimDomain(route.fullPath)
+
+  const getCurrentPathWithoutDomain = () => trimDomain(route.value?.fullPath)
   const isHomePage = () => {
     const currentPath = getCurrentPathWithoutDomain()
     return currentPath === "/" || currentPath === ""
   }
 
   const isRouteStatic = computed(() => {
-    return !route.name.startsWith(PAGE_RESOLVER_ROUTE_PREFIX)
+    return !route.value?.name?.startsWith(PAGE_RESOLVER_ROUTE_PREFIX)
   })
   const getNewDomainUrl = async (domain) => {
     let url = `${domain.pathPrefix !== "/" ? `${domain.pathPrefix}` : ""}`
@@ -86,9 +87,8 @@ export function useDomains() {
       return
     }
 
-    currentDomainData.value = domainFound
-
     const newUrlPath = await getNewDomainUrl(domainFound)
+
     if (domainFound.origin === routing.getCurrentDomain?.value?.origin) {
       // Same Origin, use routing to push the new path
       router.push(newUrlPath)
