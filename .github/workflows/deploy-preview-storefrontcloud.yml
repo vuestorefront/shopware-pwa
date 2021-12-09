@@ -385,6 +385,7 @@ jobs:
         with:
           path: |
             test-project
+            !test-project/node_modules
             !test-project/.shopware-pwa
             !test-project/.yalc
             !test-project/.yalc.lock
