@@ -19,7 +19,7 @@ See how it's working without any installation on CodeSandbox.
 
 Before you start the installation of PWA, make sure that your Shopware 6 instance is ready
 
-→ [Prepare Shopware 6](./prepare-shopware)
+→ [Prepare Shopware 6](./prepare-shopware.html)
 
 ## Create a Shopware PWA project
 
@@ -27,4 +27,4 @@ The only way to install a Shopware PWA is using the official [CLI](https://www.n
 
 This section exaplains how properly init a project.
 
-→ [Create a project](./create-project)
+→ [Create a project](./create-project.html)
