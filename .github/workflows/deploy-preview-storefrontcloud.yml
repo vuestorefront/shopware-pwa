@@ -190,7 +190,7 @@ jobs:
         id: step-cache-build
         uses: actions/cache@v2
         env:
-          cache-name: test-cache-nuxt-module-build-force
+          cache-name: test-cache-nuxt-module-build
         with:
           path: |
             packages/nuxt-module/dist
@@ -343,7 +343,7 @@ jobs:
       - name: Cache nuxt-module build
         uses: actions/cache@v2
         env:
-          cache-name: test-cache-nuxt-module-build-force
+          cache-name: test-cache-nuxt-module-build
         with:
           path: |
             packages/nuxt-module/dist
