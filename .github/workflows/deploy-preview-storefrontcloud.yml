@@ -402,6 +402,7 @@ jobs:
           node ./scripts/yalcLinkTestProject.js
           cd ./test-project
           yarn
+          cat node_modules/@shopware-pwa/nuxt-module/dist/nuxt-module.cjs.js
           yarn build
       - name: Build and publish docker image
         uses: elgohr/Publish-Docker-Github-Action@2.19
