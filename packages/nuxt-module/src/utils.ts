@@ -1,6 +1,6 @@
 import jetpack from "fs-jetpack";
 import { NuxtModuleOptions } from "./interfaces";
-import { cosmiconfig } from "cosmiconfig";
+import cosmiconfig from "cosmiconfig";
 import {
   getDefaultConfigFile,
   ShopwarePwaConfigFile,
