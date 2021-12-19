@@ -420,9 +420,11 @@ jobs:
           ../packages/cli/bin/shopware-pwa init --username=${{ secrets.SHOPWARE_ADMIN_USER }} --password=${{ secrets.SHOPWARE_ADMIN_PASSWORD }} --shopwareDomainsAllowList=${{ env.PWA_HOST }} --ci --devMode --stage local
       - name: Build test project
         run: |
+          yarn
           node ./scripts/yalcPushPackages.js
           node ./scripts/yalcLinkTestProject.js
           cd ./test-project
+          cat ./node_modules/cosmiconfig/package.json || true
           yarn
           yarn build
       - name: Build and publish docker image
