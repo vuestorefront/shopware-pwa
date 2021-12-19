@@ -415,6 +415,7 @@ jobs:
           key: ${{ matrix.node }}-${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}-${{ needs.build-cli.outputs.package-hash }}
       - name: Create a project
         run: |
+          yarn global add yalc
           mkdir -p test-project
           cd ./test-project
           ../packages/cli/bin/shopware-pwa init --username=${{ secrets.SHOPWARE_ADMIN_USER }} --password=${{ secrets.SHOPWARE_ADMIN_PASSWORD }} --shopwareDomainsAllowList=${{ env.PWA_HOST }} --ci --devMode --stage local
