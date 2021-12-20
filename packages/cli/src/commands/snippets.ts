@@ -82,7 +82,7 @@ module.exports = {
 
     if (!languages) {
       toolbox.print.error(
-        "[CLI > snippets] Language config does not exist. Pleas run 'yarn shopware-pwa languages' first."
+        "[CLI > snippets] Language config does not exist. Pleas run 'pnpm run shopware-pwa languages' first."
       );
       return;
     }

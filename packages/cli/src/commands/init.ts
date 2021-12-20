@@ -77,6 +77,7 @@ module.exports = {
     const coreDevPackages = ["@shopware-pwa/nuxt-module"];
     const localCoreDevPackages = [
       "@shopware-pwa/cli",
+      "@shopware-pwa/commons",
       "@shopware-pwa/composables",
       "@shopware-pwa/helpers",
       "@shopware-pwa/shopware-6-client",
@@ -85,12 +86,12 @@ module.exports = {
       "@shopware-pwa/theme-base",
     ];
 
-    try {
-      // - unlink potential linked locally packages
-      await run(`yarn unlink ${localCoreDevPackages.join(" ")}`);
-    } catch (e) {
-      // It's just for safety, unlink on fresh project will throw an error so we can catch it here
-    }
+    // try {
+    //   // - unlink potential linked locally packages
+    //   await run(`yarn unlink ${localCoreDevPackages.join(" ")}`);
+    // } catch (e) {
+    //   // It's just for safety, unlink on fresh project will throw an error so we can catch it here
+    // }
 
     await toolbox.patching.update("package.json", (config) => {
       const sortPackageJson = require("sort-package-json");
@@ -122,12 +123,12 @@ module.exports = {
       return sortPackageJson(config);
     });
 
-    if (isLocalSetup) {
-      await run(`npx yalc add -D ${localCoreDevPackages.join(" ")}`);
-      await run(`yarn link ${localCoreDevPackages.join(" ")}`);
-    }
+    // if (isLocalSetup) {
+    //   await run(`npx yalc add -D ${localCoreDevPackages.join(" ")}`);
+    //   await run(`yarn link ${localCoreDevPackages.join(" ")}`);
+    // }
 
-    await run("yarn --check-files");
+    await run("pnpm install");
     updateConfigSpinner.succeed();
 
     const generateFilesSpinner = spin("[CLI > init] Generating project files");
@@ -149,7 +150,7 @@ module.exports = {
       "[CLI > init] Updating dependencies"
     );
     // Loading additional packages
-    await run(`yarn`);
+    await run(`pnpm install`);
     updateDependenciesSpinner.succeed();
 
     success(`[CLI > init] Generated Shopware PWA project!`);

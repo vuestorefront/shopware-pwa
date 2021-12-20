@@ -1,5 +1,5 @@
 import { computed, ComputedRef } from "vue-demi";
-import { Country } from "@shopware-pwa/commons/interfaces/models/system/country/Country";
+import { Country } from "@shopware-pwa/commons/interfaces";
 import { useCountries } from "@shopware-pwa/composables";
 
 /**

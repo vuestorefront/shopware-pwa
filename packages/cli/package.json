@@ -12,7 +12,7 @@
     "clean-build": "node ./scripts/clean-build.js",
     "compile": "node ./scripts/esbuild.js",
     "copy-templates": "node ./scripts/copy-templates.js",
-    "build": "yarn format && yarn lint && yarn clean-build && yarn compile && yarn copy-templates",
+    "build": "pnpm run format && pnpm run lint && pnpm run clean-build && pnpm run compile && pnpm run copy-templates",
     "test": "jest",
     "watch": "jest --watch",
     "snapupdate": "jest --updateSnapshot",
@@ -29,6 +29,7 @@
   ],
   "license": "MIT",
   "dependencies": {
+    "@shopware-pwa/commons": "1.1.1",
     "@shopware-pwa/shopware-6-client": "1.1.1",
     "chokidar": "^3.5.2",
     "dotenv": "^10.0.0",

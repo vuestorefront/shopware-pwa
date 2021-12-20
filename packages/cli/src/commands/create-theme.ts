@@ -106,7 +106,7 @@ const command: GluegunCommand = {
     }
 
     // create and update package.json
-    await execa("yarn", ["init", "-y"], {
+    await execa("pnpm", ["run", "init", "-y"], {
       stdio: "pipe",
       cwd: dirPath,
     });
@@ -128,7 +128,7 @@ const command: GluegunCommand = {
     // add base package dependency
     if (baseThemePackageName) {
       await execa(
-        "yarn",
+        "pnpm",
         ["add", "-D", "@shopware-pwa/cli", baseThemePackageName],
         {
           stdio: "inherit",
@@ -136,14 +136,14 @@ const command: GluegunCommand = {
         }
       );
     }
-    // invoke yarn
-    await execa("yarn", [], {
+    // invoke pnpm install
+    await execa("pnpm", ["install"], {
       stdio: "inherit",
       cwd: dirPath,
     });
 
     toolbox.print.success(
-      `[CLI > create-theme] New theme generated! Go inside new folder and type "yarn dev" to start creation.`
+      `[CLI > create-theme] New theme generated! Go inside new folder and type "pnpm run dev" to start creation.`
     );
   },
 };

@@ -1,8 +1,10 @@
 import { ref, Ref, unref } from "vue-demi";
 import { getProduct, getCmsPage } from "@shopware-pwa/shopware-6-client";
-import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
-import { CmsProductPageResponse } from "@shopware-pwa/commons/interfaces/models/content/cms/CmsPage";
-import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
+import {
+  Product,
+  CmsProductPageResponse,
+  ClientApiError,
+} from "@shopware-pwa/commons/interfaces";
 import { getApplicationContext, useDefaults } from "@shopware-pwa/composables";
 const NO_PRODUCT_REFERENCE_ERROR =
   "Associations cannot be loaded for undefined product";

@@ -1,7 +1,7 @@
 import { ref, Ref } from "vue-demi";
 import { useBreadcrumbs } from "../src/logic/useBreadcrumbs";
 import * as Composables from "@shopware-pwa/composables";
-import { Breadcrumb } from "@shopware-pwa/commons/interfaces/models/content/cms/CmsPage";
+import { Breadcrumb } from "@shopware-pwa/commons/interfaces";
 import { prepareRootContextMock } from "./contextRunner";
 jest.mock("@shopware-pwa/composables");
 const mockedComposables = Composables as jest.Mocked<typeof Composables>;

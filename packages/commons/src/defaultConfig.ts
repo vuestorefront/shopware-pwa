@@ -1,7 +1,7 @@
 import compatibilityTable from "../../../compatibility.json";
 import merge from "lodash/merge";
 import axios from "axios";
-import { ShopwareSearchParams } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
+import { ShopwareSearchParams } from "../interfaces/search/SearchCriteria";
 
 /**
  * @beta

@@ -1,4 +1,5 @@
 FROM node:14.15.3-alpine
+RUN curl -sL https://unpkg.com/@pnpm/self-installer | node
 
 ENV NODE_ENV production
 
@@ -10,4 +11,4 @@ USER node
 
 EXPOSE 3000
 
-CMD yarn start
+CMD pnpm run start

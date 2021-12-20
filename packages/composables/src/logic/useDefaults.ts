@@ -2,8 +2,8 @@ import { getApplicationContext } from "@shopware-pwa/composables";
 import {
   Includes,
   ShopwareSearchParams,
-} from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
-import { ShopwareAssociation } from "@shopware-pwa/commons/interfaces/search/Association";
+} from "@shopware-pwa/commons/interfaces";
+import { ShopwareAssociation } from "@shopware-pwa/commons/interfaces";
 import { warning } from "@shopware-pwa/commons";
 
 /**

@@ -4,8 +4,14 @@
   "description": "@shopware-pwa/commons",
   "license": "MIT",
   "files": [
-    "interfaces/*"
+    "interfaces/*",
+    "src/*"
   ],
+  "exports": {
+    ".": "./index.ts",
+    "./node": "./node.ts",
+    "./interfaces": "./interfaces/index.ts"
+  },
   "publishConfig": {
     "access": "public"
   },

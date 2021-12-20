@@ -12,6 +12,7 @@
   },
   "scripts": {
     "start": "yarn && yarn build --ci && node scripts/init.js",
+    "poststart": "npx husky install",
     "dev": "node scripts/dev.js",
     "dev:client": "yarn dev shopware-6-client",
     "dev:composables": "yarn dev composables",
@@ -19,7 +20,7 @@
     "dev:nuxt-module": "yarn dev nuxt-module",
     "dev:debug": "node --inspect scripts/dev.js",
     "build": "node scripts/build.js",
-    "postinstall": "node scripts/linkDependencies.js && lerna link && husky install",
+    "postinstall": "node scripts/linkDependencies.js && lerna link",
     "lint": "prettier --write --parser typescript \"packages/**/*.ts\"",
     "test": "NODE_OPTIONS=--unhandled-rejections=warn jest --runInBand",
     "test:e2e": "jest --e2e=true --runInBand",

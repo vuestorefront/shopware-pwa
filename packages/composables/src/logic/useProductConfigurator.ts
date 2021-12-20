@@ -1,6 +1,6 @@
 import { ref, Ref, computed, unref, inject, ComputedRef } from "vue-demi";
-import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
-import { PropertyGroup } from "@shopware-pwa/commons/interfaces/models/content/property/PropertyGroup";
+import { Product } from "@shopware-pwa/commons/interfaces";
+import { PropertyGroup } from "@shopware-pwa/commons/interfaces";
 import {
   useCms,
   getApplicationContext,
@@ -11,7 +11,7 @@ import {
   getProductEndpoint,
 } from "@shopware-pwa/shopware-6-client";
 import { getTranslatedProperty } from "@shopware-pwa/helpers";
-import { CmsPageResponse } from "@shopware-pwa/commons/interfaces/models/content/cms/CmsPage";
+import { CmsPageResponse } from "@shopware-pwa/commons/interfaces";
 
 /**
  * interface for {@link useProductConfigurator} composable

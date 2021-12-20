@@ -23,6 +23,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "@shopware-pwa/commons": "1.1.1",
     "@shopware-pwa/helpers": "1.1.1",
     "@shopware-pwa/shopware-6-client": "1.1.1",
     "@vue/devtools-api": "^6.0.0-beta.19",

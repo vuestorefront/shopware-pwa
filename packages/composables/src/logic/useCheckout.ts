@@ -1,10 +1,10 @@
 import { computed, UnwrapRef, reactive, ComputedRef } from "vue-demi";
-import { ShippingAddress } from "@shopware-pwa/commons/interfaces/models/checkout/customer/ShippingAddress";
-import { ShippingMethod } from "@shopware-pwa/commons/interfaces/models/checkout/shipping/ShippingMethod";
-import { PaymentMethod } from "@shopware-pwa/commons/interfaces/models/checkout/payment/PaymentMethod";
-import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
-import { CreateOrderParams } from "@shopware-pwa/commons/interfaces/request/CreateOrder";
-import { Order } from "@shopware-pwa/commons/interfaces/models/checkout/order/Order";
+import { ShippingAddress } from "@shopware-pwa/commons/interfaces";
+import { ShippingMethod } from "@shopware-pwa/commons/interfaces";
+import { PaymentMethod } from "@shopware-pwa/commons/interfaces";
+import { ClientApiError } from "@shopware-pwa/commons/interfaces";
+import { CreateOrderParams } from "@shopware-pwa/commons/interfaces";
+import { Order } from "@shopware-pwa/commons/interfaces";
 import {
   getAvailableShippingMethods,
   getAvailablePaymentMethods,
@@ -19,7 +19,7 @@ import {
   useSharedState,
   getApplicationContext,
 } from "@shopware-pwa/composables";
-import { BillingAddress } from "@shopware-pwa/commons/interfaces/models/checkout/customer/BillingAddress";
+import { BillingAddress } from "@shopware-pwa/commons/interfaces";
 
 /**
  * interface for {@link useCheckout} composable
