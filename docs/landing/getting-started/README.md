@@ -32,7 +32,7 @@ It will ask for the address to your shopware instance, access token, and admin c
 ::: tip
 Don't let this step throw you off. As you are starting the PWA, it requires a backend to get its products, content etc. By default, shopware-pwa init will connect you to a generic Shopware backend hosted by us. However, at this point you can already connect your custom shop instance.
 
-Please read these instructions on [how to prepare your Shopware 6 instance](/landing/getting-started/prepare-shopware) to communicate with the PWA before running shopware-pwa init.
+Please read these instructions on [how to prepare your Shopware 6 instance](/landing/getting-started/prepare-shopware.html) to communicate with the PWA before running shopware-pwa init.
 :::
 
 Then you can just begin local development by typing:
