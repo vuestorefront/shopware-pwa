@@ -12,7 +12,7 @@
     "clean-build": "node ./scripts/clean-build.js",
     "compile": "node ./scripts/esbuild.js",
     "copy-templates": "node ./scripts/copy-templates.js",
-    "build": "pnpm run format && pnpm run lint && pnpm run clean-build && pnpm run compile && pnpm run copy-templates",
+    "build": "yarn run format && yarn run lint && yarn run clean-build && yarn run compile && yarn run copy-templates",
     "test": "jest",
     "watch": "jest --watch",
     "snapupdate": "jest --updateSnapshot",

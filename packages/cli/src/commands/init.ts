@@ -128,7 +128,7 @@ module.exports = {
     //   await run(`yarn link ${localCoreDevPackages.join(" ")}`);
     // }
 
-    await run("pnpm install");
+    await run("yarn install");
     updateConfigSpinner.succeed();
 
     const generateFilesSpinner = spin("[CLI > init] Generating project files");
@@ -150,7 +150,7 @@ module.exports = {
       "[CLI > init] Updating dependencies"
     );
     // Loading additional packages
-    await run(`pnpm install`);
+    await run(`yarn install`);
     updateDependenciesSpinner.succeed();
 
     success(`[CLI > init] Generated Shopware PWA project!`);
