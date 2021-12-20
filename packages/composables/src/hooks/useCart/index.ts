@@ -7,11 +7,14 @@ import {
   changeCartItemQuantity,
   getProducts,
 } from "@shopware-pwa/shopware-6-client";
-import { ClientApiError } from "@shopware-pwa/commons/interfaces";
-import { Cart } from "@shopware-pwa/commons/interfaces";
-import { EntityError } from "@shopware-pwa/commons/interfaces";
-import { Product } from "@shopware-pwa/commons/interfaces";
-import { LineItem } from "@shopware-pwa/commons/interfaces";
+import {
+  ClientApiError,
+  Cart,
+  EntityError,
+  Product,
+  LineItem,
+  ErrorLevel,
+} from "@shopware-pwa/commons/interfaces";
 import {
   getApplicationContext,
   INTERCEPTOR_KEYS,
@@ -20,7 +23,6 @@ import {
   useSharedState,
 } from "@shopware-pwa/composables";
 import { broadcastErrors } from "../../internalHelpers/errorHandler";
-import { ErrorLevel } from "@shopware-pwa/commons/interfaces";
 /**
  * interface for {@link useCart} composable
  *

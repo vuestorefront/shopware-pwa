@@ -1,5 +1,4 @@
-import { CmsBlock } from "@shopware-pwa/commons/interfaces/models/content/cms/CmsBlock";
-import { CmsSection } from "@shopware-pwa/commons/interfaces/models/content/cms/CmsPage";
+import { CmsBlock, CmsSection } from "@shopware-pwa/commons";
 
 /**
  * @beta

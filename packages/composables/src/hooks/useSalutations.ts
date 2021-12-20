@@ -1,11 +1,10 @@
 import { Ref, ref, computed, onMounted, ComputedRef } from "vue-demi";
 import { getAvailableSalutations } from "@shopware-pwa/shopware-6-client";
-import { ClientApiError } from "@shopware-pwa/commons/interfaces";
+import { ClientApiError, Salutation } from "@shopware-pwa/commons/interfaces";
 import {
   useSharedState,
   getApplicationContext,
 } from "@shopware-pwa/composables";
-import { Salutation } from "@shopware-pwa/commons/interfaces";
 
 /**
  * @beta

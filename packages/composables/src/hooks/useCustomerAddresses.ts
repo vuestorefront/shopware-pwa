@@ -7,10 +7,12 @@ import {
   createCustomerAddress,
   updateCustomerAddress,
 } from "@shopware-pwa/shopware-6-client";
-import { CustomerAddress, AddressType } from "@shopware-pwa/commons/interfaces";
 import {
+  CustomerAddress,
+  AddressType,
   ClientApiError,
   ShopwareError,
+  ShopwareSearchParams,
 } from "@shopware-pwa/commons/interfaces";
 import {
   useSharedState,
@@ -18,7 +20,6 @@ import {
   useDefaults,
   getApplicationContext,
 } from "@shopware-pwa/composables";
-import { ShopwareSearchParams } from "@shopware-pwa/commons/interfaces";
 
 /**
  * interface for {@link useCustomerAddresses} composable

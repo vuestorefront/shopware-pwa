@@ -1,9 +1,12 @@
 import { computed, ComputedRef } from "vue-demi";
-import { ShippingMethod } from "@shopware-pwa/commons/interfaces";
-import { PaymentMethod } from "@shopware-pwa/commons/interfaces";
-import { Currency } from "@shopware-pwa/commons/interfaces";
-import { ShippingAddress } from "@shopware-pwa/commons/interfaces";
-import { BillingAddress } from "@shopware-pwa/commons/interfaces";
+import {
+  ShippingMethod,
+  PaymentMethod,
+  Currency,
+  ShippingAddress,
+  BillingAddress,
+  SessionContext,
+} from "@shopware-pwa/commons/interfaces";
 
 import {
   getSessionContext,
@@ -13,7 +16,6 @@ import {
   setCurrentShippingAddress,
   setCurrentBillingAddress,
 } from "@shopware-pwa/shopware-6-client";
-import { SessionContext } from "@shopware-pwa/commons/interfaces";
 import {
   getApplicationContext,
   INTERCEPTOR_KEYS,

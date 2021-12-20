@@ -1,12 +1,12 @@
 import { Ref, computed, ComputedRef, provide, inject } from "vue-demi";
 import { getCmsPage } from "@shopware-pwa/shopware-6-client";
-import { SearchCriteria } from "@shopware-pwa/commons/interfaces";
-import { _parseUrlQuery } from "@shopware-pwa/helpers";
-import { ClientApiError } from "@shopware-pwa/commons/interfaces";
 import {
+  SearchCriteria,
+  ClientApiError,
   CmsPageResponse,
   CmsResourceType,
 } from "@shopware-pwa/commons/interfaces";
+import { _parseUrlQuery } from "@shopware-pwa/helpers";
 import {
   getApplicationContext,
   useDefaults,

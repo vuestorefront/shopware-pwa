@@ -3,10 +3,12 @@ import {
   getCustomerOrders,
   getOrderDetails as apiGetOrderDetails,
 } from "@shopware-pwa/shopware-6-client";
-import { Order } from "@shopware-pwa/commons/interfaces";
-import { ShopwareError } from "@shopware-pwa/commons/interfaces";
+import {
+  Order,
+  ShopwareError,
+  ShopwareSearchParams,
+} from "@shopware-pwa/commons/interfaces";
 import { useDefaults, getApplicationContext } from "@shopware-pwa/composables";
-import { ShopwareSearchParams } from "@shopware-pwa/commons/interfaces";
 
 /**
  * interface for {@link useCustomerOrders} composable

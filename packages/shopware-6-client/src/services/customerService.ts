@@ -15,14 +15,16 @@ import {
   getConfirmPasswordResetEndpoint,
   getCustomerAccountConfirmEndpoint,
 } from "../endpoints";
-import { Customer } from "@shopware-pwa/commons/interfaces/models/checkout/customer/Customer";
 import { defaultInstance, ShopwareApiInstance } from "../apiService";
-import { CustomerAddress } from "@shopware-pwa/commons/interfaces/models/checkout/customer/CustomerAddress";
-import { CustomerRegistrationParams } from "@shopware-pwa/commons/interfaces/request/CustomerRegistrationParams";
-import { ContextTokenResponse } from "@shopware-pwa/commons/interfaces/response/SessionContext";
-import { Order } from "@shopware-pwa/commons/interfaces/models/checkout/order/Order";
-import { EntityResult } from "@shopware-pwa/commons/interfaces/response/EntityResult";
-import { ShopwareSearchParams } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
+import {
+  Customer,
+  CustomerAddress,
+  CustomerRegistrationParams,
+  ContextTokenResponse,
+  Order,
+  EntityResult,
+  ShopwareSearchParams,
+} from "@shopware-pwa/commons";
 
 /**
  * @public

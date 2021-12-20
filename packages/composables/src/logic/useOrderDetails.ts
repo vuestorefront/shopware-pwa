@@ -14,12 +14,12 @@ import {
   getApplicationContext,
   useIntercept,
 } from "@shopware-pwa/composables";
-import { Order } from "@shopware-pwa/commons/interfaces";
-import { BillingAddress } from "@shopware-pwa/commons/interfaces";
-import { ShippingAddress } from "@shopware-pwa/commons/interfaces";
-import { ShippingMethod } from "@shopware-pwa/commons/interfaces";
-import { PaymentMethod } from "@shopware-pwa/commons/interfaces";
 import {
+  Order,
+  BillingAddress,
+  ShippingAddress,
+  ShippingMethod,
+  PaymentMethod,
   ClientApiError,
   ShopwareError,
 } from "@shopware-pwa/commons/interfaces";

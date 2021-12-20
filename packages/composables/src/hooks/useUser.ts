@@ -11,14 +11,15 @@ import {
   CustomerUpdateProfileParam,
   CustomerUpdateEmailParam,
 } from "@shopware-pwa/shopware-6-client";
-import { Customer } from "@shopware-pwa/commons/interfaces";
-import { CustomerRegistrationParams } from "@shopware-pwa/commons/interfaces";
 import {
+  Customer,
+  CustomerRegistrationParams,
   ClientApiError,
   ShopwareError,
+  Country,
+  Salutation,
+  ShopwareSearchParams,
 } from "@shopware-pwa/commons/interfaces";
-import { Country } from "@shopware-pwa/commons/interfaces";
-import { Salutation } from "@shopware-pwa/commons/interfaces";
 import {
   IInterceptorCallbackFunction,
   INTERCEPTOR_KEYS,
@@ -29,7 +30,6 @@ import {
   getApplicationContext,
   useDefaults,
 } from "@shopware-pwa/composables";
-import { ShopwareSearchParams } from "@shopware-pwa/commons/interfaces";
 
 /**
  * interface for {@link useUser} composable
