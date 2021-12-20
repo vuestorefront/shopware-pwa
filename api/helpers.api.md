@@ -4,16 +4,16 @@
 
 ```ts
 
-import { Aggregations } from '@shopware-pwa/commons/interfaces/search/Aggregations';
-import { Category } from '@shopware-pwa/commons/interfaces/models/content/category/Category';
-import { CmsBlock } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsBlock';
-import { CmsPageResponse } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
-import { CmsSection } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
-import { CmsSlot } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
-import { Country } from '@shopware-pwa/commons/interfaces/models/system/country/Country';
-import { Product } from '@shopware-pwa/commons/interfaces/models/content/product/Product';
-import { Salutation } from '@shopware-pwa/commons/interfaces/models/system/salutation/Salutation';
-import { SearchCriteria } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
+import { Aggregations } from '@shopware-pwa/commons';
+import { Category } from '@shopware-pwa/commons';
+import { CmsBlock } from '@shopware-pwa/commons';
+import { CmsPageResponse } from '@shopware-pwa/commons';
+import { CmsSection } from '@shopware-pwa/commons';
+import { CmsSlot } from '@shopware-pwa/commons';
+import { Country } from '@shopware-pwa/commons';
+import { Product } from '@shopware-pwa/commons';
+import { Salutation } from '@shopware-pwa/commons';
+import { SearchCriteria } from '@shopware-pwa/commons';
 
 // @public
 export function debounce<T extends (...args: any[]) => any>(fn: T, delay?: number): T;
