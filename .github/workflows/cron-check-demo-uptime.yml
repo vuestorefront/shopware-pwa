@@ -1,0 +1,21 @@
+on:
+  schedule:
+    - cron: '0 * * * *'
+
+jobs:
+  ping_site:
+    runs-on: ubuntu-latest
+    name: Ping the demo sites
+    steps:
+    - name: Check the canary
+      id: canary
+      uses: srt32/uptime@v0.2.1
+      with:
+        url-to-hit: "https://shopware-pwa-canary.storefrontcloud.io"
+        expected-statuses: "200,301,307"
+    - name: Check the latest version
+      id: canary
+      uses: srt32/uptime@v0.2.1
+      with:
+        url-to-hit: "https://shopware-pwa.storefrontcloud.io"
+        expected-statuses: "200,301,307"
