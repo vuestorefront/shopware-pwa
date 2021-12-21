@@ -7,7 +7,7 @@ async function run() {
   const { performance } = require("perf_hooks");
   const t0 = performance.now();
   const packagesPath = path.join(__dirname, "..", "packages");
-  const allTasts = allTargets.map((targetName) => {
+  const allTasts = allTargets.map(async (targetName) => {
     const pkgDir = path.join(packagesPath, targetName);
     await execa("npm", ["install", "-g", "yalc"]);
 
