@@ -24,7 +24,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v2
         with:
-          node-version: "14"
+          node-version: "16"
       - name: Cache node_modules
         uses: actions/cache@v2
         id: step-cache-node-modules
@@ -52,7 +52,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v2
         with:
-          node-version: "14"
+          node-version: "16"
       # Clear labels for e2e results
       - name: remove e2e fail label
         uses: buildsville/add-remove-label@v1

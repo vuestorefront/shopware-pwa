@@ -21,7 +21,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v2
         with:
-          node-version: "14"
+          node-version: "16"
       - name: Cache node_modules
         uses: actions/cache@v2
         id: step-cache-node-modules
@@ -49,7 +49,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v2
         with:
-          node-version: "14"
+          node-version: "16"
       - name: Check hash for directory packages/cli
         id: folder-hash-step-cli
         run: |
@@ -93,7 +93,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v2
         with:
-          node-version: "14"
+          node-version: "16"
       - name: Check hash for directory packages/composables
         id: folder-hash-step-composables
         run: |
@@ -136,7 +136,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v2
         with:
-          node-version: "14"
+          node-version: "16"
       - name: Check hash for directory packages/helpers
         id: folder-hash-step-helpers
         run: |
@@ -179,7 +179,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v2
         with:
-          node-version: "14"
+          node-version: "16"
       - name: Check hash for directory packages/nuxt-module
         id: folder-hash-step-nuxt-module
         run: |
@@ -222,7 +222,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v2
         with:
-          node-version: "14"
+          node-version: "16"
       - name: Check hash for directory packages/shopware-6-client
         id: folder-hash-step-shopware-6-client
         run: |
@@ -265,7 +265,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v2
         with:
-          node-version: "14"
+          node-version: "16"
       - name: Check hash for directory packages/default-theme
         id: folder-hash-step-default-theme
         run: |
@@ -317,7 +317,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v2
         with:
-          node-version: "14"
+          node-version: "16"
           registry-url: https://registry.npmjs.org/
       - name: Cache cli build
         uses: actions/cache@v2
@@ -390,7 +390,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v2
         with:
-          node-version: "14"
+          node-version: "16"
           registry-url: https://registry.npmjs.org/
       - name: Create default-theme project
         run: |

@@ -123,10 +123,11 @@ module.exports = {
       return sortPackageJson(config);
     });
 
-    // if (isLocalSetup) {
-    //   await run(`npx yalc add -D ${localCoreDevPackages.join(" ")}`);
-    //   await run(`yarn link ${localCoreDevPackages.join(" ")}`);
-    // }
+    if (isLocalSetup) {
+      await run(`node ../scripts/yalcPushPackages.js`);
+      await run(`node ../scripts/yalcLinkTestProject.js`);
+      await run(`yarn link ${localCoreDevPackages.join(" ")}`);
+    }
 
     await run("yarn install");
     updateConfigSpinner.succeed();

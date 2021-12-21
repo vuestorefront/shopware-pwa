@@ -1,4 +1,5 @@
-FROM node:14.15.3-alpine
+ARG NODE_VERSION=16.13.1-alpine
+FROM node:${NODE_VERSION}-alpine
 RUN curl -sL https://unpkg.com/@pnpm/self-installer | node
 
 ENV NODE_ENV production
