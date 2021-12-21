@@ -15,13 +15,16 @@ jobs:
   init:
     name: Init dependencies
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [14, 16]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Setup node
         uses: actions/setup-node@v2
         with:
-          node-version: "14"
+          node-version: ${{ matrix.node }}
       - name: Cache node_modules
         uses: actions/cache@v2
         id: step-cache-node-modules
@@ -31,7 +34,7 @@ jobs:
           path: |
             node_modules
             packages/*/node_modules
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}
+          key: ${{ matrix.node }}-${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}
       - name: Install dependencies
         if: steps.step-cache-node-modules.outputs.cache-hit != 'true'
         run: |
@@ -43,13 +46,16 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       package-hash: ${{ steps.folder-hash-step-cli.outputs.hash }}
+    strategy:
+      matrix:
+        node: [14, 16]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Setup node
         uses: actions/setup-node@v2
         with:
-          node-version: "14"
+          node-version: ${{ matrix.node }}
       - name: Check hash for directory packages/cli
         id: folder-hash-step-cli
         run: |
@@ -64,7 +70,7 @@ jobs:
         with:
           path: |
             packages/cli/build
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}-${{ steps.folder-hash-step-cli.outputs.hash }}
+          key: ${{ matrix.node }}-${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}-${{ steps.folder-hash-step-cli.outputs.hash }}
       - name: Cache node_modules
         if: steps.step-cache-build.outputs.cache-hit != 'true'
         uses: actions/cache@v2
@@ -74,7 +80,7 @@ jobs:
           path: |
             node_modules
             packages/*/node_modules
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}
+          key: ${{ matrix.node }}-${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}
       - name: Build CLI
         if: steps.step-cache-build.outputs.cache-hit != 'true'
         run: |
@@ -87,13 +93,16 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       package-hash: ${{ steps.folder-hash-step-composables.outputs.hash }}
+    strategy:
+      matrix:
+        node: [14, 16]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Setup node
         uses: actions/setup-node@v2
         with:
-          node-version: "14"
+          node-version: ${{ matrix.node }}
       - name: Check hash for directory packages/composables
         id: folder-hash-step-composables
         run: |
@@ -108,7 +117,7 @@ jobs:
         with:
           path: |
             packages/composables/dist
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}-${{ steps.folder-hash-step-composables.outputs.hash }}
+          key: ${{ matrix.node }}-${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}-${{ steps.folder-hash-step-composables.outputs.hash }}
       - name: Cache node_modules
         if: steps.step-cache-build.outputs.cache-hit != 'true'
         uses: actions/cache@v2
@@ -118,7 +127,7 @@ jobs:
           path: |
             node_modules
             packages/*/node_modules
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}
+          key: ${{ matrix.node }}-${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}
       - name: Build Composables
         if: steps.step-cache-build.outputs.cache-hit != 'true'
         run: |
@@ -128,6 +137,9 @@ jobs:
     name: Build helpers package
     needs: init
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [14, 16]
     outputs:
       package-hash: ${{ steps.folder-hash-step-helpers.outputs.hash }}
     steps:
@@ -136,7 +148,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v2
         with:
-          node-version: "14"
+          node-version: ${{ matrix.node }}
       - name: Check hash for directory packages/helpers
         id: folder-hash-step-helpers
         run: |
@@ -151,7 +163,7 @@ jobs:
         with:
           path: |
             packages/helpers/dist
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}-${{ steps.folder-hash-step-helpers.outputs.hash }}
+          key: ${{ matrix.node }}-${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}-${{ steps.folder-hash-step-helpers.outputs.hash }}
       - name: Cache node_modules
         if: steps.step-cache-build.outputs.cache-hit != 'true'
         uses: actions/cache@v2
@@ -161,7 +173,7 @@ jobs:
           path: |
             node_modules
             packages/*/node_modules
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}
+          key: ${{ matrix.node }}-${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}
       - name: Build helpers
         if: steps.step-cache-build.outputs.cache-hit != 'true'
         run: |
@@ -171,6 +183,9 @@ jobs:
     name: Build nuxt-module package
     needs: init
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [14, 16]
     outputs:
       package-hash: ${{ steps.folder-hash-step-nuxt-module.outputs.hash }}
     steps:
@@ -179,7 +194,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v2
         with:
-          node-version: "14"
+          node-version: ${{ matrix.node }}
       - name: Check hash for directory packages/nuxt-module
         id: folder-hash-step-nuxt-module
         run: |
@@ -194,7 +209,7 @@ jobs:
         with:
           path: |
             packages/nuxt-module/dist
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}-${{ steps.folder-hash-step-nuxt-module.outputs.hash }}
+          key: ${{ matrix.node }}-${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}-${{ steps.folder-hash-step-nuxt-module.outputs.hash }}
       - name: Cache node_modules
         if: steps.step-cache-build.outputs.cache-hit != 'true'
         uses: actions/cache@v2
@@ -204,7 +219,7 @@ jobs:
           path: |
             node_modules
             packages/*/node_modules
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}
+          key: ${{ matrix.node }}-${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}
       - name: Build nuxt-module
         if: steps.step-cache-build.outputs.cache-hit != 'true'
         run: |
@@ -216,13 +231,16 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       package-hash: ${{ steps.folder-hash-step-shopware-6-client.outputs.hash }}
+    strategy:
+      matrix:
+        node: [14, 16]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Setup node
         uses: actions/setup-node@v2
         with:
-          node-version: "14"
+          node-version: ${{ matrix.node }}
       - name: Check hash for directory packages/shopware-6-client
         id: folder-hash-step-shopware-6-client
         run: |
@@ -237,7 +255,7 @@ jobs:
         with:
           path: |
             packages/shopware-6-client/dist
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}-${{ steps.folder-hash-step-shopware-6-client.outputs.hash }}
+          key: ${{ matrix.node }}-${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}-${{ steps.folder-hash-step-shopware-6-client.outputs.hash }}
       - name: Cache node_modules
         if: steps.step-cache-build.outputs.cache-hit != 'true'
         uses: actions/cache@v2
@@ -247,7 +265,7 @@ jobs:
           path: |
             node_modules
             packages/*/node_modules
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}
+          key: ${{ matrix.node }}-${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}
       - name: Build shopware-6-client
         if: steps.step-cache-build.outputs.cache-hit != 'true'
         run: |
@@ -259,13 +277,16 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       package-hash: ${{ steps.folder-hash-step-default-theme.outputs.hash }}
+    strategy:
+      matrix:
+        node: [14, 16]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Setup node
         uses: actions/setup-node@v2
         with:
-          node-version: "14"
+          node-version: ${{ matrix.node }}
       - name: Check hash for directory packages/default-theme
         id: folder-hash-step-default-theme
         run: |
@@ -280,7 +301,7 @@ jobs:
         with:
           path: |
             packages/default-theme/dist
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}-${{ steps.folder-hash-step-default-theme.outputs.hash }}
+          key: ${{ matrix.node }}-${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}-${{ steps.folder-hash-step-default-theme.outputs.hash }}
       - name: Cache node_modules
         if: steps.step-cache-build.outputs.cache-hit != 'true'
         uses: actions/cache@v2
@@ -290,7 +311,7 @@ jobs:
           path: |
             node_modules
             packages/*/node_modules
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}
+          key: ${{ matrix.node }}-${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}
       - name: Build default-theme
         if: steps.step-cache-build.outputs.cache-hit != 'true'
         run: |
@@ -309,13 +330,16 @@ jobs:
         build-default-theme,
       ]
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [14, 16]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Setup node
         uses: actions/setup-node@v2
         with:
-          node-version: "14"
+          node-version: ${{ matrix.node }}
       - name: Cache cli build
         uses: actions/cache@v2
         env:
@@ -323,7 +347,7 @@ jobs:
         with:
           path: |
             packages/cli/build
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}-${{ needs.build-cli.outputs.package-hash }}
+          key: ${{ matrix.node }}-${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}-${{ needs.build-cli.outputs.package-hash }}
       - name: Cache composables build
         uses: actions/cache@v2
         env:
@@ -331,7 +355,7 @@ jobs:
         with:
           path: |
             packages/composables/dist
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}-${{ needs.build-composables.outputs.package-hash }}
+          key: ${{ matrix.node }}-${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}-${{ needs.build-composables.outputs.package-hash }}
       - name: Cache helpers build
         uses: actions/cache@v2
         env:
@@ -339,7 +363,7 @@ jobs:
         with:
           path: |
             packages/helpers/dist
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}-${{ needs.build-helpers.outputs.package-hash }}
+          key: ${{ matrix.node }}-${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}-${{ needs.build-helpers.outputs.package-hash }}
       - name: Cache nuxt-module build
         uses: actions/cache@v2
         env:
@@ -347,7 +371,7 @@ jobs:
         with:
           path: |
             packages/nuxt-module/dist
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}-${{ needs.build-nuxt-module.outputs.package-hash }}
+          key: ${{ matrix.node }}-${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}-${{ needs.build-nuxt-module.outputs.package-hash }}
       - name: Cache shopware-6-client build
         uses: actions/cache@v2
         env:
@@ -355,7 +379,7 @@ jobs:
         with:
           path: |
             packages/shopware-6-client/dist
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}-${{ needs.build-shopware-6-client.outputs.package-hash }}
+          key: ${{ matrix.node }}-${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}-${{ needs.build-shopware-6-client.outputs.package-hash }}
       - name: Cache default-theme build
         uses: actions/cache@v2
         env:
@@ -363,7 +387,7 @@ jobs:
         with:
           path: |
             packages/default-theme/dist
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}-${{ needs.build-default-theme.outputs.package-hash }}
+          key: ${{ matrix.node }}-${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}-${{ needs.build-default-theme.outputs.package-hash }}
       # Step to speed up project init
       - name: Cache node_modules
         uses: actions/cache@v2
@@ -373,7 +397,7 @@ jobs:
           path: |
             node_modules
             packages/*/node_modules
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}
+          key: ${{ matrix.node }}-${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}
       - name: Link packages
         run: |
           node ./scripts/linkDependencies.js
@@ -388,29 +412,38 @@ jobs:
             !test-project/.shopware-pwa
             !test-project/.yalc
             !test-project/.yalc.lock
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}-${{ needs.build-cli.outputs.package-hash }}
+          key: ${{ matrix.node }}-${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}-${{ needs.build-cli.outputs.package-hash }}
       - name: Create a project
         run: |
+          yarn global add yalc
           mkdir -p test-project
           cd ./test-project
           ../packages/cli/bin/shopware-pwa init --username=${{ secrets.SHOPWARE_ADMIN_USER }} --password=${{ secrets.SHOPWARE_ADMIN_PASSWORD }} --shopwareDomainsAllowList=${{ env.PWA_HOST }} --ci --devMode --stage local
       - name: Build test project
         run: |
+          yarn
           node ./scripts/yalcPushPackages.js
           node ./scripts/yalcLinkTestProject.js
           cd ./test-project
           yarn
           yarn build
-      - name: Build and publish docker image
-        uses: elgohr/Publish-Docker-Github-Action@2.19
-        if: github.repository_owner	== 'vuestorefront'
+      - name: Login to DockerHub
+        if: matrix.node == 16
+        uses: docker/login-action@v1.11.0
         with:
-          name: shopware-pwa-storefrontcloud-io/vue-storefront:${{ github.sha }}
           registry: registry.storefrontcloud.io
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-          workdir: ./test-project
-          buildoptions: "--compress"
+      - name: Build and push Docker image
+        if: matrix.node == 16
+        uses: docker/build-push-action@v2.7.0
+        with:
+          context: ./test-project
+          push: true
+          labels: preview
+          build-args: |
+            NODE_VERSION=${{ matrix.node }}
+          tags: registry.storefrontcloud.io/shopware-pwa-storefrontcloud-io/vue-storefront:${{ github.sha }}
       - name: Add information about PR from forked repo
         if: github.repository_owner	!= 'vuestorefront'
         uses: mshick/add-pr-comment@v1

@@ -12,7 +12,7 @@ See how it's working without any installation on CodeSandbox.
 
 ### Environment requirements
 
-- [node](https://nodejs.org/) - we use **v14.15.3**, currently (you can use [nvm](https://github.com/nvm-sh/nvm) to easily switch between versions)
+- [node](https://nodejs.org/) - we use **v16.13.1**, currently (you can use [nvm](https://github.com/nvm-sh/nvm) to easily switch between versions)
 - IDE - [VS Code](https://code.visualstudio.com/) recommended (then you can install extensions for Vue and Nuxt)
 
 ## Set up the Shopware 6 instance first!
