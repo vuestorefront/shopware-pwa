@@ -14,7 +14,6 @@ async function run() {
     return await execa("npx", ["yalc", "push"], {
       stdio: "inherit",
       cwd: pkgDir,
-      all
     });
   });
   await Promise.all(allTasts);
