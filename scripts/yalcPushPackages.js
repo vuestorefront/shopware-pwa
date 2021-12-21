@@ -9,8 +9,6 @@ async function run() {
   const packagesPath = path.join(__dirname, "..", "packages");
   const allTasts = allTargets.map(async (targetName) => {
     const pkgDir = path.join(packagesPath, targetName);
-    await execa("npm", ["install", "-g", "yalc"]);
-
     return await execa("npx", ["yalc", "push"], {
       stdio: "inherit",
       cwd: pkgDir,
