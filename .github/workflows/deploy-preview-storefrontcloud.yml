@@ -441,8 +441,6 @@ jobs:
           context: ./test-project
           push: true
           labels: preview
-          build-args: |
-            NODE_VERSION=${{ matrix.node }}
           tags: registry.storefrontcloud.io/shopware-pwa-storefrontcloud-io/vue-storefront:${{ github.sha }}
       - name: Add information about PR from forked repo
         if: github.repository_owner	!= 'vuestorefront'
