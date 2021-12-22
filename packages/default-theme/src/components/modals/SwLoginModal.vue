@@ -116,11 +116,11 @@ export default {
   computed: {
     modalTitle() {
       if (this.component === "SwRegister") {
-        return "Register"
+        return this.$t("Register")
       } else if (this.component === "SwResetPassword") {
-        return "Reset Password"
+        return this.$t("Reset Password")
       }
-      return "Log in"
+      return this.$t("Log in")
     },
   },
   watch: {
