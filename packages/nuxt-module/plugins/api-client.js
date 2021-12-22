@@ -5,6 +5,7 @@ import {
   useSessionContext,
   createShopware,
   ShopwareVuePlugin,
+  useIntercept,
 } from "@shopware-pwa/composables";
 import { reactive, isVue2, Vue2 } from "vue-demi";
 
@@ -22,8 +23,15 @@ export default async ({ app }, inject) => {
   if (!app.$cookies) {
     throw "Error cookie-universal-nuxt module is not applied in nuxt.config.js";
   }
-  const contextToken = app.$cookies.get("sw-context-token") || "";
-  const languageId = app.$cookies.get("sw-language-id") || "";
+
+  function getCookiesConfig(app) {
+    return {
+      contextToken: app.$cookies.get("sw-context-token") || "",
+      languageId: app.$cookies.get("sw-language-id") || "",
+    };
+  }
+
+  const { contextToken, languageId } = getCookiesConfig(app);
 
   /**
    * Setup Shopware API client
@@ -93,6 +101,18 @@ export default async ({ app }, inject) => {
       refreshUser();
       const { refreshCart } = useCart();
       refreshCart();
+      const { broadcast } = useIntercept();
+
+      document.addEventListener("visibilitychange", (activeInfo) => {
+        const { contextToken, languageId } = getCookiesConfig(app);
+        if (document.visibilityState === "visible") {
+          instance.update({ contextToken, languageId });
+          refreshSessionContext();
+          refreshUser();
+          refreshCart();
+          broadcast("tab-visible");
+        }
+      });
     }
     return result;
   };
