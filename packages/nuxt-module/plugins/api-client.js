@@ -5,6 +5,7 @@ import {
   useSessionContext,
   createShopware,
   ShopwareVuePlugin,
+  useIntercept,
 } from "@shopware-pwa/composables";
 import { reactive, isVue2, Vue2 } from "vue-demi";
 
@@ -100,6 +101,7 @@ export default async ({ app }, inject) => {
       refreshUser();
       const { refreshCart } = useCart();
       refreshCart();
+      const { broadcast } = useIntercept();
 
       document.addEventListener("visibilitychange", (activeInfo) => {
         const { contextToken, languageId } = getCookiesConfig(app);
@@ -108,6 +110,7 @@ export default async ({ app }, inject) => {
           refreshSessionContext();
           refreshUser();
           refreshCart();
+          broadcast("tab-visible");
         }
       });
     }
