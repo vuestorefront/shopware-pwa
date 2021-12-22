@@ -1,3 +1,5 @@
+name: Demo Availability Check
+
 on:
   schedule:
     - cron: '0 * * * *'
