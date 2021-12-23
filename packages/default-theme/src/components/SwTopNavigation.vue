@@ -3,7 +3,7 @@
     ref="navigation"
     class="sw-top-navigation"
     data-cy="top-navigation"
-    v-if="visibleCategories.length"
+    v-if="visibleCategories && visibleCategories.length"
   >
     <SwPluginSlot name="sw-top-navigation-before" />
     <div
