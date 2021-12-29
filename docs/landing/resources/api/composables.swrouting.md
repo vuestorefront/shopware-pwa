@@ -19,6 +19,7 @@ export declare type SwRouting = {
     getCurrentDomain: ComputedRef<ShopwareDomain>;
     setCurrentDomain: (domainData: any) => void;
     getUrl: (path: string) => string;
+    getAbsoluteUrl: (path: string) => string;
 };
 ```
 <b>References:</b> [ShopwareDomain](./composables.shopwaredomain.md)
