@@ -29,7 +29,7 @@ export async function addWishlistProduct(
     getAddWishlistProductEndpoint(productId)
   );
 
-  return resp?.data;
+  return resp.data;
 }
 
 /**
@@ -48,7 +48,7 @@ export async function getWishlistProducts(
     criteria
   );
 
-  return resp?.data;
+  return resp.data;
 }
 
 /**
@@ -69,7 +69,7 @@ export async function removeWishlistProduct(
     getRemoveWishlistProductEndpoint(productId)
   );
 
-  return resp?.data;
+  return resp.data;
 }
 
 /**
@@ -91,5 +91,5 @@ export async function mergeWishlistProducts(
     { productIds }
   );
 
-  return resp?.data;
+  return resp.data;
 }

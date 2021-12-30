@@ -13,7 +13,6 @@
 ```typescript
 export declare function useWishlist(params?: {
     product?: Product | Ref<Product>;
-    mode?: "http" | "localStorage";
 }): IUseWishlist;
 ```
 
@@ -21,7 +20,7 @@ export declare function useWishlist(params?: {
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  params | { product?: Product \| Ref&lt;Product&gt;; mode?: "http" \| "localStorage"; } |  |
+|  params | { product?: Product \| Ref&lt;Product&gt;; } |  |
 
 <b>Returns:</b>
 
