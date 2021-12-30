@@ -15,6 +15,7 @@ import { Currency } from '@shopware-pwa/commons/interfaces/models/system/currenc
 import { Customer } from '@shopware-pwa/commons/interfaces/models/checkout/customer/Customer';
 import { CustomerAddress } from '@shopware-pwa/commons/interfaces/models/checkout/customer/CustomerAddress';
 import { CustomerRegistrationParams } from '@shopware-pwa/commons/interfaces/request/CustomerRegistrationParams';
+import { CustomerWishlistResponse } from '@shopware-pwa/commons/interfaces/models/content/wishlist/CustomerWishlist';
 import { EntityResult } from '@shopware-pwa/commons/interfaces/response/EntityResult';
 import { Language } from '@shopware-pwa/commons/interfaces/models/framework/language/Language';
 import { LineItem } from '@shopware-pwa/commons/interfaces/models/checkout/cart/line-item/LineItem';
@@ -46,6 +47,12 @@ export function addProductToCart(productId: string, quantity?: number, contextIn
 
 // @public
 export function addPromotionCode(promotionCode: string, contextInstance?: ShopwareApiInstance): Promise<Cart>;
+
+// @public
+export function addWishlistProduct(productId: string, contextInstance?: ShopwareApiInstance): Promise<{
+    apiAlias: string;
+    success: boolean;
+}>;
 
 // @public
 export function cancelOrder(orderId: string, contextInstance?: ShopwareApiInstance): Promise<OrderState>;
@@ -171,6 +178,9 @@ export interface CustomerUpdateProfileParam {
 
 // @public
 export function deleteCustomerAddress(addressId: string, contextInstance?: ShopwareApiInstance): Promise<void>;
+
+// @beta (undocumented)
+export const getAddWishlistProductEndpoint: (productId: string) => string;
 
 // @public
 export function getAvailableCountries(contextInstance?: ShopwareApiInstance): Promise<EntityResult<"country", Country[]>>;
@@ -312,6 +322,12 @@ export const getCustomerUpdateEmailEndpoint: () => string;
 export const getCustomerUpdatePasswordEndpoint: () => string;
 
 // @beta (undocumented)
+export const getGetWishlistProductsEndpoint: () => string;
+
+// @beta (undocumented)
+export const getMergeWishlistProductsEndpoint: () => string;
+
+// @beta (undocumented)
 export const getNewsletterSubscribeEndpoint: () => string;
 
 // @beta (undocumented)
@@ -340,6 +356,9 @@ export const getProductListingEndpoint: (categoryId: string) => string;
 
 // @public
 export function getProducts(criteria?: ShopwareSearchParams, contextInstance?: ShopwareApiInstance): Promise<EntityResult<"product", Product[]>>;
+
+// @beta (undocumented)
+export const getRemoveWishlistProductEndpoint: (productId: string) => string;
 
 // @beta (undocumented)
 export const getSearchEndpoint: () => string;
@@ -397,6 +416,9 @@ export function getUserCountry(countryId: string, contextInstance?: ShopwareApiI
 // @public (undocumented)
 export function getUserSalutation(salutationId: string, contextInstance?: ShopwareApiInstance): Promise<Salutation>;
 
+// @public
+export function getWishlistProducts(criteria?: ShopwareSearchParams, contextInstance?: ShopwareApiInstance): Promise<CustomerWishlistResponse>;
+
 // @public (undocumented)
 export function handlePayment(orderId: string, finishUrl?: string, errorUrl?: string, contextInstance?: ShopwareApiInstance): Promise<{
     redirectUrl: string | null;
@@ -425,6 +447,12 @@ export function login({ username, password }?: {
 
 // @public
 export function logout(contextInstance?: ShopwareApiInstance): Promise<void>;
+
+// @public
+export function mergeWishlistProducts(productIds: string[], contextInstance?: ShopwareApiInstance): Promise<{
+    apiAlias: string;
+    success: boolean;
+}>;
 
 // @public (undocumented)
 export function newsletterSubscribe(params: NewsletterSubscribeData, contextInstance?: ShopwareApiInstance): Promise<void>;
@@ -464,6 +492,12 @@ export function register(params: CustomerRegistrationParams, contextInstance?: S
 
 // @public
 export function removeCartItem(itemId: string, contextInstance?: ShopwareApiInstance): Promise<Cart>;
+
+// @public
+export function removeWishlistProduct(productId: string, contextInstance?: ShopwareApiInstance): Promise<{
+    apiAlias: string;
+    success: boolean;
+}>;
 
 // @public
 export function resetPassword(params: CustomerResetPasswordParam, contextInstance?: ShopwareApiInstance): Promise<void>;

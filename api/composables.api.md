@@ -833,6 +833,7 @@ export function useVueContext(): {
 // @beta (undocumented)
 export function useWishlist(params?: {
     product?: Product | Ref<Product>;
+    mode?: "http" | "localStorage";
 }): IUseWishlist;
 
 ```
