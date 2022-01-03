@@ -26,7 +26,6 @@
     "@nuxt/typescript-runtime": "^2.1.0",
     "@nuxt/utils": "^2.15.8",
     "@shopware-pwa/cli": "1.2.0",
-    "@shopware-pwa/commons": "1.2.0",
     "@shopware-pwa/composables": "1.2.0",
     "@shopware-pwa/default-theme": "1.2.0",
     "@shopware-pwa/helpers": "1.2.0",
@@ -44,6 +43,9 @@
     "vue-router": "^3.5.3",
     "vue-server-renderer": "^2.6.14",
     "vue-template-compiler": "^2.6.14"
+  },
+  "devDependencies": {
+    "@shopware-pwa/commons": "1.2.0"
   },
   "publishConfig": {
     "access": "public"
