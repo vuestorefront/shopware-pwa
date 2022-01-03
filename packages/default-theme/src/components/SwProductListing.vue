@@ -362,6 +362,7 @@ $col-prod-1: 1 0 $mx-photo-wth-1;
   }
 }
 ::v-deep .sf-product-card {
+  overflow: auto;
   max-width: $mx-photo-wth-2 !important;
 
   @include for-phone {
