@@ -58,7 +58,7 @@
             <button
               class="sf-pagination__item"
               @click="changePage(page)"
-              :class="{ current: getCurrentPage === page }"
+              :class="{ current: getCurrentPage === page, first: page == 1 }"
             >
               {{ page }}
             </button>
@@ -330,6 +330,11 @@ $col-prod-1: 1 0 $mx-photo-wth-1;
       display: flex;
       justify-content: center;
       margin-top: var(--spacer-base);
+    }
+
+    // temporary fix for pagination bug
+    button.first:nth-of-type(2) {
+      display: none;
     }
 
     &__number {
