@@ -1,6 +1,5 @@
 ARG NODE_VERSION=16.13.1-alpine
 FROM node:${NODE_VERSION}
-RUN curl -sL https://unpkg.com/@pnpm/self-installer | node
 
 ENV NODE_ENV production
 
@@ -9,6 +8,7 @@ COPY --chown=node:node . /app
 
 WORKDIR /app
 USER node
+RUN curl -sL https://unpkg.com/@pnpm/self-installer | node
 
 EXPOSE 3000
 
