@@ -38,6 +38,7 @@ export type SwRouting = {
   getCurrentDomain: ComputedRef<ShopwareDomain>;
   setCurrentDomain: (domainData: any) => void;
   getUrl: (path: string) => string;
+  getAbsoluteUrl: (path: string) => string;
 };
 
 type SharedStore = UnwrapRef<{ [storeKey: string]: any }>;

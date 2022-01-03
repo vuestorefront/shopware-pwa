@@ -654,6 +654,7 @@ export type SwRouting = {
     getCurrentDomain: ComputedRef<ShopwareDomain>;
     setCurrentDomain: (domainData: any) => void;
     getUrl: (path: string) => string;
+    getAbsoluteUrl: (path: string) => string;
 };
 
 // @beta
