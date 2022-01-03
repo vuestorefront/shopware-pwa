@@ -256,3 +256,24 @@ export const getStoreNewsletterConfirmEndpoint = () =>
  */
 export const getStoreNewsletterUnsubscribeEndpoint = () =>
   `/store-api/newsletter/unsubscribe`;
+
+/**
+ * @beta
+ */
+export const getGetWishlistProductsEndpoint = () =>
+  `/store-api/customer/wishlist`;
+/**
+ * @beta
+ */
+export const getAddWishlistProductEndpoint = (productId: string) =>
+  `/store-api/customer/wishlist/add/${productId}`;
+/**
+ * @beta
+ */
+export const getRemoveWishlistProductEndpoint = (productId: string) =>
+  `/store-api/customer/wishlist/delete/${productId}`;
+/**
+ * @beta
+ */
+export const getMergeWishlistProductsEndpoint = () =>
+  `/store-api/customer/wishlist/merge`;

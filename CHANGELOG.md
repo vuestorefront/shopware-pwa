@@ -1,3 +1,20 @@
+# [1.2.0](https://github.com/DivanteLtd/shopware-pwa/compare/v1.1.1...v1.2.0) (2021-12-27)
+
+
+### Bug Fixes
+
+* **default theme:**  synchronise tabs after switching between them ([#1766](https://github.com/DivanteLtd/shopware-pwa/issues/1766)) ([6b5c57d](https://github.com/DivanteLtd/shopware-pwa/commit/6b5c57d902277295ad144f865ec2a8ca18d5189f))
+* **default-theme:** missing SwLoginModal translations ([#1768](https://github.com/DivanteLtd/shopware-pwa/issues/1768)) ([e7bfab2](https://github.com/DivanteLtd/shopware-pwa/commit/e7bfab2a390bd909d4b3d46d181ffe15d82b63ed))
+* **default-theme:** SwTopNaviation visibleCategories null variable ([#1769](https://github.com/DivanteLtd/shopware-pwa/issues/1769)) ([eee492d](https://github.com/DivanteLtd/shopware-pwa/commit/eee492d5345b4b071a5969d1a74f329dc263cd55))
+* docs installation links ([7e83b32](https://github.com/DivanteLtd/shopware-pwa/commit/7e83b32f532a60ef625361333f0663a2c65e6df0))
+
+
+### Features
+
+* **default-theme:** add dutch locale nl-NL ([#1752](https://github.com/DivanteLtd/shopware-pwa/issues/1752)) ([0ad6e0f](https://github.com/DivanteLtd/shopware-pwa/commit/0ad6e0f4f07ea501f68a8624602630f194ac2a1e))
+
+
+
 ## [1.1.1](https://github.com/vuestorefront/shopware-pwa/compare/v1.1.0...v1.1.1) (2021-12-07)
 
 

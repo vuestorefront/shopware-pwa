@@ -1,7 +1,9 @@
 ## Migration guide
 
-- [1.0.0-RC changelog](./1.0.0-RC) <Badge text="canary" type="info"/>
-- [0.10.x to 1.0.0-RC.1](./0.10.x_to_1.0.0-RC.1) <Badge text="new" type="info"/>
+- [1.1.1 to 1.2.0](./1.1.1_to_1.2.0) <Badge text="new" type="info"/>
+- [1.0.1 to 1.1.0](./1.0.1_to_1.1.0)
+- [1.0.0-RC changelog](./1.0.0-RC)
+- [0.10.x to 1.0.0-RC.1](./0.10.x_to_1.0.0-RC.1)
 - [0.9.x to 0.10.x](./0.9.x_to_0.10.x)
 - [0.8.x to 0.9.x](./0.8.x_to_0.9.x)
 - [0.6.x to 0.7.x](./0.6.x_to_0.7.x)

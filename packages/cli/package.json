@@ -1,6 +1,6 @@
 {
   "name": "@shopware-pwa/cli",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "Shopware PWA CLI",
   "types": "build/types/types.d.ts",
   "bin": {
@@ -29,8 +29,8 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@shopware-pwa/commons": "1.1.1",
-    "@shopware-pwa/shopware-6-client": "1.1.1",
+    "@shopware-pwa/commons": "1.2.0",
+    "@shopware-pwa/shopware-6-client": "1.2.0",
     "chokidar": "^3.5.2",
     "dotenv": "^10.0.0",
     "gluegun": "^4.7.0",
