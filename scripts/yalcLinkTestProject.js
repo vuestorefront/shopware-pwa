@@ -11,7 +11,7 @@ async function run() {
     (targetName) => `@shopware-pwa/${targetName}`
   );
 
-  await execa("yarn", ["yalc", "add", ...allPackages], {
+  await execa("yalc", ["add", ...allPackages], {
     stdio: "inherit",
     cwd: testProjectPath,
   });
