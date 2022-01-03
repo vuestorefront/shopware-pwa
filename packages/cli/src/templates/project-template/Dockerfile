@@ -8,8 +8,7 @@ COPY --chown=node:node . /app
 
 WORKDIR /app
 USER node
-RUN curl -sL https://unpkg.com/@pnpm/self-installer | node
 
 EXPOSE 3000
 
-CMD pnpm run start
+CMD yarn start
