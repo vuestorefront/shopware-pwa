@@ -39,34 +39,38 @@
           :total="getTotalPagesCount"
           :visible="5"
           pageParamName="p"
-          @click="changePage"
+          @click="
+            (current) => {
+              changePage(current)
+            }
+          "
         >
-          <template #prev>
+          <template #prev="{ go, prev }">
             <span
+              v-show="getCurrentPage > 1"
               class="cms-element-product-listing__pagination__number"
-              @click="changePage(getCurrentPage - 1)"
+              @click="go(prev)"
             >
               &lt;
             </span>
           </template>
           <template #number="{ page }">
-            <span
-              class="cms-element-product-listing__pagination__number"
-              :style="{
-                'font-weight': getCurrentPage === page ? 700 : 300,
-              }"
+            <button
+              class="sf-pagination__item"
               @click="changePage(page)"
+              :class="{ current: getCurrentPage === page }"
             >
               {{ page }}
-            </span>
+            </button>
           </template>
-          <template #next>
+
+          <template #next="{ go, next }">
             <span
               :class="{
                 'next-disabled': getCurrentPage === getTotalPagesCount,
               }"
               class="cms-element-product-listing__pagination__number"
-              @click="changePage(getCurrentPage + 1)"
+              @click="go(next)"
             >
               &gt;
             </span>

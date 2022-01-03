@@ -11,13 +11,13 @@
       :regular-price="formatPrice(getRegularPrice)"
       :max-rating="5"
       :score-rating="getProductRating"
-      :image-width="700"
-      :image-height="1000"
+      image-width="100%"
+      image-height="400"
       :link="getRouterLink"
       class="sw-product-card"
       :show-add-to-cart-button="true"
       :is-added-to-cart="isInCart"
-      :is-on-wishlist="isInWishlist"
+      :is-in-wishlist="isInWishlist"
       @click:add-to-cart="addToCart"
       @click:wishlist="toggleWishlistItem"
     >
@@ -117,11 +117,11 @@ export default {
 
 <style lang="scss" scoped>
 .sw-product-card {
-  width: 100%;
-  padding: 0.3rem;
+  // width: 100%;
+  // padding: 0.3rem;
 
-  ::v-deep .sf-product-card__image-wrapper {
-    min-height: 50px;
-  }
+  // ::v-deep .sf-product-card__image-wrapper {
+  //   min-height: 50px;
+  // }
 }
 </style>
