@@ -5,7 +5,9 @@
   "license": "MIT",
   "files": [
     "interfaces/*",
-    "src/*"
+    "src/*",
+    "index.ts",
+    "node.ts"
   ],
   "exports": {
     ".": "./index.ts",
