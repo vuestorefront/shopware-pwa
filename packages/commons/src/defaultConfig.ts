@@ -1,4 +1,4 @@
-import compatibilityTable from "../../../compatibility.json";
+import compatibilityTable from "../compatibility.json";
 import merge from "lodash/merge";
 import axios from "axios";
 import { ShopwareSearchParams } from "../interfaces/search/SearchCriteria";
@@ -82,7 +82,7 @@ export function getCurrentSupportedApiVersion() {
 export async function getCompatibilityTable(): Promise<CompatibilityTable> {
   try {
     const gitHubReleasesResponse = await axios.get(
-      `https://raw.githubusercontent.com/vuestorefront/shopware-pwa/master/compatibility.json`
+      `https://raw.githubusercontent.com/vuestorefront/shopware-pwa/master/packages/commons/compatibility.json`
     );
     return merge({}, compatibilityTable, gitHubReleasesResponse.data);
   } catch (e) {

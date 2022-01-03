@@ -7,7 +7,8 @@
     "interfaces/*",
     "src/*",
     "index.ts",
-    "node.ts"
+    "node.ts",
+    "compatibility.json"
   ],
   "exports": {
     ".": "./index.ts",
