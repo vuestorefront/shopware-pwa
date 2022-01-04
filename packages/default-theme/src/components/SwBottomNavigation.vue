@@ -1,14 +1,13 @@
 <template>
   <div class="sw-bottom-navigation">
     <SfBottomNavigation data-cy="bottom-navigation">
-      <nuxt-link aria-label="Go to Home Page" :to="$routing.getUrl('/')">
-        <SfBottomNavigationItem
-          :label="$t('Home')"
-          icon="home"
-          icon-size="20px"
-          data-cy="bottom-navigation-home"
-        />
-      </nuxt-link>
+      <SfBottomNavigationItem
+        :label="$t('Home')"
+        icon="home"
+        icon-size="20px"
+        data-cy="bottom-navigation-home"
+        @click="$router.push($routing.getUrl('/'))"
+      />
       <SfBottomNavigationItem
         icon="menu"
         icon-size="20px"
@@ -233,12 +232,12 @@ export default {
   --button-size: 3.7rem;
 }
 
-.sw-bottom-navigation {
-  align-items: center;
-  &__action-button {
-    min-width: 2rem;
-  }
-}
+// .sw-bottom-navigation {
+//   align-items: center;
+//   &__action-button {
+//     min-width: 2rem;
+//   }
+// }
 
 .menu-button {
   position: relative;
