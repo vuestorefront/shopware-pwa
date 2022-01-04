@@ -232,13 +232,6 @@ export default {
   --button-size: 3.7rem;
 }
 
-// .sw-bottom-navigation {
-//   align-items: center;
-//   &__action-button {
-//     min-width: 2rem;
-//   }
-// }
-
 .menu-button {
   position: relative;
 
