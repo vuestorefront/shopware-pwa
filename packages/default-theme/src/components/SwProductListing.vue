@@ -270,7 +270,6 @@ $col-prod-1: 1 0 $mx-photo-wth-1;
     display: flex;
     width: 100%;
     flex-flow: row wrap;
-    justify-content: center;
     transition: filter 0.1s ease-in;
     margin-top: var(--spacer-sm);
     &--blur {
