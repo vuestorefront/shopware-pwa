@@ -3,7 +3,7 @@ import { getStoreNavigation } from "@shopware-pwa/shopware-6-client";
 import {
   StoreNavigationElement,
   StoreNavigationType,
-} from "@shopware-pwa/commons/interfaces/models/content/navigation/Navigation";
+} from "@shopware-pwa/commons/interfaces";
 import {
   useDefaults,
   getApplicationContext,

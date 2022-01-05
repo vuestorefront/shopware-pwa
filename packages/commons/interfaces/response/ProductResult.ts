@@ -1,5 +1,5 @@
-import { PropertyGroup } from "@shopware-pwa/commons/interfaces/models/content/property/PropertyGroup";
-import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
+import { PropertyGroup } from "../models/content/property/PropertyGroup";
+import { Product } from "../models/content/product/Product";
 
 /**
  * @beta

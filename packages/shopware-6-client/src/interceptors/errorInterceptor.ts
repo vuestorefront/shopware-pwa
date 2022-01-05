@@ -3,7 +3,7 @@ import {
   ShopwareError,
   ShopwareApiError,
   ClientApiError,
-} from "@shopware-pwa/commons/interfaces/errors/ApiError";
+} from "@shopware-pwa/commons";
 
 /**
  * http status codes thrown by API

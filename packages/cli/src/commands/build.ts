@@ -21,7 +21,7 @@ const command: GluegunCommand = {
     await toolbox.cms.invokeRefreshCMS();
     await toolbox.languages.invokeRefreshLanguages();
 
-    const result = await spawn("yarn nuxt build", {
+    const result = await spawn("nuxt build", {
       stdio: "inherit",
     });
     if (result.status !== 0) {

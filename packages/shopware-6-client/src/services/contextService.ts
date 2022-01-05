@@ -1,4 +1,4 @@
-import { Currency } from "@shopware-pwa/commons/interfaces/models/system/currency/Currency";
+import { Currency } from "@shopware-pwa/commons";
 import { defaultInstance, ShopwareApiInstance } from "../apiService";
 import {
   getContextCurrencyEndpoint,
@@ -9,17 +9,17 @@ import {
   getContextSalutationEndpoint,
   getContextEndpoint,
 } from "../endpoints";
-import { Country } from "@shopware-pwa/commons/interfaces/models/system/country/Country";
-import { ShippingMethod } from "@shopware-pwa/commons/interfaces/models/checkout/shipping/ShippingMethod";
-import { PaymentMethod } from "@shopware-pwa/commons/interfaces/models/checkout/payment/PaymentMethod";
-import { Language } from "@shopware-pwa/commons/interfaces/models/framework/language/Language";
-import { Salutation } from "@shopware-pwa/commons/interfaces/models/system/salutation/Salutation";
-import { EntityResult } from "@shopware-pwa/commons/interfaces/response/EntityResult";
-import { UpdateContextParams } from "@shopware-pwa/commons/interfaces/request/UpdateContextParams";
 import {
+  Country,
+  ShippingMethod,
+  PaymentMethod,
+  Language,
+  Salutation,
+  EntityResult,
+  UpdateContextParams,
   ContextTokenResponse,
   SessionContext,
-} from "@shopware-pwa/commons/interfaces/response/SessionContext";
+} from "@shopware-pwa/commons";
 import { extractContextToken } from "../helpers/context";
 
 /**

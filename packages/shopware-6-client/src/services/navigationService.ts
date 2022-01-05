@@ -3,8 +3,8 @@ import { defaultInstance, ShopwareApiInstance } from "../apiService";
 import {
   StoreNavigationElement,
   StoreNavigationType,
-} from "@shopware-pwa/commons/interfaces/models/content/navigation/Navigation";
-import { ShopwareSearchParams } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
+  ShopwareSearchParams,
+} from "@shopware-pwa/commons";
 
 /**
  * More about the navigation parameters: https://docs.shopware.com/en/shopware-platform-dev-en/store-api-guide/navigation?category=shopware-platform-dev-en/store-api-guide

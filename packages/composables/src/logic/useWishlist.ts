@@ -1,5 +1,5 @@
 import { ref, Ref, computed, onMounted, unref } from "vue-demi";
-import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
+import { Product } from "@shopware-pwa/commons/interfaces";
 import {
   INTERCEPTOR_KEYS,
   useIntercept,

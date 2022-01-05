@@ -1,7 +1,6 @@
 import { Ref, ref } from "vue-demi";
-import { SessionContext } from "@shopware-pwa/commons/interfaces/response/SessionContext";
+import { SessionContext, Currency } from "@shopware-pwa/commons";
 import * as shopwareClient from "@shopware-pwa/shopware-6-client";
-import { Currency } from "@shopware-pwa/commons/interfaces/models/system/currency/Currency";
 
 jest.mock("@shopware-pwa/shopware-6-client");
 const mockedApiClient = shopwareClient as jest.Mocked<typeof shopwareClient>;

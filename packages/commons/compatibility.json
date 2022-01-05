@@ -1,0 +1,35 @@
+{
+  "shopwareApiVersion": "6.4",
+  "instances": {
+    "6.3": {
+      "domain": "https://pwa-demo-api.shopware.com/prev/",
+      "apiKey": "SWSC40-LJTNO6COUEN7CJMXKLA"
+    },
+    "6.4": {
+      "domain": "https://pwa-demo-api.shopware.com/trunk/",
+      "apiKey": "SWSC40-LJTNO6COUEN7CJMXKLA"
+    },
+    "canary": {
+      "domain": "https://pwa-demo-api.shopware.com/trunk/",
+      "apiKey": "SWSC40-LJTNO6COUEN7CJMXKLA"
+    }
+  },
+  "docVersions": [
+    {
+      "text": "CHANGELOG",
+      "link": "https://github.com/vuestorefront/shopware-pwa/blob/master/CHANGELOG.md"
+    },
+    {
+      "text": "current",
+      "link": "https://shopware-pwa-docs.vuestorefront.io"
+    },
+    {
+      "text": "v0.10",
+      "link": "https://v0.10.shopware-pwa-docs.vuestorefront.io"
+    },
+    {
+      "text": "v0.9",
+      "link": "https://v0.9.shopware-pwa-docs.vuestorefront.io"
+    }
+  ]
+}

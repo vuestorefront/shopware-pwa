@@ -2,7 +2,7 @@ const fs = require("fs");
 const chalk = require("chalk");
 const path = require("path");
 
-const ownBuildProcessPackages = ["commons"];
+const ownBuildProcessPackages = [];
 
 const packagesDir = path.join(__dirname, "..", "packages");
 

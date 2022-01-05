@@ -6,11 +6,13 @@ import {
   getCancelOrderEndpoint,
   getChangeOrderPaymentMethodEndpoint,
 } from "../endpoints";
-import { CreateOrderParams } from "@shopware-pwa/commons/interfaces/request/CreateOrder";
-import { Order } from "@shopware-pwa/commons/interfaces/models/checkout/order/Order";
-import { OrderState } from "@shopware-pwa/commons/interfaces/models/checkout/order/OrderState";
-import { SearchFilterType } from "@shopware-pwa/commons/interfaces/search/SearchFilter";
-import { ShopwareSearchParams } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
+import {
+  CreateOrderParams,
+  Order,
+  OrderState,
+  SearchFilterType,
+  ShopwareSearchParams,
+} from "@shopware-pwa/commons";
 
 /**
  * Creates an order for logged in and guest users

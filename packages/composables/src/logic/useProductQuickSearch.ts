@@ -5,8 +5,10 @@ import {
   useDefaults,
   createListingComposable,
 } from "@shopware-pwa/composables";
-import { ShopwareSearchParams } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
-import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
+import {
+  ShopwareSearchParams,
+  Product,
+} from "@shopware-pwa/commons/interfaces";
 import { ComputedRef, Ref, ref } from "vue-demi";
 
 /**

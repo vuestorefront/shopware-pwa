@@ -1,5 +1,5 @@
 import { ref, Ref } from "vue-demi";
-import { CmsPageResponse } from "@shopware-pwa/commons/interfaces/models/content/cms/CmsPage";
+import { CmsPageResponse } from "@shopware-pwa/commons";
 
 import * as shopwareClient from "@shopware-pwa/shopware-6-client";
 jest.mock("@shopware-pwa/shopware-6-client");

@@ -6,13 +6,15 @@ jest.mock("@shopware-pwa/shopware-6-client");
 
 const mockedApiClient = shopwareClient as jest.Mocked<typeof shopwareClient>;
 const consoleErrorSpy = jest.spyOn(console, "error");
-import { SessionContext } from "@shopware-pwa/commons/interfaces/response/SessionContext";
 import * as Composables from "@shopware-pwa/composables";
 jest.mock("@shopware-pwa/composables");
 const mockedComposables = Composables as jest.Mocked<typeof Composables>;
 import { useCheckout } from "../src/logic/useCheckout";
-import { PaymentMethod } from "@shopware-pwa/commons/interfaces/models/checkout/payment/PaymentMethod";
-import { ShippingMethod } from "@shopware-pwa/commons/interfaces/models/checkout/shipping/ShippingMethod";
+import {
+  SessionContext,
+  PaymentMethod,
+  ShippingMethod,
+} from "@shopware-pwa/commons";
 import { prepareRootContextMock } from "./contextRunner";
 
 describe("Composables - useCheckout", () => {

@@ -1,6 +1,6 @@
 import { ref, Ref } from "vue-demi";
 
-import { LineItem } from "@shopware-pwa/commons/interfaces/models/checkout/cart/line-item/LineItem";
+import { LineItem } from "@shopware-pwa/commons/interfaces";
 import * as shopwareClient from "@shopware-pwa/shopware-6-client";
 import defaultApiParams from "../src/internalHelpers/defaultApiParams.json";
 jest.mock("@shopware-pwa/shopware-6-client");

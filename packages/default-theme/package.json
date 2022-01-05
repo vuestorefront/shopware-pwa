@@ -23,6 +23,7 @@
     "*.{js,vue}": "prettier"
   },
   "dependencies": {
+    "@shopware-pwa/cli": "1.2.0",
     "@shopware-pwa/theme-base": "1.2.0",
     "@storefront-ui/vue": "0.11.5",
     "@vuelidate/core": "^2.0.0-alpha.32",

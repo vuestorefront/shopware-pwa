@@ -1,8 +1,5 @@
 import { ref, computed, ComputedRef, Ref, unref } from "vue-demi";
-import {
-  Product,
-  CrossSelling,
-} from "@shopware-pwa/commons/interfaces/models/content/product/Product";
+import { Product, CrossSelling } from "@shopware-pwa/commons/interfaces";
 
 import {
   invokeGet,

@@ -1,7 +1,8 @@
 import { CustomField } from "../../common/CustomField";
-import { Category } from "@shopware-pwa/commons/interfaces/models/content/category/Category";
-import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
-import { Aggregation } from "@shopware-pwa/commons/interfaces/search/Aggregation";
+import { Category } from "../category/Category";
+import { Product } from "../product/Product";
+import { Aggregation } from "../../../search/Aggregation";
+import { CmsBlock } from "./CmsBlock";
 
 /**
  * Cms page type
@@ -169,23 +170,6 @@ export interface CmsSlot {
   blockId: string;
   fieldConfig: CmsFieldConfig[];
   data?: any;
-}
-
-/**
- * @public
- */
-export interface CmsBlock {
-  name: string;
-  sectionPosition: string;
-  marginTop: string;
-  marginBottom: string;
-  marginLeft: string;
-  marginRight: string;
-  backgroundColor: string;
-  backgroundMediaId: string;
-  backgroundMediaMode: string;
-  cssClass: string;
-  slots: CmsSlot[];
 }
 
 /**
