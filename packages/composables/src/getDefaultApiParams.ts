@@ -1,5 +1,5 @@
 import defaultApiParams from "./internalHelpers/defaultApiParams.json";
-import { ShopwareSearchParams } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
+import { ShopwareSearchParams } from "@shopware-pwa/commons/interfaces";
 
 /**
  * Returns default system API params

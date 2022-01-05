@@ -14,30 +14,7 @@ import { PropertyGroupOption } from "../property/PropertyGroupOption";
 import { Category } from "../category/Category";
 import { Tag } from "../../system/tag/Tag";
 import { CustomField } from "../../common/CustomField";
-
-/**
- * @public
- */
-export interface SeoUrl {
-  reatedAt: Date;
-  customFields: null | any;
-  extensions: any[];
-  foreignKey: string;
-  id: string;
-  isCanonical: boolean;
-  isDeleted: boolean;
-  isModified: boolean;
-  isValid: boolean | null;
-  language: string | null;
-  languageId: string;
-  pathInfo: string;
-  routeName: string;
-  salesChannelId: string | null;
-  seoPathInfo: string;
-  updatedAt: Date | null;
-  url: string | null;
-  versionId: string | null;
-}
+import { SeoUrl } from "../navigation/Navigation";
 
 export interface CrossSelling {
   name: String;

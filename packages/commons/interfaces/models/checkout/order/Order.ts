@@ -1,13 +1,13 @@
-import { CustomerAddress } from "@shopware-pwa/commons/interfaces/models/checkout/customer/CustomerAddress";
-import { OrderLineItem } from "@shopware-pwa/commons/interfaces/models/checkout/order/OrderLineItem";
-import { StateMachineState } from "@shopware-pwa/commons/interfaces/models/system/state-machine/StateMachineState";
+import { CustomerAddress } from "../customer/CustomerAddress";
+import { OrderLineItem } from "../order/OrderLineItem";
+import { StateMachineState } from "../../system/state-machine/StateMachineState";
 import { OrderTransaction } from "./OrderTransaction";
-import { Tag } from "@shopware-pwa/commons/interfaces/models/system/tag/Tag";
-import { Currency } from "@shopware-pwa/commons/interfaces/models/system/currency/Currency";
-import { Language } from "@shopware-pwa/commons/interfaces/models/framework/language/Language";
-import { SalesChannel } from "@shopware-pwa/commons/interfaces/models/system/sales-channel/SalesChannel";
-import { CustomFields } from "@shopware-pwa/commons/interfaces/models/common/CustomField";
-import { Delivery } from "@shopware-pwa/commons/interfaces/models/checkout/delivery/Delivery";
+import { Tag } from "../../system/tag/Tag";
+import { Currency } from "../../system/currency/Currency";
+import { Language } from "../../framework/language/Language";
+import { SalesChannel } from "../../system/sales-channel/SalesChannel";
+import { CustomFields } from "../../common/CustomField";
+import { Delivery } from "../delivery/Delivery";
 
 interface CalculatedTax {
   tax: number;

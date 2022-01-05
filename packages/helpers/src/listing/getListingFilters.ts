@@ -1,7 +1,7 @@
 import {
   Aggregations,
   AggregationFilterEntityOption,
-} from "@shopware-pwa/commons/interfaces/search/Aggregations";
+} from "@shopware-pwa/commons";
 import { getTranslatedProperty } from "..";
 
 /**

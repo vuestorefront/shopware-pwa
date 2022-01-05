@@ -7,7 +7,7 @@ import {
   SizingMode,
 } from "./CmsPage";
 /**
- * @beta
+ * @public
  */
 export interface CmsBlock {
   apiAlias: string;

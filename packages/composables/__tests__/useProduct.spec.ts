@@ -1,4 +1,4 @@
-import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
+import { ClientApiError } from "@shopware-pwa/commons";
 
 import { useProduct } from "../src/hooks/useProduct";
 import * as shopwareClient from "@shopware-pwa/shopware-6-client";

@@ -12,7 +12,7 @@
     "clean-build": "node ./scripts/clean-build.js",
     "compile": "node ./scripts/esbuild.js",
     "copy-templates": "node ./scripts/copy-templates.js",
-    "build": "yarn format && yarn lint && yarn clean-build && yarn compile && yarn copy-templates",
+    "build": "yarn run format && yarn run lint && yarn run clean-build && yarn run compile && yarn run copy-templates",
     "test": "jest",
     "watch": "jest --watch",
     "snapupdate": "jest --updateSnapshot",
@@ -39,6 +39,7 @@
     "validate-npm-package-name": "^3.0.0"
   },
   "devDependencies": {
+    "@shopware-pwa/commons": "1.2.0",
     "@types/jest": "^27.0.2",
     "@types/node": "^14.14.37",
     "jest": "^27.3.1",

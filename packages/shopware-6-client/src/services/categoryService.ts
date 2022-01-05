@@ -1,7 +1,9 @@
-import { Category } from "@shopware-pwa/commons/interfaces/models/content/category/Category";
 import { getCategoryEndpoint, getCategoryDetailsEndpoint } from "../endpoints";
-import { EntityResult } from "@shopware-pwa/commons/interfaces/response/EntityResult";
-import { ShopwareSearchParams } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
+import {
+  Category,
+  EntityResult,
+  ShopwareSearchParams,
+} from "@shopware-pwa/commons";
 import { defaultInstance, ShopwareApiInstance } from "../apiService";
 
 /**

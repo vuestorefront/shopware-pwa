@@ -1,4 +1,4 @@
-import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
+import { Product } from "@shopware-pwa/commons";
 import { UiProductReview } from "../ui-interfaces";
 
 /**

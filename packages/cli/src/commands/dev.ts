@@ -65,7 +65,7 @@ const command: GluegunCommand = {
 
     const debugOn = toolbox.parameters.options.debug;
 
-    let spawnCommand = "yarn nuxt";
+    let spawnCommand = "nuxt";
     if (debugOn) {
       spawnCommand = "node --inspect node_modules/.bin/nuxt";
     }

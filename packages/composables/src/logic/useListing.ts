@@ -10,11 +10,13 @@ import {
   createListingComposable,
   useVueContext,
 } from "@shopware-pwa/composables";
-import { ShopwareSearchParams } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
-import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
+import {
+  ShopwareSearchParams,
+  Product,
+  CmsPageResponse,
+} from "@shopware-pwa/commons/interfaces";
 import { IUseListing } from "../factories/createListingComposable";
 import { inject, computed, ComputedRef } from "vue-demi";
-import { CmsPageResponse } from "@shopware-pwa/commons/interfaces/models/content/cms/CmsPage";
 
 /**
  * @beta

@@ -1,7 +1,6 @@
 import { getPageResolverEndpoint, getSeoUrlEndpoint } from "../endpoints";
 import { defaultInstance, ShopwareApiInstance } from "../apiService";
-import { ShopwareSearchParams } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
-import { CmsPageResponse } from "@shopware-pwa/commons/interfaces/models/content/cms/CmsPage";
+import { ShopwareSearchParams, CmsPageResponse } from "@shopware-pwa/commons";
 
 /**
  * @throws ClientApiError

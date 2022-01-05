@@ -7,9 +7,11 @@ import {
 } from "@shopware-pwa/composables";
 import { computed, ComputedRef, inject, ref } from "vue-demi";
 import merge from "lodash/merge";
-import { ShopwareSearchParams } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
-import { ListingResult } from "@shopware-pwa/commons/interfaces/response/ListingResult";
-import { Sort } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
+import {
+  ShopwareSearchParams,
+  ListingResult,
+  Sort,
+} from "@shopware-pwa/commons/interfaces";
 
 /**
  * Listing interface, can be used to display category products, search products or any other Shopware search interface (ex. orders with pagination)

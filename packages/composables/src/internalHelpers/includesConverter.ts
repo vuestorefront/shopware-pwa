@@ -1,4 +1,4 @@
-import { Includes } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
+import { Includes } from "@shopware-pwa/commons/interfaces";
 
 /**
  * translate Includes interface into query GET params

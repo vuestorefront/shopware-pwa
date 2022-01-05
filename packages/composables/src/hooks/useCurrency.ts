@@ -6,7 +6,7 @@ import {
   useSharedState,
   getApplicationContext,
 } from "@shopware-pwa/composables";
-import { Currency } from "@shopware-pwa/commons/interfaces/models/system/currency/Currency";
+import { Currency } from "@shopware-pwa/commons/interfaces";
 
 /**
  * @beta

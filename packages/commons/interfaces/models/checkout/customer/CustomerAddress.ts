@@ -1,5 +1,5 @@
-import { Country } from "@shopware-pwa/commons/interfaces/models/system/country/Country";
-import { CustomField } from "@shopware-pwa/commons/interfaces/models/common/CustomField";
+import { Country } from "../../system/country/Country";
+import { CustomField } from "../../common/CustomField";
 
 /**
  * @public

@@ -7,7 +7,7 @@ import {
   LtGteRangeFilter,
   LteGtRangeFilter,
   LteGteRangeFilter,
-} from "@shopware-pwa/commons/interfaces/search/RangeFilters";
+} from "./RangeFilters";
 
 /**
  * @beta
