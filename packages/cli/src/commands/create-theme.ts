@@ -106,7 +106,7 @@ const command: GluegunCommand = {
     }
 
     // create and update package.json
-    await execa("yarn", ["init", "-y"], {
+    await execa("yarn", ["run", "init", "-y"], {
       stdio: "pipe",
       cwd: dirPath,
     });
@@ -136,14 +136,14 @@ const command: GluegunCommand = {
         }
       );
     }
-    // invoke yarn
-    await execa("yarn", [], {
+    // invoke yarn install
+    await execa("yarn", ["install"], {
       stdio: "inherit",
       cwd: dirPath,
     });
 
     toolbox.print.success(
-      `[CLI > create-theme] New theme generated! Go inside new folder and type "yarn dev" to start creation.`
+      `[CLI > create-theme] New theme generated! Go inside new folder and type "yarn run dev" to start creation.`
     );
   },
 };

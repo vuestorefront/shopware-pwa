@@ -28,10 +28,10 @@ async function run() {
       "--branch",
       "develop",
       "https://github.com/DivanteLtd/storefront-ui",
-      repoDir
+      repoDir,
     ],
     {
-      stdio: "inherit"
+      stdio: "inherit",
     }
   );
 
@@ -40,7 +40,7 @@ async function run() {
    */
   await execa("yarn", [], {
     stdio: "inherit",
-    cwd: repoDir
+    cwd: repoDir,
   });
 
   // When script added
@@ -60,13 +60,13 @@ async function run() {
   // Publish shared pashage
   await execa("npx", ["yalc", "publish"], {
     stdio: "inherit",
-    cwd: sharedPackageDir
+    cwd: sharedPackageDir,
   });
 
   // Publish vue package
   await execa("npx", ["yalc", "publish"], {
     stdio: "inherit",
-    cwd: vuePackageDir
+    cwd: vuePackageDir,
   });
 
   /**
@@ -74,11 +74,11 @@ async function run() {
    */
   await execa("npx", ["yalc", "add", "@storefront-ui/vue"], {
     stdio: "inherit",
-    cwd: themeDir
+    cwd: themeDir,
   });
   await execa("npx", ["yalc", "add", "@storefront-ui/shared"], {
     stdio: "inherit",
-    cwd: themeDir
+    cwd: themeDir,
   });
 }
 

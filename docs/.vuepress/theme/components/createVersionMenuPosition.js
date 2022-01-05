@@ -10,7 +10,7 @@ export async function createVersionMenuPosition() {
 
   try {
     const compatibilityResponse = await axios.get(
-      `https://raw.githubusercontent.com/vuestorefront/shopware-pwa/master/compatibility.json`
+      `https://raw.githubusercontent.com/vuestorefront/shopware-pwa/master/packages/commons/compatibility.json`
     );
     apiVersions = compatibilityResponse.data.docVersions;
     localStorage.setItem("docVersions", JSON.stringify(apiVersions || []));

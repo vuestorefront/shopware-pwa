@@ -8,7 +8,7 @@ import {
 import {
   ClientApiError,
   ShopwareError,
-} from "@shopware-pwa/commons/interfaces/errors/ApiError";
+} from "@shopware-pwa/commons/interfaces";
 import { getApplicationContext } from "@shopware-pwa/composables";
 
 /**

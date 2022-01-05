@@ -1,12 +1,12 @@
-import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
-import { Media } from "@shopware-pwa/commons/interfaces/models/content/media/Media";
+import { Product } from "../product/Product";
+import { Media } from "../media/Media";
 
 /**
  * Navigation type to display on page.
  *
  * Source: https://github.com/shopware/platform/blob/trunk/src/Core/Content/Category/SalesChannel/NavigationRoute.php#L285
  *
- * @beta
+ * @public
  */
 export type StoreNavigationType =
   | "main-navigation"
@@ -14,7 +14,7 @@ export type StoreNavigationType =
   | "service-navigation";
 
 /**
- * @beta
+ * @public
  */
 export interface SeoUrl {
   salesChannelId: string;

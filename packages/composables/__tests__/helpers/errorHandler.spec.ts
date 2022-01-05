@@ -1,6 +1,6 @@
 import { broadcastErrors } from "../../src/internalHelpers/errorHandler";
 import * as Composables from "@shopware-pwa/composables";
-import { EntityError } from "@shopware-pwa/commons/interfaces/models/common/EntityError";
+import { EntityError } from "@shopware-pwa/commons";
 jest.mock("@shopware-pwa/composables");
 const mockedComposables = Composables as jest.Mocked<typeof Composables>;
 jest.spyOn(console, "error");

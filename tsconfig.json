@@ -25,7 +25,7 @@
       "@shopware-pwa/shopware-6-client": ["packages/shopware-6-client/src"],
       "@shopware-pwa/composables": ["packages/composables/src"],
       "@shopware-pwa/helpers": ["packages/helpers/src"],
-      "@shopware-pwa/commons": ["packages/commons"],
+      "@shopware-pwa/commons": ["packages/commons/src"],
       "@shopware-pwa/nuxt-module": ["packages/nuxt-module/src"]
     },
     "preserveSymlinks": true

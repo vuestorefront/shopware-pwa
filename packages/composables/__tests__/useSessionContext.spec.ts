@@ -11,7 +11,7 @@ jest.mock("@shopware-pwa/composables");
 const mockedComposables = Composables as jest.Mocked<typeof Composables>;
 
 import { useSessionContext } from "../src/logic/useSessionContext";
-import { SessionContext } from "@shopware-pwa/commons/interfaces/response/SessionContext";
+import { SessionContext } from "@shopware-pwa/commons";
 
 describe("Composables - useSessionContext", () => {
   const stateContext: Ref<Partial<SessionContext> | null> = ref(null);

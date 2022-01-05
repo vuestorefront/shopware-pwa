@@ -1,5 +1,5 @@
-import { Sort } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
-import { Aggregations } from "@shopware-pwa/commons/interfaces/search/Aggregations";
+import { Sort } from "../search/SearchCriteria";
+import { Aggregations } from "../search/Aggregations";
 
 export interface ListingResult<T> {
   /**

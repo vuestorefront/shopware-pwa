@@ -2,8 +2,8 @@ import {
   CmsPageResponse,
   CmsCategoryPageResponse,
   CmsProductPageResponse,
-} from "@shopware-pwa/commons/interfaces/models/content/cms/CmsPage";
-import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
+  Product,
+} from "@shopware-pwa/commons";
 
 /**
  * technical URLs have always predefined format within a path

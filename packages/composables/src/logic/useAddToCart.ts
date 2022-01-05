@@ -1,5 +1,5 @@
 import { ref, Ref, computed, unref } from "vue-demi";
-import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
+import { Product, ClientApiError } from "@shopware-pwa/commons/interfaces";
 import {
   useCart,
   INTERCEPTOR_KEYS,
@@ -7,7 +7,6 @@ import {
   IInterceptorCallbackFunction,
   getApplicationContext,
 } from "@shopware-pwa/composables";
-import { ClientApiError } from "@shopware-pwa/commons/interfaces/errors/ApiError";
 
 /**
  * interface for {@link useAddToCart} composable

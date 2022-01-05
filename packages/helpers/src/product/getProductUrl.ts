@@ -1,4 +1,4 @@
-import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
+import { Product } from "@shopware-pwa/commons";
 
 /**
  * Get product url. The priority is SEO url and then technical url.

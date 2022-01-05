@@ -1,1 +1,1 @@
-export * from "./src/getAllFiles";
+export * from "./src/node";

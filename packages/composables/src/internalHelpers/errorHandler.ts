@@ -1,7 +1,4 @@
-import {
-  EntityError,
-  ErrorLevel,
-} from "@shopware-pwa/commons/interfaces/models/common/EntityError";
+import { EntityError, ErrorLevel } from "@shopware-pwa/commons";
 
 import { INTERCEPTOR_KEYS } from "@shopware-pwa/composables";
 
