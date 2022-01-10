@@ -1,4 +1,4 @@
-name: E2E Cypress tests
+name: E2E Playwright tests
 env:
   LABEL_RUNNING: e2e-running
   LABEL_SUCCESS: e2e-passed
@@ -29,11 +29,11 @@ jobs:
         uses: actions/cache@v2
         id: step-cache-node-modules
         env:
-          cache-name: cache-cypress-node-modules-test
+          cache-name: cache-node-modules-test
         with:
           path: |
             node_modules
-            /home/runner/.cache/Cypress
+            packages/*/node_modules
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}
       - name: Install dependencies
         if: steps.step-cache-node-modules.outputs.cache-hit != 'true'
@@ -41,7 +41,7 @@ jobs:
           yarn --frozen-lockfile
 
   test:
-    name: Cypress tests
+    name: Playwright tests
     needs: init
     if: github.event.label.name == 'e2e-running' || github.event_name == 'push'
     runs-on: ubuntu-latest
@@ -68,12 +68,13 @@ jobs:
           type: remove
       - name: Cache node_modules
         uses: actions/cache@v2
+        id: step-cache-node-modules
         env:
-          cache-name: cache-cypress-node-modules-test
+          cache-name: cache-node-modules-test
         with:
           path: |
             node_modules
-            /home/runner/.cache/Cypress
+            packages/*/node_modules
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}
       - name: get preview url
         id: get-preview-url
@@ -81,11 +82,15 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           platform: StorefrontCloud
-      - name: yarn test e2e
+      - name: Set the env value
+        id: set-env-value
         run: |
-          yarn cypress run --config baseUrl=${{ github.event.inputs.page_url || steps.get-preview-url.outputs.comment_url }}
+          echo "BASE_URL=${{ github.event.inputs.page_url || steps.get-preview-url.outputs.comment_url }}" >> $GITHUB_ENV
+      - name: yarn test theme e2e
+        run: |
+          yarn test:theme
         env:
-          CI: true
+          BASE_URL: ${{ github.event.inputs.page_url || steps.get-preview-url.outputs.comment_url }}
       # Take care of labels
       - name: remove running label
         if: failure() || success()
