@@ -7,7 +7,7 @@
         class="sw-reset-password__alert"
         type="danger"
         :message="userError.message"
-        data-cy="reset-alert"
+        data-testid="reset-alert"
       />
       <SwInput
         v-model="email"
@@ -16,12 +16,12 @@
         class="sw-form__input"
         :valid="!$v.email.$error"
         :error-message="$t('Valid email is required')"
-        data-cy="email-input"
+        data-testid="email-input"
         @blur="$v.email.$touch()"
       />
       <SwButton
         class="sf-button--full-width sw-form__button"
-        data-cy="submit-reset-button"
+        data-testid="submit-reset-button"
         @click="invokeResetPassword"
       >
         {{ $t("Resend password") }}
