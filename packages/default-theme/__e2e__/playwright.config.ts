@@ -6,5 +6,6 @@ const config: PlaywrightTestConfig = {
   use: {
     baseURL,
   },
+  timeout: 120000,
 };
 export default config;
