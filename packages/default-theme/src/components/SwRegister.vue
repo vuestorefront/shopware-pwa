@@ -8,7 +8,7 @@
     <SwButton
       class="sw-form__button sf-button--full-width"
       @click="invokeRegister"
-      data-cy="register-button"
+      data-testid="register-button"
     >
       {{ $t("Create an account") }}
     </SwButton>

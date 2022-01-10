@@ -2,7 +2,7 @@
   <nuxt-link
     :to="$routing.getUrl('/')"
     class="sf-header__logo"
-    data-cy="header-logo"
+    data-testid="header-logo"
   >
     <svg
       xmlns="http://www.w3.org/2000/svg"

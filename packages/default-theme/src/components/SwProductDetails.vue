@@ -44,7 +44,7 @@
           <SwButton
             class="sf-button--full-width"
             @click="addToCart"
-            data-cy="button-addToCart"
+            data-testid="button-addToCart"
           >
             {{ $t("Add To Cart") }}
           </SwButton>

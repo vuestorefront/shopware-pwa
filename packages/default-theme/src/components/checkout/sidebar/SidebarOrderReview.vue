@@ -28,7 +28,7 @@
       <SwPluginSlot name="order-summary-actions">
         <SwButton
           class="actions__button color-secondary sw-form__button"
-          data-cy="go-back-to-payment"
+          data-testid="go-back-to-payment"
           @click="goToShop"
         >
           {{ $t("Go Back to shop") }}
@@ -36,7 +36,7 @@
         <SwButton
           :disabled="loadings.createOrder"
           class="actions__button sw-form__button"
-          data-cy="place-my-order"
+          data-testid="place-my-order"
           @click="$emit('create-order')"
         >
           {{ $t("Place my order") }}
