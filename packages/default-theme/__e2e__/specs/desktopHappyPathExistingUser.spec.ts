@@ -1,5 +1,4 @@
 import { test } from "@playwright/test";
-import { fillRegistrationForm } from "../helpers/testHelpers";
 
 test.use({
   viewport: {
@@ -9,7 +8,6 @@ test.use({
 });
 
 test("[DESKTOP] Happy path logged in user", async ({ page, baseURL }) => {
-  console.error('hi', baseURL)
   await page.goto('/');
 
   await page.click('[data-testid="login-icon"]');

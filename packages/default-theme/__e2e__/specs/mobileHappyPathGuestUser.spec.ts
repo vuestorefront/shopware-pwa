@@ -9,8 +9,8 @@ test.use({
 });
 
 test("[MOBILE] Happy path guest user", async ({ page }) => {
-  // Go to http://localhost:3000/
-  await page.goto("http://localhost:3000/");
+  // Go to /
+  await page.goto("/");
 
   // Click [data-testid="search-bar"]
   await page.click('[data-testid="search-bar"]');
