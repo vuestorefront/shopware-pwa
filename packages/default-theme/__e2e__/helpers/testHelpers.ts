@@ -1,7 +1,9 @@
 import faker from "faker";
-import { Page } from "@playwright/test";
+import { Page, expect } from "@playwright/test";
 
 export async function fillRegistrationForm({ page }: { page: Page }) {
+  await expect(page.locator("#Salutation")).toContainText("Not specified");
+
   // Fill [data-testid="registration-first-name-input"] [data-testid="registration-first-name-input"]
   await page.fill(
     '[data-testid="registration-first-name-input"] [data-testid="registration-first-name-input"]',
