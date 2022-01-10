@@ -18,7 +18,7 @@
               name="paymentMethod"
               :description="paymentMethod.description"
               class="sw-form__radio payment-method"
-              :data-cy="`checkout-payment-method-${simplifyString(
+              :data-testid="`checkout-payment-method-${simplifyString(
                 paymentMethod.name
               )}`"
             >

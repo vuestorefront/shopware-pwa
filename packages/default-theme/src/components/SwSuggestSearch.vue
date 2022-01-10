@@ -15,6 +15,7 @@
           v-for="product in products.slice(0, 5)"
           :key="product.id"
           :link="$routing.getUrl(getProductUrl(product))"
+          data-testid="quicksearch-result"
         >
           <SwImage
             :src="getProducImageUrl(product)"

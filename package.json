@@ -24,7 +24,7 @@
     "lint": "prettier --write --parser typescript \"packages/**/*.ts\"",
     "test": "NODE_OPTIONS=--unhandled-rejections=warn jest --runInBand",
     "test:e2e": "jest --e2e=true --runInBand",
-    "test:cypress": "cypress run",
+    "test:theme": "cd ./packages/default-theme && yarn test:e2e",
     "test:coverage": "yarn test --coverage",
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs",

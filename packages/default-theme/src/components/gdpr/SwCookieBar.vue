@@ -1,12 +1,12 @@
 <template>
-  <SfTopBar v-if="displayCookieBar" class="sw-cookie-bar" data-cy="cookie-bar">
+  <SfTopBar v-if="displayCookieBar" class="sw-cookie-bar" data-testid="cookie-bar">
     <template #left>
       <div class="cookie-info">
         <SwCookieBarContent />
       </div>
     </template>
     <template #right>
-      <SwButton class="button" data-cy="accept-cookies" @click="acceptCookies">
+      <SwButton class="button" data-testid="accept-cookies" @click="acceptCookies">
         {{ $t("Got it!") }}
       </SwButton>
     </template>

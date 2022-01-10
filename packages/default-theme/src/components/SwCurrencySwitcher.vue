@@ -3,20 +3,20 @@
   <div
     v-if="activeCurrency && availableCurrencies.length > 1"
     class="sw-currency"
-    data-cy="currency-switcher"
+    data-testid="currency-switcher"
   >
     <SfSelect
       v-model="activeCurrency"
       :size="availableCurrencies.length"
       class="sw-currency__select"
-      data-cy="currency-switcher-select"
+      data-testid="currency-switcher-select"
       @click="loadAvailableCurrencies"
     >
       <SfSelectOption
         v-for="currencyItem in availableCurrencies"
         :key="currencyItem.id"
         :value="currencyItem.id"
-        data-cy="currency-switcher-option"
+        data-testid="currency-switcher-option"
         >{{ currencyItem.symbol }}</SfSelectOption
       >
     </SfSelect>

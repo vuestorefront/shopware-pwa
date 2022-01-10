@@ -20,6 +20,7 @@
       :is-in-wishlist="isInWishlist"
       @click:add-to-cart="addToCart"
       @click:wishlist="toggleWishlistItem"
+      data-testid="product-card"
     >
     </SfProductCard>
   </SwPluginSlot>

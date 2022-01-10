@@ -32,7 +32,7 @@
           class="sw-form__input form__element form__element--small"
           :valid="!$v.firstName.$error"
           :error-message="$t('First name is required')"
-          data-cy="registration-first-name-input"
+          data-testid="registration-first-name-input"
           @blur="$v.firstName.$touch()"
         />
         <SwInput
@@ -42,7 +42,7 @@
           class="sw-form__input form__element form__element--small"
           :valid="!$v.lastName.$error"
           :error-message="$t('Last name is required')"
-          data-cy="registration-last-name-input"
+          data-testid="registration-last-name-input"
           @blur="$v.lastName.$touch()"
         />
       </div>
@@ -52,7 +52,7 @@
         name="doNotCreateAccount"
         :label="$t('Do not create a customer account')"
         class="sw-form__input form__element form__element--small"
-        data-cy="guest-registration-checkbox"
+        data-testid="guest-registration-checkbox"
       />
       <div class="inputs-group">
         <SwInput
@@ -61,7 +61,7 @@
           :valid="!$v.email.$error"
           :error-message="$t('Proper email is required')"
           name="registrationEmail"
-          data-cy="registration-email-input"
+          data-testid="registration-email-input"
           class="sw-form__input form__element form__element--small"
         />
         <transition name="fade">
@@ -79,7 +79,7 @@
                 $t('Password should have at least 8 characters')) ||
               ''
             "
-            data-cy="registration-password-input"
+            data-testid="registration-password-input"
             class="sw-form__input form__element form__element--small"
           />
         </transition>
@@ -92,7 +92,7 @@
           class="sw-form__input form__element form__element--small"
           :valid="!$v.street.$error"
           :error-message="$t('Street is required')"
-          data-cy="registration-street-input"
+          data-testid="registration-street-input"
           @blur="$v.street.$touch()"
         />
         <SwInput
@@ -102,7 +102,7 @@
           class="sw-form__input form__element form__element--small"
           :valid="!$v.zipcode.$error"
           :error-message="$t('Zip code is required')"
-          data-cy="registration-zipcode-input"
+          data-testid="registration-zipcode-input"
           @blur="$v.zipcode.$touch()"
         />
         <SwInput
@@ -112,7 +112,7 @@
           class="sw-form__input form__element form__element--small"
           :valid="!$v.city.$error"
           :error-message="$t('City is required')"
-          data-cy="registration-city-input"
+          data-testid="registration-city-input"
           @blur="$v.city.$touch()"
         />
       </div>
