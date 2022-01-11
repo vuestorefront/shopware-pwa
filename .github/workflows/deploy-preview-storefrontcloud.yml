@@ -412,6 +412,10 @@ jobs:
             !test-project/.yalc
             !test-project/.yalc.lock
           key: ${{ matrix.node }}-${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}-${{ needs.build-cli.outputs.package-hash }}
+      - name: Set SSL provider (node 17)
+        if: matrix.node == 17
+        run: |
+          export NODE_OPTIONS=--openssl-legacy-provider
       - name: Create a project
         run: |
           mkdir -p test-project
