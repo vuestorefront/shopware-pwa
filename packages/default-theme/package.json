@@ -66,5 +66,8 @@
     "playwright": "^1.17.1",
     "prettier": "^2.4.1",
     "vue-jest": "^4.0.0-0"
+  },
+  "resolutions": {
+    "colors": "<=1.4.0"
   }
 }
