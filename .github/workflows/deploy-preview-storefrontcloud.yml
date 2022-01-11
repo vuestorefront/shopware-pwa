@@ -8,7 +8,6 @@ on:
     types: [opened, synchronize]
     paths-ignore:
       - "*.md"
-      - ".github/**"
       - "docs/**"
 
 jobs:
@@ -17,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: [14, 16]
+        node: [14, 16, 17]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -48,7 +47,7 @@ jobs:
       package-hash: ${{ steps.folder-hash-step-cli.outputs.hash }}
     strategy:
       matrix:
-        node: [14, 16]
+        node: [14, 16, 17]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -95,7 +94,7 @@ jobs:
       package-hash: ${{ steps.folder-hash-step-composables.outputs.hash }}
     strategy:
       matrix:
-        node: [14, 16]
+        node: [14, 16, 17]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -139,7 +138,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: [14, 16]
+        node: [14, 16, 17]
     outputs:
       package-hash: ${{ steps.folder-hash-step-helpers.outputs.hash }}
     steps:
@@ -185,7 +184,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: [14, 16]
+        node: [14, 16, 17]
     outputs:
       package-hash: ${{ steps.folder-hash-step-nuxt-module.outputs.hash }}
     steps:
@@ -233,7 +232,7 @@ jobs:
       package-hash: ${{ steps.folder-hash-step-shopware-6-client.outputs.hash }}
     strategy:
       matrix:
-        node: [14, 16]
+        node: [14, 16, 17]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -279,7 +278,7 @@ jobs:
       package-hash: ${{ steps.folder-hash-step-default-theme.outputs.hash }}
     strategy:
       matrix:
-        node: [14, 16]
+        node: [14, 16, 17]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -332,7 +331,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: [14, 16]
+        node: [14, 16, 17]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
