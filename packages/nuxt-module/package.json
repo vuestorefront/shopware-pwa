@@ -1,6 +1,6 @@
 {
   "name": "@shopware-pwa/nuxt-module",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "@shopware-pwa/nuxt-module",
   "main": "dist/nuxt-module.cjs.js",
   "exports": {
@@ -25,11 +25,11 @@
     "@nuxt/typescript-build": "^2.1.0",
     "@nuxt/typescript-runtime": "^2.1.0",
     "@nuxt/utils": "^2.15.8",
-    "@shopware-pwa/cli": "1.2.0",
-    "@shopware-pwa/composables": "1.2.0",
-    "@shopware-pwa/default-theme": "1.2.0",
-    "@shopware-pwa/helpers": "1.2.0",
-    "@shopware-pwa/shopware-6-client": "1.2.0",
+    "@shopware-pwa/cli": "1.3.0",
+    "@shopware-pwa/composables": "1.3.0",
+    "@shopware-pwa/default-theme": "1.3.0",
+    "@shopware-pwa/helpers": "1.3.0",
+    "@shopware-pwa/shopware-6-client": "1.3.0",
     "chokidar": "^3.5.2",
     "cookie-universal": "^2.1.5",
     "cosmiconfig": "^7.0.1",
@@ -45,7 +45,7 @@
     "vue-template-compiler": "^2.6.14"
   },
   "devDependencies": {
-    "@shopware-pwa/commons": "1.2.0"
+    "@shopware-pwa/commons": "1.3.0"
   },
   "publishConfig": {
     "access": "public"
