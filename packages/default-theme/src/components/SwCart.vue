@@ -64,7 +64,7 @@
             </SfProperty>
             <SwButton
               class="sf-button--full-width color-secondary"
-              data-cy="goToCheckout-button"
+              data-testid="goToCheckout-button"
               @click="goToCheckout()"
               >{{ $t("Go to checkout") }}</SwButton
             >

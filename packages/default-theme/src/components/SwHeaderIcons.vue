@@ -5,7 +5,7 @@
       <div class="account-icon" @mouseleave="closeDropdown">
         <SwButton
           class="sf-button--pure sw-nav-button"
-          data-cy="login-icon"
+          data-testid="login-icon"
           @click="userIconClick"
         >
           <SfIcon
@@ -25,7 +25,7 @@
                 sw-dropdown__item
               "
               :to="getPageAccount"
-              data-cy="my-account-link"
+              data-testid="my-account-link"
               @click.native="isDropdownOpen = false"
             >
               {{ $t("My account") }}
@@ -37,7 +37,7 @@
                 sf-button sf-button--full-width sf-button--underlined
                 sw-dropdown__item
               "
-              data-cy="logout-button"
+              data-testid="logout-button"
               @click="logoutUser()"
             >
               {{ $t("Logout") }}
@@ -47,7 +47,7 @@
       </div>
       <SwButton
         class="sf-button--pure sw-nav-button"
-        data-cy="wishlist-icon"
+        data-testid="wishlist-icon"
         @click="goToWishlist"
       >
         <SfIcon class="sw-header__icon" icon="heart" size="1.625rem" />
@@ -57,7 +57,7 @@
       </SwButton>
       <SwButton
         class="sf-button--pure sw-nav-button"
-        data-cy="cart-icon"
+        data-testid="cart-icon"
         @click.capture="toggleSidebar"
       >
         <SfIcon class="sw-header__icon" icon="empty_cart" size="1.625rem" />

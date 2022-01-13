@@ -13,13 +13,13 @@
         :label="$t('Salutation')"
         :valid="!$v.salutationId.$error"
         :error-message="$t('Salutation must be selected')"
-        data-cy="salutation-select"
+        data-testid="salutation-select"
       >
         <SfSelectOption
           v-for="salutationOption in getMappedSalutations"
           :key="salutationOption.id"
           :value="salutationOption.id"
-          data-cy="salutation-option"
+          data-testid="salutation-option"
         >
           {{ salutationOption.name }}
         </SfSelectOption>

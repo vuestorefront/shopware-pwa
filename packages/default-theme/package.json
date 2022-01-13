@@ -1,6 +1,6 @@
 {
   "name": "@shopware-pwa/default-theme",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "Shopware PWA theme",
   "author": "patzick <13100280+patzick@users.noreply.github.com>",
   "license": "MIT",
@@ -12,7 +12,8 @@
     "build": "shopware-pwa build-theme",
     "dev": "shopware-pwa dev-theme",
     "lint": "prettier --write './**/*.{js,vue}'",
-    "test": "jest"
+    "test": "jest",
+    "test:e2e": "playwright test --config=__e2e__/playwright.config.ts"
   },
   "husky": {
     "hooks": {
@@ -23,8 +24,8 @@
     "*.{js,vue}": "prettier"
   },
   "dependencies": {
-    "@shopware-pwa/cli": "1.2.0",
-    "@shopware-pwa/theme-base": "1.2.0",
+    "@shopware-pwa/cli": "1.3.0",
+    "@shopware-pwa/theme-base": "1.3.0",
     "@storefront-ui/vue": "0.11.5",
     "@vuelidate/core": "^2.0.0-alpha.32",
     "@vuelidate/validators": "^2.0.0-alpha.25",
@@ -35,9 +36,9 @@
   },
   "peerDependencies": {
     "@vue/composition-api": "^1.3.1",
-    "vue": "^2.0.0 || >=3.0.0-rc.0",
+    "core-js": "^3.19.0",
     "nuxt": "^2.15.8",
-    "core-js": "^3.19.0"
+    "vue": "^2.0.0 || >=3.0.0-rc.0"
   },
   "peerDependenciesMeta": {
     "@vue/composition-api": {
@@ -48,7 +49,8 @@
     "@babel/runtime-corejs3": "^7.16.0",
     "@nuxtjs/eslint-config": "^6.0.1",
     "@nuxtjs/eslint-module": "^3.0.2",
-    "@shopware-pwa/cli": "1.2.0",
+    "@playwright/test": "^1.17.1",
+    "@shopware-pwa/cli": "1.3.0",
     "@vue/composition-api": "^1.3.1",
     "@vue/test-utils": "^1.2.2",
     "babel-eslint": "^10.1.0",
@@ -61,7 +63,11 @@
     "jest": "^27.3.1",
     "lint-staged": "^11.2.6",
     "lodash": "^4.17.21",
+    "playwright": "^1.17.1",
     "prettier": "^2.4.1",
     "vue-jest": "^4.0.0-0"
+  },
+  "resolutions": {
+    "colors": "<=1.4.0"
   }
 }

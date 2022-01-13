@@ -3,14 +3,14 @@
     :visible="visible"
     :title="getTranslatedProperty(category, 'name')"
     class="sw-mega-menu"
-    data-cy="mega-menu"
+    data-testid="mega-menu"
   >
     <div class="sw-mega-menu__content">
       <div
         v-for="subcategory in category.children"
         :key="getTranslatedProperty(subcategory, 'name')"
         class="sw-mega-menu__content-section"
-        data-cy="mega-menu-category"
+        data-testid="mega-menu-category"
       >
         <nuxt-link
           class="sf-header__link"

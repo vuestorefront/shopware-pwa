@@ -48,21 +48,15 @@ We keep 100% test coverage for our packages (except `default-theme`). Before ope
 
 Please, remember to always during development have opened terminal with `yarn test --watch` command fired.
 
-### E2E cypress tests
+### E2E Playwright tests
 
 Critical paths in our default theme are checking if application flow is working correctly. To check tests locally you can run
 
 ```bash
 # in local mode
-yarn test:cypress
+yarn test:theme
 # in graphic mode
-yarn cypress open
-```
-
-additionally you can pass instance other than localhost, for example for canary
-
-```bash
-yarn cypress open --config baseUrl=https://shopware-pwa-canary.storefrontcloud.io/
+yarn test:theme --headed
 ```
 
 ## Pull requests
@@ -78,4 +72,4 @@ yarn cypress open --config baseUrl=https://shopware-pwa-canary.storefrontcloud.i
 
 - In case of any problems feel free to contact us in comments or our Discord channel. :)
 
-- After PR preview is generated we can add `e2e-running` label. It will fire GitHub Action with Cypress tests. After this action `e2e-running` label will be automatically removed, and instead there will be `e2e-passed` or `e2e-failed` label. In case of failure check locally by firing `yarn cypress open`.
+- After PR preview is generated we can add `e2e-running` label. It will fire GitHub Action with Playwright tests. After this action `e2e-running` label will be automatically removed, and instead there will be `e2e-passed` or `e2e-failed` label. In case of failure check locally by firing `yarn test:theme`.

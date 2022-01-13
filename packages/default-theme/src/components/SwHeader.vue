@@ -1,5 +1,5 @@
 <template>
-  <div class="sw-top-navigation" data-cy="main-header">
+  <div class="sw-top-navigation" data-testid="main-header">
     <SfOverlay :visible="isOpen" class="sw-overlay" />
 
     <SwCookieBar />

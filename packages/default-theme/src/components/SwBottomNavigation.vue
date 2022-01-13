@@ -5,7 +5,7 @@
         :label="$t('Home')"
         icon="home"
         icon-size="20px"
-        data-cy="bottom-navigation-home"
+        data-testid="bottom-navigation-home"
         @click="$router.push($routing.getUrl('/'))"
       />
       <SfBottomNavigationItem
@@ -13,7 +13,7 @@
         icon-size="20px"
         :label="$t('Menu')"
         class="menu-button"
-        data-cy="bottom-navigation-menu"
+        data-testid="bottom-navigation-menu"
         @click.self="toggleMobileNavigation"
       >
         <template #icon>
@@ -36,7 +36,7 @@
         icon="profile"
         :label="userIconDescription"
         class="menu-button"
-        data-cy="bottom-navigation-account"
+        data-testid="bottom-navigation-account"
       >
         <template #icon>
           <SfIcon icon="profile" size="20px" @click="userIconClick" />
@@ -73,7 +73,7 @@
       <SfBottomNavigationItem
         :label="$t('More')"
         class="menu-button"
-        data-cy="bottom-navigation-more"
+        data-testid="bottom-navigation-more"
         @click.self="toggleMoreActions"
       >
         <template #icon>
@@ -99,7 +99,7 @@
           :label="$t('Cart')"
           class="sw-bottom-navigation__action-button"
           :is-floating="true"
-          data-cy="bottom-navigation-cart"
+          data-testid="bottom-navigation-cart"
           @click="toggleSidebar(true)"
         >
           <template #icon>
@@ -116,7 +116,7 @@
           :label="$t('Close')"
           class="sw-bottom-navigation__action-button"
           :is-floating="true"
-          data-cy="bottom-navigation-close"
+          data-testid="bottom-navigation-close"
           @click="toggleSidebar(false)"
         >
         </SfBottomNavigationItem>

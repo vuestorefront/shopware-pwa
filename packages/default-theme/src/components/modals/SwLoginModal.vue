@@ -1,5 +1,5 @@
 <template>
-  <div id="sw-login-modal" data-cy="login-modal">
+  <div id="sw-login-modal" data-testid="login-modal">
     <SfModal
       class="sw-modal"
       :title="modalTitle"
@@ -13,7 +13,7 @@
             <SwButton
               class="sf-button--text button--muted"
               @click="component = 'SwResetPassword'"
-              data-cy="forgotten-password-button"
+              data-testid="forgotten-password-button"
             >
               {{ $t("Forgotten password?") }}
             </SwButton>
@@ -29,7 +29,7 @@
               <SwButton
                 class="sf-button--text bottom__element"
                 @click="component = 'SwRegister'"
-                data-cy="go-to-register-button"
+                data-testid="go-to-register-button"
               >
                 {{ $t("Register today!") }}
               </SwButton>
@@ -39,7 +39,7 @@
             <SwButton
               class="sf-button--text button--muted"
               @click="component = 'SwLogin'"
-              data-cy="go-to-login-button"
+              data-testid="go-to-login-button"
             >
               {{ $t("or try to log in again.") }}
             </SwButton>
@@ -53,7 +53,7 @@
                 close-button
               "
               @click="toggleModal()"
-              data-cy="toggle-modal-button"
+              data-testid="toggle-modal-button"
             >
               {{ $t("Cancel") }}
             </SwButton>
