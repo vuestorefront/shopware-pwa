@@ -21,6 +21,17 @@
       @click:add-to-cart="addToCart"
       @click:wishlist="toggleWishlistItem"
     >
+      <template #image>
+        <SwImage
+          :src="getImageUrl"
+          :title="getName"
+          :alt="getName"
+          style="cursor:pointer;"
+          width="100%"
+          height="400px"
+          @click.native="$router.push(getRouterLink)"
+        />
+      </template>
     </SfProductCard>
   </SwPluginSlot>
 </template>
@@ -41,11 +52,13 @@ import getResizedImage from "@/helpers/images/getResizedImage.js"
 import { toRefs } from "@vue/composition-api"
 import { usePriceFilter } from "@/logic/usePriceFilter.js"
 import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
+import SwImage from "@/components/atoms/SwImage.vue"
 
 export default {
   components: {
     SfProductCard,
     SwPluginSlot,
+    SwImage,
   },
   setup(props) {
     const { product } = toRefs(props)
