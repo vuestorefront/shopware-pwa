@@ -421,7 +421,19 @@ jobs:
           mkdir -p test-project
           cd ./test-project
           ../packages/cli/bin/shopware-pwa init --username=${{ secrets.SHOPWARE_ADMIN_USER }} --password=${{ secrets.SHOPWARE_ADMIN_PASSWORD }} --shopwareDomainsAllowList=${{ env.PWA_HOST }} --ci --devMode --stage local
-      - name: Build test project
+      - name: Build test project (experimental build for nodejs v17)
+        if: matrix.node == 17
+        env:
+          NODE_OPTIONS: --openssl-legacy-provider
+        run: |
+          yarn
+          node ./scripts/yalcPushPackages.js
+          node ./scripts/yalcLinkTestProject.js
+          cd ./test-project
+          yarn
+          yarn build
+      - name: Build test project (only LTS version of nodejs)
+        if: matrix.node != 17
         run: |
           yarn
           node ./scripts/yalcPushPackages.js
