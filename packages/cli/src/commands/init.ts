@@ -77,6 +77,7 @@ module.exports = {
     const coreDevPackages = ["@shopware-pwa/nuxt-module"];
     const localCoreDevPackages = [
       "@shopware-pwa/cli",
+      "@shopware-pwa/commons",
       "@shopware-pwa/composables",
       "@shopware-pwa/helpers",
       "@shopware-pwa/shopware-6-client",
