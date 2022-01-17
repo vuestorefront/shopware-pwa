@@ -49,7 +49,7 @@
 |  [getUserCountry(countryId, contextInstance)](./shopware-6-client.getusercountry.md) |  |
 |  [getUserSalutation(salutationId, contextInstance)](./shopware-6-client.getusersalutation.md) |  |
 |  [getWishlistProducts(criteria, contextInstance)](./shopware-6-client.getwishlistproducts.md) | Fetch a current Wishlist with added products |
-|  [handlePayment(orderId, finishUrl, errorUrl, contextInstance)](./shopware-6-client.handlepayment.md) |  |
+|  [handlePayment(params, contextInstance)](./shopware-6-client.handlepayment.md) |  |
 |  [invokeGet({ address }, contextInstance)](./shopware-6-client.invokeget.md) | Invoke custom GET request to shopware API. Mostly for plugins usage. You can skip domain and pass only endpoint ex. <code>/api/my/endpoint</code> |
 |  [invokePost({ address, payload, }, contextInstance)](./shopware-6-client.invokepost.md) | Invoke custom POST request to shopware API. Mostly for plugins usage. You can skip domain and pass only endpoint ex. <code>/api/my/endpoint</code> |
 |  [login({ username, password }, contextInstance)](./shopware-6-client.login.md) | Login user to shopware instance. |

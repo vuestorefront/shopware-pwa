@@ -778,7 +778,7 @@ export function useOrderDetails(params: {
         [key: string]: boolean;
     }>;
     loadOrderDetails: () => void;
-    handlePayment: (successUrl?: string, errorUrl?: string) => void;
+    handlePayment: (successUrl?: string, errorUrl?: string, additional?: unknown) => void;
     cancel: () => Promise<void>;
     changePaymentMethod: (paymentMethodId: string) => Promise<void>;
 };
