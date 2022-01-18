@@ -74,7 +74,7 @@ module.exports = {
     );
 
     // Adding Shopware PWA core dependencies
-    const coreDevPackages = ["@shopware-pwa/nuxt-module"];
+    const coreDevPackages = ["@shopware-pwa/nuxt-module", "@shopware-pwa/commons"];
     const localCoreDevPackages = [
       "@shopware-pwa/cli",
       "@shopware-pwa/commons",
