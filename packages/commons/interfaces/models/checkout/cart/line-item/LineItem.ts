@@ -1,6 +1,6 @@
 import { CalculatedPrice } from "../price/CalculatedPrice";
 import { Media } from "../../../content/media/Media";
-import { Rule } from "../../../framework/rule/Rule";
+import { Rule } from "../../../content/rule/Rule";
 import { DeliveryInformation } from "../../delivery/DeliveryInformation";
 import { PriceDefinitionInterface } from "../price/PriceDefinitionInterface";
 import { QuantityInformation } from "./QuantityInformation";

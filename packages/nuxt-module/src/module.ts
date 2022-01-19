@@ -129,7 +129,7 @@ export async function runModule(
   // Add plugins registered in theme
   const pluginFiles = getAllFiles(
     path.join(moduleObject.options.srcDir, "plugins")
-  ).filter((filePath) => /.+.(js)$/.test(filePath)); // get only js files
+  ).filter((filePath) => /.+.(js|ts)$/.test(filePath)); // get only js and ts files
   pluginFiles.forEach((pluginPath) => {
     const pluginFilename = pluginPath.replace(/^.*[\\\/]/, "");
     moduleObject.addPlugin({
@@ -137,6 +137,7 @@ export async function runModule(
       fileName: pluginFilename,
       options: moduleOptions,
     });
+    console.info(`"${pluginFilename}" plugin was registered automatically.`);
   });
 
   let config = merge({}, getDefaultApiParams());

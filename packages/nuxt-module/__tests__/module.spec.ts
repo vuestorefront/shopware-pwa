@@ -419,11 +419,22 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
     mockedFiles.getAllFiles.mockReturnValueOnce([
       "/file/path/plugins/notifications.js",
       "/file/path/plugins/README.md",
+      "/file/path/plugins/custom-plugin.ts",
     ]);
     await runModule(moduleObject, {});
     expect(moduleObject.addPlugin).toHaveBeenCalledWith({
       src: "/file/path/plugins/notifications.js",
       fileName: "notifications.js",
+      options: expect.anything(),
+    });
+    expect(moduleObject.addPlugin).toHaveBeenCalledWith({
+      src: "/file/path/plugins/custom-plugin.ts",
+      fileName: "custom-plugin.ts",
+      options: expect.anything(),
+    });
+    expect(moduleObject.addPlugin).not.toHaveBeenCalledWith({
+      src: "/file/path/plugins/README.md",
+      fileName: "README.md",
       options: expect.anything(),
     });
   });

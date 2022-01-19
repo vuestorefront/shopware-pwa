@@ -10,18 +10,16 @@ import {
 import {
   CustomerAddress,
   AddressType,
-} from "@shopware-pwa/commons/interfaces/models/checkout/customer/CustomerAddress";
-import {
   ClientApiError,
   ShopwareError,
-} from "@shopware-pwa/commons/interfaces/errors/ApiError";
+  ShopwareSearchParams,
+} from "@shopware-pwa/commons/interfaces";
 import {
   useSharedState,
   useUser,
   useDefaults,
   getApplicationContext,
 } from "@shopware-pwa/composables";
-import { ShopwareSearchParams } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
 
 /**
  * interface for {@link useCustomerAddresses} composable

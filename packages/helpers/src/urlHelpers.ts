@@ -1,4 +1,4 @@
-import { SearchCriteria } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
+import { SearchCriteria } from "@shopware-pwa/commons";
 
 /**
  * @internal

@@ -4,7 +4,7 @@
       <SwImage
         :src="getImageUrl(product)"
         :alt="product.label"
-        data-cy="product-image"
+        data-testid="product-image"
         v-if="product.cover && product.type === 'product' && !isPromotion"
       />
       <div v-if="isPromotion" class="table__image--caption">
@@ -15,12 +15,12 @@
       <div class="product-title">{{ product.label }}</div>
       <div class="product-sku">{{ product.productNumber }}</div>
     </SfTableData>
-    <SfTableData class="table__data table__quantity" data-cy="table-quantity">
+    <SfTableData class="table__data table__quantity" data-testid="table-quantity">
       <SfQuantitySelector
         v-if="product.type === 'product'"
         v-model="quantity"
         class="sf-quantity-selector--secondary"
-        data-cy="quantity"
+        data-testid="quantity"
         >{{ product.quantity }}</SfQuantitySelector
       >
     </SfTableData>

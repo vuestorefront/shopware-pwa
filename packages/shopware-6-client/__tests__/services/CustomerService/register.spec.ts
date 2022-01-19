@@ -2,7 +2,7 @@ import { name, address, datatype, phone, internet } from "faker";
 import { register } from "@shopware-pwa/shopware-6-client";
 import { getCustomerRegisterEndpoint } from "../../../src/endpoints";
 import { defaultInstance } from "../../../src/apiService";
-import { CustomerRegistrationParams } from "@shopware-pwa/commons/interfaces/request/CustomerRegistrationParams";
+import { CustomerRegistrationParams } from "@shopware-pwa/commons";
 
 jest.mock("../../../src/apiService");
 const mockedApiInstance = defaultInstance as jest.Mocked<

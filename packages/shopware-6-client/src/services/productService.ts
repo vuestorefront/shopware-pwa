@@ -3,11 +3,13 @@ import {
   getProductDetailsEndpoint,
   getProductListingEndpoint,
 } from "../endpoints";
-import { ProductListingResult } from "@shopware-pwa/commons/interfaces/response/ProductListingResult";
-import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
-import { ShopwareSearchParams } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
-import { ProductResponse } from "@shopware-pwa/commons/interfaces/response/ProductResult";
-import { EntityResult } from "@shopware-pwa/commons/interfaces/response/EntityResult";
+import {
+  ProductListingResult,
+  Product,
+  ShopwareSearchParams,
+  ProductResponse,
+  EntityResult,
+} from "@shopware-pwa/commons";
 
 import { defaultInstance, ShopwareApiInstance } from "../apiService";
 

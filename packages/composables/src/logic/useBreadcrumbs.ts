@@ -1,5 +1,5 @@
 import { computed, ComputedRef, Ref, inject } from "vue-demi";
-import { Breadcrumb } from "@shopware-pwa/commons/interfaces/models/content/cms/CmsPage";
+import { Breadcrumb } from "@shopware-pwa/commons/interfaces";
 import {
   useSharedState,
   useVueContext,

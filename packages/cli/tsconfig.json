@@ -1,4 +1,5 @@
 {
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
     "baseUrl": ".",
     "allowSyntheticDefaultImports": true,
@@ -12,6 +13,7 @@
       "es2015.iterable",
       "dom"
     ],
+    "strictNullChecks": false,
     "module": "commonjs",
     "moduleResolution": "node",
     "resolveJsonModule": true,

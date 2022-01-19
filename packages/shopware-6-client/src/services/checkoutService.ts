@@ -1,4 +1,7 @@
-import { defaultInstance, ShopwareApiInstance } from "../apiService";
+import {
+  defaultInstance,
+  ShopwareApiInstance,
+} from "../apiService";
 import {
   getCheckoutOrderEndpoint,
   handlePaymentEndpoint,
@@ -6,11 +9,13 @@ import {
   getCancelOrderEndpoint,
   getChangeOrderPaymentMethodEndpoint,
 } from "../endpoints";
-import { CreateOrderParams } from "@shopware-pwa/commons/interfaces/request/CreateOrder";
-import { Order } from "@shopware-pwa/commons/interfaces/models/checkout/order/Order";
-import { OrderState } from "@shopware-pwa/commons/interfaces/models/checkout/order/OrderState";
-import { SearchFilterType } from "@shopware-pwa/commons/interfaces/search/SearchFilter";
-import { ShopwareSearchParams } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
+import {
+  CreateOrderParams,
+  Order,
+  OrderState,
+  SearchFilterType,
+  ShopwareSearchParams,
+} from "@shopware-pwa/commons";
 
 /**
  * Creates an order for logged in and guest users
@@ -35,21 +40,27 @@ export async function createOrder(
  * @public
  */
 export async function handlePayment(
-  orderId: string,
-  finishUrl?: string,
-  errorUrl?: string,
+  params: {
+    orderId: string,
+    finishUrl?: string,
+    errorUrl?: string,
+    paymentDetails?: unknown,
+  },
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<{
   redirectUrl: string | null;
   apiAlias: string;
 }> {
-  if (!orderId) {
+  if (!params?.orderId) {
     throw new Error("handlePayment method requires orderId");
   }
 
-  const resp = await contextInstance.invoke.get(handlePaymentEndpoint(), {
-    params: { orderId, finishUrl, errorUrl },
-  });
+  const resp = await contextInstance.invoke.get(
+    handlePaymentEndpoint(),
+    {
+      params
+    }
+  );
 
   return resp.data;
 }

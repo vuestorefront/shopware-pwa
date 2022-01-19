@@ -1,7 +1,9 @@
 import { getSuggestSearchEndpoint, getSearchEndpoint } from "../endpoints";
 import { defaultInstance, ShopwareApiInstance } from "../apiService";
-import { ProductListingResult } from "@shopware-pwa/commons/interfaces/response/ProductListingResult";
-import { ShopwareSearchParams } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
+import {
+  ProductListingResult,
+  ShopwareSearchParams,
+} from "@shopware-pwa/commons";
 
 /**
  * Search for products based on criteria.

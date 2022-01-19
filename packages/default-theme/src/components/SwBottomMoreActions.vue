@@ -16,7 +16,7 @@
           <SfBottomNavigationItem
             v-if="availableCurrencies.length > 1"
             label="Currency"
-            data-cy="mobile-currency-switcher"
+            data-testid="mobile-currency-switcher"
           >
             <template #icon>
               <SfIcon icon="credits" size="20px" @click="changeCurrency" />
@@ -26,14 +26,14 @@
           <SfBottomNavigationItem
             v-if="availableDomains.length > 1"
             label="Language"
-            data-cy="mobile-language-switcher"
+            data-testid="mobile-language-switcher"
           >
             <template #icon>
               <SfIcon
                 icon="marker"
                 size="20px"
                 @click="changeLanguage"
-                data-cy="mobile-language-switcher-button"
+                data-testid="mobile-language-switcher-button"
               />
             </template>
           </SfBottomNavigationItem>
@@ -46,7 +46,7 @@
         </div>
 
         <div v-if="showLanguage">
-          <SfList data-cy="mobile-language-switcher-list">
+          <SfList data-testid="mobile-language-switcher-list">
             <SfListItem
               v-for="domain in availableDomains"
               :key="domain.domainId"

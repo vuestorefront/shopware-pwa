@@ -2,19 +2,19 @@
   <div
     v-if="availableDomains.length > 1"
     class="sw-language-switcher"
-    data-cy="language-switcher"
+    data-testid="language-switcher"
   >
     <SfSelect
       :value="currentDomainId"
       class="sw-language-switcher__select sf-select--no-chevron"
-      data-cy="language-switcher-select"
+      data-testid="language-switcher-select"
       @input="changeDomain"
     >
       <SfSelectOption
         v-for="domain in availableDomains"
         :key="domain.domainId"
         :value="domain.domainId"
-        data-cy="language-switcher-option"
+        data-testid="language-switcher-option"
         >{{ domain.languageLabel }}</SfSelectOption
       >
     </SfSelect>

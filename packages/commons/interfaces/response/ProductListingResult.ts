@@ -1,6 +1,6 @@
-import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
-import { Sort } from "@shopware-pwa/commons/interfaces/search/SearchCriteria";
-import { Aggregations } from "@shopware-pwa/commons/interfaces/search/Aggregations";
+import { Product } from "../models/content/product/Product";
+import { Sort } from "../search/SearchCriteria";
+import { Aggregations } from "../search/Aggregations";
 
 export interface ProductListingResult {
   /**

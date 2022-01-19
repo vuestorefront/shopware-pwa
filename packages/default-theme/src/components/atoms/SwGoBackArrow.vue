@@ -3,7 +3,7 @@
     aria-label="Go back arrow"
     @click="goBack"
     class="go-back"
-    data-cy="go-back"
+    data-testid="go-back"
   >
     <SfIcon
       icon="chevron_left"

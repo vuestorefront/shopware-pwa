@@ -2,15 +2,15 @@
   <div
     ref="navigation"
     class="sw-top-navigation"
-    data-cy="top-navigation"
-    v-if="visibleCategories.length"
+    data-testid="top-navigation"
+    v-if="visibleCategories && visibleCategories.length"
   >
     <SwPluginSlot name="sw-top-navigation-before" />
     <div
       v-for="category in visibleCategories"
       :key="getTranslatedProperty(category, 'name')"
       class="sf-header-navigation-item sf-header__link"
-      data-cy="top-navigation-item"
+      data-testid="top-navigation-item"
       @mouseover="
         changeCurrentCategory(getTranslatedProperty(category, 'name'))
       "

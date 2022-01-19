@@ -42,6 +42,9 @@ const getPkgRoot = (pkg) => path.resolve(__dirname, "../packages/" + pkg);
 const step = (msg) => console.log(chalk.cyan(msg));
 
 async function main() {
+  if (isDryRun) {
+    console.log(chalk.yellow('Dry run - without publishing!'));
+  }
   let targetVersion = args._[0];
   step("\nReleasing from current version " + currentVersion);
   if (isCanaryRelease) {

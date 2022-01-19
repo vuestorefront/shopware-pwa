@@ -1,4 +1,4 @@
-import { Country } from "@shopware-pwa/commons/interfaces/models/system/country/Country";
+import { Country } from "@shopware-pwa/commons";
 import { getTranslatedProperty } from "@shopware-pwa/helpers";
 
 /**

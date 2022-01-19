@@ -12,6 +12,7 @@
 |  [addProductReview(productId, productReviewData, contextInstance)](./shopware-6-client.addproductreview.md) | Add a review to specific product by its ID |
 |  [addProductToCart(productId, quantity, contextInstance)](./shopware-6-client.addproducttocart.md) | Adds specific quantity of the product to the cart by productId. It creates a new cart line item.<!-- -->Warning: This method does not change the state of the cart in any way if productId already exists in a cart. For changing the quantity use addQuantityToCartLineItem() or changeCartLineItemQuantity() methods. |
 |  [addPromotionCode(promotionCode, contextInstance)](./shopware-6-client.addpromotioncode.md) | Adds new promotion code to the cart by its code.<!-- -->Promotion code is being added as separate cart item line. |
+|  [addWishlistProduct(productId, contextInstance)](./shopware-6-client.addwishlistproduct.md) | Add a product with a specific ID to the wishlist |
 |  [cancelOrder(orderId, contextInstance)](./shopware-6-client.cancelorder.md) | Cancel an order |
 |  [changeCartItemQuantity(itemId, newQuantity, contextInstance)](./shopware-6-client.changecartitemquantity.md) | Changes the current quantity in specific cart line item to given quantity.<!-- -->Example: If current quantity is 3 and you pass 2 as quantity parameter, you will get a new cart's state with quantity 2. |
 |  [changeOrderPaymentMethod(orderId, paymentMethodId, contextInstance)](./shopware-6-client.changeorderpaymentmethod.md) | Change payment method for given order |
@@ -47,15 +48,18 @@
 |  [getStoreNavigation({ requestActiveId, requestRootId, depth, buildTree, searchCriteria, }, contextInstance)](./shopware-6-client.getstorenavigation.md) |  |
 |  [getUserCountry(countryId, contextInstance)](./shopware-6-client.getusercountry.md) |  |
 |  [getUserSalutation(salutationId, contextInstance)](./shopware-6-client.getusersalutation.md) |  |
-|  [handlePayment(orderId, finishUrl, errorUrl, contextInstance)](./shopware-6-client.handlepayment.md) |  |
+|  [getWishlistProducts(criteria, contextInstance)](./shopware-6-client.getwishlistproducts.md) | Fetch a current Wishlist with added products |
+|  [handlePayment(params, contextInstance)](./shopware-6-client.handlepayment.md) |  |
 |  [invokeGet({ address }, contextInstance)](./shopware-6-client.invokeget.md) | Invoke custom GET request to shopware API. Mostly for plugins usage. You can skip domain and pass only endpoint ex. <code>/api/my/endpoint</code> |
 |  [invokePost({ address, payload, }, contextInstance)](./shopware-6-client.invokepost.md) | Invoke custom POST request to shopware API. Mostly for plugins usage. You can skip domain and pass only endpoint ex. <code>/api/my/endpoint</code> |
 |  [login({ username, password }, contextInstance)](./shopware-6-client.login.md) | Login user to shopware instance. |
 |  [logout(contextInstance)](./shopware-6-client.logout.md) | End up the user session. |
+|  [mergeWishlistProducts(productIds, contextInstance)](./shopware-6-client.mergewishlistproducts.md) | Merge the current Wishlist with a products with provided IDs |
 |  [newsletterSubscribe(params, contextInstance)](./shopware-6-client.newslettersubscribe.md) |  |
 |  [newsletterUnsubscribe({ email, }, contextInstance)](./shopware-6-client.newsletterunsubscribe.md) |  |
 |  [register(params, contextInstance)](./shopware-6-client.register.md) | Register a customer |
 |  [removeCartItem(itemId, contextInstance)](./shopware-6-client.removecartitem.md) | Deletes the cart line item by id.<!-- -->This method may be used for deleting "product" type item lines as well as "promotion" type item lines. |
+|  [removeWishlistProduct(productId, contextInstance)](./shopware-6-client.removewishlistproduct.md) | Delete a product with a specific ID from the wishlist |
 |  [resetPassword(params, contextInstance)](./shopware-6-client.resetpassword.md) | Reset a customer's password |
 |  [searchProducts(criteria, contextInstance)](./shopware-6-client.searchproducts.md) | Search for products based on criteria. From: Shopware 6.4 |
 |  [searchSuggestedProducts(criteria, contextInstance)](./shopware-6-client.searchsuggestedproducts.md) | Search for suggested products based on criteria. From: Shopware 6.4 |
@@ -94,6 +98,7 @@
 |  Variable | Description |
 |  --- | --- |
 |  [config](./shopware-6-client.config.md) |  |
+|  [getAddWishlistProductEndpoint](./shopware-6-client.getaddwishlistproductendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getCancelOrderEndpoint](./shopware-6-client.getcancelorderendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getCategoryDetailsEndpoint](./shopware-6-client.getcategorydetailsendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getCategoryEndpoint](./shopware-6-client.getcategoryendpoint.md) | <b><i>(BETA)</i></b> |
@@ -124,12 +129,15 @@
 |  [getCustomerResetPasswordEndpoint](./shopware-6-client.getcustomerresetpasswordendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getCustomerUpdateEmailEndpoint](./shopware-6-client.getcustomerupdateemailendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getCustomerUpdatePasswordEndpoint](./shopware-6-client.getcustomerupdatepasswordendpoint.md) | <b><i>(BETA)</i></b> |
+|  [getGetWishlistProductsEndpoint](./shopware-6-client.getgetwishlistproductsendpoint.md) | <b><i>(BETA)</i></b> |
+|  [getMergeWishlistProductsEndpoint](./shopware-6-client.getmergewishlistproductsendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getNewsletterSubscribeEndpoint](./shopware-6-client.getnewslettersubscribeendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getNewsletterUnsubscribeEndpoint](./shopware-6-client.getnewsletterunsubscribeendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getPageResolverEndpoint](./shopware-6-client.getpageresolverendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getProductDetailsEndpoint](./shopware-6-client.getproductdetailsendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getProductEndpoint](./shopware-6-client.getproductendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getProductListingEndpoint](./shopware-6-client.getproductlistingendpoint.md) | <b><i>(BETA)</i></b> |
+|  [getRemoveWishlistProductEndpoint](./shopware-6-client.getremovewishlistproductendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getSearchEndpoint](./shopware-6-client.getsearchendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getSeoUrlEndpoint](./shopware-6-client.getseourlendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getStoreNavigationEndpoint](./shopware-6-client.getstorenavigationendpoint.md) | <b><i>(BETA)</i></b> |

@@ -1,4 +1,4 @@
-import { Salutation } from "@shopware-pwa/commons/interfaces/models/system/salutation/Salutation";
+import { Salutation } from "@shopware-pwa/commons";
 
 /**
  * @public

@@ -14,15 +14,15 @@ import {
   getApplicationContext,
   useIntercept,
 } from "@shopware-pwa/composables";
-import { Order } from "@shopware-pwa/commons/interfaces/models/checkout/order/Order";
-import { BillingAddress } from "@shopware-pwa/commons/interfaces/models/checkout/customer/BillingAddress";
-import { ShippingAddress } from "@shopware-pwa/commons/interfaces/models/checkout/customer/ShippingAddress";
-import { ShippingMethod } from "@shopware-pwa/commons/interfaces/models/checkout/shipping/ShippingMethod";
-import { PaymentMethod } from "@shopware-pwa/commons/interfaces/models/checkout/payment/PaymentMethod";
 import {
+  Order,
+  BillingAddress,
+  ShippingAddress,
+  ShippingMethod,
+  PaymentMethod,
   ClientApiError,
   ShopwareError,
-} from "@shopware-pwa/commons/interfaces/errors/ApiError";
+} from "@shopware-pwa/commons/interfaces";
 import {
   cancelOrder,
   changeOrderPaymentMethod,
@@ -58,7 +58,11 @@ export function useOrderDetails(params: { order: Ref<Order> | Order }): {
     [key: string]: boolean;
   }>;
   loadOrderDetails: () => void;
-  handlePayment: (successUrl?: string, errorUrl?: string) => void;
+  handlePayment: (
+    successUrl?: string,
+    errorUrl?: string,
+    paymentDetails?: unknown
+  ) => void;
   cancel: () => Promise<void>;
   changePaymentMethod: (paymentMethodId: string) => Promise<void>;
 } {
@@ -152,14 +156,16 @@ export function useOrderDetails(params: { order: Ref<Order> | Order }): {
    *
    * Pass custom success and error URLs (optionally).
    */
-  const handlePayment = async (successUrl?: string, errorUrl?: string) => {
+  const handlePayment = async (finishUrl?: string, errorUrl?: string, paymentDetails?: unknown) => {
     loaders.handlePayment = true;
     try {
-      const resp = await apiHandlePayment(
+      const resp = await apiHandlePayment({
         orderId,
-        successUrl,
+        finishUrl,
         errorUrl,
-        apiInstance
+        paymentDetails,
+      },
+      apiInstance,
       );
 
       paymentUrl.value = resp?.redirectUrl;

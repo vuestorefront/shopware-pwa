@@ -5,31 +5,33 @@
 ```ts
 
 import { AxiosInstance } from 'axios';
-import { Cart } from '@shopware-pwa/commons/interfaces/models/checkout/cart/Cart';
-import { Category } from '@shopware-pwa/commons/interfaces/models/content/category/Category';
-import { CmsPageResponse } from '@shopware-pwa/commons/interfaces/models/content/cms/CmsPage';
-import { ContextTokenResponse } from '@shopware-pwa/commons/interfaces/response/SessionContext';
-import { Country } from '@shopware-pwa/commons/interfaces/models/system/country/Country';
-import { CreateOrderParams } from '@shopware-pwa/commons/interfaces/request/CreateOrder';
-import { Currency } from '@shopware-pwa/commons/interfaces/models/system/currency/Currency';
-import { Customer } from '@shopware-pwa/commons/interfaces/models/checkout/customer/Customer';
-import { CustomerAddress } from '@shopware-pwa/commons/interfaces/models/checkout/customer/CustomerAddress';
-import { CustomerRegistrationParams } from '@shopware-pwa/commons/interfaces/request/CustomerRegistrationParams';
-import { EntityResult } from '@shopware-pwa/commons/interfaces/response/EntityResult';
-import { Language } from '@shopware-pwa/commons/interfaces/models/framework/language/Language';
-import { LineItem } from '@shopware-pwa/commons/interfaces/models/checkout/cart/line-item/LineItem';
-import { Order } from '@shopware-pwa/commons/interfaces/models/checkout/order/Order';
-import { OrderState } from '@shopware-pwa/commons/interfaces/models/checkout/order/OrderState';
-import { PaymentMethod } from '@shopware-pwa/commons/interfaces/models/checkout/payment/PaymentMethod';
-import { Product } from '@shopware-pwa/commons/interfaces/models/content/product/Product';
-import { ProductListingResult } from '@shopware-pwa/commons/interfaces/response/ProductListingResult';
-import { ProductResponse } from '@shopware-pwa/commons/interfaces/response/ProductResult';
-import { Salutation } from '@shopware-pwa/commons/interfaces/models/system/salutation/Salutation';
-import { SessionContext } from '@shopware-pwa/commons/interfaces/response/SessionContext';
-import { ShippingMethod } from '@shopware-pwa/commons/interfaces/models/checkout/shipping/ShippingMethod';
-import { ShopwareSearchParams } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
-import { StoreNavigationElement } from '@shopware-pwa/commons/interfaces/models/content/navigation/Navigation';
-import { StoreNavigationType } from '@shopware-pwa/commons/interfaces/models/content/navigation/Navigation';
+import { Cart } from '@shopware-pwa/commons';
+import { Category } from '@shopware-pwa/commons';
+import { CmsPageResponse } from '@shopware-pwa/commons';
+import { ContextTokenResponse } from '@shopware-pwa/commons';
+import { Country } from '@shopware-pwa/commons';
+import { CreateOrderParams } from '@shopware-pwa/commons';
+import { Currency } from '@shopware-pwa/commons';
+import { Customer } from '@shopware-pwa/commons';
+import { CustomerAddress } from '@shopware-pwa/commons';
+import { CustomerRegistrationParams } from '@shopware-pwa/commons';
+import { CustomerWishlistResponse } from '@shopware-pwa/commons/interfaces/models/content/wishlist/CustomerWishlist';
+import { EntityResult } from '@shopware-pwa/commons';
+import { Language } from '@shopware-pwa/commons';
+import { LineItem } from '@shopware-pwa/commons';
+import { Order } from '@shopware-pwa/commons';
+import { OrderState } from '@shopware-pwa/commons';
+import { PaymentMethod } from '@shopware-pwa/commons';
+import { Product } from '@shopware-pwa/commons';
+import { ProductListingResult } from '@shopware-pwa/commons';
+import { ProductResponse } from '@shopware-pwa/commons';
+import { Salutation } from '@shopware-pwa/commons';
+import { SessionContext } from '@shopware-pwa/commons';
+import { ShippingMethod } from '@shopware-pwa/commons';
+import { ShopwareSearchParams } from '@shopware-pwa/commons';
+import { ShopwareSearchParams as ShopwareSearchParams_2 } from '@shopware-pwa/commons/interfaces/search/SearchCriteria';
+import { StoreNavigationElement } from '@shopware-pwa/commons';
+import { StoreNavigationType } from '@shopware-pwa/commons';
 
 // @public
 export function addCartItems(items: Partial<LineItem>[], contextInstance?: ShopwareApiInstance): Promise<any>;
@@ -46,6 +48,12 @@ export function addProductToCart(productId: string, quantity?: number, contextIn
 
 // @public
 export function addPromotionCode(promotionCode: string, contextInstance?: ShopwareApiInstance): Promise<Cart>;
+
+// @public
+export function addWishlistProduct(productId: string, contextInstance?: ShopwareApiInstance): Promise<{
+    apiAlias: string;
+    success: boolean;
+}>;
 
 // @public
 export function cancelOrder(orderId: string, contextInstance?: ShopwareApiInstance): Promise<OrderState>;
@@ -171,6 +179,9 @@ export interface CustomerUpdateProfileParam {
 
 // @public
 export function deleteCustomerAddress(addressId: string, contextInstance?: ShopwareApiInstance): Promise<void>;
+
+// @beta (undocumented)
+export const getAddWishlistProductEndpoint: (productId: string) => string;
 
 // @public
 export function getAvailableCountries(contextInstance?: ShopwareApiInstance): Promise<EntityResult<"country", Country[]>>;
@@ -312,6 +323,12 @@ export const getCustomerUpdateEmailEndpoint: () => string;
 export const getCustomerUpdatePasswordEndpoint: () => string;
 
 // @beta (undocumented)
+export const getGetWishlistProductsEndpoint: () => string;
+
+// @beta (undocumented)
+export const getMergeWishlistProductsEndpoint: () => string;
+
+// @beta (undocumented)
 export const getNewsletterSubscribeEndpoint: () => string;
 
 // @beta (undocumented)
@@ -340,6 +357,9 @@ export const getProductListingEndpoint: (categoryId: string) => string;
 
 // @public
 export function getProducts(criteria?: ShopwareSearchParams, contextInstance?: ShopwareApiInstance): Promise<EntityResult<"product", Product[]>>;
+
+// @beta (undocumented)
+export const getRemoveWishlistProductEndpoint: (productId: string) => string;
 
 // @beta (undocumented)
 export const getSearchEndpoint: () => string;
@@ -397,8 +417,16 @@ export function getUserCountry(countryId: string, contextInstance?: ShopwareApiI
 // @public (undocumented)
 export function getUserSalutation(salutationId: string, contextInstance?: ShopwareApiInstance): Promise<Salutation>;
 
+// @public
+export function getWishlistProducts(criteria?: ShopwareSearchParams_2, contextInstance?: ShopwareApiInstance): Promise<CustomerWishlistResponse>;
+
 // @public (undocumented)
-export function handlePayment(orderId: string, finishUrl?: string, errorUrl?: string, contextInstance?: ShopwareApiInstance): Promise<{
+export function handlePayment(params: {
+    orderId: string;
+    finishUrl?: string;
+    errorUrl?: string;
+    paymentDetails?: unknown;
+}, contextInstance?: ShopwareApiInstance): Promise<{
     redirectUrl: string | null;
     apiAlias: string;
 }>;
@@ -425,6 +453,12 @@ export function login({ username, password }?: {
 
 // @public
 export function logout(contextInstance?: ShopwareApiInstance): Promise<void>;
+
+// @public
+export function mergeWishlistProducts(productIds: string[], contextInstance?: ShopwareApiInstance): Promise<{
+    apiAlias: string;
+    success: boolean;
+}>;
 
 // @public (undocumented)
 export function newsletterSubscribe(params: NewsletterSubscribeData, contextInstance?: ShopwareApiInstance): Promise<void>;
@@ -464,6 +498,12 @@ export function register(params: CustomerRegistrationParams, contextInstance?: S
 
 // @public
 export function removeCartItem(itemId: string, contextInstance?: ShopwareApiInstance): Promise<Cart>;
+
+// @public
+export function removeWishlistProduct(productId: string, contextInstance?: ShopwareApiInstance): Promise<{
+    apiAlias: string;
+    success: boolean;
+}>;
 
 // @public
 export function resetPassword(params: CustomerResetPasswordParam, contextInstance?: ShopwareApiInstance): Promise<void>;

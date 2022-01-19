@@ -31,7 +31,7 @@
           )) ||
           $emit('create-account')
       "
-      data-cy="register-button"
+      data-testid="register-button"
     >
       {{
         isDoubleOptInRegistrationRequired

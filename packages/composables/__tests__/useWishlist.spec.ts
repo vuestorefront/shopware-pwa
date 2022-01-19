@@ -8,7 +8,7 @@ import * as Composables from "@shopware-pwa/composables";
 jest.mock("@shopware-pwa/composables");
 const mockedComposables = Composables as jest.Mocked<typeof Composables>;
 import { useWishlist } from "../src/logic/useWishlist";
-import { Product } from "@shopware-pwa/commons/interfaces/models/content/product/Product";
+import { Product } from "@shopware-pwa/commons/interfaces";
 
 describe("Composables - useWishlist", () => {
   const broadcastMock = jest.fn();
