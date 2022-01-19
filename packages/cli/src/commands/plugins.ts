@@ -31,17 +31,10 @@ module.exports = {
         footer: process.env.ADMIN_PASSWORD && "password from .env is hidden",
       };
 
-      const devModeQuestion = !inputParameters.devMode && {
-        type: "confirm",
-        name: "devMode",
-        message:
-          "Do you want to allow dev mode for slots? (Don't use for production!)",
-      };
 
       const answers = await toolbox.prompt.ask([
         shopwareUsernameQuestion,
         shopwarePasswordQuestion,
-        devModeQuestion,
       ]);
       Object.assign(inputParameters, answers);
     }
