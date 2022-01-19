@@ -106,7 +106,7 @@ const command: GluegunCommand = {
     }
 
     // create and update package.json
-    await execa("yarn", ["run", "init", "-y"], {
+    await execa("yarn", ["init", "-y"], {
       stdio: "pipe",
       cwd: dirPath,
     });
