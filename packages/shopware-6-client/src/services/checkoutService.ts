@@ -1,4 +1,7 @@
-import { defaultInstance, ShopwareApiInstance } from "../apiService";
+import {
+  defaultInstance,
+  ShopwareApiInstance,
+} from "../apiService";
 import {
   getCheckoutOrderEndpoint,
   handlePaymentEndpoint,
@@ -37,21 +40,27 @@ export async function createOrder(
  * @public
  */
 export async function handlePayment(
-  orderId: string,
-  finishUrl?: string,
-  errorUrl?: string,
+  params: {
+    orderId: string,
+    finishUrl?: string,
+    errorUrl?: string,
+    paymentDetails?: unknown,
+  },
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<{
   redirectUrl: string | null;
   apiAlias: string;
 }> {
-  if (!orderId) {
+  if (!params?.orderId) {
     throw new Error("handlePayment method requires orderId");
   }
 
-  const resp = await contextInstance.invoke.get(handlePaymentEndpoint(), {
-    params: { orderId, finishUrl, errorUrl },
-  });
+  const resp = await contextInstance.invoke.get(
+    handlePaymentEndpoint(),
+    {
+      params
+    }
+  );
 
   return resp.data;
 }
