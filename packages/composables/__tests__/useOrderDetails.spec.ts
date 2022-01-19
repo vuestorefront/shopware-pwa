@@ -303,9 +303,11 @@ describe("Composables - useOrderDetails", () => {
         });
         await handlePayment("https://success-url", "https://failure-url");
         expect(mockedAxios.handlePayment).toBeCalledWith(
-          "some-order-id",
-          "https://success-url",
-          "https://failure-url",
+          {
+            orderId: "some-order-id",
+            finishUrl: "https://success-url",
+            errorUrl: "https://failure-url",
+          },
           rootContextMock.apiInstance
         );
         expect(mockedAxios.handlePayment).toBeCalledTimes(1);
