@@ -7,7 +7,12 @@
 <b>Signature:</b>
 
 ```typescript
-export declare function handlePayment(orderId: string, finishUrl?: string, errorUrl?: string, contextInstance?: ShopwareApiInstance): Promise<{
+export declare function handlePayment(params: {
+    orderId: string;
+    finishUrl?: string;
+    errorUrl?: string;
+    paymentDetails?: unknown;
+}, contextInstance?: ShopwareApiInstance): Promise<{
     redirectUrl: string | null;
     apiAlias: string;
 }>;
@@ -17,9 +22,7 @@ export declare function handlePayment(orderId: string, finishUrl?: string, error
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  orderId | string | Id of an order |
-|  finishUrl | string | URL where the customer is redirected to after payment is done |
-|  errorUrl | string | URL where the customer is redirected to after payment fails |
+|  params | { orderId: string; finishUrl?: string; errorUrl?: string; paymentDetails?: unknown; } |  |
 |  contextInstance | [ShopwareApiInstance](./shopware-6-client.shopwareapiinstance.md) |  |
 
 <b>Returns:</b>

@@ -193,15 +193,22 @@ export default {
         // 1. place an order
         const order = await invokeCreateOrder()
         // 2. call handle-payment endpoint for further actions
+        const finishUrl = routing.getAbsoluteUrl(
+          `${PAGE_ORDER_SUCCESS}?orderId=${order.id}`
+        )
+        const errorUrl = routing.getAbsoluteUrl(
+          `${PAGE_ORDER_PAYMENT_FAILURE}?orderId=${order.id}`
+        )
+
         const handledPaymentResponse = await handlePayment(
-          order.id,
-          // pass finishUrl as a success page (used only in async payment flow)
-          routing.getAbsoluteUrl(`${PAGE_ORDER_SUCCESS}?orderId=${order.id}`),
-          // pass errorUrl as a failure page when the payment isn't done successfully
-          // (used only in async payment flow)
-          routing.getAbsoluteUrl(
-            `${PAGE_ORDER_PAYMENT_FAILURE}?orderId=${order.id}`
-          ),
+          {
+            orderId: order.id,
+            // pass finishUrl as a success page (used only in async payment flow)
+            finishUrl,
+            // pass errorUrl as a failure page when the payment isn't done successfully
+            // (used only in async payment flow)
+            errorUrl,
+          },
           apiInstance
         )
         // extract redirectUrl from handle-payment's response
