@@ -58,7 +58,11 @@ export function useOrderDetails(params: { order: Ref<Order> | Order }): {
     [key: string]: boolean;
   }>;
   loadOrderDetails: () => void;
-  handlePayment: (successUrl?: string, errorUrl?: string) => void;
+  handlePayment: (
+    successUrl?: string,
+    errorUrl?: string,
+    paymentDetails?: unknown
+  ) => void;
   cancel: () => Promise<void>;
   changePaymentMethod: (paymentMethodId: string) => Promise<void>;
 } {
@@ -152,14 +156,16 @@ export function useOrderDetails(params: { order: Ref<Order> | Order }): {
    *
    * Pass custom success and error URLs (optionally).
    */
-  const handlePayment = async (successUrl?: string, errorUrl?: string) => {
+  const handlePayment = async (finishUrl?: string, errorUrl?: string, paymentDetails?: unknown) => {
     loaders.handlePayment = true;
     try {
-      const resp = await apiHandlePayment(
+      const resp = await apiHandlePayment({
         orderId,
-        successUrl,
+        finishUrl,
         errorUrl,
-        apiInstance
+        paymentDetails,
+      },
+      apiInstance,
       );
 
       paymentUrl.value = resp?.redirectUrl;
