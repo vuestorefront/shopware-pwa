@@ -1,4 +1,4 @@
-ARG NODE_VERSION=17-alpine
+ARG NODE_VERSION=16.13.1-alpine
 FROM node:${NODE_VERSION}
 
 ENV NODE_ENV production

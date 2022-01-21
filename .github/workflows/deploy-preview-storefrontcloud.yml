@@ -8,6 +8,7 @@ on:
     types: [opened, synchronize]
     paths-ignore:
       - "*.md"
+      - ".github/**"
       - "docs/**"
 
 jobs:
@@ -16,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: [14, 16, 17]
+        node: [14, 16]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -47,7 +48,7 @@ jobs:
       package-hash: ${{ steps.folder-hash-step-cli.outputs.hash }}
     strategy:
       matrix:
-        node: [14, 16, 17]
+        node: [14, 16]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -94,7 +95,7 @@ jobs:
       package-hash: ${{ steps.folder-hash-step-composables.outputs.hash }}
     strategy:
       matrix:
-        node: [14, 16, 17]
+        node: [14, 16]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -138,7 +139,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: [14, 16, 17]
+        node: [14, 16]
     outputs:
       package-hash: ${{ steps.folder-hash-step-helpers.outputs.hash }}
     steps:
@@ -184,7 +185,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: [14, 16, 17]
+        node: [14, 16]
     outputs:
       package-hash: ${{ steps.folder-hash-step-nuxt-module.outputs.hash }}
     steps:
@@ -232,7 +233,7 @@ jobs:
       package-hash: ${{ steps.folder-hash-step-shopware-6-client.outputs.hash }}
     strategy:
       matrix:
-        node: [14, 16, 17]
+        node: [14, 16]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -278,7 +279,7 @@ jobs:
       package-hash: ${{ steps.folder-hash-step-default-theme.outputs.hash }}
     strategy:
       matrix:
-        node: [14, 16, 17]
+        node: [14, 16]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -331,7 +332,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: [14, 16, 17]
+        node: [14, 16]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -412,28 +413,12 @@ jobs:
             !test-project/.yalc
             !test-project/.yalc.lock
           key: ${{ matrix.node }}-${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}-${{ needs.build-cli.outputs.package-hash }}
-      - name: Set SSL provider (node 17)
-        if: matrix.node == 17
-        run: |
-          export NODE_OPTIONS=--openssl-legacy-provider
       - name: Create a project
         run: |
           mkdir -p test-project
           cd ./test-project
           ../packages/cli/bin/shopware-pwa init --username=${{ secrets.SHOPWARE_ADMIN_USER }} --password=${{ secrets.SHOPWARE_ADMIN_PASSWORD }} --shopwareDomainsAllowList=${{ env.PWA_HOST }} --ci --devMode --stage local
-      - name: Build test project (experimental build for nodejs v17)
-        if: matrix.node == 17
-        env:
-          NODE_OPTIONS: --openssl-legacy-provider
-        run: |
-          yarn
-          node ./scripts/yalcPushPackages.js
-          node ./scripts/yalcLinkTestProject.js
-          cd ./test-project
-          yarn
-          yarn build
-      - name: Build test project (only LTS version of nodejs)
-        if: matrix.node != 17
+      - name: Build test project
         run: |
           yarn
           node ./scripts/yalcPushPackages.js
@@ -442,14 +427,14 @@ jobs:
           yarn
           yarn build
       - name: Login to DockerHub
-        if: matrix.node == 17
+        if: matrix.node == 16
         uses: docker/login-action@v1.11.0
         with:
           registry: registry.storefrontcloud.io
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
       - name: Build and push Docker image
-        if: matrix.node == 17
+        if: matrix.node == 16
         uses: docker/build-push-action@v2.7.0
         with:
           context: ./test-project
