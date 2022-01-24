@@ -89,7 +89,7 @@
         "total",
         "aggregations"
       ],
-      "property_group": ["id", "translated", "options", "name"],
+      "property_group": ["id", "translated", "options", "name", "displayType"],
       "property_group_option": [
         "translated",
         "name",
