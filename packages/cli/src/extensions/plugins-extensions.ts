@@ -60,9 +60,9 @@ module.exports = (toolbox: GluegunToolbox) => {
     const url =
       config.indexOf(endpoint) >= 0
         ? config
-        : `${toolbox.normalizeBaseUrl(
+        : toolbox.normalizeForwardSlashes(`${toolbox.normalizeBaseUrl(
             toolbox.inputParameters.shopwareEndpoint
-          )}/${config}`;
+          )}/${config}`);
     const pluginsConfigResponse = await axios.get(url);
     return pluginsConfigResponse.data;
   };
@@ -74,9 +74,9 @@ module.exports = (toolbox: GluegunToolbox) => {
     const fileUrl =
       asset.indexOf(endpoint) >= 0
         ? asset
-        : `${toolbox.normalizeBaseUrl(
+        : toolbox.normalizeForwardSlashes(`${toolbox.normalizeBaseUrl(
             toolbox.inputParameters.shopwareEndpoint
-          )}/${asset}`;
+          )}/${asset}`);
 
     const request = require("request");
     const loadFile = function () {
