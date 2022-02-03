@@ -33,6 +33,7 @@
     "chokidar": "^3.5.2",
     "cookie-universal": "^2.1.5",
     "cosmiconfig": "^7.0.1",
+    "forwarded-parse": "^2.1.2",
     "fs-extra": "^10.0.0",
     "fs-jetpack": "^4.3.0",
     "he": "^1.2.0",
