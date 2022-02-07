@@ -28,8 +28,8 @@
           :title="getName"
           :alt="getName"
           style="cursor:pointer;"
-          width="100%"
-          height="400px"
+          width="200"
+          height="400"
           @click.native="$router.push(getRouterLink)"
         />
       </template>
@@ -128,3 +128,11 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.sw-product-card {
+  --image-width: 200px;
+  --image-height: 400px;
+}
+</style>
+

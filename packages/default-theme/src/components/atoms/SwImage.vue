@@ -31,4 +31,8 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss">
+.sf-image--placeholder {
+  min-width: 100%;
+}
+</style>
