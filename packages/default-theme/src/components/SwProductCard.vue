@@ -121,7 +121,7 @@ export default {
     },
     getImageUrl() {
       return getResizedImage(getProductThumbnailUrl(this.product), {
-        width: 280,
+        width: 200,
         height: 400,
       })
     },
