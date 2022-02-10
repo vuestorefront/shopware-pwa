@@ -1,3 +1,6 @@
+<!--
+Fallback component for properties that arent implemented and have known display type like "text, color, ".
+-->
 <template>
   <div v-if="getComponent">
     <component
@@ -14,11 +17,12 @@
 
 <script>
 import { SfFilter } from "@storefront-ui/vue"
+import NoFilterFound from "@/components/listing/NoFilterFound.vue"
 import FallbackFilter from "@/components/listing/types/fallback.vue"
 import { simplifyString } from "@/helpers"
 
 export default {
-  name: "SwProductListingFilter",
+  name: "SwFallbackPropertyFilter",
   components: {
     SfFilter,
   },
@@ -45,10 +49,9 @@ export default {
       try {
         return () => ({
           component: import(
-            `@/components/listing/types/${this.filterCode}.vue`
+            `@/components/listing/types/${this.filter.displayType}.vue`
           ),
-          // try to use a fallback component first
-          error: FallbackFilter,
+          error: NoFilterFound,
         })
       } catch (e) {
         console.error("SwProductListingFilter:getComponent", e)
@@ -58,7 +61,7 @@ export default {
       return simplifyString(this.filter.label.toLowerCase())
     },
     selectedValues() {
-      return this.selectedFilters || []
+      return this.currentFilters.properties || []
     },
     selected() {
       return this.selectedFilters[this.filter.code]

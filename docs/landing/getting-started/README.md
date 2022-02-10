@@ -74,8 +74,8 @@ Instead of using the interactive CLI to configure your backend connection, you c
 
 ```js
 module.exports = {
-  shopwareEndpoint: "https://shopware6-demo.vuestorefront.io",
-  shopwareAccessToken: "SWSCVJJET0RQAXFNBMTDZTV1OQ",
+  shopwareEndpoint: "https://pwa-demo-api.shopware.com/trunk",
+  shopwareAccessToken: "SWSCMDAZUUG5Z05VWKXIDWPSEQ",
   shopwareApiClient: {
     // optional, allow to override the default settings
     timeout: 5000, // timeout limit in ms
