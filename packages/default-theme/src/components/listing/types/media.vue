@@ -9,30 +9,42 @@
       <SfFilter
         v-for="option in getOptions"
         :key="option.id"
-        :label="getTranslatedProperty(option, 'name')"
+        :label="``"
         :count="option.count"
-        :color="getTranslatedProperty(option, 'name')"
         :selected="selectedValues && selectedValues.includes(option.id)"
-        class="filters__item"
-        :class="{ 'filters__item--color': option.color }"
+        class="filters__item media"
         @change="
           $emit('toggle-filter-value', {
             ...filter,
             value: option.id,
           })
         "
-      />
+      >
+        <template #label>
+          <SwImage
+            :alt="getTranslatedProperty(option, 'name')"
+            width="50px"
+            height="50px"
+            :src="getProductThumbnailUrl({ cover: option })"
+          />
+        </template>
+      </SfFilter>
     </div>
   </div>
 </template>
 <script>
 import { SfFilter, SfHeading } from "@storefront-ui/vue"
-import { getTranslatedProperty } from "@shopware-pwa/helpers"
+import {
+  getTranslatedProperty,
+  getProductThumbnailUrl,
+} from "@shopware-pwa/helpers"
+import SwImage from "@/components/atoms/SwImage.vue"
 
 export default {
   components: {
     SfFilter,
     SfHeading,
+    SwImage,
   },
   name: "SwColorFilter",
   props: {
@@ -48,6 +60,7 @@ export default {
   setup() {
     return {
       getTranslatedProperty,
+      getProductThumbnailUrl,
     }
   },
   computed: {
@@ -76,6 +89,16 @@ export default {
   .sf-filter {
     width: auto;
     margin: 5px;
+
+    ::v-deep.sf-checkbox__checkmark {
+      display: none;
+    }
+
+    &.is-active {
+      ::v-deep img {
+        outline: 1px var(--c-primary) solid;
+      }
+    }
   }
 }
 </style>
