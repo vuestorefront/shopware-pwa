@@ -131,6 +131,7 @@ export default {
 
 <style lang="scss" scoped>
 .sw-product-card {
+  overflow: hidden;
   --image-width: 200px;
   --image-height: 400px;
 }
