@@ -421,7 +421,12 @@ export function getUserSalutation(salutationId: string, contextInstance?: Shopwa
 export function getWishlistProducts(criteria?: ShopwareSearchParams_2, contextInstance?: ShopwareApiInstance): Promise<CustomerWishlistResponse>;
 
 // @public (undocumented)
-export function handlePayment(orderId: string, finishUrl?: string, errorUrl?: string, contextInstance?: ShopwareApiInstance): Promise<{
+export function handlePayment(params: {
+    orderId: string;
+    finishUrl?: string;
+    errorUrl?: string;
+    paymentDetails?: unknown;
+}, contextInstance?: ShopwareApiInstance): Promise<{
     redirectUrl: string | null;
     apiAlias: string;
 }>;

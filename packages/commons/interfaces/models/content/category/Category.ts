@@ -39,6 +39,7 @@ export interface Category extends Entity {
   cmsPage: CmsPage | null;
   slotConfig: [] | null;
   externalLink: string | null;
+  linkNewTab: boolean;
   visible: boolean;
   type: CategoryType;
   description: string;
