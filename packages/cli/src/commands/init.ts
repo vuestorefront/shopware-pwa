@@ -97,16 +97,6 @@ module.exports = {
       config.dependencies = config.dependencies || {};
       config.devDependencies = config.devDependencies || {};
 
-      // remove all @shopware-pwa packages
-      const shopwarePwaPackageNames = Object.keys({
-        ...config.dependencies,
-        ...config.devDependencies,
-      }).filter((name) => name.includes("@shopware-pwa"));
-      shopwarePwaPackageNames.forEach((packageName) => {
-        delete config.dependencies[packageName];
-        delete config.devDependencies[packageName];
-      });
-
       if (!isLocalSetup) {
         // add dependencies with version
         coreDevPackages.forEach((packageName) => {

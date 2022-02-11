@@ -144,6 +144,16 @@ module.exports = (toolbox: GluegunToolbox) => {
   };
 
   /**
+   * Removes forward slashes from URLs
+   *
+   * @param { string } baseUrl
+   * @returns { string }
+   */
+  toolbox.normalizeForwardSlashes = (baseUrl: string): string => {
+    return baseUrl.replace(/([^:]\/)\/+/g, "$1")
+  };
+
+  /**
    * Checks if provided API has PWA extension installed
    * by making a request to the page resolver
    */
