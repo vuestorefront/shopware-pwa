@@ -27,7 +27,7 @@
           :src="getImageUrl"
           :title="getName"
           :alt="getName"
-          style="cursor:pointer;"
+          style="cursor: pointer"
           width="200"
           height="400"
           @click.native="$router.push(getRouterLink)"
@@ -136,4 +136,3 @@ export default {
   --image-height: 400px;
 }
 </style>
-

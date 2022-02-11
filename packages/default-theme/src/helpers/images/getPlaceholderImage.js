@@ -1,10 +1,8 @@
 /**
  SVG image - for placeholding while images are being loaded (placeholder prop for SfImage and SfGallery)
  */
-export default function getPlaceholderImage(
-  width, height
-) {
- const svgSource = `<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="${width}" height="${height}" xml:space="preserve">
+export default function getPlaceholderImage(width, height) {
+  const svgSource = `<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="${width}" height="${height}" xml:space="preserve">
  <rect fill="url(#myGradient)"  width="${width}" height="${height}"/>
   <g id="Logo" >
  <g id="XMLID_985_">

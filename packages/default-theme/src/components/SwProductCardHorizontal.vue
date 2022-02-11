@@ -16,15 +16,15 @@
       image-width="140"
       image-height="200"
     >
-    <template #image>
+      <template #image>
         <SwImage
           :src="getImageUrl"
           :title="getName"
           :alt="getName"
-          style="cursor:pointer;"
+          style="cursor: pointer"
           width="140"
           height="200"
-          :placeholder="getPlaceholderImage('140px','200px')"
+          :placeholder="getPlaceholderImage('140px', '200px')"
           @click.native="$router.push(getRouterLink)"
         />
       </template>
@@ -50,7 +50,6 @@ import { usePriceFilter } from "@/logic/usePriceFilter.js"
 import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
 import SwImage from "@/components/atoms/SwImage.vue"
 
-
 export default {
   components: { SfProductCardHorizontal, SwPluginSlot, SwImage },
   setup(props, { root }) {
@@ -58,10 +57,13 @@ export default {
       product: props.product,
     })
     const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist({
-      product: props.product
+      product: props.product,
     })
 
-    const toggleWishlist = () => !isInWishlist.value ? addToWishlist() : removeFromWishlist(props?.product?.id)
+    const toggleWishlist = () =>
+      !isInWishlist.value
+        ? addToWishlist()
+        : removeFromWishlist(props?.product?.id)
 
     return {
       quantity,
@@ -71,7 +73,7 @@ export default {
       filterPrice: usePriceFilter(),
       toggleWishlist,
       isInWishlist,
-      getPlaceholderImage
+      getPlaceholderImage,
     }
   },
   props: {
@@ -127,11 +129,10 @@ export default {
     @include for-mobile {
       button {
         position: absolute;
-        top:0;
-        right:var(--spacer-xs);
+        top: 0;
+        right: var(--spacer-xs);
       }
     }
-    }
   }
-  
+}
 </style>

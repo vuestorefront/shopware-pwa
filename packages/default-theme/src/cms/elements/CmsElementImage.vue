@@ -81,7 +81,7 @@ export default {
     },
     minWidth() {
       return this.content?.config?.minWidth?.value?.replace("px", "") || "100"
-    }
+    },
   },
 }
 </script>
