@@ -279,5 +279,7 @@
   "Congratulations! You have been successfully registered. Check your email and confirm you account.":"Świetnie! Zostałeś zarejestrowany. Sprawdź swój email i potwierdź swoje konto.",
   "Congratulations! You have been successfully registered.":"Świetnie! Zostałeś zarejestrowany.",
   "You have been successfully logged out.": "Zostałeś pomyślnie wylogowany.",
-  "for property": "for property"
+  "for property": "for property",
+  "This field is required and should be at least 8 characters long":"This field is required and should be at least 8 characters long",
+  "You profile has been updated.":"Twój profil został zaktualizowany."
 }

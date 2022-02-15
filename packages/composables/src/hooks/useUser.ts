@@ -243,6 +243,7 @@ export function useUser(): IUseUser {
   const updateEmail = async (
     updateEmailData: CustomerUpdateEmailParam
   ): Promise<boolean> => {
+    errors.updateEmail = [];
     try {
       await apiUpdateEmail(updateEmailData, apiInstance);
     } catch (e) {
