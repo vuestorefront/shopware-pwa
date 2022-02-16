@@ -28,7 +28,7 @@ export default async ({ app }, inject) => {
    * get contextToken from localStorage when cookie lost in redirects
    */
   if (process.client) {
-    if (!app.$cookies.get("sw-context-token")) {
+    if (!app.$cookies.get("sw-context-token") && typeof localStorage !== "undefined") {
       app.$cookies.set(
         "sw-context-token",
         localStorage.getItem("sw-context-token"),
