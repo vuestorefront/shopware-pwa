@@ -55,6 +55,10 @@ export async function handlePayment(
     throw new Error("handlePayment method requires orderId");
   }
 
+  if (typeof localStorage !== undefined) {
+    localStorage.setItem("sw-context-token", contextInstance?.config?.contextToken as string)
+  }
+
   const resp = await contextInstance.invoke.get(
     handlePaymentEndpoint(),
     {
