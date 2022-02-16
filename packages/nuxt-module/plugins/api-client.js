@@ -27,22 +27,19 @@ export default async ({ app }, inject) => {
   /**
    * get contextToken from localStorage when cookie lost in redirects
    */
-   if (process.client && !app.$cookies.get("sw-context-token")) {
-    if (typeof localStorage !== undefined) {
-      try {
-        app.$cookies.set(
-          "sw-context-token",
-          localStorage.getItem("sw-context-token"),
-          {
-            maxAge: 60 * 60 * 24 * 365,
-            sameSite: "Lax",
-            path: "/",
-          }
-        )
-      } finally {
-        localStorage.removeItem("sw-context-token")
-      }
+  if (process.client) {
+    if (!app.$cookies.get("sw-context-token")) {
+      app.$cookies.set(
+        "sw-context-token",
+        localStorage.getItem("sw-context-token"),
+        {
+          maxAge: 60 * 60 * 24 * 365,
+          sameSite: "Lax",
+          path: "/",
+        }
+      )
     }
+    localStorage.removeItem("sw-context-token")
   }
 
   function getCookiesConfig(app) {
