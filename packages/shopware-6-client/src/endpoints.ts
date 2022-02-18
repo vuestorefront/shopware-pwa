@@ -32,6 +32,14 @@ export const getProductEndpoint = () => `/store-api/product`;
 export const getProductDetailsEndpoint = (productId: string) =>
   `/store-api/product/${productId}`;
 
+// product-reviews
+
+/**
+ * @beta
+ */
+export const getProductReviewsEndpoint = (productId: string) =>
+    `/store-api/product/${productId}/reviews`;
+
 // search
 
 /**
