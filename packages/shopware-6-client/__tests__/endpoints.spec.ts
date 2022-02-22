@@ -26,6 +26,7 @@ import {
   handlePaymentEndpoint,
   getContactFormEndpoint,
   getConfirmPasswordResetEndpoint,
+  getProductReviewsEndpoint,
 } from "../src/endpoints";
 
 const sampleProductId = "eea0f69ec02d44f7a4224272b3d99478";
@@ -36,6 +37,13 @@ describe("endpoints", () => {
     it("should return Shopware product endpoint", async () => {
       const result = getProductEndpoint();
       expect(result).toEqual("/store-api/product");
+    });
+  });
+
+  describe("getProductReviewsEndpoint", () => {
+    it("should return Shopware product review endpoint", async () => {
+      const result = getProductReviewsEndpoint(sampleProductId);
+      expect(result).toEqual("/store-api/product/" + sampleProductId + "/reviews");
     });
   });
 
