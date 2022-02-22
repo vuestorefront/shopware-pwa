@@ -8,7 +8,7 @@ Plugins can be provided from the connected Shopware instance or can be provided 
 
 ## Creating plugin
 
-Plugin development can be easily made locally inside the PWA too. If we want to provide content to a slot, we first need to choose where would we want to plug it into. To see all available plugin slots we may want to select `yes` during `npx @shopware-pwa/cli init` command when it asks to allow dev mode.
+Plugin development can be easily made locally inside the PWA too. If we want to provide content to a slot, we first need to choose where would we want to plug it into. To see all available plugin slots we can look into Vue devtools. The default theme provides some slots out of the box, but you can also use custom themes or add slots on your own.
 
 ![cli plugin dev mode](./../../assets/cli-plugin-dev-mode.png)
 
