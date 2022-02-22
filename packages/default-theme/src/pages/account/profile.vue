@@ -3,12 +3,10 @@
     <SfTab :title="$t('Personal data')">
       <SwPersonalInfo />
       <p class="notice">
-        <i18n path="privacy-info" tag="p">
-          {{ $t("brand-name") }}
-          <a :href="url" target="_blank">
-            {{ $t("privacy-link") }}
-          </a>
-        </i18n>
+        {{ $t("privacy-info", [$t("brand-name")]) }}
+        <a :href="url" target="_blank">
+          {{ $t("privacy-link") }}
+        </a>
       </p>
     </SfTab>
     <SfTab :title="$t('Password change')">

@@ -15,7 +15,10 @@
       <div class="product-title">{{ product.label }}</div>
       <div class="product-sku">{{ product.productNumber }}</div>
     </SfTableData>
-    <SfTableData class="table__data table__quantity" data-testid="table-quantity">
+    <SfTableData
+      class="table__data table__quantity"
+      data-testid="table-quantity"
+    >
       <SfQuantitySelector
         v-if="product.type === 'product'"
         v-model="quantity"
