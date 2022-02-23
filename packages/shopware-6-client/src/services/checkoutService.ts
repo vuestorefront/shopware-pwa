@@ -54,9 +54,15 @@ export async function handlePayment(
   if (!params?.orderId) {
     throw new Error("handlePayment method requires orderId");
   }
-
-  if (typeof localStorage !== "undefined") {
-    localStorage.setItem("sw-context-token", contextInstance?.config?.contextToken as string)
+  
+   /**
+   * save contextToken in sessionStorage when using Webkit
+   * https://github.com/vuestorefront/shopware-pwa/pull/1817
+   */
+  if(navigator.userAgent.indexOf('WebKit')){
+    if (typeof sessionStorage !== "undefined") {
+      sessionStorage.setItem("sw-context-token", contextInstance?.config?.contextToken as string)
+    }
   }
 
   const resp = await contextInstance.invoke.get(
