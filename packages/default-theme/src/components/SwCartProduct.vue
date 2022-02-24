@@ -96,7 +96,17 @@ export default {
     },
   },
   setup(props) {
-    const { removeItem, changeProductQuantity } = useCart()
+    const { removeItem, changeItemQuantity, itemRegularPrice,
+    itemSpecialPrice,
+    itemOptions,
+    itemStock,
+    itemQuantity,
+    itemType,
+    itemImageThumbnailUrl,
+    isProduct,
+    isPromotion,
+    getProductItemSeoUrlData,
+     } = useCartItem({ cartItem: props.product })
 
     // get the URL from async loaded product data - passed by the parent component
     const productUrl = computed(() => {
@@ -112,26 +122,9 @@ export default {
         height: 200,
       })
     )
-    // it's not 1:1 to Product entity interface
-    const regularPrice = computed(
-      () =>
-        (props.product.price.listPrice &&
-          props.product.price.listPrice.price) ||
-        props.product.price.unitPrice
-    )
-    const specialPrice = computed(
-      () => props.product.price.listPrice && props.product.price.unitPrice
-    )
-
-    const options = computed(
-      () => (props.product.payload && props.product.payload.options) || []
-    )
-
-    const stock = computed(() => props.product?.deliveryInformation?.stock)
-
-    const isPromotion = computed(() => props.product?.type === "promotion")
 
     watch(quantity, async (qty) => {
+      console.warn('test', 'watch','quantity')
       // in future we may want to have debounce here
       if (qty === props.product.quantity) return
       await changeProductQuantity({ id: props.product.id, quantity: qty })
@@ -145,12 +138,12 @@ export default {
     return {
       productImage,
       removeItem,
-      quantity,
-      regularPrice,
-      specialPrice,
+      quantity: itemQuantity,
+      regularPrice: itemRegularPrice,
+      specialPrice: itemSpecialPrice,
       productUrl,
-      options,
-      stock,
+      options: itemOptions,
+      stock: itemStock,
       isPromotion,
       filterPrice: usePriceFilter(),
     }

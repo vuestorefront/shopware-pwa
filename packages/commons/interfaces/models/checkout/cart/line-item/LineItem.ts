@@ -19,7 +19,7 @@ export interface LineItem {
   label: string | null;
   quantity: number;
   type: LineItemType;
-  payload: [];
+  payload: any;
   priceDefinition: PriceDefinitionInterface | null;
   price: CalculatedPrice | null;
   good: boolean;
