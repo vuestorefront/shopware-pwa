@@ -59,7 +59,7 @@ export async function handlePayment(
    * save contextToken in sessionStorage when using Webkit
    * https://github.com/vuestorefront/shopware-pwa/pull/1817
    */
-  if(navigator.userAgent.indexOf('WebKit')){
+  if(navigator?.userAgent.includes('WebKit')){
     if (typeof sessionStorage !== "undefined") {
       sessionStorage.setItem("sw-context-token", contextInstance?.config?.contextToken as string)
     }
