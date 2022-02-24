@@ -28,12 +28,14 @@ import { EffectScope } from 'vue-demi';
 import { EntityError } from '@shopware-pwa/commons/interfaces';
 import { Includes } from '@shopware-pwa/commons/interfaces';
 import { LineItem } from '@shopware-pwa/commons/interfaces';
+import { LineItemType } from '@shopware-pwa/commons/interfaces';
 import { ListingFilter } from '@shopware-pwa/helpers';
 import { ListingResult } from '@shopware-pwa/commons/interfaces';
 import { Order } from '@shopware-pwa/commons/interfaces';
 import { PaymentMethod } from '@shopware-pwa/commons/interfaces';
 import { Product } from '@shopware-pwa/commons/interfaces';
 import { PropertyGroup } from '@shopware-pwa/commons/interfaces';
+import { PropertyGroupOption } from '@shopware-pwa/commons';
 import { Ref } from 'vue-demi';
 import { Salutation } from '@shopware-pwa/commons/interfaces';
 import { SessionContext } from '@shopware-pwa/commons/interfaces';
@@ -198,6 +200,8 @@ export interface IUseCart {
     // (undocumented)
     appliedPromotionCodes: ComputedRef<LineItem[]>;
     // (undocumented)
+    broadcastUpcomingErrors(cart: Cart): void;
+    // (undocumented)
     cart: ComputedRef<Cart | null>;
     // (undocumented)
     cartErrors: ComputedRef<EntityError[]>;
@@ -226,6 +230,40 @@ export interface IUseCart {
     subtotal: ComputedRef<number>;
     // (undocumented)
     totalPrice: ComputedRef<number>;
+}
+
+// @beta
+export interface IUseCartItem {
+    // (undocumented)
+    changeItemQuantity: (quantity: number) => Promise<void>;
+    // (undocumented)
+    error: ComputedRef<string>;
+    // (undocumented)
+    getProductItemSeoUrlData(): Promise<Partial<Product>>;
+    // (undocumented)
+    isProduct: ComputedRef<boolean>;
+    // (undocumented)
+    isPromotion: ComputedRef<boolean>;
+    // (undocumented)
+    itemImageThumbnailUrl: ComputedRef<string>;
+    // (undocumented)
+    itemOptions: ComputedRef<PropertyGroupOption[]>;
+    // (undocumented)
+    itemQuantity: ComputedRef<number | undefined>;
+    // (undocumented)
+    itemRegularPrice: ComputedRef<number | undefined>;
+    // (undocumented)
+    itemSpecialPrice: ComputedRef<number | undefined>;
+    // (undocumented)
+    itemStock: ComputedRef<number | undefined>;
+    // (undocumented)
+    itemType: ComputedRef<LineItemType | undefined>;
+    // (undocumented)
+    lineItem: ComputedRef<LineItem | undefined | null>;
+    // (undocumented)
+    loading: ComputedRef<boolean>;
+    // (undocumented)
+    removeItem: ({ id }: LineItem) => Promise<void>;
 }
 
 // @beta
@@ -673,6 +711,11 @@ export function useBreadcrumbs(params?: {
 
 // @beta
 export function useCart(): IUseCart;
+
+// @beta
+export function useCartItem({ cartItem }: {
+    cartItem: LineItem;
+}): IUseCartItem;
 
 // @beta
 export function useCheckout(): IUseCheckout;

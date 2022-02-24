@@ -4,6 +4,7 @@ import { Rule } from "../../../content/rule/Rule";
 import { DeliveryInformation } from "../../delivery/DeliveryInformation";
 import { PriceDefinitionInterface } from "../price/PriceDefinitionInterface";
 import { QuantityInformation } from "./QuantityInformation";
+import { Product, Promotion } from "@shopware-pwa/commons";
 
 /**
  * @beta
@@ -19,7 +20,7 @@ export interface LineItem {
   label: string | null;
   quantity: number;
   type: LineItemType;
-  payload: any;
+  payload: Product | Promotion;
   priceDefinition: PriceDefinitionInterface | null;
   price: CalculatedPrice | null;
   good: boolean;

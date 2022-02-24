@@ -12,11 +12,11 @@ import {
 import {
   getApplicationContext,
   useDefaults,
-  useSharedState,
   useCart
 } from "@shopware-pwa/composables";
 
 import { getProductMainImageUrl } from "@shopware-pwa/helpers"
+import { PropertyGroupOption } from "@shopware-pwa/commons";
 
 
 /**
@@ -29,7 +29,7 @@ export interface IUseCartItem {
   itemRegularPrice: ComputedRef<number | undefined>;
   itemSpecialPrice: ComputedRef<number | undefined>;
   itemImageThumbnailUrl: ComputedRef<string>;
-  itemOptions: ComputedRef<string[]>;
+  itemOptions: ComputedRef<PropertyGroupOption[]>;
   itemType: ComputedRef<LineItemType | undefined>
   isProduct: ComputedRef<boolean>;
   isPromotion: ComputedRef<boolean>;
@@ -38,7 +38,7 @@ export interface IUseCartItem {
   itemQuantity: ComputedRef<number | undefined>;
   error: ComputedRef<string>;
   loading: ComputedRef<boolean>;
-  changeItemQuantity: (quantity: number) => void;
+  changeItemQuantity: (quantity: number) => Promise<void>;
   removeItem: ({ id }: LineItem) => Promise<void>;
   getProductItemSeoUrlData(): Promise<Partial<Product>>;
 }
@@ -56,12 +56,8 @@ export function useCartItem({
   if (!cartItem) {
     throw new Error("[useCartItem] mandatory cartItem argument is missing.")
   }
-  const { sharedRef } = useSharedState();
   const COMPOSABLE_NAME = "useCartitem";
   const contextName = COMPOSABLE_NAME;
-
-  const _storeCartItem = sharedRef<LineItem>(`${contextName}-cartItem`);
-  _storeCartItem.value = cartItem;
 
   const { apiInstance } = getApplicationContext({ contextName });
   const { refreshCart, broadcastUpcomingErrors } = useCart();
@@ -72,52 +68,53 @@ export function useCartItem({
   const error: Ref<any> = ref(null);
 
 
-  const itemQuantity = computed(() => _storeCartItem.value?.quantity)
+  const itemQuantity = computed(() => cartItem?.quantity)
   const itemImageThumbnailUrl = computed(() =>
-    getProductMainImageUrl(_storeCartItem.value)
+    getProductMainImageUrl(cartItem as any)
   );
 
   // it's not 1:1 to Product entity interface
   const itemRegularPrice = computed(
     () =>
-      (_storeCartItem.value?.price?.listPrice &&
-        _storeCartItem.value?.price?.listPrice.price) ||
-      _storeCartItem.value?.price?.unitPrice
+      (cartItem?.price?.listPrice &&
+        cartItem?.price?.listPrice.price) ||
+      cartItem?.price?.unitPrice
   )
   const itemSpecialPrice = computed(
-    () => _storeCartItem.value?.price?.listPrice && _storeCartItem.value?.price?.unitPrice
+    () => cartItem?.price?.listPrice && cartItem?.price?.unitPrice
   )
 
   const itemOptions = computed(
-    () => (_storeCartItem.value?.payload && _storeCartItem.value?.payload?.options) || []
+    () => (cartItem?.type === "product" && (cartItem?.payload as Product)?.options) || []
   )
 
-  const itemStock = computed(() => _storeCartItem.value?.deliveryInformation?.stock)
+  const itemStock = computed(() => cartItem?.deliveryInformation?.stock)
 
-  const itemType = computed(() => _storeCartItem.value?.type)
+  const itemType = computed(() => cartItem?.type)
 
-  const isProduct = computed(() => _storeCartItem.value?.type === "product")
+  const isProduct = computed(() => cartItem?.type === "product")
 
-  const isPromotion = computed(() => _storeCartItem.value?.type === "promotion")
+  const isPromotion = computed(() => cartItem?.type === "promotion")
 
   async function removeItem() {
-    const result = await removeCartItem(_storeCartItem.value?.id, apiInstance);
+    const result = await removeCartItem(cartItem?.id, apiInstance);
     broadcastUpcomingErrors(result);
     refreshCart();
   }
 
-  async function changeItemQuantity(quantity: number) {
-    const result = await changeCartItemQuantity(_storeCartItem.value.id, quantity, apiInstance);
+  async function changeItemQuantity(quantity: number): Promise<void> {
+    const result = await changeCartItemQuantity(cartItem.id, quantity, apiInstance);
     broadcastUpcomingErrors(result);
+    refreshCart();
   }
 
   async function getProductItemSeoUrlData(): Promise<Partial<Product>> {
-    if (!_storeCartItem.value?.referencedId) {
+    if (!cartItem?.referencedId) {
       return {};
     }
 
     try {
-      const result = await getProduct(_storeCartItem.value?.referencedId,
+      const result = await getProduct(cartItem?.referencedId,
         {
           includes: (getDefaults() as any).getProductItemsSeoUrlsData.includes,
           associations: (getDefaults() as any).getProductItemsSeoUrlsData
@@ -139,7 +136,7 @@ export function useCartItem({
     getProductItemSeoUrlData,
     error: computed(() => error.value),
     loading: computed(() => loading.value),
-    lineItem: computed(() =>_storeCartItem.value),
+    lineItem: computed(() =>cartItem),
     itemRegularPrice,
     itemSpecialPrice,
     itemOptions,

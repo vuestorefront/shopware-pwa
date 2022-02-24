@@ -64,7 +64,7 @@
 </template>
 <script>
 import { getProductMainImageUrl, getProductUrl } from "@shopware-pwa/helpers"
-import { useCart } from "@shopware-pwa/composables"
+import { useCart, useCartItem } from "@shopware-pwa/composables"
 import { ref, watch, computed } from "@vue/composition-api"
 import { SfCollectedProduct, SfProperty, SfPrice } from "@storefront-ui/vue"
 import getResizedImage from "@/helpers/images/getResizedImage.js"
@@ -96,17 +96,20 @@ export default {
     },
   },
   setup(props) {
-    const { removeItem, changeItemQuantity, itemRegularPrice,
-    itemSpecialPrice,
-    itemOptions,
-    itemStock,
-    itemQuantity,
-    itemType,
-    itemImageThumbnailUrl,
-    isProduct,
-    isPromotion,
-    getProductItemSeoUrlData,
-     } = useCartItem({ cartItem: props.product })
+    const { 
+      removeItem, 
+      changeItemQuantity, 
+      itemRegularPrice,
+      itemSpecialPrice,
+      itemOptions,
+      itemStock,
+      itemQuantity,
+      itemType,
+      itemImageThumbnailUrl,
+      isProduct,
+      isPromotion,
+      getProductItemSeoUrlData,
+    } = useCartItem({ cartItem: props.product })
 
     // get the URL from async loaded product data - passed by the parent component
     const productUrl = computed(() => {
@@ -115,7 +118,7 @@ export default {
       )
       return getProductUrl(matchingProductAdditionalData)
     })
-    const quantity = ref(props.product.quantity)
+    const quantity = ref(itemQuantity.value)
     const productImage = computed(() =>
       getResizedImage(getProductMainImageUrl(props.product), {
         width: 140,
@@ -127,7 +130,7 @@ export default {
       console.warn('test', 'watch','quantity')
       // in future we may want to have debounce here
       if (qty === props.product.quantity) return
-      await changeProductQuantity({ id: props.product.id, quantity: qty })
+      await changeItemQuantity(qty)
     })
     watch(
       () => props.product.quantity,
@@ -138,7 +141,7 @@ export default {
     return {
       productImage,
       removeItem,
-      quantity: itemQuantity,
+      quantity,
       regularPrice: itemRegularPrice,
       specialPrice: itemSpecialPrice,
       productUrl,
