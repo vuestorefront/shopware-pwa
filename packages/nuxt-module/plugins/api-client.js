@@ -28,7 +28,7 @@ export default async ({ app }, inject) => {
    * get contextToken from sessionStorage when cookie lost in redirects
    * https://github.com/vuestorefront/shopware-pwa/pull/1817
    */
-  if (process.client && navigator.userAgent.indexOf('WebKit')) {
+  if (process.client && navigator?.userAgent.includes('WebKit')) {
     if (!app.$cookies.get("sw-context-token") && typeof sessionStorage !== "undefined") {
       app.$cookies.set(
         "sw-context-token",
