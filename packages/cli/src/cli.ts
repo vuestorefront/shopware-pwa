@@ -4,7 +4,6 @@ const { build } = require("gluegun");
  * Create the cli and kick it off
  */
 async function run(argv) {
-
   const isNode17 = process.versions.node.startsWith("17");
   if (isNode17) {
     console.warn(`
@@ -18,7 +17,7 @@ async function run(argv) {
     It's recommended to use LTS (v14 or v16) of node in order to avoid the issue.
     
     read more: https://github.com/vuestorefront/shopware-pwa/issues/1778
-    `)
+    `);
   }
 
   // create a CLI runtime
