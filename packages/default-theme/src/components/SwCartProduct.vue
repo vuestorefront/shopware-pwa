@@ -127,7 +127,6 @@ export default {
     )
 
     watch(quantity, async (qty) => {
-      console.warn('test', 'watch','quantity')
       // in future we may want to have debounce here
       if (qty === props.product.quantity) return
       await changeItemQuantity(qty)
