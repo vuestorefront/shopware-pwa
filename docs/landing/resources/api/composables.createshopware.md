@@ -20,7 +20,7 @@ export declare function createShopware(app: App, options: {
     install(app: App, options?: {
         enableDevtools: boolean;
     } | undefined): void;
-    _a: App;
+    _a: App<any>;
     _e: EffectScope;
     apiInstance: ShopwareApiInstance;
     state: {
@@ -68,5 +68,5 @@ export declare function createShopware(app: App, options: {
 
 <b>Returns:</b>
 
-{ install(app: App, options?: { enableDevtools: boolean; } \| undefined): void; \_a: App; \_e: EffectScope; apiInstance: ShopwareApiInstance; state: { interceptors: {}; sharedStore: any; shopwareDefaults: { \[x: string\]: { p?: number \| undefined; limit?: number \| undefined; sort?: string \| undefined; order?: string \| undefined; term?: string \| undefined; ids?: string\[\] \| undefined; associations?: { \[x: string\]: { associations?: any \| undefined; sort?: string \| { field: string; order: string; naturalSorting: boolean; }\[\] \| undefined; }; } \| undefined; grouping?: { field: string; } \| undefined; properties?: string \| never\[\] \| undefined; manufacturer?: string \| never\[\] \| undefined; includes?: { \[x: string\]: string\[\]; } \| undefined; query?: string \| undefined; }; }; } \| undefined; }
+{ install(app: App, options?: { enableDevtools: boolean; } \| undefined): void; \_a: App&lt;any&gt;; \_e: EffectScope; apiInstance: ShopwareApiInstance; state: { interceptors: {}; sharedStore: any; shopwareDefaults: { \[x: string\]: { p?: number \| undefined; limit?: number \| undefined; sort?: string \| undefined; order?: string \| undefined; term?: string \| undefined; ids?: string\[\] \| undefined; associations?: { \[x: string\]: { associations?: any \| undefined; sort?: string \| { field: string; order: string; naturalSorting: boolean; }\[\] \| undefined; }; } \| undefined; grouping?: { field: string; } \| undefined; properties?: string \| never\[\] \| undefined; manufacturer?: string \| never\[\] \| undefined; includes?: { \[x: string\]: string\[\]; } \| undefined; query?: string \| undefined; }; }; } \| undefined; }
 
