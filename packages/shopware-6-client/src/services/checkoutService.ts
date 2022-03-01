@@ -1,7 +1,4 @@
-import {
-  defaultInstance,
-  ShopwareApiInstance,
-} from "../apiService";
+import { defaultInstance, ShopwareApiInstance } from "../apiService";
 import {
   getCheckoutOrderEndpoint,
   handlePaymentEndpoint,
@@ -41,10 +38,10 @@ export async function createOrder(
  */
 export async function handlePayment(
   params: {
-    orderId: string,
-    finishUrl?: string,
-    errorUrl?: string,
-    paymentDetails?: unknown,
+    orderId: string;
+    finishUrl?: string;
+    errorUrl?: string;
+    paymentDetails?: unknown;
   },
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<{
@@ -54,23 +51,23 @@ export async function handlePayment(
   if (!params?.orderId) {
     throw new Error("handlePayment method requires orderId");
   }
-  
-   /**
+
+  /**
    * save contextToken in sessionStorage when using Webkit
    * https://github.com/vuestorefront/shopware-pwa/pull/1817
    */
-  if(navigator?.userAgent.includes('WebKit')){
+  if (navigator?.userAgent.includes("WebKit")) {
     if (typeof sessionStorage !== "undefined") {
-      sessionStorage.setItem("sw-context-token", contextInstance?.config?.contextToken as string)
+      sessionStorage.setItem(
+        "sw-context-token",
+        contextInstance.config.contextToken as string
+      );
     }
   }
 
-  const resp = await contextInstance.invoke.get(
-    handlePaymentEndpoint(),
-    {
-      params
-    }
-  );
+  const resp = await contextInstance.invoke.get(handlePaymentEndpoint(), {
+    params,
+  });
 
   return resp.data;
 }

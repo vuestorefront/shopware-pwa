@@ -1,12 +1,20 @@
 # Shopware PWA
 
+
+---------
+
 The only **Official Modern Frontend** with Progressive Web App features for <a href="https://github.com/shopware/platform">Shopware 6</a>.
 
 ![NuxtJS](https://img.shields.io/badge/Nuxt-black?style=for-the-badge&logo=nuxt.js&logoColor=white) ![Vue.js](https://img.shields.io/badge/vuejs-%2335495e.svg?style=for-the-badge&logo=vuedotjs&logoColor=%234FC08D) ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
 
 [![CircleCI](https://circleci.com/gh/vuestorefront/shopware-pwa.svg?style=svg)](https://circleci.com/gh/DivanteLtd/shopware-pwa) [![Coverage Status](https://coveralls.io/repos/github/vuestorefront/shopware-pwa/badge.svg?branch=master)](https://coveralls.io/github/DivanteLtd/shopware-pwa) [![Snyk badge](https://snyk.io/test/github/vuestorefront/shopware-pwa/badge.svg)](https://snyk.io/)
 
-&nbsp;
+### Stay connected
+
+![GitHub Repo stars](https://img.shields.io/github/stars/vuestorefront/vue-storefront?style=social)
+![Twitter Follow](https://img.shields.io/twitter/follow/vuestorefront?style=social)
+![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UCkm1F3Cglty3CE1QwKQUhhg?style=social)
+[![Discord](https://img.shields.io/discord/770285988244750366?label=join%20discord&logo=Discord&logoColor=white)](https://discord.vuestorefront.io)
 
 ### Supported versions of Shopware 6
 

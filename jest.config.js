@@ -21,6 +21,9 @@ module.exports = {
     __NODE_JS__: true,
     __FEATURE_OPTIONS__: true,
     __FEATURE_SUSPENSE__: true,
+    navigator: {
+      userAgent: "NodeJS",
+    },
   },
   collectCoverage: isUnitTest,
   coverageDirectory: "coverage",
