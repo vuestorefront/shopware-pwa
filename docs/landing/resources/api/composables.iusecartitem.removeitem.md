@@ -10,5 +10,5 @@
 <b>Signature:</b>
 
 ```typescript
-removeItem: ({ id }: LineItem) => Promise<void>;
+removeItem: () => Promise<void>;
 ```

@@ -20,7 +20,6 @@ export interface IUseCartItem
 |  Property | Type | Description |
 |  --- | --- | --- |
 |  [changeItemQuantity](./composables.iusecartitem.changeitemquantity.md) | (quantity: number) =&gt; Promise&lt;void&gt; | <b><i>(BETA)</i></b> |
-|  [error](./composables.iusecartitem.error.md) | ComputedRef&lt;string&gt; | <b><i>(BETA)</i></b> |
 |  [isProduct](./composables.iusecartitem.isproduct.md) | ComputedRef&lt;boolean&gt; | <b><i>(BETA)</i></b> |
 |  [isPromotion](./composables.iusecartitem.ispromotion.md) | ComputedRef&lt;boolean&gt; | <b><i>(BETA)</i></b> |
 |  [itemImageThumbnailUrl](./composables.iusecartitem.itemimagethumbnailurl.md) | ComputedRef&lt;string&gt; | <b><i>(BETA)</i></b> |
@@ -31,8 +30,7 @@ export interface IUseCartItem
 |  [itemStock](./composables.iusecartitem.itemstock.md) | ComputedRef&lt;number \| undefined&gt; | <b><i>(BETA)</i></b> |
 |  [itemType](./composables.iusecartitem.itemtype.md) | ComputedRef&lt;LineItemType \| undefined&gt; | <b><i>(BETA)</i></b> |
 |  [lineItem](./composables.iusecartitem.lineitem.md) | ComputedRef&lt;LineItem \| undefined \| null&gt; | <b><i>(BETA)</i></b> |
-|  [loading](./composables.iusecartitem.loading.md) | ComputedRef&lt;boolean&gt; | <b><i>(BETA)</i></b> |
-|  [removeItem](./composables.iusecartitem.removeitem.md) | ({ id }: LineItem) =&gt; Promise&lt;void&gt; | <b><i>(BETA)</i></b> |
+|  [removeItem](./composables.iusecartitem.removeitem.md) | () =&gt; Promise&lt;void&gt; | <b><i>(BETA)</i></b> |
 
 ## Methods
 

@@ -1,4 +1,4 @@
-import { ref, Ref, computed, ComputedRef } from "vue-demi";
+import { computed, ComputedRef } from "vue-demi";
 import {
   removeCartItem,
   changeCartItemQuantity,
@@ -36,10 +36,8 @@ export interface IUseCartItem {
   itemStock: ComputedRef<number | undefined>;
 
   itemQuantity: ComputedRef<number | undefined>;
-  error: ComputedRef<string>;
-  loading: ComputedRef<boolean>;
   changeItemQuantity: (quantity: number) => Promise<void>;
-  removeItem: ({ id }: LineItem) => Promise<void>;
+  removeItem: () => Promise<void>;
   getProductItemSeoUrlData(): Promise<Partial<Product>>;
 }
 
@@ -64,40 +62,39 @@ export function useCartItem({
   const { getDefaults } = useDefaults({
     defaultsKey: COMPOSABLE_NAME,
   });
-  const loading: Ref<boolean> = ref(false);
-  const error: Ref<any> = ref(null);
 
-
-  const itemQuantity = computed(() => cartItem?.quantity)
+  const itemQuantity = computed(() => cartItem.quantity)
   const itemImageThumbnailUrl = computed(() =>
     getProductMainImageUrl(cartItem as any)
   );
 
-  // it's not 1:1 to Product entity interface
+  // TODO: use helper instead
+
   const itemRegularPrice = computed(
     () =>
-      (cartItem?.price?.listPrice &&
-        cartItem?.price?.listPrice.price) ||
-      cartItem?.price?.unitPrice
+      
+        cartItem.price?.listPrice?.price ||
+      cartItem.price?.unitPrice
   )
+
   const itemSpecialPrice = computed(
-    () => cartItem?.price?.listPrice && cartItem?.price?.unitPrice
+    () => cartItem.price?.listPrice && cartItem.price.unitPrice
   )
 
   const itemOptions = computed(
-    () => (cartItem?.type === "product" && (cartItem?.payload as Product)?.options) || []
+    () => (cartItem.type === "product" && (cartItem.payload as Product)?.options) || []
   )
 
-  const itemStock = computed(() => cartItem?.deliveryInformation?.stock)
+  const itemStock = computed(() => cartItem.deliveryInformation?.stock)
 
-  const itemType = computed(() => cartItem?.type)
+  const itemType = computed(() => cartItem.type)
 
-  const isProduct = computed(() => cartItem?.type === "product")
+  const isProduct = computed(() => cartItem.type === "product")
 
-  const isPromotion = computed(() => cartItem?.type === "promotion")
+  const isPromotion = computed(() => cartItem.type === "promotion")
 
   async function removeItem() {
-    const result = await removeCartItem(cartItem?.id, apiInstance);
+    const result = await removeCartItem(cartItem.id, apiInstance);
     broadcastUpcomingErrors(result);
     refreshCart();
   }
@@ -109,12 +106,12 @@ export function useCartItem({
   }
 
   async function getProductItemSeoUrlData(): Promise<Partial<Product>> {
-    if (!cartItem?.referencedId) {
+    if (!cartItem.referencedId) {
       return {};
     }
 
     try {
-      const result = await getProduct(cartItem?.referencedId,
+      const result = await getProduct(cartItem.referencedId,
         {
           includes: (getDefaults() as any).getProductItemsSeoUrlsData.includes,
           associations: (getDefaults() as any).getProductItemsSeoUrlsData
@@ -134,9 +131,7 @@ export function useCartItem({
     changeItemQuantity,
     removeItem,
     getProductItemSeoUrlData,
-    error: computed(() => error.value),
-    loading: computed(() => loading.value),
-    lineItem: computed(() =>cartItem),
+    lineItem: computed(() => cartItem),
     itemRegularPrice,
     itemSpecialPrice,
     itemOptions,

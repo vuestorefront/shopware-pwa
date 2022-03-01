@@ -237,8 +237,6 @@ export interface IUseCartItem {
     // (undocumented)
     changeItemQuantity: (quantity: number) => Promise<void>;
     // (undocumented)
-    error: ComputedRef<string>;
-    // (undocumented)
     getProductItemSeoUrlData(): Promise<Partial<Product>>;
     // (undocumented)
     isProduct: ComputedRef<boolean>;
@@ -261,9 +259,7 @@ export interface IUseCartItem {
     // (undocumented)
     lineItem: ComputedRef<LineItem | undefined | null>;
     // (undocumented)
-    loading: ComputedRef<boolean>;
-    // (undocumented)
-    removeItem: ({ id }: LineItem) => Promise<void>;
+    removeItem: () => Promise<void>;
 }
 
 // @beta
