@@ -36,6 +36,7 @@ import { Product } from '@shopware-pwa/commons/interfaces';
 import { PropertyGroup } from '@shopware-pwa/commons/interfaces';
 import { Ref } from 'vue-demi';
 import { Salutation } from '@shopware-pwa/commons/interfaces';
+import { SearchFilterType } from '@shopware-pwa/commons';
 import { SessionContext } from '@shopware-pwa/commons/interfaces';
 import { ShippingAddress } from '@shopware-pwa/commons/interfaces';
 import { ShippingMethod } from '@shopware-pwa/commons/interfaces';
@@ -65,7 +66,7 @@ export function createShopware(app: App, options: {
     install(app: App, options?: {
         enableDevtools: boolean;
     } | undefined): void;
-    _a: App<any>;
+    _a: App;
     _e: EffectScope;
     apiInstance: ShopwareApiInstance;
     state: {
@@ -73,12 +74,159 @@ export function createShopware(app: App, options: {
         sharedStore: any;
         shopwareDefaults: {
             [x: string]: {
-                p?: number | undefined;
+                page?: number | undefined;
                 limit?: number | undefined;
-                sort?: string | undefined;
-                order?: string | undefined;
-                term?: string | undefined;
-                ids?: string[] | undefined;
+                filter?: ({
+                    value: string | null;
+                    field: string;
+                    type: SearchFilterType;
+                } | {
+                    value: string[];
+                    field: string;
+                    type: SearchFilterType;
+                } | {
+                    field: string;
+                    parameters: {
+                        lt: string | number;
+                    } | {
+                        gt: string | number;
+                    } | {
+                        lte: string | number;
+                    } | {
+                        gte: string | number;
+                    } | {
+                        lt: string | number;
+                        gt: string | number;
+                    } | {
+                        lt: string | number;
+                        gte: string | number;
+                    } | {
+                        lte: string | number;
+                        gt: string | number;
+                    } | {
+                        lte: string | number;
+                        gte: string | number;
+                    };
+                    type: SearchFilterType;
+                } | {
+                    operator: string;
+                    queries: ({
+                        value: string | null;
+                        field: string;
+                        type: SearchFilterType;
+                    } | {
+                        value: string[];
+                        field: string;
+                        type: SearchFilterType;
+                    } | {
+                        field: string;
+                        parameters: {
+                            lt: string | number;
+                        } | {
+                            gt: string | number;
+                        } | {
+                            lte: string | number;
+                        } | {
+                            gte: string | number;
+                        } | {
+                            lt: string | number;
+                            gt: string | number;
+                        } | {
+                            lt: string | number;
+                            gte: string | number;
+                        } | {
+                            lte: string | number;
+                            gt: string | number;
+                        } | {
+                            lte: string | number;
+                            gte: string | number;
+                        };
+                        type: SearchFilterType;
+                    } | any | {
+                        value: string[];
+                        field: string;
+                        type: SearchFilterType;
+                    })[];
+                    type: SearchFilterType;
+                })[] | undefined;
+                sort?: {
+                    field: string;
+                    order: string;
+                    naturalSorting?: boolean | undefined;
+                }[] | undefined;
+                postFilter?: ({
+                    value: string | null;
+                    field: string;
+                    type: SearchFilterType;
+                } | {
+                    value: string[];
+                    field: string;
+                    type: SearchFilterType;
+                } | {
+                    field: string;
+                    parameters: {
+                        lt: string | number;
+                    } | {
+                        gt: string | number;
+                    } | {
+                        lte: string | number;
+                    } | {
+                        gte: string | number;
+                    } | {
+                        lt: string | number;
+                        gt: string | number;
+                    } | {
+                        lt: string | number;
+                        gte: string | number;
+                    } | {
+                        lte: string | number;
+                        gt: string | number;
+                    } | {
+                        lte: string | number;
+                        gte: string | number;
+                    };
+                    type: SearchFilterType;
+                } | {
+                    operator: string;
+                    queries: ({
+                        value: string | null;
+                        field: string;
+                        type: SearchFilterType;
+                    } | {
+                        value: string[];
+                        field: string;
+                        type: SearchFilterType;
+                    } | {
+                        field: string;
+                        parameters: {
+                            lt: string | number;
+                        } | {
+                            gt: string | number;
+                        } | {
+                            lte: string | number;
+                        } | {
+                            gte: string | number;
+                        } | {
+                            lt: string | number;
+                            gt: string | number;
+                        } | {
+                            lt: string | number;
+                            gte: string | number;
+                        } | {
+                            lte: string | number;
+                            gt: string | number;
+                        } | {
+                            lte: string | number;
+                            gte: string | number;
+                        };
+                        type: SearchFilterType;
+                    } | any | {
+                        value: string[];
+                        field: string;
+                        type: SearchFilterType;
+                    })[];
+                    type: SearchFilterType;
+                })[] | undefined;
                 associations?: {
                     [x: string]: {
                         associations?: any | undefined;
@@ -89,9 +237,17 @@ export function createShopware(app: App, options: {
                         }[] | undefined;
                     };
                 } | undefined;
+                aggregations?: {
+                    name: string;
+                    type: string;
+                    field: string;
+                }[] | undefined;
                 grouping?: {
                     field: string;
-                } | undefined;
+                }[] | undefined;
+                order?: string | undefined;
+                term?: string | undefined;
+                ids?: string[] | undefined;
                 properties?: string | never[] | undefined;
                 manufacturer?: string | never[] | undefined;
                 includes?: {
