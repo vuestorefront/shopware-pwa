@@ -53,6 +53,7 @@ export interface SearchCriteria {
  * @beta
  */
 export type ShopwareSearchParams = {
+  p?: number | undefined;
   page?: number | undefined;
   limit?: number | undefined;
   filter?:
