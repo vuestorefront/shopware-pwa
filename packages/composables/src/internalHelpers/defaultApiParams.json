@@ -260,7 +260,10 @@
     }
   },
   "useCustomerOrders": {
-    "sort": "-createdAt",
+    "sort": [{
+      "field": "createdAt",
+      "order": "desc"
+   }],
     "associations": {},
     "includes": {
       "order": [

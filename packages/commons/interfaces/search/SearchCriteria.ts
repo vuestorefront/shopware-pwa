@@ -55,9 +55,13 @@ export interface SearchCriteria {
 export type ShopwareSearchParams = {
   page?: number | undefined;
   limit?: number | undefined;
-  filter?: Array<EqualsFilter | EqualsAnyFilter | RangeFilter | MultiFilter> | undefined;
+  filter?:
+    | Array<EqualsFilter | EqualsAnyFilter | RangeFilter | MultiFilter>
+    | undefined;
   sort?: Array<StoreSort> | undefined;
-  postFilter?:  Array<EqualsFilter | EqualsAnyFilter | RangeFilter | MultiFilter> | undefined;
+  postFilter?:
+    | Array<EqualsFilter | EqualsAnyFilter | RangeFilter | MultiFilter>
+    | undefined;
   associations?: ShopwareAssociation;
   aggregations?: Array<Aggregation> | undefined;
   grouping?: Array<Grouping>;
