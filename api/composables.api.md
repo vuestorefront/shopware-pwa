@@ -74,6 +74,7 @@ export function createShopware(app: App, options: {
         sharedStore: any;
         shopwareDefaults: {
             [x: string]: {
+                p?: number | undefined;
                 page?: number | undefined;
                 limit?: number | undefined;
                 filter?: ({
