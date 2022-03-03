@@ -68,6 +68,14 @@ describe("Shopware helpers - getCategoryUrl", () => {
     expect(result).toEqual("/");
   });
 
+  it("should return seo URL when there is no external link but a seo URL", () => {
+    const result = getCategoryUrl({
+      seoUrls: [{ seoPathInfo: "test-page" }],
+      type: "link",
+    } as Category);
+    expect(result).toEqual("/test-page");
+  });
+
   it("should return default url when category type is folder", () => {
     const result = getCategoryUrl({
       id: "123",

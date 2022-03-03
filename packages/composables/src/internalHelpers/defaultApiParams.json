@@ -233,7 +233,8 @@
         "id",
         "children",
         "translated",
-        "type"
+        "type",
+        "linkType"
       ],
       "seo_url": ["pathInfo", "seoPathInfo"]
     }

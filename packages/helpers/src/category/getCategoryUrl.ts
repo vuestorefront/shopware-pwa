@@ -10,7 +10,15 @@ export const getCategoryUrl = (category: Partial<Category>): string => {
   if (!category) return "/";
   switch (category.type) {
     case "link":
-      return getTranslatedProperty(category, "externalLink") || "/";
+      if (category.linkType === 'external') {
+        return getTranslatedProperty(category, "externalLink")
+      } else {
+        return category.seoUrls?.[0]?.seoPathInfo
+          ? `/${category.seoUrls[0].seoPathInfo}`
+          : category.id
+          ? `/navigation/${category.id}`
+          : "/";
+      }
     case "folder":
       return "/";
     default:
