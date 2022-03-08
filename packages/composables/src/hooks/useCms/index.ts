@@ -72,15 +72,13 @@ export function useCms(params?: {
   const getEntityObject = computed(
     () => getCmsEntityByType(unref(_storePage)) || ({} as any)
   );
-  const pageTitle = computed(() => getEntityObject.value?.translated?.name);
-  const metaTitle = computed(
-    () => getEntityObject.value?.translated?.metaTitle
-  );
+  const pageTitle = computed(() => getEntityObject.value.translated?.name);
+  const metaTitle = computed(() => getEntityObject.value.translated?.metaTitle);
   const metaDescription = computed(
-    () => getEntityObject.value?.translated?.metaDescription
+    () => getEntityObject.value.translated?.metaDescription
   );
   const metaKeywords = computed(
-    () => getEntityObject.value?.translated?.keywords
+    () => getEntityObject.value.translated?.keywords
   );
 
   /**
