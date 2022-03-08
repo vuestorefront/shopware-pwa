@@ -1,13 +1,11 @@
-import {
-  CmsPageResponse,
-  Product,
-  Category,
-} from "@shopware-pwa/commons";
+import { CmsPageResponse, Product, Category } from "@shopware-pwa/commons";
 
 /**
  * @public
  */
-export function getCmsEntityByType(page?: CmsPageResponse | null): Product | Category | undefined {
+export function getCmsEntityByType(
+  page?: CmsPageResponse | null
+): Product | Category | undefined {
   if (!page?.resourceType) {
     return;
   }

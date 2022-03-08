@@ -69,11 +69,19 @@ export function useCms(params?: {
     return page.value?.resourceIdentifier || null;
   });
 
-  const getEntityObject = computed (() => getCmsEntityByType(unref(_storePage)) || {} as any)
+  const getEntityObject = computed(
+    () => getCmsEntityByType(unref(_storePage)) || ({} as any)
+  );
   const pageTitle = computed(() => getEntityObject.value?.translated?.name);
-  const metaTitle = computed(() => getEntityObject.value?.translated?.metaTitle);
-  const metaDescription = computed( () => getEntityObject.value?.translated?.metaDescription );
-  const metaKeywords = computed(() => getEntityObject.value?.translated?.keywords)
+  const metaTitle = computed(
+    () => getEntityObject.value?.translated?.metaTitle
+  );
+  const metaDescription = computed(
+    () => getEntityObject.value?.translated?.metaDescription
+  );
+  const metaKeywords = computed(
+    () => getEntityObject.value?.translated?.keywords
+  );
 
   /**
    * @beta
@@ -110,6 +118,6 @@ export function useCms(params?: {
     metaTitle,
     metaDescription,
     metaKeywords,
-    pageTitle
+    pageTitle,
   };
 }
