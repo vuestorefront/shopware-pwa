@@ -1,4 +1,11 @@
 # Roadmap
 
-We're in the middle of refactoring our documentation after the RC release. We'll provide the roadmap soon!
-The main focus for now is to fix the bugs before 1.0.0 and prepare documentation for you.
+We're in the middle of refactoring our documentation. We'll provide the roadmap soon!
+
+Hovewer, currently the main goals for the projects are:
+
+- Blank Theme (Slots based structure, without CSS, ready for any kind of UI kit)
+- Nuxt 3/Vue 3 compatibility
+- Nuxt Middleware (to have a proxy for the requests)
+
+More details coming soon.
