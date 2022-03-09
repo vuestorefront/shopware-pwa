@@ -14,6 +14,7 @@ import {
   getCustomerAddAddressEndpoint,
   getConfirmPasswordResetEndpoint,
   getCustomerAccountConfirmEndpoint,
+  getCustomerUpdatePaymentMethodEndpoint,
 } from "../endpoints";
 import { defaultInstance, ShopwareApiInstance } from "../apiService";
 import {
@@ -363,6 +364,24 @@ export async function confirmAccountRegistration(
   const response = await contextInstance.invoke.post(
     getCustomerAccountConfirmEndpoint(),
     params
+  );
+  return response.data;
+}
+
+/**
+ * Set payment method under provided ID as default
+ *
+ * @throws ClientApiError
+ * @public
+ */
+ export async function setDefaultCustomerPaymentMethod(
+  paymentMethodId: string,
+  contextInstance: ShopwareApiInstance = defaultInstance
+): Promise<{
+  success: boolean
+}> {
+  const response = await contextInstance.invoke.post(
+    getCustomerUpdatePaymentMethodEndpoint(paymentMethodId)
   );
   return response.data;
 }

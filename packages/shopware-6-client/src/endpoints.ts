@@ -140,6 +140,11 @@ export const getConfirmPasswordResetEndpoint = () =>
 export const getCustomerAccountConfirmEndpoint = () =>
   `/store-api/account/register-confirm`;
 
+/**
+ * @public
+ */
+export const getCustomerUpdatePaymentMethodEndpoint = (paymentMethodId: string) => `/account/change-payment-method/${paymentMethodId}`
+
 // checkout
 
 /**
