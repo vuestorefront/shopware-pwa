@@ -95,13 +95,15 @@ export async function addProductReview(
  * @public
  */
 export async function getProductReviews(
-    productId: string,
-    criteria?: ShopwareSearchParams,
-    contextInstance: ShopwareApiInstance = defaultInstance
+  productId: string,
+  criteria?: ShopwareSearchParams,
+  contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<EntityResult<"ProductReview", ProductReview[]>> {
-  const resp = await contextInstance.invoke.post(`${getProductReviewsEndpoint(productId)}`, {
-    ...(criteria || {}),
-  });
+  const resp = await contextInstance.invoke.post(
+    `${getProductReviewsEndpoint(productId)}`,
+    {
+      ...(criteria || {}),
+    }
+  );
   return resp.data;
 }
-

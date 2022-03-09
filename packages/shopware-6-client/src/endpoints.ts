@@ -38,7 +38,7 @@ export const getProductDetailsEndpoint = (productId: string) =>
  * @beta
  */
 export const getProductReviewsEndpoint = (productId: string) =>
-    `/store-api/product/${productId}/reviews`;
+  `/store-api/product/${productId}/reviews`;
 
 // search
 

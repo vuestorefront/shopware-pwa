@@ -1,4 +1,7 @@
-import { getRemoveWishlistProductEndpoint, removeWishlistProduct } from "@shopware-pwa/shopware-6-client";
+import {
+  getRemoveWishlistProductEndpoint,
+  removeWishlistProduct,
+} from "@shopware-pwa/shopware-6-client";
 import { defaultInstance } from "../../../src/apiService";
 
 jest.mock("../../../src/apiService");
@@ -20,7 +23,9 @@ describe("WishlistService - removeWishlistProduct", () => {
     });
     const result = await removeWishlistProduct("some-product-uuid");
     expect(mockedDelete).toBeCalledTimes(1);
-    expect(mockedDelete).toBeCalledWith(getRemoveWishlistProductEndpoint("some-product-uuid"));
+    expect(mockedDelete).toBeCalledWith(
+      getRemoveWishlistProductEndpoint("some-product-uuid")
+    );
     expect(result).toHaveProperty("success");
   });
 });
