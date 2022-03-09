@@ -179,6 +179,10 @@ describe("Composables - useCms", () => {
       it("should performs search with pagination if provided", async () => {
         const { search, page } = useCms();
         let invocationCriteria: any = null;
+        const mockedParams = {
+          limit: 50
+        }
+        mockedHelpers._parseUrlQuery.mockReturnValueOnce(mockedParams as any);
         mockedGetPage.getCmsPage.mockImplementationOnce(
           async (path: string, searchCriteria, apiInstance): Promise<any> => {
             invocationCriteria = searchCriteria;
@@ -186,13 +190,14 @@ describe("Composables - useCms", () => {
           }
         );
         expect(page.value).toEqual(null);
-        await search("", { limit: 50 });
+        await search("", mockedParams);
         expect(mockedGetPage.getCmsPage).toBeCalledWith(
           "",
           expect.any(Object),
           rootContextMock.apiInstance
         );
         expect(invocationCriteria?.limit).toEqual(50);
+
       });
 
       it("should provide default includes if not provided, but configuration exist", async () => {
@@ -226,10 +231,12 @@ describe("Composables - useCms", () => {
             return {};
           }
         );
-        expect(page.value).toEqual(null);
-        await search("", {
+        const searchParams = {
           includes: { product: ["someCustomField"] },
-        });
+        }
+        mockedHelpers._parseUrlQuery.mockReturnValueOnce(searchParams as any)
+        expect(page.value).toEqual(null);
+        await search("", searchParams);
         expect(mockedGetPage.getCmsPage).toBeCalledWith(
           "",
           expect.any(Object),
