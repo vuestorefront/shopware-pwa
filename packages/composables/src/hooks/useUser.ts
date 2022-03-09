@@ -10,6 +10,7 @@ import {
   updateProfile,
   CustomerUpdateProfileParam,
   CustomerUpdateEmailParam,
+  setDefaultCustomerPaymentMethod,
 } from "@shopware-pwa/shopware-6-client";
 import {
   Customer,
@@ -66,6 +67,7 @@ export interface IUseUser {
     personals: CustomerUpdateProfileParam
   ) => Promise<boolean>;
   updateEmail: (updateEmailData: CustomerUpdateEmailParam) => Promise<boolean>;
+  setDefaultPaymentMethod: (paymentMethodId: string) => Promise<void>
   /**
    * React on user logout
    */
@@ -253,6 +255,14 @@ export function useUser(): IUseUser {
     return true;
   };
 
+  async function setDefaultPaymentMethod(paymentMethodId: string): Promise<void> {
+    try {
+      await setDefaultCustomerPaymentMethod(paymentMethodId)
+    } catch (error) {
+      // TODO: handle error
+    }
+  }
+
   const isLoggedIn = computed(() => !!user.value?.id && !!user.value.active);
   const isCustomerSession = computed(
     () => !!user.value?.id && !user.value.guest
@@ -272,6 +282,7 @@ export function useUser(): IUseUser {
     logout,
     updateEmail,
     updatePersonalInfo,
+    setDefaultPaymentMethod,
     loadSalutation,
     salutation,
     loadCountry,
