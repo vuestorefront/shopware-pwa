@@ -72,6 +72,7 @@
 |  [setCurrentShippingAddress(shippingAddressId, contextInstance)](./shopware-6-client.setcurrentshippingaddress.md) | Set the current session's shipping address to correspoding to id |
 |  [setCurrentShippingMethod(newShippingMethodId, contextInstance)](./shopware-6-client.setcurrentshippingmethod.md) |  |
 |  [setDefaultCustomerBillingAddress(addressId, contextInstance)](./shopware-6-client.setdefaultcustomerbillingaddress.md) | Set address as default |
+|  [setDefaultCustomerPaymentMethod(paymentMethodId, contextInstance)](./shopware-6-client.setdefaultcustomerpaymentmethod.md) | Set payment method under provided ID as default |
 |  [setDefaultCustomerShippingAddress(addressId, contextInstance)](./shopware-6-client.setdefaultcustomershippingaddress.md) | Set address as default |
 |  [updateCustomerAddress(params, contextInstance)](./shopware-6-client.updatecustomeraddress.md) | Update an address for specific ID |
 |  [updateEmail(params, contextInstance)](./shopware-6-client.updateemail.md) | Update a customer's email |
@@ -130,6 +131,7 @@
 |  [getCustomerResetPasswordEndpoint](./shopware-6-client.getcustomerresetpasswordendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getCustomerUpdateEmailEndpoint](./shopware-6-client.getcustomerupdateemailendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getCustomerUpdatePasswordEndpoint](./shopware-6-client.getcustomerupdatepasswordendpoint.md) | <b><i>(BETA)</i></b> |
+|  [getCustomerUpdatePaymentMethodEndpoint](./shopware-6-client.getcustomerupdatepaymentmethodendpoint.md) |  |
 |  [getGetWishlistProductsEndpoint](./shopware-6-client.getgetwishlistproductsendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getMergeWishlistProductsEndpoint](./shopware-6-client.getmergewishlistproductsendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getNewsletterSubscribeEndpoint](./shopware-6-client.getnewslettersubscribeendpoint.md) | <b><i>(BETA)</i></b> |

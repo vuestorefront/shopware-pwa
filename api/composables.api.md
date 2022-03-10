@@ -523,9 +523,7 @@ export interface IUseUser {
     error: ComputedRef<any>;
     // (undocumented)
     errors: UnwrapRef<{
-        login: ShopwareError[];
-        register: ShopwareError[];
-        updateEmail: ShopwareError[];
+        [errorAlias: string]: ShopwareError[];
     }>;
     // (undocumented)
     isCustomerSession: ComputedRef<boolean>;
@@ -559,6 +557,8 @@ export interface IUseUser {
     register: ({}: CustomerRegistrationParams) => Promise<boolean>;
     // (undocumented)
     salutation: Ref<Salutation | null>;
+    // (undocumented)
+    setDefaultPaymentMethod: (paymentMethodId: string) => Promise<void>;
     // (undocumented)
     updateEmail: (updateEmailData: CustomerUpdateEmailParam) => Promise<boolean>;
     // (undocumented)

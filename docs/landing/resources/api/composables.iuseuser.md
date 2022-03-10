@@ -21,7 +21,7 @@ export interface IUseUser
 |  --- | --- | --- |
 |  [country](./composables.iuseuser.country.md) | Ref&lt;Country \| null&gt; | <b><i>(BETA)</i></b> |
 |  [error](./composables.iuseuser.error.md) | ComputedRef&lt;any&gt; | <b><i>(BETA)</i></b> |
-|  [errors](./composables.iuseuser.errors.md) | UnwrapRef&lt;{ login: ShopwareError\[\]; register: ShopwareError\[\]; updateEmail: ShopwareError\[\]; }&gt; | <b><i>(BETA)</i></b> |
+|  [errors](./composables.iuseuser.errors.md) | UnwrapRef&lt;{ \[errorAlias: string\]: ShopwareError\[\]; }&gt; | <b><i>(BETA)</i></b> |
 |  [isCustomerSession](./composables.iuseuser.iscustomersession.md) | ComputedRef&lt;boolean&gt; | <b><i>(BETA)</i></b> |
 |  [isGuestSession](./composables.iuseuser.isguestsession.md) | ComputedRef&lt;boolean&gt; | <b><i>(BETA)</i></b> |
 |  [isLoggedIn](./composables.iuseuser.isloggedin.md) | ComputedRef&lt;boolean&gt; | <b><i>(BETA)</i></b> |
@@ -36,6 +36,7 @@ export interface IUseUser
 |  [refreshUser](./composables.iuseuser.refreshuser.md) | () =&gt; Promise&lt;void&gt; | <b><i>(BETA)</i></b> |
 |  [register](./composables.iuseuser.register.md) | ({}: CustomerRegistrationParams) =&gt; Promise&lt;boolean&gt; | <b><i>(BETA)</i></b> |
 |  [salutation](./composables.iuseuser.salutation.md) | Ref&lt;Salutation \| null&gt; | <b><i>(BETA)</i></b> |
+|  [setDefaultPaymentMethod](./composables.iuseuser.setdefaultpaymentmethod.md) | (paymentMethodId: string) =&gt; Promise&lt;void&gt; | <b><i>(BETA)</i></b> |
 |  [updateEmail](./composables.iuseuser.updateemail.md) | (updateEmailData: CustomerUpdateEmailParam) =&gt; Promise&lt;boolean&gt; | <b><i>(BETA)</i></b> |
 |  [updatePersonalInfo](./composables.iuseuser.updatepersonalinfo.md) | (personals: CustomerUpdateProfileParam) =&gt; Promise&lt;boolean&gt; | <b><i>(BETA)</i></b> |
 |  [user](./composables.iuseuser.user.md) | ComputedRef&lt;Partial&lt;Customer&gt; \| null&gt; | <b><i>(BETA)</i></b> |
