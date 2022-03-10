@@ -374,11 +374,11 @@ export async function confirmAccountRegistration(
  * @throws ClientApiError
  * @public
  */
- export async function setDefaultCustomerPaymentMethod(
+export async function setDefaultCustomerPaymentMethod(
   paymentMethodId: string,
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<{
-  success: boolean
+  success: boolean;
 }> {
   const response = await contextInstance.invoke.post(
     getCustomerUpdatePaymentMethodEndpoint(paymentMethodId)

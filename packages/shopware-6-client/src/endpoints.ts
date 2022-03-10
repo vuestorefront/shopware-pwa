@@ -143,7 +143,9 @@ export const getCustomerAccountConfirmEndpoint = () =>
 /**
  * @public
  */
-export const getCustomerUpdatePaymentMethodEndpoint = (paymentMethodId: string) => `/account/change-payment-method/${paymentMethodId}`
+export const getCustomerUpdatePaymentMethodEndpoint = (
+  paymentMethodId: string
+) => `/account/change-payment-method/${paymentMethodId}`;
 
 // checkout
 

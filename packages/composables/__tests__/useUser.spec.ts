@@ -161,6 +161,26 @@ describe("Composables - useUser", () => {
         expect(interceptMock).toBeCalledTimes(1);
       });
     });
+    describe("setDefaultPaymentMethod", () => {
+      it("should invoke proper @shopware-pwa/shopware-6-client method", async () => {
+        mockedApiClient.setDefaultCustomerPaymentMethod.mockResolvedValueOnce(
+          {} as any
+        );
+        const { setDefaultPaymentMethod } = useUser();
+        await setDefaultPaymentMethod("method-id");
+        expect(mockedApiClient.setDefaultCustomerPaymentMethod).toBeCalledWith(
+          "method-id"
+        );
+      });
+      it("should catch the error and put them into errors.setDefaultPaymentMethod array", async () => {
+        mockedApiClient.setDefaultCustomerPaymentMethod.mockRejectedValueOnce({
+          messages: ["some-error"],
+        } as any);
+        const { setDefaultPaymentMethod, errors } = useUser();
+        await setDefaultPaymentMethod("some-id");
+        expect(errors.setDefaultPaymentMethod).toStrictEqual(["some-error"]);
+      });
+    });
     describe("refreshUser", () => {
       it("should set empty object customer when user is not logged in and false for loggedIn flag", async () => {
         mockedApiClient.getCustomer.mockResolvedValueOnce(null);

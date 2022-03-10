@@ -50,9 +50,7 @@ export interface IUseUser {
   loading: ComputedRef<boolean>;
   error: ComputedRef<any>;
   errors: UnwrapRef<{
-    login: ShopwareError[];
-    register: ShopwareError[];
-    updateEmail: ShopwareError[];
+    [errorAlias: string]: ShopwareError[];
   }>;
   isLoggedIn: ComputedRef<boolean>;
   isCustomerSession: ComputedRef<boolean>;
@@ -67,7 +65,7 @@ export interface IUseUser {
     personals: CustomerUpdateProfileParam
   ) => Promise<boolean>;
   updateEmail: (updateEmailData: CustomerUpdateEmailParam) => Promise<boolean>;
-  setDefaultPaymentMethod: (paymentMethodId: string) => Promise<void>
+  setDefaultPaymentMethod: (paymentMethodId: string) => Promise<void>;
   /**
    * React on user logout
    */
@@ -97,27 +95,24 @@ export function useUser(): IUseUser {
   const loading: Ref<boolean> = ref(false);
   const error: Ref<any> = ref(null);
   const errors: UnwrapRef<{
-    login: ShopwareError[];
-    register: ShopwareError[];
-    resetPassword: ShopwareError[];
-    updatePassword: ShopwareError[];
-    updateEmail: ShopwareError[];
+    [errorAlias: string]: ShopwareError[];
   }> = reactive({
     login: [],
     register: [],
     resetPassword: [],
     updatePassword: [],
     updateEmail: [],
+    setDefaultPaymentMethod: [],
   });
 
   const country: Ref<Country | null> = ref(null);
   const salutation: Ref<Salutation | null> = ref(null);
   const user = computed(() => storeUser.value);
 
-  const login = async ({
+  async function login({
     username,
     password,
-  }: { username?: string; password?: string } = {}): Promise<boolean> => {
+  }: { username?: string; password?: string } = {}): Promise<boolean> {
     loading.value = true;
     error.value = null;
     errors.login = [] as any;
@@ -140,13 +135,13 @@ export function useUser(): IUseUser {
     } finally {
       loading.value = false;
       await refreshUser();
-      await refreshCart();
+      refreshCart();
     }
-  };
+  }
 
-  const register = async (
+  async function register(
     params: CustomerRegistrationParams
-  ): Promise<boolean> => {
+  ): Promise<boolean> {
     loading.value = true;
     errors.register = [];
     try {
@@ -169,9 +164,9 @@ export function useUser(): IUseUser {
     } finally {
       loading.value = false;
     }
-  };
+  }
 
-  const logout = async (): Promise<void> => {
+  async function logout(): Promise<void> {
     try {
       await apiLogout(apiInstance);
       broadcast(INTERCEPTOR_KEYS.USER_LOGOUT);
@@ -185,9 +180,9 @@ export function useUser(): IUseUser {
       });
     } finally {
       await refreshUser();
-      await refreshCart();
+      refreshCart();
     }
-  };
+  }
   const onLogout = (fn: IInterceptorCallbackFunction) =>
     intercept(INTERCEPTOR_KEYS.USER_LOGOUT, fn);
 
@@ -197,9 +192,7 @@ export function useUser(): IUseUser {
   const onUserRegister = (fn: IInterceptorCallbackFunction) =>
     intercept(INTERCEPTOR_KEYS.USER_REGISTER, fn);
 
-  const refreshUser = async (
-    params: ShopwareSearchParams = {}
-  ): Promise<void> => {
+  async function refreshUser(params: ShopwareSearchParams = {}): Promise<void> {
     try {
       const user = await getCustomer(
         Object.assign({}, getDefaults(), params),
@@ -210,29 +203,29 @@ export function useUser(): IUseUser {
       storeUser.value = {};
       console.error("[useUser][refreshUser]", e);
     }
-  };
+  }
 
-  const loadCountry = async (userId: string): Promise<void> => {
+  async function loadCountry(userId: string): Promise<void> {
     try {
       country.value = await getUserCountry(userId, apiInstance);
     } catch (e) {
       const err: ClientApiError = e;
       error.value = err.messages;
     }
-  };
+  }
 
-  const loadSalutation = async (salutationId: string): Promise<void> => {
+  async function loadSalutation(salutationId: string): Promise<void> {
     try {
       salutation.value = await getUserSalutation(salutationId, apiInstance);
     } catch (e) {
       const err: ClientApiError = e;
       error.value = err.messages;
     }
-  };
+  }
 
-  const updatePersonalInfo = async (
+  async function updatePersonalInfo(
     personals: CustomerUpdateProfileParam
-  ): Promise<boolean> => {
+  ): Promise<boolean> {
     try {
       await updateProfile(personals, apiInstance);
     } catch (e) {
@@ -240,11 +233,11 @@ export function useUser(): IUseUser {
       return false;
     }
     return true;
-  };
+  }
 
-  const updateEmail = async (
+  async function updateEmail(
     updateEmailData: CustomerUpdateEmailParam
-  ): Promise<boolean> => {
+  ): Promise<boolean> {
     errors.updateEmail = [];
     try {
       await apiUpdateEmail(updateEmailData, apiInstance);
@@ -253,13 +246,15 @@ export function useUser(): IUseUser {
       return false;
     }
     return true;
-  };
+  }
 
-  async function setDefaultPaymentMethod(paymentMethodId: string): Promise<void> {
+  async function setDefaultPaymentMethod(
+    paymentMethodId: string
+  ): Promise<void> {
     try {
-      await setDefaultCustomerPaymentMethod(paymentMethodId)
+      await setDefaultCustomerPaymentMethod(paymentMethodId);
     } catch (error) {
-      // TODO: handle error
+      errors.setDefaultPaymentMethod = error.messages;
     }
   }
 
