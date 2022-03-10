@@ -15,8 +15,13 @@ export interface CartErrors {
  * @public
  */
 export interface CartDelivery extends Delivery {
-  shippingCosts: {unitPrice: number, quantity: number, listPrice: number | null, apiAlias: string, totalPrice: number}
-
+  shippingCosts: {
+    unitPrice: number;
+    quantity: number;
+    listPrice: number | null;
+    apiAlias: string;
+    totalPrice: number;
+  };
 }
 
 /**
