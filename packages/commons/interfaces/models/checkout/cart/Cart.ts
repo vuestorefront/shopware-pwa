@@ -12,7 +12,15 @@ export interface CartErrors {
 }
 
 /**
- * @beta
+ * @public
+ */
+export interface CartDelivery extends Delivery {
+  shippingCosts: {unitPrice: number, quantity: number, listPrice: number | null, apiAlias: string, totalPrice: number}
+
+}
+
+/**
+ * @public
  */
 export interface Cart {
   name: string;
@@ -20,7 +28,7 @@ export interface Cart {
   price: CartPrice;
   lineItems: LineItem[];
   errors: CartErrors;
-  deliveries: Delivery[];
+  deliveries: CartDelivery[];
   transactions: Transaction[];
   modified: boolean;
   customerComment: null | string;

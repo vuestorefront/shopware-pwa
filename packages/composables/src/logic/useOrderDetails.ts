@@ -119,11 +119,11 @@ export function useOrderDetails(params: { order: Ref<Order> | Order }): {
     )
   );
   const shippingAddress = computed(
-    () => _sharedOrder.value?.deliveries?.[0]?.location?.address
+    () => _sharedOrder.value?.deliveries?.[0]?.shippingOrderAddress
   );
 
   const shippingCosts = computed(
-    () => _sharedOrder.value?.shippingCosts?.totalPrice
+    () => _sharedOrder.value?.shippingTotal
   );
   const subtotal = computed(() => _sharedOrder.value?.price?.positionPrice);
   const total = computed(() => _sharedOrder.value?.price?.totalPrice);
