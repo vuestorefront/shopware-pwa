@@ -33,7 +33,6 @@ interface Price {
 interface ShippingCost {
   unitPrice: number;
   quantity: number;
-  totalPrice: number;
   calculatedTaxes: CalculatedTax[];
   taxRules: TaxRule[];
   referencePrice: number | null;
