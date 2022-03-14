@@ -9,6 +9,7 @@
 |  Function | Description |
 |  --- | --- |
 |  [debounce(fn, delay)](./helpers.debounce.md) | Debouce helper to invoke a method with a delay |
+|  [getCmsEntityByType(page)](./helpers.getcmsentitybytype.md) |  |
 |  [getCmsLayoutConfiguration(content)](./helpers.getcmslayoutconfiguration.md) | <b><i>(BETA)</i></b> |
 |  [getCmsLink(content)](./helpers.getcmslink.md) | Gets the link of a cms slot |
 |  [getCmsLinkTarget(content)](./helpers.getcmslinktarget.md) | Return the target attribute for the cms link |

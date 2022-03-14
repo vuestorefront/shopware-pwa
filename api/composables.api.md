@@ -688,6 +688,10 @@ export function useCms(params?: {
     loading: Ref<boolean>;
     search: (path: string, query?: any) => Promise<void>;
     error: Ref<any>;
+    metaTitle: ComputedRef<string>;
+    metaDescription: ComputedRef<string>;
+    metaKeywords: ComputedRef<string>;
+    pageTitle: ComputedRef<string>;
 };
 
 // @beta (undocumented)
