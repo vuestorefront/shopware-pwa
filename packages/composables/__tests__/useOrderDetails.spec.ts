@@ -93,10 +93,8 @@ describe("Composables - useOrderDetails", () => {
         ],
         deliveries: [
           {
-            location: {
-              address: {
-                id: "delivery-address-id",
-              },
+            shippingOrderAddress: {
+              id: "delivery-address-id"
             },
             shippingMethod: {
               name: "Express",
@@ -117,9 +115,7 @@ describe("Composables - useOrderDetails", () => {
             id: "shipping-address-id",
           },
         ],
-        shippingCosts: {
-          totalPrice: 10.0,
-        },
+        shippingTotal: 10.0,
         price: {
           positionPrice: 90.0,
           totalPrice: 100.0,
