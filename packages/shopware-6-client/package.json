@@ -1,6 +1,6 @@
 {
   "name": "@shopware-pwa/shopware-6-client",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Rest API client for Shopware 6.",
   "main": "dist/shopware-6-client.cjs.js",
   "module": "dist/shopware-6-client.esm.js",
@@ -22,7 +22,7 @@
     ]
   },
   "dependencies": {
-    "axios": "^0.26.0",
+    "axios": "^0.26.1",
     "lodash": "^4.17.21",
     "query-string": "^7.1.1"
   },

@@ -1,3 +1,31 @@
+# [1.4.0](https://github.com/DivanteLtd/shopware-pwa/compare/v1.3.0...v1.4.0) (2022-03-14)
+
+
+### Bug Fixes
+
+* **composables:** correct delivery address source ([#1847](https://github.com/DivanteLtd/shopware-pwa/issues/1847)) ([280af6e](https://github.com/DivanteLtd/shopware-pwa/commit/280af6e7a4d8532015d17f02f66b72d91e539937))
+* tests coverage ([#1832](https://github.com/DivanteLtd/shopware-pwa/issues/1832)) ([a656535](https://github.com/DivanteLtd/shopware-pwa/commit/a6565358a26e80f318007dc873a6c0e02285d269))
+* **cli:** create theme using CLI ([#1787](https://github.com/DivanteLtd/shopware-pwa/issues/1787)) ([18a8d0a](https://github.com/DivanteLtd/shopware-pwa/commit/18a8d0ab6f22f3dc5015444f5771500c16af0a81))
+* **cli:** do not remove [@shopware-pwa](https://github.com/shopware-pwa) packages ([#1796](https://github.com/DivanteLtd/shopware-pwa/issues/1796)) ([3dc797b](https://github.com/DivanteLtd/shopware-pwa/commit/3dc797b569a01de704ed9c740550cd5e5583d392))
+* **cli:** Forward slashes problem when serving from e.g. S3 ([#1800](https://github.com/DivanteLtd/shopware-pwa/issues/1800)) ([5b605bf](https://github.com/DivanteLtd/shopware-pwa/commit/5b605bfd327155b88fa9da076cf02fc23426391f))
+* **client:** add missing paymentDetails param ([#1794](https://github.com/DivanteLtd/shopware-pwa/issues/1794)) ([610dbc7](https://github.com/DivanteLtd/shopware-pwa/commit/610dbc71f8ac41357ff70076a495eec51ec450a3))
+* **composables:** devtools registration error when no devtools available ([#1785](https://github.com/DivanteLtd/shopware-pwa/issues/1785)) ([b9e4c63](https://github.com/DivanteLtd/shopware-pwa/commit/b9e4c63e7e935d04916b0c7bf3b29d8852716a20))
+* **nuxt module:** redirect 302 issue on apple devices ([#1817](https://github.com/DivanteLtd/shopware-pwa/issues/1817)) ([e96f114](https://github.com/DivanteLtd/shopware-pwa/commit/e96f114d40a7cba5e659c9dabebda774aa4feca5))
+
+
+### Features
+
+* **cli:** remove devMode question from plugins command ([#1786](https://github.com/DivanteLtd/shopware-pwa/issues/1786)) ([894ea98](https://github.com/DivanteLtd/shopware-pwa/commit/894ea98306a6d5b8cb2f70044900480fbcd2b657))
+* **client:** get product reviews api client method (vuestorefront[#1814](https://github.com/DivanteLtd/shopware-pwa/issues/1814)) ([#1826](https://github.com/DivanteLtd/shopware-pwa/issues/1826)) ([191ee91](https://github.com/DivanteLtd/shopware-pwa/commit/191ee91b4a4952ebacd084d241524ba1cb03824a))
+* **commons:** extend the category interface ([f95cf00](https://github.com/DivanteLtd/shopware-pwa/commit/f95cf00512b85d357d657e4872a09c2ecf85a6ce))
+* **composables:** handle meta title and description in useCms compos… ([#1842](https://github.com/DivanteLtd/shopware-pwa/issues/1842)) ([4d977c7](https://github.com/DivanteLtd/shopware-pwa/commit/4d977c79a311b658085eb73755794ea9a2756a61))
+* **composables:** method to set default payment method for customer ([#1846](https://github.com/DivanteLtd/shopware-pwa/issues/1846)) ([38eb351](https://github.com/DivanteLtd/shopware-pwa/commit/38eb3519540739708c4646e2db200ec0a4d9aa50))
+* **composables:** separate composable to manage cart item ([#1834](https://github.com/DivanteLtd/shopware-pwa/issues/1834)) ([1128c69](https://github.com/DivanteLtd/shopware-pwa/commit/1128c6984e3e756702dae35c42bc2f5115bade4f))
+* **default-theme:** fallback filter component for display type ([#1797](https://github.com/DivanteLtd/shopware-pwa/issues/1797)) ([5f2e64c](https://github.com/DivanteLtd/shopware-pwa/commit/5f2e64c658defd9faf25eea9e1037bfbb633556c))
+* **nuxt-module:** add parsing of "forwarded" header when checking for valid domains ([#1803](https://github.com/DivanteLtd/shopware-pwa/issues/1803)) ([8b0afc8](https://github.com/DivanteLtd/shopware-pwa/commit/8b0afc8a366640c8a74ff6aa3a13695e1dce500e))
+
+
+
 # [1.3.0](https://github.com/DivanteLtd/shopware-pwa/compare/v1.2.0...v1.3.0) (2022-01-11)
 
 
