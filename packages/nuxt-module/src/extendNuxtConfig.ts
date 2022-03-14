@@ -100,6 +100,11 @@ const defaultConfig: NuxtConfig = {
       runInNewContext: false,
     },
   },
+  generate: {
+    exclude: [
+      /^\/search/ // do not generate static page for search page
+    ]
+  }
 };
 
 const configs: NuxtConfig[] = [defaultConfig];
