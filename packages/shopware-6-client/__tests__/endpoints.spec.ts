@@ -43,7 +43,9 @@ describe("endpoints", () => {
   describe("getProductReviewsEndpoint", () => {
     it("should return Shopware product review endpoint", async () => {
       const result = getProductReviewsEndpoint(sampleProductId);
-      expect(result).toEqual("/store-api/product/" + sampleProductId + "/reviews");
+      expect(result).toEqual(
+        "/store-api/product/" + sampleProductId + "/reviews"
+      );
     });
   });
 

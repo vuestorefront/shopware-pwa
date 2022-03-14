@@ -150,7 +150,7 @@ module.exports = (toolbox: GluegunToolbox) => {
    * @returns { string }
    */
   toolbox.normalizeForwardSlashes = (baseUrl: string): string => {
-    return baseUrl.replace(/([^:]\/)\/+/g, "$1")
+    return baseUrl.replace(/([^:]\/)\/+/g, "$1");
   };
 
   /**

@@ -1,4 +1,7 @@
-import { getGetWishlistProductsEndpoint, getWishlistProducts } from "@shopware-pwa/shopware-6-client";
+import {
+  getGetWishlistProductsEndpoint,
+  getWishlistProducts,
+} from "@shopware-pwa/shopware-6-client";
 import { defaultInstance } from "../../../src/apiService";
 
 jest.mock("../../../src/apiService");
@@ -20,11 +23,13 @@ describe("WishlistService - getWishlistProducts", () => {
     });
     const result = await getWishlistProducts({
       includes: {
-        product: ["name"]
-      }
+        product: ["name"],
+      },
     });
     expect(mockedPost).toBeCalledTimes(1);
-    expect(mockedPost).toBeCalledWith(getGetWishlistProductsEndpoint(),  {"includes": {"product": ["name"]}});
+    expect(mockedPost).toBeCalledWith(getGetWishlistProductsEndpoint(), {
+      includes: { product: ["name"] },
+    });
     expect(result).toHaveProperty("apiAlias");
   });
 });
