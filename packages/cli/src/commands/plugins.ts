@@ -31,7 +31,6 @@ module.exports = {
         footer: process.env.ADMIN_PASSWORD && "password from .env is hidden",
       };
 
-
       const answers = await toolbox.prompt.ask([
         shopwareUsernameQuestion,
         shopwarePasswordQuestion,

@@ -16,7 +16,7 @@ describe("ProductService - getProductReviews", () => {
   });
   it("should return reviews of chosen product", async () => {
     mockedPost.mockResolvedValueOnce({
-      data: { "elements": [{ "productId": "044a190a54ab4f06803909c3ee8063ef",}] }
+      data: { elements: [{ productId: "044a190a54ab4f06803909c3ee8063ef" }] },
     });
     const productId = "044a190a54ab4f06803909c3ee8063ef";
     const result = await getProductReviews(productId);
