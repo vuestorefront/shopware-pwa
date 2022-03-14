@@ -39,5 +39,6 @@ export interface IUseCart
 
 |  Method | Description |
 |  --- | --- |
+|  [broadcastUpcomingErrors(cart)](./composables.iusecart.broadcastupcomingerrors.md) | <b><i>(BETA)</i></b> |
 |  [getProductItemsSeoUrlsData()](./composables.iusecart.getproductitemsseourlsdata.md) | <b><i>(BETA)</i></b> |
 

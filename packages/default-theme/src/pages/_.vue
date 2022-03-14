@@ -10,7 +10,7 @@
 </template>
 <script>
 import { useCms } from "@shopware-pwa/composables";
-import { ref, provide } from "vue-demi";
+import { ref, provide, computed } from "vue-demi";
 
 export default {
   name: "DynamicRoute",

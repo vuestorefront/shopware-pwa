@@ -323,6 +323,9 @@ export const getCustomerUpdateEmailEndpoint: () => string;
 // @beta (undocumented)
 export const getCustomerUpdatePasswordEndpoint: () => string;
 
+// @public (undocumented)
+export const getCustomerUpdatePaymentMethodEndpoint: (paymentMethodId: string) => string;
+
 // @beta (undocumented)
 export const getGetWishlistProductsEndpoint: () => string;
 
@@ -544,6 +547,11 @@ export function setCurrentShippingMethod(newShippingMethodId: string, contextIns
 
 // @public
 export function setDefaultCustomerBillingAddress(addressId: string, contextInstance?: ShopwareApiInstance): Promise<string>;
+
+// @public
+export function setDefaultCustomerPaymentMethod(paymentMethodId: string, contextInstance?: ShopwareApiInstance): Promise<{
+    success: boolean;
+}>;
 
 // @public
 export function setDefaultCustomerShippingAddress(addressId: string, contextInstance?: ShopwareApiInstance): Promise<string>;

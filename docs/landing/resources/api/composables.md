@@ -17,6 +17,7 @@ Vue's composables to be used in Shopware frontend application.
 |  [useAddToCart(params)](./composables.useaddtocart.md) | <b><i>(BETA)</i></b> Add product to cart. Options - [IUseAddToCart](./composables.iuseaddtocart.md) |
 |  [useBreadcrumbs(params)](./composables.usebreadcrumbs.md) | <b><i>(BETA)</i></b> Composable for displaying and setting breadcrumbs for page. |
 |  [useCart()](./composables.usecart.md) | <b><i>(BETA)</i></b> Composable for cart management. Options - [IUseCart](./composables.iusecart.md) |
+|  [useCartItem({ cartItem })](./composables.usecartitem.md) | <b><i>(BETA)</i></b> Composable for cart item management. Options - [IUseCartItem](./composables.iusecartitem.md) |
 |  [useCheckout()](./composables.usecheckout.md) | <b><i>(BETA)</i></b> Composable for Checkout management. Options - [IUseCheckout](./composables.iusecheckout.md) |
 |  [useCms(params)](./composables.usecms.md) | <b><i>(BETA)</i></b> |
 |  [useCountries()](./composables.usecountries.md) | <b><i>(BETA)</i></b> |
@@ -49,6 +50,7 @@ Vue's composables to be used in Shopware frontend application.
 |  [IInterceptorCallbackFunction](./composables.iinterceptorcallbackfunction.md) | interface for the callback function of interceptors |
 |  [IUseAddToCart](./composables.iuseaddtocart.md) | <b><i>(BETA)</i></b> interface for [useAddToCart()](./composables.useaddtocart.md) composable |
 |  [IUseCart](./composables.iusecart.md) | <b><i>(BETA)</i></b> interface for [useCart()](./composables.usecart.md) composable |
+|  [IUseCartItem](./composables.iusecartitem.md) | <b><i>(BETA)</i></b> interface for [useCartItem()](./composables.usecartitem.md) composable |
 |  [IUseCheckout](./composables.iusecheckout.md) | <b><i>(BETA)</i></b> interface for [useCheckout()](./composables.usecheckout.md) composable |
 |  [IUseCountries](./composables.iusecountries.md) | <b><i>(BETA)</i></b> |
 |  [IUseCountry](./composables.iusecountry.md) | <b><i>(BETA)</i></b> |
