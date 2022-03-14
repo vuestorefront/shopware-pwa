@@ -31,7 +31,7 @@ module.exports = {
   collectCoverageFrom: [
     "packages/*/src/**/*.ts",
     "!packages/*/src/**/*.d.ts",
-    "!packages/default-template/**",
+    "!packages/default-theme/**",
     "!packages/cli/**",
     "!**/interfaces/**",
   ],

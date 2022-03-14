@@ -38,7 +38,7 @@ export const getProductDetailsEndpoint = (productId: string) =>
  * @beta
  */
 export const getProductReviewsEndpoint = (productId: string) =>
-    `/store-api/product/${productId}/reviews`;
+  `/store-api/product/${productId}/reviews`;
 
 // search
 
@@ -139,6 +139,13 @@ export const getConfirmPasswordResetEndpoint = () =>
  */
 export const getCustomerAccountConfirmEndpoint = () =>
   `/store-api/account/register-confirm`;
+
+/**
+ * @public
+ */
+export const getCustomerUpdatePaymentMethodEndpoint = (
+  paymentMethodId: string
+) => `/account/change-payment-method/${paymentMethodId}`;
 
 // checkout
 

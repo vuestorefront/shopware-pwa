@@ -9,6 +9,11 @@ import * as Composables from "@shopware-pwa/composables";
 jest.mock("@shopware-pwa/composables");
 const mockedComposables = Composables as jest.Mocked<typeof Composables>;
 
+import * as Helpers from "@shopware-pwa/helpers";
+jest.mock("@shopware-pwa/helpers");
+const mockedHelpers = Helpers as jest.Mocked<typeof Helpers>;
+mockedHelpers;
+
 import vueComp from "vue-demi";
 const mockedCompositionAPI = vueComp as jest.Mocked<typeof vueComp>;
 
@@ -174,6 +179,10 @@ describe("Composables - useCms", () => {
       it("should performs search with pagination if provided", async () => {
         const { search, page } = useCms();
         let invocationCriteria: any = null;
+        const mockedParams = {
+          limit: 50
+        }
+        mockedHelpers._parseUrlQuery.mockReturnValueOnce(mockedParams as any);
         mockedGetPage.getCmsPage.mockImplementationOnce(
           async (path: string, searchCriteria, apiInstance): Promise<any> => {
             invocationCriteria = searchCriteria;
@@ -181,13 +190,14 @@ describe("Composables - useCms", () => {
           }
         );
         expect(page.value).toEqual(null);
-        await search("", { limit: 50 });
+        await search("", mockedParams);
         expect(mockedGetPage.getCmsPage).toBeCalledWith(
           "",
           expect.any(Object),
           rootContextMock.apiInstance
         );
         expect(invocationCriteria?.limit).toEqual(50);
+
       });
 
       it("should provide default includes if not provided, but configuration exist", async () => {
@@ -221,10 +231,12 @@ describe("Composables - useCms", () => {
             return {};
           }
         );
-        expect(page.value).toEqual(null);
-        await search("", {
+        const searchParams = {
           includes: { product: ["someCustomField"] },
-        });
+        }
+        mockedHelpers._parseUrlQuery.mockReturnValueOnce(searchParams as any)
+        expect(page.value).toEqual(null);
+        await search("", searchParams);
         expect(mockedGetPage.getCmsPage).toBeCalledWith(
           "",
           expect.any(Object),
@@ -284,6 +296,96 @@ describe("Composables - useCms", () => {
   });
 
   describe("computed", () => {
+    describe("getEntityObject", () => {
+      it("should invoke getCmsEntityByType helper in order to get meta data - giving undefined if resourceType is unrecognized", () => {
+        mockedGetPage.getCmsPage.mockResolvedValueOnce({
+          resourceType: "someType",
+        } as any);
+        const { metaTitle } = useCms();
+
+        expect(metaTitle.value).toBeUndefined();
+        expect(mockedHelpers.getCmsEntityByType).toBeCalledWith(null);
+      });
+
+      it("should return the right object depends on resourceType", () => {
+        mockedHelpers.getCmsEntityByType.mockReturnValue({
+          id: "product-id",
+          translated: {
+            name: "Great Product!",
+          },
+        } as any);
+
+        const { pageTitle } = useCms();
+        expect(pageTitle.value).not.toBeUndefined();
+      });
+    });
+    describe("pageTitle", () => {
+      it("should return pageTitle extracted from product object", () => {
+        mockedHelpers.getCmsEntityByType.mockReturnValue({
+          translated: {
+            name: "Great Product!",
+          },
+        } as any);
+
+        const { pageTitle } = useCms();
+        expect(pageTitle.value).toBe("Great Product!");
+      });
+      it("should return undefined if there is no translated value", () => {
+        mockedHelpers.getCmsEntityByType.mockReturnValue({} as any);
+
+        const { pageTitle } = useCms();
+        expect(pageTitle.value).toBeUndefined();
+      });
+    });
+    describe("metaTitle", () => {
+      it("should return metaTitle extracted from product object", () => {
+        mockedHelpers.getCmsEntityByType.mockReturnValue({
+          translated: {
+            metaTitle: "Great Product!",
+          },
+        } as any);
+
+        const { metaTitle } = useCms();
+        expect(metaTitle.value).toBe("Great Product!");
+      });
+    });
+    describe("metaDescription", () => {
+      it("should return metaDescription extracted from product object", () => {
+        mockedHelpers.getCmsEntityByType.mockReturnValue({
+          translated: {
+            metaDescription: "Great Description!",
+          },
+        } as any);
+
+        const { metaDescription } = useCms();
+        expect(metaDescription.value).toBe("Great Description!");
+      });
+      it("should return undefined if source object has no value", () => {
+        mockedHelpers.getCmsEntityByType.mockReturnValue({} as any);
+
+        const { metaDescription } = useCms();
+        expect(metaDescription.value).toBeUndefined();
+      });
+    });
+    describe("metaKeywords", () => {
+      it("should return metaKeywords extracted from product object", () => {
+        mockedHelpers.getCmsEntityByType.mockReturnValue({
+          translated: {
+            keywords: "Great Keywords!",
+          },
+        } as any);
+
+        const { metaKeywords } = useCms();
+        expect(metaKeywords.value).toBe("Great Keywords!");
+      });
+
+      it("should return undefined in case of missing value", () => {
+        mockedHelpers.getCmsEntityByType.mockReturnValueOnce({} as any);
+
+        const { metaKeywords } = useCms();
+        expect(metaKeywords.value).toBeUndefined();
+      });
+    });
     describe("loading", () => {
       it("should show default loading state", () => {
         const { loading } = useCms();

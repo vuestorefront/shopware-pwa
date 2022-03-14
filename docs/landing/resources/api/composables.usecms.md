@@ -21,6 +21,10 @@ export declare function useCms(params?: {
     loading: Ref<boolean>;
     search: (path: string, query?: any) => Promise<void>;
     error: Ref<any>;
+    metaTitle: ComputedRef<string>;
+    metaDescription: ComputedRef<string>;
+    metaKeywords: ComputedRef<string>;
+    pageTitle: ComputedRef<string>;
 };
 ```
 
@@ -32,5 +36,5 @@ export declare function useCms(params?: {
 
 <b>Returns:</b>
 
-{ page: ComputedRef&lt;CmsPageResponse \| null&gt;; resourceType: ComputedRef&lt;CmsResourceType \| null&gt;; resourceIdentifier: ComputedRef&lt;string \| null&gt;; currentSearchPathKey: ComputedRef&lt;string \| null&gt;; loading: Ref&lt;boolean&gt;; search: (path: string, query?: any) =&gt; Promise&lt;void&gt;; error: Ref&lt;any&gt;; }
+{ page: ComputedRef&lt;CmsPageResponse \| null&gt;; resourceType: ComputedRef&lt;CmsResourceType \| null&gt;; resourceIdentifier: ComputedRef&lt;string \| null&gt;; currentSearchPathKey: ComputedRef&lt;string \| null&gt;; loading: Ref&lt;boolean&gt;; search: (path: string, query?: any) =&gt; Promise&lt;void&gt;; error: Ref&lt;any&gt;; metaTitle: ComputedRef&lt;string&gt;; metaDescription: ComputedRef&lt;string&gt;; metaKeywords: ComputedRef&lt;string&gt;; pageTitle: ComputedRef&lt;string&gt;; }
 

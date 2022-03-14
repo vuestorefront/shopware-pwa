@@ -21,6 +21,9 @@ export function debounce<T extends (...args: any[]) => any>(fn: T, delay?: numbe
 // @beta
 export const getCategoryUrl: (category: Partial<Category>) => string;
 
+// @public (undocumented)
+export function getCmsEntityByType(page?: CmsPageResponse | null): Product | Category | undefined;
+
 // @beta (undocumented)
 export function getCmsLayoutConfiguration(content: CmsBlock | CmsSection): LayoutConfiguration;
 

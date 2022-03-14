@@ -557,9 +557,7 @@ export interface IUseUser {
     error: ComputedRef<any>;
     // (undocumented)
     errors: UnwrapRef<{
-        login: ShopwareError[];
-        register: ShopwareError[];
-        updateEmail: ShopwareError[];
+        [errorAlias: string]: ShopwareError[];
     }>;
     // (undocumented)
     isCustomerSession: ComputedRef<boolean>;
@@ -593,6 +591,8 @@ export interface IUseUser {
     register: ({}: CustomerRegistrationParams) => Promise<boolean>;
     // (undocumented)
     salutation: Ref<Salutation | null>;
+    // (undocumented)
+    setDefaultPaymentMethod: (paymentMethodId: string) => Promise<void>;
     // (undocumented)
     updateEmail: (updateEmailData: CustomerUpdateEmailParam) => Promise<boolean>;
     // (undocumented)
@@ -727,6 +727,10 @@ export function useCms(params?: {
     loading: Ref<boolean>;
     search: (path: string, query?: any) => Promise<void>;
     error: Ref<any>;
+    metaTitle: ComputedRef<string>;
+    metaDescription: ComputedRef<string>;
+    metaKeywords: ComputedRef<string>;
+    pageTitle: ComputedRef<string>;
 };
 
 // @beta (undocumented)
