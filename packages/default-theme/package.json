@@ -13,7 +13,7 @@
     "dev": "shopware-pwa dev-theme",
     "lint": "prettier --write './**/*.{js,vue}'",
     "test": "jest",
-    "test:e2e": "npx playwright test --config=__e2e__/playwright.config.ts"
+    "test:e2e": "npx --yes playwright@v1.17.2 test --config=__e2e__/playwright.config.ts"
   },
   "husky": {
     "hooks": {
