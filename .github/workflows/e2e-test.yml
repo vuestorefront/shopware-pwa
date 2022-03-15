@@ -89,6 +89,7 @@ jobs:
       - name: yarn test theme e2e
         run: |
           npx playwright install
+          npx playwright install chromium
           yarn test:theme
         env:
           BASE_URL: ${{ github.event.inputs.page_url || steps.get-preview-url.outputs.comment_url }}
