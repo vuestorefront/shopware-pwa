@@ -25,6 +25,7 @@ import { PaymentMethod } from '@shopware-pwa/commons';
 import { Product } from '@shopware-pwa/commons';
 import { ProductListingResult } from '@shopware-pwa/commons';
 import { ProductResponse } from '@shopware-pwa/commons';
+import { ProductReview } from '@shopware-pwa/commons';
 import { Salutation } from '@shopware-pwa/commons';
 import { SessionContext } from '@shopware-pwa/commons';
 import { ShippingMethod } from '@shopware-pwa/commons';
@@ -322,6 +323,9 @@ export const getCustomerUpdateEmailEndpoint: () => string;
 // @beta (undocumented)
 export const getCustomerUpdatePasswordEndpoint: () => string;
 
+// @public (undocumented)
+export const getCustomerUpdatePaymentMethodEndpoint: (paymentMethodId: string) => string;
+
 // @beta (undocumented)
 export const getGetWishlistProductsEndpoint: () => string;
 
@@ -354,6 +358,12 @@ export const getProductEndpoint: () => string;
 
 // @beta (undocumented)
 export const getProductListingEndpoint: (categoryId: string) => string;
+
+// @public
+export function getProductReviews(productId: string, criteria?: ShopwareSearchParams, contextInstance?: ShopwareApiInstance): Promise<EntityResult<"ProductReview", ProductReview[]>>;
+
+// @beta (undocumented)
+export const getProductReviewsEndpoint: (productId: string) => string;
 
 // @public
 export function getProducts(criteria?: ShopwareSearchParams, contextInstance?: ShopwareApiInstance): Promise<EntityResult<"product", Product[]>>;
@@ -537,6 +547,11 @@ export function setCurrentShippingMethod(newShippingMethodId: string, contextIns
 
 // @public
 export function setDefaultCustomerBillingAddress(addressId: string, contextInstance?: ShopwareApiInstance): Promise<string>;
+
+// @public
+export function setDefaultCustomerPaymentMethod(paymentMethodId: string, contextInstance?: ShopwareApiInstance): Promise<{
+    success: boolean;
+}>;
 
 // @public
 export function setDefaultCustomerShippingAddress(addressId: string, contextInstance?: ShopwareApiInstance): Promise<string>;

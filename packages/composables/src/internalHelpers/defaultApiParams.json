@@ -70,7 +70,10 @@
         "crossSellings",
         "availableStock",
         "customFields",
-        "stock"
+        "stock",
+        "metaTitle",
+        "metaDescription",
+        "metaKeywords"
       ],
       "product_media": ["media"],
       "media": ["thumbnails", "width", "height", "url"],
@@ -260,7 +263,10 @@
     }
   },
   "useCustomerOrders": {
-    "sort": "-createdAt",
+    "sort": [{
+      "field": "createdAt",
+      "order": "desc"
+   }],
     "associations": {},
     "includes": {
       "order": [

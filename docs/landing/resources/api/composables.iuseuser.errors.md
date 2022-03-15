@@ -11,8 +11,6 @@
 
 ```typescript
 errors: UnwrapRef<{
-        login: ShopwareError[];
-        register: ShopwareError[];
-        updateEmail: ShopwareError[];
+        [errorAlias: string]: ShopwareError[];
     }>;
 ```

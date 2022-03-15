@@ -19,6 +19,7 @@ import { registerShopwareDevtools } from "./devtools/plugin";
 export * from "./hooks/useCms";
 export * from "./hooks/useProduct";
 export * from "./hooks/useCart";
+export * from "./logic/useCartItem";
 export * from "./logic/useAddToCart";
 export * from "./logic/useCheckout";
 export * from "./logic/useSessionContext";

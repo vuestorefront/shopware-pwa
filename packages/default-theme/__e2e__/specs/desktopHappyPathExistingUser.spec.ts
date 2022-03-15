@@ -8,7 +8,7 @@ test.use({
 });
 
 test("[DESKTOP] Happy path logged in user", async ({ page, baseURL }) => {
-  await page.goto('/');
+  await page.goto("/");
 
   await page.click('[data-testid="login-icon"]');
   // Fill [data-testid="email-input"] [data-testid="email-input"]

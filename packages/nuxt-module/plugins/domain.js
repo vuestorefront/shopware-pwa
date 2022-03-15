@@ -13,6 +13,7 @@ const domains = require("sw-plugins/domains");
 const domainsList = Object.values(domains).filter(
   ({ url }) => domainsAllowListArray.includes(url) // TODO: possibly problematic with prefix paths
 );
+import forwardedParse from "forwarded-parse";
 
 // register domains based routing and configuration
 export default async ({ app, route, req }, inject) => {
@@ -50,8 +51,22 @@ export default async ({ app, route, req }, inject) => {
         hostname = window.location.hostname;
         pathname = window.location.pathname;
       } else if (!process.static) {
-        const detectedHost =
-          req.headers["x-forwarded-host"] || req.headers.host;
+        // for ALB healtchecks we simply take the first available domain, so we dont generate errors
+        if (
+          req.headers["user-agent"]?.includes("ELB-HealthChecker") &&
+          domainsList.length > 0
+        ) {
+          return domainsList[0];
+        }
+
+        let detectedHost = req.headers["x-forwarded-host"] || req.headers.host;
+        // also check the Forwarded header (RFC 7239)
+        if (req.headers["forwarded"]) {
+          const parsedHeader = forwardedParse(req.headers["forwarded"]);
+          if (parsedHeader?.[0]?.host) {
+            detectedHost = parsedHeader?.[0]?.host;
+          }
+        }
         hostname = Array.isArray(detectedHost) ? detectedHost[0] : detectedHost;
         hostname = hostname?.split(":")?.[0]; // remove port
         pathname = req.originalUrl;
@@ -72,18 +87,17 @@ export default async ({ app, route, req }, inject) => {
           });
 
         if (matchingDomainConfig) return matchingDomainConfig;
+
         // if there wasn't a match already, check the domains that only have a hostname
         matchingDomainConfig = domainsList
           .filter((domain) => domain.pathPrefix === "/")
-          .find((domain) => {
-            return domain.host === hostname;
-          });
+          .find((domain) => domain.host === hostname);
 
         if (matchingDomainConfig) return matchingDomainConfig;
 
         console.error(
-          `[Error][Shopware PWA] There is no domain configuration for ${hostname} - add this host to config and run domains configuration. (https://shopware-pwa-docs.vuestorefront.io/landing/cookbook/#how-to-add-another-language)`,
-          domainsList
+          `[Error][Shopware PWA] There is no domain configuration for "${hostname}" - add this host to config and run domains configuration. (https://shopware-pwa-docs.vuestorefront.io/landing/cookbook/#how-to-add-another-language)`,
+          JSON.stringify(domainsList)
         );
       }
     };

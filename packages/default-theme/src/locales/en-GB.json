@@ -280,5 +280,7 @@
   "Congratulations! You have been successfully registered. Check your email and confirm you account.":"Congratulations! You have been successfully registered. Check your email and confirm you account.",
   "Congratulations! You have been successfully registered.":"Congratulations! You have been successfully registered.",
   "You have been successfully logged out.": "You were successfully logged out.",
-  "for property": "for property"
+  "for property": "for property",
+  "This field is required and should be at least 8 characters long": "This field is required and should be at least 8 characters long",
+  "You profile has been updated.":"You profile has been updated."
 }

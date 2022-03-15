@@ -1,10 +1,14 @@
 # Plugins
 
-`npx @shopware-pwa/cli init` will take the resources from each plugin `Resources/app/pwa` directory and place it in your project. Plugin installation date determines whether it's "on top" of other plugins (newest installation date means that plugin is on top if there are more than one plugin injected to theme slot)
+(Shopware-pwa) plugins can be used to provide content to slots, or provide additional layouts or pages.
+
+Plugins can be provided from the connected Shopware instance or can be provided locally from inside the PWA.
+
+`npx @shopware-pwa/cli init` will take the resources from each **Shopware** plugin `[plugin]/src/Resources/app/pwa` directory in your connected Shopware instance and copy it to your **PWA** project. Plugin installation date determines whether it's "on top" of other plugins (newest installation date means that plugin is on top if there are more than one plugin injected to theme slot)
 
 ## Creating plugin
 
-Plugin development can be easily made locally. First, we need to choose where would we want to plug into. To see all available plugin slots we may want to select `yes` during `npx @shopware-pwa/cli init` command when it asks to allow dev mode.
+Plugin development can be easily made locally inside the PWA too. If we want to provide content to a slot, we first need to choose where would we want to plug it into. To see all available plugin slots we can look into Vue devtools. The default theme provides some slots out of the box, but you can also use custom themes or add slots on your own.
 
 ![cli plugin dev mode](./../../assets/cli-plugin-dev-mode.png)
 

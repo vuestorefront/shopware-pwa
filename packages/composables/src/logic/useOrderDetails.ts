@@ -119,11 +119,11 @@ export function useOrderDetails(params: { order: Ref<Order> | Order }): {
     )
   );
   const shippingAddress = computed(
-    () => _sharedOrder.value?.deliveries?.[0]?.location?.address
+    () => _sharedOrder.value?.deliveries?.[0]?.shippingOrderAddress
   );
 
   const shippingCosts = computed(
-    () => _sharedOrder.value?.shippingCosts?.totalPrice
+    () => _sharedOrder.value?.shippingTotal
   );
   const subtotal = computed(() => _sharedOrder.value?.price?.positionPrice);
   const total = computed(() => _sharedOrder.value?.price?.totalPrice);
@@ -156,16 +156,21 @@ export function useOrderDetails(params: { order: Ref<Order> | Order }): {
    *
    * Pass custom success and error URLs (optionally).
    */
-  const handlePayment = async (finishUrl?: string, errorUrl?: string, paymentDetails?: unknown) => {
+  const handlePayment = async (
+    finishUrl?: string,
+    errorUrl?: string,
+    paymentDetails?: unknown
+  ) => {
     loaders.handlePayment = true;
     try {
-      const resp = await apiHandlePayment({
-        orderId,
-        finishUrl,
-        errorUrl,
-        paymentDetails,
-      },
-      apiInstance,
+      const resp = await apiHandlePayment(
+        {
+          orderId,
+          finishUrl,
+          errorUrl,
+          paymentDetails,
+        },
+        apiInstance
       );
 
       paymentUrl.value = resp?.redirectUrl;

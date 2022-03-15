@@ -16,5 +16,6 @@ Array [
   "pwa",
   "build",
   "render",
+  "generate",
 ]
 `;

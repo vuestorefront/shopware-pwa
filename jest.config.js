@@ -21,6 +21,9 @@ module.exports = {
     __NODE_JS__: true,
     __FEATURE_OPTIONS__: true,
     __FEATURE_SUSPENSE__: true,
+    navigator: {
+      userAgent: "NodeJS",
+    },
   },
   collectCoverage: isUnitTest,
   coverageDirectory: "coverage",
@@ -28,7 +31,7 @@ module.exports = {
   collectCoverageFrom: [
     "packages/*/src/**/*.ts",
     "!packages/*/src/**/*.d.ts",
-    "!packages/default-template/**",
+    "!packages/default-theme/**",
     "!packages/cli/**",
     "!**/interfaces/**",
   ],

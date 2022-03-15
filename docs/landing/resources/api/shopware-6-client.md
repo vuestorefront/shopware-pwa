@@ -41,6 +41,7 @@
 |  [getOrderDetails(orderId, params, contextInstance)](./shopware-6-client.getorderdetails.md) | Get order details |
 |  [getPaymentMethodDetails(paymentId, contextInstance)](./shopware-6-client.getpaymentmethoddetails.md) |  |
 |  [getProduct(productId, params, contextInstance)](./shopware-6-client.getproduct.md) | Get the product with passed productId |
+|  [getProductReviews(productId, criteria, contextInstance)](./shopware-6-client.getproductreviews.md) | Get product reviews |
 |  [getProducts(criteria, contextInstance)](./shopware-6-client.getproducts.md) | Get default amount of products |
 |  [getSeoUrls(entityId, languageId, contextInstance)](./shopware-6-client.getseourls.md) | Returns an array of SEO URLs for given entity Can be used for other languages as well by providing the languageId |
 |  [getSessionContext(contextInstance)](./shopware-6-client.getsessioncontext.md) | Loads session context, containing all session-related data. |
@@ -71,6 +72,7 @@
 |  [setCurrentShippingAddress(shippingAddressId, contextInstance)](./shopware-6-client.setcurrentshippingaddress.md) | Set the current session's shipping address to correspoding to id |
 |  [setCurrentShippingMethod(newShippingMethodId, contextInstance)](./shopware-6-client.setcurrentshippingmethod.md) |  |
 |  [setDefaultCustomerBillingAddress(addressId, contextInstance)](./shopware-6-client.setdefaultcustomerbillingaddress.md) | Set address as default |
+|  [setDefaultCustomerPaymentMethod(paymentMethodId, contextInstance)](./shopware-6-client.setdefaultcustomerpaymentmethod.md) | Set payment method under provided ID as default |
 |  [setDefaultCustomerShippingAddress(addressId, contextInstance)](./shopware-6-client.setdefaultcustomershippingaddress.md) | Set address as default |
 |  [updateCustomerAddress(params, contextInstance)](./shopware-6-client.updatecustomeraddress.md) | Update an address for specific ID |
 |  [updateEmail(params, contextInstance)](./shopware-6-client.updateemail.md) | Update a customer's email |
@@ -129,6 +131,7 @@
 |  [getCustomerResetPasswordEndpoint](./shopware-6-client.getcustomerresetpasswordendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getCustomerUpdateEmailEndpoint](./shopware-6-client.getcustomerupdateemailendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getCustomerUpdatePasswordEndpoint](./shopware-6-client.getcustomerupdatepasswordendpoint.md) | <b><i>(BETA)</i></b> |
+|  [getCustomerUpdatePaymentMethodEndpoint](./shopware-6-client.getcustomerupdatepaymentmethodendpoint.md) |  |
 |  [getGetWishlistProductsEndpoint](./shopware-6-client.getgetwishlistproductsendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getMergeWishlistProductsEndpoint](./shopware-6-client.getmergewishlistproductsendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getNewsletterSubscribeEndpoint](./shopware-6-client.getnewslettersubscribeendpoint.md) | <b><i>(BETA)</i></b> |
@@ -137,6 +140,7 @@
 |  [getProductDetailsEndpoint](./shopware-6-client.getproductdetailsendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getProductEndpoint](./shopware-6-client.getproductendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getProductListingEndpoint](./shopware-6-client.getproductlistingendpoint.md) | <b><i>(BETA)</i></b> |
+|  [getProductReviewsEndpoint](./shopware-6-client.getproductreviewsendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getRemoveWishlistProductEndpoint](./shopware-6-client.getremovewishlistproductendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getSearchEndpoint](./shopware-6-client.getsearchendpoint.md) | <b><i>(BETA)</i></b> |
 |  [getSeoUrlEndpoint](./shopware-6-client.getseourlendpoint.md) | <b><i>(BETA)</i></b> |

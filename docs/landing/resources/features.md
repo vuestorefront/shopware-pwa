@@ -14,7 +14,7 @@
 - Image gallery
 - Properties
 - Cross sell producs
-- Add a product review
+- See and add product reviews
 - Variant configurator
 
 #### Listing
@@ -115,6 +115,7 @@
 ### Theme system
 
 - Theme inheritance
+- Theme overriding
 
 ## Integrations
 
@@ -125,3 +126,7 @@
 #### PayPal Checkout
 
 - Standard PayPal Checkout (requires Shopware PayPal plugin)
+
+### Other
+
+- Project's .env support for environment variables

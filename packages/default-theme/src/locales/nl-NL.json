@@ -279,5 +279,7 @@
   "Congratulations! You have been successfully registered. Check your email and confirm you account.": "Gefeliciteerd! Je bent succesvol geregistreerd. Check je e-mail om je account te bevestigen.",
   "Congratulations! You have been successfully registered.": "Gefeliciteerd! Je bent succesvol geregistreerd",
   "You have been successfully logged out.": "Je bent succesvol uitgelogd",
-  "for property": "for property"
+  "for property": "for property",
+  "This field is required and should be at least 8 characters long":"This field is required and should be at least 8 characters long",
+  "You profile has been updated.":"You profile has been updated."
 }

@@ -16,7 +16,7 @@ export default {
   name: "DynamicRoute",
   components: {},
   setup() {
-    const { page, error, loading } = useCms();
+    const { page, error, loading, metaTitle, metaDescription, metaKeywords, pageTitle } = useCms();
 
     const cmsPage = ref(page.value?.cmsPage);
     const staticPage = ref(page.value);
@@ -39,7 +39,31 @@ export default {
       staticError,
       loading,
       getComponent: getComponent(),
+      metaObject: computed(() => [
+        {
+          hid: "title",
+          name: "title",
+          content: metaTitle.value
+        },
+        {
+          hid: "description",
+          name: "description",
+          content: metaDescription.value
+        },
+        {
+          hid: "keywords",
+          name: "keywords",
+          content: metaKeywords.value
+        }
+      ]),
+      pageTitle,
     };
   },
+  head() {
+    return {
+      title: this.pageTitle,
+      meta: this.metaObject
+    }
+  }
 };
 </script>

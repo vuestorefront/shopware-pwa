@@ -57,6 +57,7 @@ export interface IUseCart {
   subtotal: ComputedRef<number>;
   cartErrors: ComputedRef<EntityError[]>;
   getProductItemsSeoUrlsData(): Promise<Partial<Product>[]>;
+  broadcastUpcomingErrors(cart: Cart): void;
 }
 
 /**
@@ -242,5 +243,6 @@ export function useCart(): IUseCart {
     subtotal,
     cartErrors,
     getProductItemsSeoUrlsData,
+    broadcastUpcomingErrors
   };
 }

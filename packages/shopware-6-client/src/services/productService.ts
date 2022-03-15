@@ -2,6 +2,7 @@ import {
   getProductEndpoint,
   getProductDetailsEndpoint,
   getProductListingEndpoint,
+  getProductReviewsEndpoint,
 } from "../endpoints";
 import {
   ProductListingResult,
@@ -9,6 +10,7 @@ import {
   ShopwareSearchParams,
   ProductResponse,
   EntityResult,
+  ProductReview,
 } from "@shopware-pwa/commons";
 
 import { defaultInstance, ShopwareApiInstance } from "../apiService";
@@ -84,4 +86,24 @@ export async function addProductReview(
     `${getProductDetailsEndpoint(productId)}/review`,
     productReviewData
   );
+}
+
+/**
+ * Get product reviews
+ *
+ * @throws ClientApiError
+ * @public
+ */
+export async function getProductReviews(
+  productId: string,
+  criteria?: ShopwareSearchParams,
+  contextInstance: ShopwareApiInstance = defaultInstance
+): Promise<EntityResult<"ProductReview", ProductReview[]>> {
+  const resp = await contextInstance.invoke.post(
+    `${getProductReviewsEndpoint(productId)}`,
+    {
+      ...(criteria || {}),
+    }
+  );
+  return resp.data;
 }
