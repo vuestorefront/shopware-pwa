@@ -168,7 +168,7 @@ export function useCart(): IUseCart {
         {
           ids: cartItems.value.map(
             ({ referencedId }) => referencedId
-          ) as string[],
+          ).filter(String) as string[],
           includes: (getDefaults() as any).getProductItemsSeoUrlsData.includes,
           associations: (getDefaults() as any).getProductItemsSeoUrlsData
             .associations,
