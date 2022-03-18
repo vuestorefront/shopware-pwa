@@ -56,7 +56,7 @@
           </template>
           <template #number="{ page }">
             <button
-              class="sf-pagination__item"
+              class="sf-button--pure sf-pagination__item sf-button"
               @click="changePage(page)"
               :class="{ current: getCurrentPage === page, first: page == 1 }"
             >
