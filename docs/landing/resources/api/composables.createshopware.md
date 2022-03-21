@@ -13,9 +13,10 @@ Create ShopwarePlugin vue instance. Shpware PWA composables rely on this config.
 
 ```typescript
 export declare function createShopware(app: App, options: {
-    initialStore: any;
+    initialStore?: any;
     shopwareDefaults: ApiDefaults;
     apiInstance: ShopwareApiInstance;
+    enableDevtools?: boolean;
 }): {
     install(app: App, options?: {
         enableDevtools: boolean;
@@ -220,7 +221,7 @@ export declare function createShopware(app: App, options: {
 |  Parameter | Type | Description |
 |  --- | --- | --- |
 |  app | App |  |
-|  options | { initialStore: any; shopwareDefaults: ApiDefaults; apiInstance: ShopwareApiInstance; } |  |
+|  options | { initialStore?: any; shopwareDefaults: ApiDefaults; apiInstance: ShopwareApiInstance; enableDevtools?: boolean; } |  |
 
 <b>Returns:</b>
 
