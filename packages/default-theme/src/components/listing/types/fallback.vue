@@ -18,7 +18,6 @@ Fallback component for properties that arent implemented and have known display 
 <script>
 import { SfFilter } from "@storefront-ui/vue"
 import NoFilterFound from "@/components/listing/NoFilterFound.vue"
-import FallbackFilter from "@/components/listing/types/fallback.vue"
 import { simplifyString } from "@/helpers"
 
 export default {

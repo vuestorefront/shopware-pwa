@@ -33,7 +33,9 @@ describe("Shopware composables - getAppContext", () => {
   it("should return applicationContext with apiInstance", () => {
     const result = getApplicationContext({ contextName: "test3" });
     expect(result.apiInstance).toBe(rootContextMock.$shopwareApiInstance);
-    expect(consoleErrorSpy).not.toHaveBeenCalled();
+    expect(consoleErrorSpy).toBeCalledWith(
+      "[Vue warn]: inject() can only be used inside setup() or functional components."
+    );
   });
 
   it("should return alternative shopwareApiInstance from context", () => {
@@ -46,6 +48,7 @@ describe("Shopware composables - getAppContext", () => {
     mockedCompositionAPI.getCurrentScope = jest.fn().mockReturnValue({
       vm: rootContextMock,
     });
+    mockedCompositionAPI.getCurrentInstance = jest.fn().mockReturnValue(null);
     const result = getApplicationContext({ contextName: "test4" });
     expect(result.apiInstance).toBe(rootContextMock.$shopwareApiInstance);
     expect(consoleErrorSpy).not.toHaveBeenCalled();

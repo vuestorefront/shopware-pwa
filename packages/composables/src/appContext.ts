@@ -3,6 +3,7 @@ import {
   getCurrentInstance,
   getCurrentScope,
   UnwrapRef,
+  inject,
 } from "vue-demi";
 import { ShopwareApiInstance } from "@shopware-pwa/shopware-6-client";
 import { getContextProperty } from "./internalHelpers/getContextProperty";
@@ -75,7 +76,9 @@ export function getApplicationContext(params?: { contextName?: string }) {
   const injectedContext = getCurrentInstance()?.proxy as any;
   const scopeContext = (getCurrentScope?.() as any)?.vm;
   let context = scopeContext || injectedContext;
-  const shopwareContext = getContextProperty<any>(context, "shopware");
+  const injectedShopwareContext = injectedContext && inject("shopware", null);
+  const shopwareContext =
+    injectedShopwareContext || getContextProperty<any>(context, "shopware");
   if (!shopwareContext) {
     console.warn(`[${key}] Use createShopware method to setup composables.`);
   } else {

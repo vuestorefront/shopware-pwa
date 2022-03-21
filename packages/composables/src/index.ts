@@ -66,9 +66,10 @@ export { ShopwareVuePlugin } from "./devtools/vue2";
 export function createShopware(
   app: App,
   options: {
-    initialStore: any;
+    initialStore?: any;
     shopwareDefaults: ApiDefaults;
     apiInstance: ShopwareApiInstance;
+    enableDevtools?: boolean;
   }
 ) {
   const scope: EffectScope = effectScope(true);
@@ -103,5 +104,8 @@ export function createShopware(
     state,
   });
 
+  if (!isVue2 && options?.enableDevtools && typeof window !== "undefined") {
+    registerShopwareDevtools(app, shopwarePlugin);
+  }
   return shopwarePlugin;
 }
