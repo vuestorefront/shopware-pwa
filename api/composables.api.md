@@ -61,9 +61,10 @@ export function createListingComposable<ELEMENTS_TYPE>({ searchMethod, searchDef
 
 // @beta
 export function createShopware(app: App, options: {
-    initialStore: any;
+    initialStore?: any;
     shopwareDefaults: ApiDefaults;
     apiInstance: ShopwareApiInstance;
+    enableDevtools?: boolean;
 }): {
     install(app: App, options?: {
         enableDevtools: boolean;
