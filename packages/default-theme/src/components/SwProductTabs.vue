@@ -25,6 +25,7 @@
           </p>
         </SfTab>
         <SfTab :title="$t('Read reviews')">
+          <a id="reviews"></a>
           <div v-if="reviews.length" class="reviews-list">
             <SfReview
               v-for="review in reviews"
