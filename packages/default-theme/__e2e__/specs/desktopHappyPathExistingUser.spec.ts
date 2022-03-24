@@ -48,7 +48,7 @@ test("[DESKTOP] Happy path logged in user", async ({ page, baseURL }) => {
   );
 
   // Click [data-testid="termsAgreementCheckbox"] div
-  await page.click('[data-testid="termsAgreementCheckbox"] div');
+  await page.click('[data-testid="termsAgreementCheckbox"]');
 
   // Click [data-testid="place-my-order"]
   await Promise.all([
