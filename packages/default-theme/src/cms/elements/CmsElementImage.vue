@@ -20,6 +20,8 @@
       :title="title"
       :alt="alt"
       :loading="lazyLoad"
+      :height="minHeight"
+      :width="minWidth"
       class="cms-element-image"
     />
   </div>
@@ -73,6 +75,12 @@ export default {
 
     target() {
       return getCmsLinkTarget(this.content)
+    },
+    minHeight() {
+      return this.content?.config?.minHeight?.value?.replace("px", "") || "100"
+    },
+    minWidth() {
+      return this.content?.config?.minWidth?.value?.replace("px", "") || "100"
     },
   },
 }

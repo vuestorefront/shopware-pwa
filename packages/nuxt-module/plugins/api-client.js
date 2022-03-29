@@ -23,6 +23,25 @@ export default async ({ app }, inject) => {
   if (!app.$cookies) {
     throw "Error cookie-universal-nuxt module is not applied in nuxt.config.js";
   }
+  
+  /**
+   * get contextToken from sessionStorage when cookie lost in redirects
+   * https://github.com/vuestorefront/shopware-pwa/pull/1817
+   */
+  if (process.client && navigator?.userAgent.includes('WebKit')) {
+    if (!app.$cookies.get("sw-context-token") && typeof sessionStorage !== "undefined") {
+      app.$cookies.set(
+        "sw-context-token",
+        sessionStorage.getItem("sw-context-token"),
+        {
+          maxAge: 60 * 60 * 24 * 365,
+          sameSite: "Lax",
+          path: "/",
+        }
+      )
+    }
+    sessionStorage.removeItem("sw-context-token")
+  }
 
   function getCookiesConfig(app) {
     return {

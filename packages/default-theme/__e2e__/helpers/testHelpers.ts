@@ -17,7 +17,7 @@ export async function fillRegistrationForm({ page }: { page: Page }) {
   );
 
   // Click [data-testid="guest-registration-checkbox"] div
-  await page.click('[data-testid="guest-registration-checkbox"] div');
+  await page.click('[data-testid="guest-registration-checkbox"]');
 
   // Fill [data-testid="registration-email-input"] [data-testid="registration-email-input"]
   await page.fill(

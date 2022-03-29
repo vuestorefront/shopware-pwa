@@ -55,7 +55,7 @@ test("[MOBILE] Happy path guest user", async ({ page }) => {
   );
 
   // Click [data-testid="termsAgreementCheckbox"] div
-  await page.click('[data-testid="termsAgreementCheckbox"] div');
+  await page.click('[data-testid="termsAgreementCheckbox"]');
 
   // Click [data-testid="place-my-order"]
   await Promise.all([

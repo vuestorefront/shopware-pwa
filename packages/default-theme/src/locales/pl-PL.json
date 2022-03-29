@@ -114,6 +114,7 @@
   "Return to homepage": "Wróć na stronę główną",
   "Review": "Przeglądaj",
   "Review order": "Sprawdź zamówienie",
+  "review": "Brak opinii | Przeczytaj opinię | Przeczytaj {count} opinie",
   "Safety": "Bezpieczeństwo",
   "Salutation": "Salutacja",
   "Salutation must be selected": "Salutacja musi być wybrana",
@@ -236,7 +237,7 @@
   "Choose your shipping method": "Wybierz metodę dostawy",
   "Logged in as": "Zalogowany jako {0}",
   "Guest session": "Sesja gościa",
-  "Login / Register": "Logowanie / Rejestracja",
+  "Login / Register": "Logowanie",
   "Cancel the order": "Anuluj zamówienie",
   "In progress...": "W trakcie...",
   "Yes, cancel the order": "Tak, anuluj moje zamówienie",
@@ -279,5 +280,7 @@
   "Congratulations! You have been successfully registered. Check your email and confirm you account.":"Świetnie! Zostałeś zarejestrowany. Sprawdź swój email i potwierdź swoje konto.",
   "Congratulations! You have been successfully registered.":"Świetnie! Zostałeś zarejestrowany.",
   "You have been successfully logged out.": "Zostałeś pomyślnie wylogowany.",
-  "for property": "for property"
+  "for property": "for property",
+  "This field is required and should be at least 8 characters long":"This field is required and should be at least 8 characters long",
+  "You profile has been updated.":"Twój profil został zaktualizowany."
 }

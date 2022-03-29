@@ -13,14 +13,15 @@ Create ShopwarePlugin vue instance. Shpware PWA composables rely on this config.
 
 ```typescript
 export declare function createShopware(app: App, options: {
-    initialStore: any;
+    initialStore?: any;
     shopwareDefaults: ApiDefaults;
     apiInstance: ShopwareApiInstance;
+    enableDevtools?: boolean;
 }): {
     install(app: App, options?: {
         enableDevtools: boolean;
     } | undefined): void;
-    _a: App;
+    _a: App<any>;
     _e: EffectScope;
     apiInstance: ShopwareApiInstance;
     state: {
@@ -29,11 +30,159 @@ export declare function createShopware(app: App, options: {
         shopwareDefaults: {
             [x: string]: {
                 p?: number | undefined;
+                page?: number | undefined;
                 limit?: number | undefined;
-                sort?: string | undefined;
-                order?: string | undefined;
-                term?: string | undefined;
-                ids?: string[] | undefined;
+                filter?: ({
+                    value: string | null;
+                    field: string;
+                    type: import("@shopware-pwa/commons").SearchFilterType;
+                } | {
+                    value: string[];
+                    field: string;
+                    type: import("@shopware-pwa/commons").SearchFilterType;
+                } | {
+                    field: string;
+                    parameters: {
+                        lt: string | number;
+                    } | {
+                        gt: string | number;
+                    } | {
+                        lte: string | number;
+                    } | {
+                        gte: string | number;
+                    } | {
+                        lt: string | number;
+                        gt: string | number;
+                    } | {
+                        lt: string | number;
+                        gte: string | number;
+                    } | {
+                        lte: string | number;
+                        gt: string | number;
+                    } | {
+                        lte: string | number;
+                        gte: string | number;
+                    };
+                    type: import("@shopware-pwa/commons").SearchFilterType;
+                } | {
+                    operator: string;
+                    queries: ({
+                        value: string | null;
+                        field: string;
+                        type: import("@shopware-pwa/commons").SearchFilterType;
+                    } | {
+                        value: string[];
+                        field: string;
+                        type: import("@shopware-pwa/commons").SearchFilterType;
+                    } | {
+                        field: string;
+                        parameters: {
+                            lt: string | number;
+                        } | {
+                            gt: string | number;
+                        } | {
+                            lte: string | number;
+                        } | {
+                            gte: string | number;
+                        } | {
+                            lt: string | number;
+                            gt: string | number;
+                        } | {
+                            lt: string | number;
+                            gte: string | number;
+                        } | {
+                            lte: string | number;
+                            gt: string | number;
+                        } | {
+                            lte: string | number;
+                            gte: string | number;
+                        };
+                        type: import("@shopware-pwa/commons").SearchFilterType;
+                    } | any | {
+                        value: string[];
+                        field: string;
+                        type: import("@shopware-pwa/commons").SearchFilterType;
+                    })[];
+                    type: import("@shopware-pwa/commons").SearchFilterType;
+                })[] | undefined;
+                sort?: {
+                    field: string;
+                    order: string;
+                    naturalSorting?: boolean | undefined;
+                }[] | undefined;
+                postFilter?: ({
+                    value: string | null;
+                    field: string;
+                    type: import("@shopware-pwa/commons").SearchFilterType;
+                } | {
+                    value: string[];
+                    field: string;
+                    type: import("@shopware-pwa/commons").SearchFilterType;
+                } | {
+                    field: string;
+                    parameters: {
+                        lt: string | number;
+                    } | {
+                        gt: string | number;
+                    } | {
+                        lte: string | number;
+                    } | {
+                        gte: string | number;
+                    } | {
+                        lt: string | number;
+                        gt: string | number;
+                    } | {
+                        lt: string | number;
+                        gte: string | number;
+                    } | {
+                        lte: string | number;
+                        gt: string | number;
+                    } | {
+                        lte: string | number;
+                        gte: string | number;
+                    };
+                    type: import("@shopware-pwa/commons").SearchFilterType;
+                } | {
+                    operator: string;
+                    queries: ({
+                        value: string | null;
+                        field: string;
+                        type: import("@shopware-pwa/commons").SearchFilterType;
+                    } | {
+                        value: string[];
+                        field: string;
+                        type: import("@shopware-pwa/commons").SearchFilterType;
+                    } | {
+                        field: string;
+                        parameters: {
+                            lt: string | number;
+                        } | {
+                            gt: string | number;
+                        } | {
+                            lte: string | number;
+                        } | {
+                            gte: string | number;
+                        } | {
+                            lt: string | number;
+                            gt: string | number;
+                        } | {
+                            lt: string | number;
+                            gte: string | number;
+                        } | {
+                            lte: string | number;
+                            gt: string | number;
+                        } | {
+                            lte: string | number;
+                            gte: string | number;
+                        };
+                        type: import("@shopware-pwa/commons").SearchFilterType;
+                    } | any | {
+                        value: string[];
+                        field: string;
+                        type: import("@shopware-pwa/commons").SearchFilterType;
+                    })[];
+                    type: import("@shopware-pwa/commons").SearchFilterType;
+                })[] | undefined;
                 associations?: {
                     [x: string]: {
                         associations?: any | undefined;
@@ -44,9 +193,17 @@ export declare function createShopware(app: App, options: {
                         }[] | undefined;
                     };
                 } | undefined;
+                aggregations?: {
+                    name: string;
+                    type: string;
+                    field: string;
+                }[] | undefined;
                 grouping?: {
                     field: string;
-                } | undefined;
+                }[] | undefined;
+                order?: string | undefined;
+                term?: string | undefined;
+                ids?: string[] | undefined;
                 properties?: string | never[] | undefined;
                 manufacturer?: string | never[] | undefined;
                 includes?: {
@@ -64,9 +221,9 @@ export declare function createShopware(app: App, options: {
 |  Parameter | Type | Description |
 |  --- | --- | --- |
 |  app | App |  |
-|  options | { initialStore: any; shopwareDefaults: ApiDefaults; apiInstance: ShopwareApiInstance; } |  |
+|  options | { initialStore?: any; shopwareDefaults: ApiDefaults; apiInstance: ShopwareApiInstance; enableDevtools?: boolean; } |  |
 
 <b>Returns:</b>
 
-{ install(app: App, options?: { enableDevtools: boolean; } \| undefined): void; \_a: App; \_e: EffectScope; apiInstance: ShopwareApiInstance; state: { interceptors: {}; sharedStore: any; shopwareDefaults: { \[x: string\]: { p?: number \| undefined; limit?: number \| undefined; sort?: string \| undefined; order?: string \| undefined; term?: string \| undefined; ids?: string\[\] \| undefined; associations?: { \[x: string\]: { associations?: any \| undefined; sort?: string \| { field: string; order: string; naturalSorting: boolean; }\[\] \| undefined; }; } \| undefined; grouping?: { field: string; } \| undefined; properties?: string \| never\[\] \| undefined; manufacturer?: string \| never\[\] \| undefined; includes?: { \[x: string\]: string\[\]; } \| undefined; query?: string \| undefined; }; }; } \| undefined; }
+{ install(app: App, options?: { enableDevtools: boolean; } \| undefined): void; \_a: App&lt;any&gt;; \_e: EffectScope; apiInstance: ShopwareApiInstance; state: { interceptors: {}; sharedStore: any; shopwareDefaults: { \[x: string\]: { p?: number \| undefined; page?: number \| undefined; limit?: number \| undefined; filter?: ({ value: string \| null; field: string; type: import("@shopware-pwa/commons").SearchFilterType; } \| { value: string\[\]; field: string; type: import("@shopware-pwa/commons").SearchFilterType; } \| { field: string; parameters: { lt: string \| number; } \| { gt: string \| number; } \| { lte: string \| number; } \| { gte: string \| number; } \| { lt: string \| number; gt: string \| number; } \| { lt: string \| number; gte: string \| number; } \| { lte: string \| number; gt: string \| number; } \| { lte: string \| number; gte: string \| number; }; type: import("@shopware-pwa/commons").SearchFilterType; } \| { operator: string; queries: ({ value: string \| null; field: string; type: import("@shopware-pwa/commons").SearchFilterType; } \| { value: string\[\]; field: string; type: import("@shopware-pwa/commons").SearchFilterType; } \| { field: string; parameters: { lt: string \| number; } \| { gt: string \| number; } \| { lte: string \| number; } \| { gte: string \| number; } \| { lt: string \| number; gt: string \| number; } \| { lt: string \| number; gte: string \| number; } \| { lte: string \| number; gt: string \| number; } \| { lte: string \| number; gte: string \| number; }; type: import("@shopware-pwa/commons").SearchFilterType; } \| any \| { value: string\[\]; field: string; type: import("@shopware-pwa/commons").SearchFilterType; })\[\]; type: import("@shopware-pwa/commons").SearchFilterType; })\[\] \| undefined; sort?: { field: string; order: string; naturalSorting?: boolean \| undefined; }\[\] \| undefined; postFilter?: ({ value: string \| null; field: string; type: import("@shopware-pwa/commons").SearchFilterType; } \| { value: string\[\]; field: string; type: import("@shopware-pwa/commons").SearchFilterType; } \| { field: string; parameters: { lt: string \| number; } \| { gt: string \| number; } \| { lte: string \| number; } \| { gte: string \| number; } \| { lt: string \| number; gt: string \| number; } \| { lt: string \| number; gte: string \| number; } \| { lte: string \| number; gt: string \| number; } \| { lte: string \| number; gte: string \| number; }; type: import("@shopware-pwa/commons").SearchFilterType; } \| { operator: string; queries: ({ value: string \| null; field: string; type: import("@shopware-pwa/commons").SearchFilterType; } \| { value: string\[\]; field: string; type: import("@shopware-pwa/commons").SearchFilterType; } \| { field: string; parameters: { lt: string \| number; } \| { gt: string \| number; } \| { lte: string \| number; } \| { gte: string \| number; } \| { lt: string \| number; gt: string \| number; } \| { lt: string \| number; gte: string \| number; } \| { lte: string \| number; gt: string \| number; } \| { lte: string \| number; gte: string \| number; }; type: import("@shopware-pwa/commons").SearchFilterType; } \| any \| { value: string\[\]; field: string; type: import("@shopware-pwa/commons").SearchFilterType; })\[\]; type: import("@shopware-pwa/commons").SearchFilterType; })\[\] \| undefined; associations?: { \[x: string\]: { associations?: any \| undefined; sort?: string \| { field: string; order: string; naturalSorting: boolean; }\[\] \| undefined; }; } \| undefined; aggregations?: { name: string; type: string; field: string; }\[\] \| undefined; grouping?: { field: string; }\[\] \| undefined; order?: string \| undefined; term?: string \| undefined; ids?: string\[\] \| undefined; properties?: string \| never\[\] \| undefined; manufacturer?: string \| never\[\] \| undefined; includes?: { \[x: string\]: string\[\]; } \| undefined; query?: string \| undefined; }; }; } \| undefined; }
 

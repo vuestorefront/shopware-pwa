@@ -70,7 +70,10 @@
         "crossSellings",
         "availableStock",
         "customFields",
-        "stock"
+        "stock",
+        "metaTitle",
+        "metaDescription",
+        "metaKeywords"
       ],
       "product_media": ["media"],
       "media": ["thumbnails", "width", "height", "url"],
@@ -98,7 +101,7 @@
         "media",
         "group"
       ],
-      "product_manufacturer": ["translated", "link", "name"]
+      "product_manufacturer": ["translated", "link", "name", "id"]
     }
   },
   "useProductListing": {
@@ -260,7 +263,10 @@
     }
   },
   "useCustomerOrders": {
-    "sort": "-createdAt",
+    "sort": [{
+      "field": "createdAt",
+      "order": "desc"
+   }],
     "associations": {},
     "includes": {
       "order": [

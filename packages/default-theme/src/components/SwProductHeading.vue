@@ -18,10 +18,10 @@
       </slot>
 
       <slot name="reviews" v-bind="reviews">
-        <div v-if="reviews.length" class="product-heading__sub-rating">
+        <div class="product-heading__sub-rating">
           <SfRating :score="ratingAverage" :max="5" />
           <div class="product-heading__sub-reviews desktop-only">
-            {{ $t("Read all") }} {{ reviews.length }} review
+            <a href="#reviews">{{ $tc("review", reviews.length, {count: reviews.length})}}</a>
           </div>
           <div class="product-heading__sub-reviews smartphone-only">
             ({{ reviews.length }})

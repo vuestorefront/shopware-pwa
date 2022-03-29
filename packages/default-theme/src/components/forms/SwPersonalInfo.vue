@@ -12,7 +12,10 @@
         </p>
       </slot>
 
-      <SwErrorsList :list="getErrorMessage" />
+      <SwErrorsList
+        v-if="getErrorMessage && !isUpdating"
+        :list="getErrorMessage"
+      />
 
       <div class="sw-personal-info__form form">
         <slot name="sw-form">
@@ -90,6 +93,7 @@
 </template>
 
 <script>
+import { ref, computed, toRefs, reactive } from "@vue/composition-api"
 import useVuelidate from "@vuelidate/core"
 import {
   required,
@@ -99,7 +103,7 @@ import {
   sameAs,
 } from "@vuelidate/validators"
 import { SfIcon } from "@storefront-ui/vue"
-import { useUser } from "@shopware-pwa/composables"
+import { useNotifications, useUser } from "@shopware-pwa/composables"
 import SwButton from "@/components/atoms/SwButton.vue"
 import SwInput from "@/components/atoms/SwInput.vue"
 import SwErrorsList from "@/components/SwErrorsList.vue"
@@ -121,58 +125,49 @@ export default {
       updateEmail,
     } = useUser()
 
-    return {
-      refreshUser,
-      updatePersonalInfo,
-      user,
-      updateEmail,
-      userError,
-      $v: useVuelidate(),
-    }
-  },
-  data() {
-    return {
-      updated: false,
-      isUpdating: false,
-      salutation:
-        this.user && this.user.salutation
-          ? {
-              name: this.user.salutation.displayName,
-              id: this.user.salutation.id,
-            }
-          : {},
-      firstName: this.user && this.user.firstName,
-      lastName: this.user && this.user.lastName,
-      email: this.user && this.user.email,
-      emailConfirmation: null,
-      password: null,
-    }
-  },
-  computed: {
-    getErrorMessage() {
-      return this.userError.updateEmail
-    },
-    isEmailChanging() {
-      return this.email !== (this.user && this.user.email)
-    },
-    isNameChanging() {
-      return (
-        this.firstName !== (this.user && this.user.firstName) ||
-        this.lastName !== (this.user && this.user.lastName)
-      )
-    },
-    emailConfirmationValidation() {
-      return this.isEmailChanging
+    const { pushSuccess } = useNotifications()
+
+    const updated = ref(false)
+    const isUpdating = ref(false)
+    const salutation = computed(() =>
+      user.value?.salutation
+        ? {
+            name: user.value.salutation?.displayName,
+            id: user.value.salutation?.id,
+          }
+        : {}
+    )
+
+    const state = reactive({
+      firstName: user.value?.firstName,
+      lastName: user.value?.lastName,
+      email: user.value?.email,
+      emailConfirmation: "",
+      password: "",
+      salutation,
+    })
+
+    const refs = toRefs(state)
+
+    const isEmailChanging = computed(() => state.email !== user.value?.email)
+    const isNameChanging = computed(
+      () =>
+        state.firstName !== user.value?.firstName ||
+        state.lastName !== user.value?.lastName
+    )
+    const getErrorMessage = computed(() => userError.updateEmail || [])
+
+    const emailConfirmationValidationRule = computed(() =>
+      isEmailChanging.value
         ? {
             required,
             email,
-            sameAsEmail: sameAs("email"),
+            sameAsEmail: sameAs(refs.email),
           }
         : {}
-    },
-  },
-  validations() {
-    return {
+    )
+
+    const validationRules = {
       firstName: {
         required,
       },
@@ -183,44 +178,64 @@ export default {
         email,
         required,
       },
-      emailConfirmation: this.emailConfirmationValidation, // take a dynamic one
+      emailConfirmation: emailConfirmationValidationRule.value, // take a dynamic one
       password: {
         required: requiredIf(function (password) {
-          return this.isEmailChanging
+          return isEmailChanging.value
         }),
         minLength: minLength(8),
       },
     }
-  },
-  methods: {
-    async invokeUpdate() {
-      this.updated = false
-      this.isUpdating = false
-      this.$v.$touch()
-      if (this.$v.$invalid || (!this.isNameChanging && !this.isEmailChanging)) {
+
+    const $v = useVuelidate(validationRules, state)
+
+    const invokeUpdate = async () => {
+      updated.value = false
+      $v.value.$touch()
+      if (
+        $v.value.$invalid ||
+        (!isNameChanging.value && !isEmailChanging.value)
+      ) {
         return
       }
-      if (this.isNameChanging) {
-        this.isUpdating = true
+      isUpdating.value = true
 
-        const profileChanged = await this.updatePersonalInfo({
-          firstName: this.firstName,
-          lastName: this.lastName,
-          salutationId: this.salutation.id,
+      if (isNameChanging.value) {
+        const profileChanged = await updatePersonalInfo({
+          firstName: state.firstName,
+          lastName: state.lastName,
+          salutationId: state.salutation.id,
         })
-        this.updated = profileChanged
+        updated.value = profileChanged
       }
-      if (this.isEmailChanging) {
-        this.isUpdating = true
-        const emailChanged = await this.updateEmail({
-          email: this.email,
-          emailConfirmation: this.emailConfirmation,
-          password: this.password,
+      if (isEmailChanging.value) {
+        const emailChanged = await updateEmail({
+          email: state.email,
+          emailConfirmation: state.emailConfirmation,
+          password: state.password,
         })
-        this.updated = emailChanged
+        updated.value = emailChanged
       }
-      await this.refreshUser()
-    },
+
+      isUpdating.value = false
+      if (!getErrorMessage.value?.length) {
+        pushSuccess(root.$t("You profile has been updated."))
+      }
+
+      refreshUser()
+    }
+
+    return {
+      invokeUpdate,
+      user,
+      $v,
+      isUpdating,
+      updated,
+      isEmailChanging,
+      isNameChanging,
+      getErrorMessage,
+      ...refs,
+    }
   },
 }
 </script>

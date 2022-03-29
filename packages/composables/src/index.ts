@@ -19,6 +19,7 @@ import { registerShopwareDevtools } from "./devtools/plugin";
 export * from "./hooks/useCms";
 export * from "./hooks/useProduct";
 export * from "./hooks/useCart";
+export * from "./logic/useCartItem";
 export * from "./logic/useAddToCart";
 export * from "./logic/useCheckout";
 export * from "./logic/useSessionContext";
@@ -65,9 +66,10 @@ export { ShopwareVuePlugin } from "./devtools/vue2";
 export function createShopware(
   app: App,
   options: {
-    initialStore: any;
+    initialStore?: any;
     shopwareDefaults: ApiDefaults;
     apiInstance: ShopwareApiInstance;
+    enableDevtools?: boolean;
   }
 ) {
   const scope: EffectScope = effectScope(true);
@@ -102,5 +104,8 @@ export function createShopware(
     state,
   });
 
+  if (!isVue2 && options?.enableDevtools && typeof window !== "undefined") {
+    registerShopwareDevtools(app, shopwarePlugin);
+  }
   return shopwarePlugin;
 }

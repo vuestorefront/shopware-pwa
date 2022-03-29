@@ -114,6 +114,7 @@
   "Return to homepage": "Torna alla homepage",
   "Review": "Rivedere",
   "Review order": "Rivedere l'ordine",
+  "review": "No reviews yet| Read one review | Read {count} reviews",
   "Safety": "Sicurezza",
   "Salutation": "Saluto",
   "Salutation must be selected": "Il saluto deve essere selezionato",
@@ -236,7 +237,7 @@
   "Choose your shipping method": "Scegli il tuo metodo di spedizione",
   "Logged in as": "Accesso come {0}",
   "Guest session": "Sessione ospite",
-  "Login / Register": "Accedi / Registrati",
+  "Login / Register": "Accedi",
   "Cancel the order": "Cancella l'ordine",
   "In progress...": "In corso...",
   "Yes, cancel the order": "Sì, annulla l'ordine",
@@ -279,5 +280,7 @@
   "Congratulations! You have been successfully registered. Check your email and confirm you account.":"Congratulations! You have been successfully registered. Check your email and confirm you account.",
   "Congratulations! You have been successfully registered.":"Congratulations! You have been successfully registered.",
   "You have been successfully logged out.": "You were successfully logged out.",
-  "for property": "for property"
+  "for property": "for property",
+  "This field is required and should be at least 8 characters long":"This field is required and should be at least 8 characters long",
+  "You profile has been updated.":"You profile has been updated."
 }

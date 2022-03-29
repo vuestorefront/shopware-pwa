@@ -9,6 +9,7 @@ import { Aggregation } from "./Aggregation";
 import { TotalCountMode } from "./TotalCountMode";
 import { ShopwareAssociation } from "./Association";
 import { Grouping } from "./Grouping";
+import { StoreSort } from "./StoreSort";
 
 /**
  * @public
@@ -33,7 +34,6 @@ export interface Includes {
 export interface SearchCriteria {
   filters?: Array<EqualsFilter | EqualsAnyFilter | RangeFilter | MultiFilter>;
   pagination?: Pagination;
-  //
   sort?: Sort | Sort[];
   term?: string;
   manufacturer?: string[];
@@ -53,17 +53,29 @@ export interface SearchCriteria {
  * @beta
  */
 export type ShopwareSearchParams = {
-  p?: number | undefined;
-  limit?: number | undefined;
   /**
-   *  @deprecated use order property instead
+   *  Not mentioned in the store-api docs
    */
-  sort?: string | undefined;
+  p?: number | undefined;
+  page?: number | undefined;
+  limit?: number | undefined;
+  filter?:
+    | Array<EqualsFilter | EqualsAnyFilter | RangeFilter | MultiFilter>
+    | undefined;
+  sort?: Array<StoreSort> | undefined;
+  postFilter?:
+    | Array<EqualsFilter | EqualsAnyFilter | RangeFilter | MultiFilter>
+    | undefined;
+  associations?: ShopwareAssociation;
+  aggregations?: Array<Aggregation> | undefined;
+  grouping?: Array<Grouping>;
+
+  /**
+   *  Not mentioned in the store-api docs
+   */
   order?: string | undefined;
   term?: string | undefined;
   ids?: string[];
-  associations?: ShopwareAssociation;
-  grouping?: Grouping;
   properties?: string | undefined | never[];
   manufacturer?: string | undefined | never[];
   includes?: Includes;

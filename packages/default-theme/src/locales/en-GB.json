@@ -113,6 +113,7 @@
   "Rest assured, we offer free returns within 30 days": "Rest assured, we offer free returns within 30 days",
   "Return to homepage": "Return to homepage",
   "Review": "Review",
+  "review": "No reviews yet| Read one review | Read {count} reviews",
   "Review order": "Review order",
   "Safety": "Safety",
   "Salutation": "Salutation",
@@ -237,7 +238,7 @@
   "Choose your shipping method": "Choose your shipping method",
   "Logged in as": "Logged in as {0}",
   "Guest session": "Guest session",
-  "Login / Register": "Login / Register",
+  "Login / Register": "Login",
   "Cancel the order": "Cancel the order",
   "In progress...": "In progress...",
   "Yes, cancel the order": "Yes, cancel the order",
@@ -280,5 +281,7 @@
   "Congratulations! You have been successfully registered. Check your email and confirm you account.":"Congratulations! You have been successfully registered. Check your email and confirm you account.",
   "Congratulations! You have been successfully registered.":"Congratulations! You have been successfully registered.",
   "You have been successfully logged out.": "You were successfully logged out.",
-  "for property": "for property"
+  "for property": "for property",
+  "This field is required and should be at least 8 characters long": "This field is required and should be at least 8 characters long",
+  "You profile has been updated.":"You profile has been updated."
 }

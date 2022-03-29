@@ -11,17 +11,28 @@
       :regular-price="formatPrice(getRegularPrice)"
       :max-rating="5"
       :score-rating="getProductRating"
-      :image-width="700"
-      :image-height="1000"
+      image-width="100%"
+      image-height="400"
       :link="getRouterLink"
       class="sw-product-card"
       :show-add-to-cart-button="true"
       :is-added-to-cart="isInCart"
-      :is-on-wishlist="isInWishlist"
+      :is-in-wishlist="isInWishlist"
       @click:add-to-cart="addToCart"
       @click:wishlist="toggleWishlistItem"
       data-testid="product-card"
     >
+      <template #image>
+        <SwImage
+          :src="getImageUrl"
+          :title="getName"
+          :alt="getName"
+          style="cursor: pointer"
+          width="200"
+          height="400"
+          @click.native="$router.push(getRouterLink)"
+        />
+      </template>
     </SfProductCard>
   </SwPluginSlot>
 </template>
@@ -42,11 +53,13 @@ import getResizedImage from "@/helpers/images/getResizedImage.js"
 import { toRefs } from "@vue/composition-api"
 import { usePriceFilter } from "@/logic/usePriceFilter.js"
 import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
+import SwImage from "@/components/atoms/SwImage.vue"
 
 export default {
   components: {
     SfProductCard,
     SwPluginSlot,
+    SwImage,
   },
   setup(props) {
     const { product } = toRefs(props)
@@ -108,7 +121,7 @@ export default {
     },
     getImageUrl() {
       return getResizedImage(getProductThumbnailUrl(this.product), {
-        width: 280,
+        width: 200,
         height: 400,
       })
     },
@@ -118,11 +131,8 @@ export default {
 
 <style lang="scss" scoped>
 .sw-product-card {
-  width: 100%;
-  padding: 0.3rem;
-
-  ::v-deep .sf-product-card__image-wrapper {
-    min-height: 50px;
-  }
+  overflow: hidden;
+  --image-width: 200px;
+  --image-height: 400px;
 }
 </style>

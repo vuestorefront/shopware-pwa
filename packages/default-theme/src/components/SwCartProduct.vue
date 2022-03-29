@@ -64,7 +64,7 @@
 </template>
 <script>
 import { getProductMainImageUrl, getProductUrl } from "@shopware-pwa/helpers"
-import { useCart } from "@shopware-pwa/composables"
+import { useCart, useCartItem } from "@shopware-pwa/composables"
 import { ref, watch, computed } from "@vue/composition-api"
 import { SfCollectedProduct, SfProperty, SfPrice } from "@storefront-ui/vue"
 import getResizedImage from "@/helpers/images/getResizedImage.js"
@@ -96,7 +96,20 @@ export default {
     },
   },
   setup(props) {
-    const { removeItem, changeProductQuantity } = useCart()
+    const { 
+      removeItem, 
+      changeItemQuantity, 
+      itemRegularPrice,
+      itemSpecialPrice,
+      itemOptions,
+      itemStock,
+      itemQuantity,
+      itemType,
+      itemImageThumbnailUrl,
+      isProduct,
+      isPromotion,
+      getProductItemSeoUrlData,
+    } = useCartItem({ cartItem: props.product })
 
     // get the URL from async loaded product data - passed by the parent component
     const productUrl = computed(() => {
@@ -105,36 +118,18 @@ export default {
       )
       return getProductUrl(matchingProductAdditionalData)
     })
-    const quantity = ref(props.product.quantity)
+    const quantity = ref(itemQuantity.value)
     const productImage = computed(() =>
       getResizedImage(getProductMainImageUrl(props.product), {
         width: 140,
         height: 200,
       })
     )
-    // it's not 1:1 to Product entity interface
-    const regularPrice = computed(
-      () =>
-        (props.product.price.listPrice &&
-          props.product.price.listPrice.price) ||
-        props.product.price.unitPrice
-    )
-    const specialPrice = computed(
-      () => props.product.price.listPrice && props.product.price.unitPrice
-    )
-
-    const options = computed(
-      () => (props.product.payload && props.product.payload.options) || []
-    )
-
-    const stock = computed(() => props.product?.deliveryInformation?.stock)
-
-    const isPromotion = computed(() => props.product?.type === "promotion")
 
     watch(quantity, async (qty) => {
       // in future we may want to have debounce here
       if (qty === props.product.quantity) return
-      await changeProductQuantity({ id: props.product.id, quantity: qty })
+      await changeItemQuantity(qty)
     })
     watch(
       () => props.product.quantity,
@@ -146,11 +141,11 @@ export default {
       productImage,
       removeItem,
       quantity,
-      regularPrice,
-      specialPrice,
+      regularPrice: itemRegularPrice,
+      specialPrice: itemSpecialPrice,
       productUrl,
-      options,
-      stock,
+      options: itemOptions,
+      stock: itemStock,
       isPromotion,
       filterPrice: usePriceFilter(),
     }

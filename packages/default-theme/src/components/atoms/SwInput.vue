@@ -1,5 +1,9 @@
 <template>
-  <SfInput v-bind="{ ...$props, ...$attrs }" v-on="$listeners" />
+  <SfInput
+    :name="`sw-input-${inputName}`"
+    v-bind="{ ...$props, ...$attrs }"
+    v-on="$listeners"
+  />
 </template>
 
 <script>
@@ -11,7 +15,9 @@ export default {
     SfInput,
   },
   setup(props, { root }) {
-    return {}
+    return {
+      inputName: Math.random().toString(36).slice(2),
+    }
   },
 }
 </script>

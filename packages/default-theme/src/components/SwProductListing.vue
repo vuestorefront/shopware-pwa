@@ -39,34 +39,38 @@
           :total="getTotalPagesCount"
           :visible="5"
           pageParamName="p"
-          @click="changePage"
+          @click="
+            (current) => {
+              changePage(current)
+            }
+          "
         >
-          <template #prev>
+          <template #prev="{ go, prev }">
             <span
+              v-show="getCurrentPage > 1"
               class="cms-element-product-listing__pagination__number"
-              @click="changePage(getCurrentPage - 1)"
+              @click="go(prev)"
             >
               &lt;
             </span>
           </template>
           <template #number="{ page }">
-            <span
-              class="cms-element-product-listing__pagination__number"
-              :style="{
-                'font-weight': getCurrentPage === page ? 700 : 300,
-              }"
+            <button
+              class="sf-button--pure sf-pagination__item sf-button"
               @click="changePage(page)"
+              :class="{ current: getCurrentPage === page, first: page == 1 }"
             >
               {{ page }}
-            </span>
+            </button>
           </template>
-          <template #next>
+
+          <template #next="{ go, next }">
             <span
               :class="{
                 'next-disabled': getCurrentPage === getTotalPagesCount,
               }"
               class="cms-element-product-listing__pagination__number"
-              @click="changePage(getCurrentPage + 1)"
+              @click="go(next)"
             >
               &gt;
             </span>
@@ -328,6 +332,11 @@ $col-prod-1: 1 0 $mx-photo-wth-1;
       margin-top: var(--spacer-base);
     }
 
+    // temporary fix for pagination bug
+    button.first:nth-of-type(2) {
+      display: none;
+    }
+
     &__number {
       margin: 0 5px;
       cursor: pointer;
@@ -353,6 +362,7 @@ $col-prod-1: 1 0 $mx-photo-wth-1;
   }
 }
 ::v-deep .sf-product-card {
+  overflow: auto;
   max-width: $mx-photo-wth-2 !important;
 
   @include for-phone {
