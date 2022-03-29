@@ -48,7 +48,7 @@ jobs:
           initial_status: in_progress
       - name: Deploy on Storefrontcloud.io
         run: |
-          if curl -s -u ${{ secrets.CLOUD_USERNAME }}:${{ secrets.CLOUD_PASSWORD }} -H 'Content-Type: application/json' -X POST -d '{"code":"${{ env.INSTANCE_CODE }}","region":"europe-west1.gcp","frontContainerVersion":"${{ github.sha }}"}' https://farmer.storefrontcloud.io/instances | grep -q '{"code":200,"result":"Instance updated!"}'; then
+          if curl -H "X-User-Id: ${{ secrets.CLOUD_USERNAME }}" -H "X-Api-Key: ${{ secrets.CLOUD_PASSWORD }}" -H 'Content-Type: application/json' -X POST -d '{"code":"${{ env.INSTANCE_CODE }}","region":"europe-west1.gcp","frontContainerVersion":"${{ github.sha }}"}' https://farmer.storefrontcloud.io/instances | grep -q '{"code":200,"result":"Instance updated!"}'; then
             echo "Instance updated"
           else
             echo "Deployment failed"
