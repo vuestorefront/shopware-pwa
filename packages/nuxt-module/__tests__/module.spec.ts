@@ -438,4 +438,31 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
       options: expect.anything(),
     });
   });
+
+  it("should guess server mode from filename's suffix", async () => {
+    mockedFiles.getAllFiles.mockReturnValueOnce([
+      "/file/path/plugins/someServerPlugin.server.ts",
+    ]);
+    await runModule(moduleObject, {});
+    expect(moduleObject.addPlugin).toBeCalledWith({
+      fileName: "sampleServerPlugin.server.js",
+      mode: "server",
+      options: {},
+      src: '/file/path/plugins/someServerPlugin.server.ts',
+    });
+   
+  });
+  it("should guess client mode from filename's suffix", async () => {
+    mockedFiles.getAllFiles.mockReturnValueOnce([
+      "/file/path/plugins/someClientPlugin.client.ts",
+    ]);
+    await runModule(moduleObject, {});
+    expect(moduleObject.addPlugin).toBeCalledWith({
+      fileName: "sampleClientPlugin.client.js",
+      mode: "client",
+      options: {},
+      src: '/file/path/plugins/someClientPlugin.client.ts',
+    });
+   
+  });
 });
