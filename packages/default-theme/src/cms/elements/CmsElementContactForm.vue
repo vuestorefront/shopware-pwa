@@ -113,7 +113,7 @@
 
       <SwErrorsList :list="errorMessages" />
 
-      <SwButton class="send button">
+      <SwButton @click="submit" class="send button">
         {{ $t("send") }}
       </SwButton>
     </form>
@@ -199,6 +199,8 @@ export default {
           {
             ...state,
             navigationId: resourceIdentifier.value,
+            cmsPageType: page.value?.cmsPage?.type,
+            slotId: props.content?._uniqueIdentifier,
           },
           apiInstance
         )
