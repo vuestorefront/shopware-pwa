@@ -30,7 +30,7 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
   let webpackConfig: any = {};
   let webpackContext: any = {};
   let methods: Function[] = [];
-  const moduleObject: any = {
+  let moduleObject: any = {
     options: {
       rootDir: __dirname,
       router: {
@@ -63,6 +63,28 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
 
   beforeEach(() => {
     jest.resetAllMocks();
+
+    moduleObject = {
+      options: {
+        rootDir: __dirname,
+        router: {
+          middleware: [],
+        },
+        features: {
+          store: null,
+        },
+      },
+      addLayout: jest.fn(),
+      extendRoutes: jest.fn(),
+      addPlugin: jest.fn(),
+      nuxt: {
+        hook: jest.fn(),
+        resolver: {
+          resolveModule: jest.fn(),
+        },
+      },
+      extendBuild: (method: Function): number => methods.push(method),
+    };
 
     mockedUtils.loadConfig.mockResolvedValue({
       shopwareEndpoint: "mockedEndpoint",
@@ -415,11 +437,13 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
     );
   });
 
-  it("should add plugins registered in theme - js files only", async () => {
+  it("should add plugins registered in theme - js|ts files only including extracted mode", async () => {
     mockedFiles.getAllFiles.mockReturnValueOnce([
       "/file/path/plugins/notifications.js",
       "/file/path/plugins/README.md",
       "/file/path/plugins/custom-plugin.ts",
+      "/file/path/plugins/server-plugin.server.ts",
+      "/file/path/plugins/client-plugin.client.ts",
     ]);
     await runModule(moduleObject, {});
     expect(moduleObject.addPlugin).toHaveBeenCalledWith({
@@ -437,32 +461,11 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
       fileName: "README.md",
       options: expect.anything(),
     });
-  });
-
-  it("should guess server mode from filename's suffix", async () => {
-    mockedFiles.getAllFiles.mockReturnValueOnce([
-      "/file/path/plugins/someServerPlugin.server.ts",
-    ]);
-    await runModule(moduleObject, {});
-    expect(moduleObject.addPlugin).toBeCalledWith({
-      fileName: "sampleServerPlugin.server.js",
-      mode: "server",
-      options: {},
-      src: '/file/path/plugins/someServerPlugin.server.ts',
-    });
-   
-  });
-  it("should guess client mode from filename's suffix", async () => {
-    mockedFiles.getAllFiles.mockReturnValueOnce([
-      "/file/path/plugins/someClientPlugin.client.ts",
-    ]);
-    await runModule(moduleObject, {});
-    expect(moduleObject.addPlugin).toBeCalledWith({
-      fileName: "sampleClientPlugin.client.js",
+    expect(moduleObject.addPlugin).toHaveBeenCalledWith({
+      src: "/file/path/plugins/client-plugin.client.ts",
+      fileName: "client-plugin.client.ts",
+      options: expect.anything(),
       mode: "client",
-      options: {},
-      src: '/file/path/plugins/someClientPlugin.client.ts',
     });
-   
   });
 });
