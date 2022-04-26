@@ -166,9 +166,9 @@ export function useCart(): IUseCart {
     try {
       const result = await getProducts(
         {
-          ids: cartItems.value.map(
-            ({ referencedId }) => referencedId
-          ).filter(String) as string[],
+          ids: cartItems.value
+            .map(({ referencedId }) => referencedId)
+            .filter(String) as string[],
           includes: (getDefaults() as any).getProductItemsSeoUrlsData.includes,
           associations: (getDefaults() as any).getProductItemsSeoUrlsData
             .associations,
@@ -243,6 +243,6 @@ export function useCart(): IUseCart {
     subtotal,
     cartErrors,
     getProductItemsSeoUrlsData,
-    broadcastUpcomingErrors
+    broadcastUpcomingErrors,
   };
 }

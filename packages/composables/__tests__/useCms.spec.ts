@@ -180,8 +180,8 @@ describe("Composables - useCms", () => {
         const { search, page } = useCms();
         let invocationCriteria: any = null;
         const mockedParams = {
-          limit: 50
-        }
+          limit: 50,
+        };
         mockedHelpers._parseUrlQuery.mockReturnValueOnce(mockedParams as any);
         mockedGetPage.getCmsPage.mockImplementationOnce(
           async (path: string, searchCriteria, apiInstance): Promise<any> => {
@@ -197,7 +197,6 @@ describe("Composables - useCms", () => {
           rootContextMock.apiInstance
         );
         expect(invocationCriteria?.limit).toEqual(50);
-
       });
 
       it("should provide default includes if not provided, but configuration exist", async () => {
@@ -233,8 +232,8 @@ describe("Composables - useCms", () => {
         );
         const searchParams = {
           includes: { product: ["someCustomField"] },
-        }
-        mockedHelpers._parseUrlQuery.mockReturnValueOnce(searchParams as any)
+        };
+        mockedHelpers._parseUrlQuery.mockReturnValueOnce(searchParams as any);
         expect(page.value).toEqual(null);
         await search("", searchParams);
         expect(mockedGetPage.getCmsPage).toBeCalledWith(

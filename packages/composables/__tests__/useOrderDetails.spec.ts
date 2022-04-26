@@ -94,7 +94,7 @@ describe("Composables - useOrderDetails", () => {
         deliveries: [
           {
             shippingOrderAddress: {
-              id: "delivery-address-id"
+              id: "delivery-address-id",
             },
             shippingMethod: {
               name: "Express",

@@ -415,11 +415,13 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
     );
   });
 
-  it("should add plugins registered in theme - js files only", async () => {
+  it("should add plugins registered in theme - js|ts files only including extracted mode", async () => {
     mockedFiles.getAllFiles.mockReturnValueOnce([
       "/file/path/plugins/notifications.js",
       "/file/path/plugins/README.md",
       "/file/path/plugins/custom-plugin.ts",
+      "/file/path/plugins/server-plugin.server.ts",
+      "/file/path/plugins/client-plugin.client.ts",
     ]);
     await runModule(moduleObject, {});
     expect(moduleObject.addPlugin).toHaveBeenCalledWith({
@@ -436,6 +438,12 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
       src: "/file/path/plugins/README.md",
       fileName: "README.md",
       options: expect.anything(),
+    });
+    expect(moduleObject.addPlugin).toHaveBeenCalledWith({
+      src: "/file/path/plugins/client-plugin.client.ts",
+      fileName: "client-plugin.client.ts",
+      options: expect.anything(),
+      mode: "client",
     });
   });
 });

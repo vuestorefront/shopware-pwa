@@ -130,14 +130,27 @@ export async function runModule(
   const pluginFiles = getAllFiles(
     path.join(moduleObject.options.srcDir, "plugins")
   ).filter((filePath) => /.+.(js|ts)$/.test(filePath)); // get only js and ts files
+
+  const pluginModes = ["client", "server"];
+  const modePattern = new RegExp(`.(${pluginModes.join("|")}).(js|ts)$`);
   pluginFiles.forEach((pluginPath) => {
     const pluginFilename = pluginPath.replace(/^.*[\\\/]/, "");
+    const pluginMode = pluginFilename
+      .match(modePattern)
+      ?.filter((mode) => (pluginModes.includes(mode) ? mode : undefined))?.[0];
+
     moduleObject.addPlugin({
       src: pluginPath,
       fileName: pluginFilename,
+      mode: pluginMode || undefined,
       options: moduleOptions,
     });
-    console.info(`"${pluginFilename}" plugin was registered automatically.`);
+
+    console.info(
+      `"${pluginFilename}" plugin was registered automatically in ${
+        pluginMode ?? "client&server"
+      } mode.`
+    );
   });
 
   let config = merge({}, getDefaultApiParams());
