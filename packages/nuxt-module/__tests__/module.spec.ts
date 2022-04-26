@@ -30,7 +30,7 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
   let webpackConfig: any = {};
   let webpackContext: any = {};
   let methods: Function[] = [];
-  let moduleObject: any = {
+  const moduleObject: any = {
     options: {
       rootDir: __dirname,
       router: {
@@ -63,28 +63,6 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
 
   beforeEach(() => {
     jest.resetAllMocks();
-
-    moduleObject = {
-      options: {
-        rootDir: __dirname,
-        router: {
-          middleware: [],
-        },
-        features: {
-          store: null,
-        },
-      },
-      addLayout: jest.fn(),
-      extendRoutes: jest.fn(),
-      addPlugin: jest.fn(),
-      nuxt: {
-        hook: jest.fn(),
-        resolver: {
-          resolveModule: jest.fn(),
-        },
-      },
-      extendBuild: (method: Function): number => methods.push(method),
-    };
 
     mockedUtils.loadConfig.mockResolvedValue({
       shopwareEndpoint: "mockedEndpoint",
