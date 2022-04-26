@@ -6,10 +6,14 @@ import {
 } from "@shopware-pwa/commons";
 
 /**
- * http status codes thrown by API
+ * Handle all HTTP status codes from 4xx group as an API errors, including 500 (exception for order placement issue)
  */
-const API_ERROR_CODES = [400, 401, 403, 404, 409, 410, 412, 424, 500];
-
+const isApiError = (statusCode: number): boolean => {
+  if (statusCode?.toString()?.startsWith("4") || statusCode == 500) {
+    return true;
+  }
+  return false;
+};
 /**
  * @param {ShopwareApiError} error
  */
@@ -20,6 +24,10 @@ const extractApiErrorStatusCode = (error: ShopwareApiError): number => {
   );
 };
 
+/**
+ * Sometimes the HTTP status code is not available and must be guessed from the message.
+ * In cases like connection problems, or timeout error comes from intermediate layer (i.e. client)
+ */
 const guessTheStatusCodeFromTheMessage = (message: string): number => {
   // catch the specific timeout rejection from axios
   if (typeof message === "string" && message.startsWith("timeout of")) {
@@ -78,7 +86,7 @@ export async function errorInterceptor(
   // Do something with response error
   const statusCode = extractApiErrorStatusCode(error);
   const clientApiError: ClientApiError = {
-    messages: API_ERROR_CODES.includes(statusCode)
+    messages: isApiError(statusCode)
       ? extractApiErrorMessage(error)
       : extractNotApiErrorMessage(error),
     statusCode: statusCode,
