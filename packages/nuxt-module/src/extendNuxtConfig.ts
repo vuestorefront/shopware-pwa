@@ -35,7 +35,7 @@ const defaultConfig: NuxtConfig = {
       { charset: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { hid: "description", name: "description", content: "" },
-      { name: "generator", content: "Vue Storefront 2"},
+      { name: "generator", content: "Vue Storefront 2" },
     ],
     link: [
       { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
@@ -103,9 +103,9 @@ const defaultConfig: NuxtConfig = {
   },
   generate: {
     exclude: [
-      /^\/search/ // do not generate static page for search page
-    ]
-  }
+      /^\/search/, // do not generate static page for search page
+    ],
+  },
 };
 
 const configs: NuxtConfig[] = [defaultConfig];

@@ -460,7 +460,7 @@ describe("Composables - useCart", () => {
         stateCart.value = {
           lineItems: [
             { quantity: 3, type: "product", referencedId: "some-item-id" },
-            { referencedId: ""}
+            { referencedId: "" },
           ],
         };
         const { getProductItemsSeoUrlsData } = useCart();

@@ -25,7 +25,6 @@ jest.mock("@shopware-pwa/helpers");
 import { useCartItem } from "../src/logic/useCartItem";
 
 describe("Composables - useCart", () => {
- 
   const stateCart: Ref<Object | null> = ref(null);
   const rootContextMock: any = {
     $shopwareApiInstance: jest.fn(),
@@ -41,9 +40,9 @@ describe("Composables - useCart", () => {
     mockedComposables.useCart.mockImplementation(() => {
       return {
         refreshCart: jest.fn(),
-        broadcastUpcomingErrors: broadcastUpcomingErrorsMocked
-      } as any
-    })
+        broadcastUpcomingErrors: broadcastUpcomingErrorsMocked,
+      } as any;
+    });
 
     mockedComposables.useDefaults.mockImplementation(() => {
       return {
@@ -73,288 +72,287 @@ describe("Composables - useCart", () => {
   });
   describe("general", () => {
     it("should throw an error on missing cartItem in constructor", () => {
-      expect(() => useCartItem({} as any)).toThrow("[useCartItem] mandatory cartItem argument is missing.")
-    })
-  })
+      expect(() => useCartItem({} as any)).toThrow(
+        "[useCartItem] mandatory cartItem argument is missing."
+      );
+    });
+  });
   describe("computed", () => {
     describe("lineItem", () => {
       it("should return computed property made of provided lineItem in constructor", () => {
-        const { lineItem} = useCartItem({
+        const { lineItem } = useCartItem({
           cartItem: {
-            id: "some-cart-item"
-          } as any
-        })
+            id: "some-cart-item",
+          } as any,
+        });
         expect(lineItem.value).toStrictEqual({
-          id: "some-cart-item"
-        })
-      })
-    })
+          id: "some-cart-item",
+        });
+      });
+    });
     describe("itemQuantity", () => {
       it("should return item quantity", () => {
         const cartItem = {
-          quantity: 10
-        }
+          quantity: 10,
+        };
         const { itemQuantity } = useCartItem({
-          cartItem
-        } as any)
+          cartItem,
+        } as any);
 
         expect(itemQuantity.value).toStrictEqual(10);
-      })
-    })
+      });
+    });
     describe("itemImageThumbnailUrl", () => {
       it("should invoke specific helper and return correct cover url", () => {
         const { itemImageThumbnailUrl } = useCartItem({
-          cartItem: {}
-        } as any)
-        mockedHelpers.getProductMainImageUrl.mockReturnValue("https://some.url/image.png")
+          cartItem: {},
+        } as any);
+        mockedHelpers.getProductMainImageUrl.mockReturnValue(
+          "https://some.url/image.png"
+        );
 
         expect(itemImageThumbnailUrl.value).toBe("https://some.url/image.png");
         expect(mockedHelpers.getProductMainImageUrl).toBeCalledTimes(1);
-      })
-
-    })
+      });
+    });
     describe("itemRegularPrice", () => {
       it("should return item regular price based on list price", () => {
         const cartItem = {
           price: {
             listPrice: {
-              price: 59.90
-            }
-          }
-        }
+              price: 59.9,
+            },
+          },
+        };
         const { itemRegularPrice } = useCartItem({
-          cartItem
-        } as any)
+          cartItem,
+        } as any);
 
         expect(itemRegularPrice.value).toStrictEqual(59.9);
-      })
+      });
 
       it("should return undefined based on list price if object does not exist", () => {
-        const cartItem = {
-         
-        }
+        const cartItem = {};
         const { itemRegularPrice } = useCartItem({
-          cartItem
-        } as any)
+          cartItem,
+        } as any);
 
         expect(itemRegularPrice.value).toBeUndefined();
-      })
+      });
 
       it("should return item regular price based on unit price", () => {
         const cartItem = {
           price: {
-            unitPrice: 59.90
-            
-          }
-        }
+            unitPrice: 59.9,
+          },
+        };
         const { itemRegularPrice } = useCartItem({
-          cartItem
-        } as any)
+          cartItem,
+        } as any);
 
         expect(itemRegularPrice.value).toStrictEqual(59.9);
-      })
-
-    })
+      });
+    });
     describe("itemSpecialPrice", () => {
       it("should return item special price", () => {
         const cartItem = {
           price: {
-              listPrice: 59.90,
-              unitPrice: 59.90
-            
-          }
-        }
+            listPrice: 59.9,
+            unitPrice: 59.9,
+          },
+        };
         const { itemSpecialPrice } = useCartItem({
-          cartItem
-        } as any)
+          cartItem,
+        } as any);
 
-        expect(itemSpecialPrice.value).toStrictEqual(59.90);
-      })
+        expect(itemSpecialPrice.value).toStrictEqual(59.9);
+      });
       it("should return undefined instead a special price if listprice or price does not exist", () => {
         const cartItem = {
           price: {
-            listPrice: undefined
-          }
-        }
+            listPrice: undefined,
+          },
+        };
         const { itemSpecialPrice } = useCartItem({
-          cartItem
-        } as any)
+          cartItem,
+        } as any);
 
         expect(itemSpecialPrice.value).toBeUndefined();
-      })
+      });
       it("should return undefined instead a special price if listprice or price does not exist", () => {
         const cartItem = {
-          price: undefined
-        }
+          price: undefined,
+        };
         const { itemSpecialPrice } = useCartItem({
-          cartItem
-        } as any)
+          cartItem,
+        } as any);
 
         expect(itemSpecialPrice.value).toBeUndefined();
-      })
-
-    })
+      });
+    });
     describe("itemStock", () => {
       it("should return stock if deliveryInformation is included in the response", () => {
         const cartItem = {
           deliveryInformation: {
-            stock: 123
-          }
-        }
+            stock: 123,
+          },
+        };
         const { itemStock } = useCartItem({
-          cartItem
-        } as any)
+          cartItem,
+        } as any);
 
         expect(itemStock.value).toBe(123);
-      })
+      });
       it("should return undefined if deliveryInformation is not included in the response", () => {
         const cartItem = {
-          deliveryInformation:undefined
-        }
+          deliveryInformation: undefined,
+        };
         const { itemStock } = useCartItem({
-          cartItem
-        } as any)
+          cartItem,
+        } as any);
 
         expect(itemStock.value).toBeUndefined();
-      })
-    })
+      });
+    });
     describe("itemOptions", () => {
       it("should return product options if item has product type", () => {
         const cartItem = {
           payload: {
             options: ["option-1"],
           },
-          type: "product"
-        }
+          type: "product",
+        };
         const { itemOptions } = useCartItem({
-          cartItem
-        } as any)
+          cartItem,
+        } as any);
 
         expect(itemOptions.value).toStrictEqual(["option-1"]);
-      })
+      });
 
       it("should return an empty array if item is not in product type", () => {
         const cartItem = {
           payload: {
             options: ["option-1"],
           },
-          type: "promotion"
-        }
+          type: "promotion",
+        };
         const { itemOptions } = useCartItem({
-          cartItem
-        } as any)
+          cartItem,
+        } as any);
 
         expect(itemOptions.value).toStrictEqual([]);
-      })
+      });
 
       it("should return an empty array if item has no payload object", () => {
         const cartItem = {
           payload: undefined,
-          type: "product"
-        }
+          type: "product",
+        };
         const { itemOptions } = useCartItem({
-          cartItem
-        } as any)
+          cartItem,
+        } as any);
 
         expect(itemOptions.value).toStrictEqual([]);
-      })
-
-    })
+      });
+    });
 
     describe("itemType", () => {
       it("should return item type", () => {
         const cartItem = {
-          type: "promotion"
-        }
+          type: "promotion",
+        };
         const { itemType } = useCartItem({
-          cartItem
-        } as any)
+          cartItem,
+        } as any);
 
         expect(itemType.value).toStrictEqual("promotion");
-      })
-
-    })
+      });
+    });
     describe("isProduct", () => {
       it("should return true in case if item type is a product", () => {
         const cartItem = {
-          type: "product"
-        }
+          type: "product",
+        };
         const { isProduct } = useCartItem({
-          cartItem
-        } as any)
+          cartItem,
+        } as any);
 
         expect(isProduct.value).toStrictEqual(true);
-      })
-
-    })
+      });
+    });
 
     describe("isPromotion", () => {
       it("should return true in case if item type is a promotion", () => {
         const cartItem = {
-          type: "promotion"
-        }
+          type: "promotion",
+        };
         const { isPromotion } = useCartItem({
-          cartItem
-        } as any)
+          cartItem,
+        } as any);
 
         expect(isPromotion.value).toStrictEqual(true);
-      })
-
-    })
-
+      });
+    });
   });
   describe("methods", () => {
     describe("removeItem", () => {
       it("should invoke removeCartItem from @shopware-pwa/shopware-6-client package", async () => {
         const { removeItem } = useCartItem({
           cartItem: {
-          id: "itemId",
-          referencedId: "itemId"
-          } as any
+            id: "itemId",
+            referencedId: "itemId",
+          } as any,
         });
         await removeItem();
         expect(mockedShopwareClient.removeCartItem).toBeCalledWith(
-          "itemId", expect.any(Function)
-        )
+          "itemId",
+          expect.any(Function)
+        );
       });
     });
     describe("changeItemQuantity", () => {
       it("should invoke changeCartItemQuantity from @shopware-pwa/shopware-6-client package", async () => {
         const { changeItemQuantity } = useCartItem({
           cartItem: {
-          id: "itemId",
-          referencedId: "itemId"
-          } as any
+            id: "itemId",
+            referencedId: "itemId",
+          } as any,
         });
         await changeItemQuantity(5);
         expect(mockedShopwareClient.changeCartItemQuantity).toBeCalledWith(
-          "itemId", 5, expect.any(Function)
-        )
+          "itemId",
+          5,
+          expect.any(Function)
+        );
       });
     });
     describe("getProductItemSeoUrlData", () => {
       it("should invoke getProducts from @shopware-pwa/shopware-6-client package", async () => {
         const { getProductItemSeoUrlData } = useCartItem({
           cartItem: {
-          id: "itemId",
-          referencedId: "itemId"
-          } as any
+            id: "itemId",
+            referencedId: "itemId",
+          } as any,
         });
         await getProductItemSeoUrlData();
         expect(mockedShopwareClient.getProduct).toBeCalledWith(
-          "itemId", {"associations": {"seoUrls": {}}, "includes": {"product": ["id", "seoUrls"], "seo_url": ["seoPathInfo"]}}, expect.any(Function)
-        )
+          "itemId",
+          {
+            associations: { seoUrls: {} },
+            includes: { product: ["id", "seoUrls"], seo_url: ["seoPathInfo"] },
+          },
+          expect.any(Function)
+        );
       });
       it("should not invoke getProducts method in case the referencedId does not exist", async () => {
         const { getProductItemSeoUrlData } = useCartItem({
           cartItem: {
-          id: "itemId"
-          } as any
+            id: "itemId",
+          } as any,
         });
         await getProductItemSeoUrlData();
-        expect(mockedShopwareClient.getProduct).not.toBeCalled()
+        expect(mockedShopwareClient.getProduct).not.toBeCalled();
       });
     });
   });
-  
 });
