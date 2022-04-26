@@ -7,9 +7,13 @@ import {
 
 /**
  * Handle all HTTP status codes from 4xx group as an API errors, including 500 (exception for order placement issue)
+ * 408 timeout error is handled separately
  */
 const isApiError = (statusCode: number): boolean => {
-  if (statusCode?.toString()?.startsWith("4") || statusCode == 500) {
+  if (
+    (statusCode != 408 && statusCode.toString().startsWith("4")) ||
+    statusCode == 500
+  ) {
     return true;
   }
   return false;

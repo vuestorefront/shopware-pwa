@@ -226,5 +226,43 @@ describe("apiInterceptors", () => {
         ]);
       }
     });
+    it("it should treat all status codes from 4xx group (except 408) as API error coming from an application", async () => {
+      try {
+        await errorInterceptor({
+          response: {
+            status: 403,
+            data: {
+              errors: [],
+            },
+          },
+        } as any);
+      } catch (error) {
+        expect(error).toStrictEqual({
+          statusCode: 403,
+          messages: [],
+        });
+      }
+    });
+    it("should not try to extract API error if it's a 408 timeout", async () => {
+      try {
+        await errorInterceptor({
+          message: "timeout of 5ms",
+        } as any);
+      } catch (error) {
+        expect(error).toStrictEqual({
+          messages: [
+            {
+              detail: "timeout of 5ms",
+              status: "",
+              code: "",
+              title: "",
+              meta: {},
+              source: {},
+            },
+          ],
+          statusCode: 408,
+        });
+      }
+    });
   });
 });
