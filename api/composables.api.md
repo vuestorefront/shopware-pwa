@@ -867,7 +867,7 @@ export function useBreadcrumbs(params?: {
 export function useCart(): IUseCart;
 
 // @beta
-export function useCartItem({ cartItem }: {
+export function useCartItem({ cartItem, }: {
     cartItem: LineItem;
 }): IUseCartItem;
 
