@@ -56,6 +56,7 @@
         "name",
         "description",
         "ratingAverage",
+        "calculatedCheapestPrice",
         "calculatedPrice",
         "calculatedPrices",
         "calculatedListingPrice",
@@ -110,6 +111,7 @@
       "product": [
         "name",
         "ratingAverage",
+        "calculatedCheapestPrice",
         "calculatedPrice",
         "calculatedPrices",
         "calculatedListingPrice",
@@ -150,6 +152,7 @@
         "calculatedPrice",
         "calculatedPrices",
         "calculatedListingPrice",
+        "calculatedCheapestPrice",
         "cover",
         "id",
         "translated",
@@ -263,10 +266,12 @@
     }
   },
   "useCustomerOrders": {
-    "sort": [{
-      "field": "createdAt",
-      "order": "desc"
-   }],
+    "sort": [
+      {
+        "field": "createdAt",
+        "order": "desc"
+      }
+    ],
     "associations": {},
     "includes": {
       "order": [
@@ -327,9 +332,7 @@
     }
   },
   "useCart": {
-    "includes": {
-
-    },
+    "includes": {},
     "associations": {},
     "getProductItemsSeoUrlsData": {
       "includes": {

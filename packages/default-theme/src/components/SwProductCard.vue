@@ -7,8 +7,8 @@
     <SfProductCard
       :title="getName"
       :image="getImageUrl"
-      :special-price="formatPrice(getSpecialPrice)"
-      :regular-price="formatPrice(getRegularPrice)"
+      :special-price="getSpecialPrice && displayPricePrefix"
+      :regular-price="getRegularPrice && displayPricePrefix"
       :max-rating="5"
       :score-rating="getProductRating"
       image-width="100%"
@@ -50,7 +50,7 @@ import {
   getProductPriceDiscount,
 } from "@shopware-pwa/helpers"
 import getResizedImage from "@/helpers/images/getResizedImage.js"
-import { toRefs } from "@vue/composition-api"
+import { toRefs, computed } from "@vue/composition-api"
 import { usePriceFilter } from "@/logic/usePriceFilter.js"
 import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
 import SwImage from "@/components/atoms/SwImage.vue"
@@ -69,7 +69,37 @@ export default {
     const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist({
       product,
     })
+  // TODO:
+  // - move product price logic to separate composable like useProductPrice
+  // - add translation
+  // - test against variants
+  // - consider not using special price label
+  // - mix both cases: show variants and from in one container
+
+    const cheapestPrice = computed(() => product.value?.calculatedCheapestPrice)
+    const realPrice = computed(() => {
+      const real = product.value?.calculatedPrice
+      if (product.value?.calculatedPrices?.length > 1) {
+        return product.value?.calculatedPrices[product.value?.calculatedPrices.length-1]
+      }
+      return real;
+    })
+
+    const displayFromPriceLabel = computed(() => product.value?.calculatedPrices?.length > 0);
+    const referencePrice = computed(() => realPrice.value?.referencePrice);
+
+    const displayPricePrefix = computed(() => {
+      if (cheapestPrice.value?.unitPrice != realPrice.value?.unitPrice) {
+        return `Variants from ${cheapestPrice.value?.unitPrice}`
+      }
+      if (displayFromPriceLabel.value) {
+        return `From ${realPrice.value?.unitPrice}`
+      }
+    })
+
     return {
+      cheapestPrice,
+      realPrice,
       quantity,
       addToCart,
       getStock,
@@ -80,6 +110,7 @@ export default {
           : addToWishlist(),
       isInWishlist,
       formatPrice: usePriceFilter(),
+      displayPricePrefix
     }
   },
   props: {
