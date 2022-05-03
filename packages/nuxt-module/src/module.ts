@@ -208,6 +208,11 @@ export async function runModule(
   // TODO: start - remove this, only for default-theme
   moduleObject.options.build = moduleObject.options.build || {};
   moduleObject.options.build.babel = moduleObject.options.build.babel || {};
+  // https://github.com/zloirock/core-js/issues/743
+  moduleObject.options.build.babel.exclude = [
+    /\bcore-js\b/,
+    /\bwebpack\/buildin\b/,
+  ];
   /* istanbul ignore next */
   moduleObject.options.build.babel.presets = ({ isServer }) => {
     return [
