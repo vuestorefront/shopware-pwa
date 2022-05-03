@@ -234,6 +234,7 @@ export async function runModule(
 
   const corePackages: string[] = [
     "@shopware-pwa/composables",
+    "@shopware-pwa/commons",
     "@shopware-pwa/helpers",
     "@shopware-pwa/shopware-6-client",
     "@storefront-ui/vue",
