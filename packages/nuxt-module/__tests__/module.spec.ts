@@ -302,6 +302,7 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
     await runModule(moduleObject, {});
     expect(packages.useCorePackages).toBeCalledWith(moduleObject, [
       "@shopware-pwa/composables",
+      "@shopware-pwa/commons",
       "@shopware-pwa/helpers",
       "@shopware-pwa/shopware-6-client",
       "@storefront-ui/vue",
