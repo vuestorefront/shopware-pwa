@@ -15,6 +15,6 @@ export function getProductVariantsFromPrice(
   const cheapestPrice = product.calculatedCheapestPrice;
 
   if (cheapestPrice?.unitPrice != realPrice?.unitPrice) {
-    return cheapestPrice?.unitPrice;
+    return cheapestPrice.unitPrice;
   }
 }
