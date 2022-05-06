@@ -44,6 +44,7 @@ export interface CrossSelling {
  * @public
  */
 export interface Product {
+  calculatedCheapestPrice: CalculatedPrice;
   calculatedListingPrice: ListingPrice;
   calculatedPrices: CalculatedPrice[];
   calculatedPrice: CalculatedPrice;

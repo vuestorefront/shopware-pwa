@@ -15,3 +15,6 @@ export * from "./getProductPriceDiscount";
 export * from "./getProductPriceDiscountPercentage";
 export * from "./getProductCalculatedPrice";
 export * from "./getProductCalculatedListingPrice";
+export * from "./getProductVariantsFromPrice";
+export * from "./getProductRealPrice";
+export * from "./getProductFromPrice";

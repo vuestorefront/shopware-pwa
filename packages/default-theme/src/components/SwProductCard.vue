@@ -7,8 +7,7 @@
     <SfProductCard
       :title="getName"
       :image="getImageUrl"
-      :special-price="getSpecialPrice && displayPricePrefix"
-      :regular-price="getRegularPrice && displayPricePrefix"
+      :regular-price="displayPrice"
       :max-rating="5"
       :score-rating="getProductRating"
       image-width="100%"
@@ -33,12 +32,25 @@
           @click.native="$router.push(getRouterLink)"
         />
       </template>
+      <template #price>
+        <SfPrice
+          v-if="displayVariantsFromPrice"
+          class="sw-product-card-price sf-product-card__price variants-price"
+          :regular="`${$t('Variants from')} ${displayVariantsFromPrice}`"
+        />
+        <SfPrice
+          v-if="displayFromPrice"
+          class="sw-product-card-price sf-product-card__price from-price"
+          :regular="`${$t('From')} ${displayFromPrice}`"
+        />
+      </template>
     </SfProductCard>
   </SwPluginSlot>
 </template>
 
 <script>
-import { SfProductCard } from "@storefront-ui/vue"
+import { unref } from "@vue/composition-api"
+import { SfProductCard, SfPrice } from "@storefront-ui/vue"
 import { useAddToCart, useWishlist } from "@shopware-pwa/composables"
 import {
   getProductThumbnailUrl,
@@ -48,6 +60,9 @@ import {
   getProductCalculatedPrice,
   getProductCalculatedListingPrice,
   getProductPriceDiscount,
+  getProductVariantsFromPrice,
+  getProductFromPrice,
+  getProductRealPrice,
 } from "@shopware-pwa/helpers"
 import getResizedImage from "@/helpers/images/getResizedImage.js"
 import { toRefs, computed } from "@vue/composition-api"
@@ -58,6 +73,7 @@ import SwImage from "@/components/atoms/SwImage.vue"
 export default {
   components: {
     SfProductCard,
+    SfPrice,
     SwPluginSlot,
     SwImage,
   },
@@ -69,37 +85,21 @@ export default {
     const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist({
       product,
     })
-  // TODO:
-  // - move product price logic to separate composable like useProductPrice
-  // - add translation
-  // - test against variants
-  // - consider not using special price label
-  // - mix both cases: show variants and from in one container
-
-    const cheapestPrice = computed(() => product.value?.calculatedCheapestPrice)
-    const realPrice = computed(() => {
-      const real = product.value?.calculatedPrice
-      if (product.value?.calculatedPrices?.length > 1) {
-        return product.value?.calculatedPrices[product.value?.calculatedPrices.length-1]
+    const filterPrice = usePriceFilter();
+    const variantsFromPrice = getProductVariantsFromPrice(props.product);
+    const fromPrice = getProductFromPrice(props.product);
+    const displayFromPrice = computed(() => {
+      if (fromPrice) {
+        return filterPrice(fromPrice)
       }
-      return real;
     })
-
-    const displayFromPriceLabel = computed(() => product.value?.calculatedPrices?.length > 0);
-    const referencePrice = computed(() => realPrice.value?.referencePrice);
-
-    const displayPricePrefix = computed(() => {
-      if (cheapestPrice.value?.unitPrice != realPrice.value?.unitPrice) {
-        return `Variants from ${cheapestPrice.value?.unitPrice}`
-      }
-      if (displayFromPriceLabel.value) {
-        return `From ${realPrice.value?.unitPrice}`
+     const displayVariantsFromPrice = computed(() => {
+      if (variantsFromPrice) {
+        return filterPrice(variantsFromPrice)
       }
     })
 
     return {
-      cheapestPrice,
-      realPrice,
       quantity,
       addToCart,
       getStock,
@@ -109,8 +109,8 @@ export default {
           ? removeFromWishlist(product.value.id)
           : addToWishlist(),
       isInWishlist,
-      formatPrice: usePriceFilter(),
-      displayPricePrefix
+      displayFromPrice,
+      displayVariantsFromPrice
     }
   },
   props: {
@@ -165,5 +165,10 @@ export default {
   overflow: hidden;
   --image-width: 200px;
   --image-height: 400px;
+}
+.variants-price {
+  .sf-price__regular {
+    font-size: 0.9em;
+  }
 }
 </style>
