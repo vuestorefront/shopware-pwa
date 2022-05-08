@@ -5,6 +5,7 @@
 ```ts
 
 import { Aggregations } from '@shopware-pwa/commons';
+import { CalculatedPrice } from '@shopware-pwa/commons';
 import { Category } from '@shopware-pwa/commons';
 import { CmsBlock } from '@shopware-pwa/commons';
 import { CmsPageResponse } from '@shopware-pwa/commons';
@@ -48,6 +49,9 @@ export function getProductCalculatedPrice(product: Product): number | undefined;
 // @public
 export function getProductFreeShipping(product?: Product): boolean;
 
+// @beta (undocumented)
+export function getProductFromPrice(product: Product): number | undefined;
+
 // @public
 export function getProductMainImageUrl(product: Product): string;
 
@@ -83,6 +87,9 @@ export function getProductProperties({ product, }?: {
 // @public
 export function getProductRatingAverage(product: Product): number | null;
 
+// @beta (undocumented)
+export function getProductRealPrice(product: Product): CalculatedPrice | undefined;
+
 // @public
 export function getProductReviews({ product, }?: {
     product?: Product;
@@ -96,6 +103,9 @@ export function getProductTierPrices(product: Product): TierPrice[];
 
 // @public
 export function getProductUrl(product: Product | null): string;
+
+// @beta (undocumented)
+export function getProductVariantsFromPrice(product: Product): number | undefined;
 
 // @public
 export function getTranslatedProperty<T>(element: T, property: keyof T): string;

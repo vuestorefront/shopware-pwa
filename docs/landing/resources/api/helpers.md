@@ -18,6 +18,7 @@
 |  [getProductCalculatedListingPrice(product)](./helpers.getproductcalculatedlistingprice.md) | <b><i>(BETA)</i></b> Get the calculated list price |
 |  [getProductCalculatedPrice(product)](./helpers.getproductcalculatedprice.md) | <b><i>(BETA)</i></b> Get the calculated list price |
 |  [getProductFreeShipping(product)](./helpers.getproductfreeshipping.md) | Get product free shipping property |
+|  [getProductFromPrice(product)](./helpers.getproductfromprice.md) | <b><i>(BETA)</i></b> |
 |  [getProductMainImageUrl(product)](./helpers.getproductmainimageurl.md) | gets the cover image |
 |  [getProductMediaGallery({ product, })](./helpers.getproductmediagallery.md) | Get the media gallery of a product as ui-interfaces |
 |  [getProductName({ product })](./helpers.getproductname.md) | <b><i>(BETA)</i></b> |
@@ -27,10 +28,12 @@
 |  [getProductPriceDiscountPercentage(product)](./helpers.getproductpricediscountpercentage.md) | <b><i>(BETA)</i></b> Get the percentage value of discount |
 |  [getProductProperties({ product, })](./helpers.getproductproperties.md) | Get product properties as ui-interfaces |
 |  [getProductRatingAverage(product)](./helpers.getproductratingaverage.md) | Get product rating average property |
+|  [getProductRealPrice(product)](./helpers.getproductrealprice.md) | <b><i>(BETA)</i></b> |
 |  [getProductReviews({ product, })](./helpers.getproductreviews.md) | Format product reviews to ui-interfaces |
 |  [getProductThumbnailUrl(product)](./helpers.getproductthumbnailurl.md) | <b><i>(BETA)</i></b> get the thumbnail image URL with the smallest width |
 |  [getProductTierPrices(product)](./helpers.getproducttierprices.md) | <b><i>(BETA)</i></b> Get the prices depending on quantity added to cart. Tier prices can be set in <code>Advanced pricing</code> tab in <code>Product view</code> (admin panel) |
 |  [getProductUrl(product)](./helpers.getproducturl.md) | Get product url. The priority is SEO url and then technical url. |
+|  [getProductVariantsFromPrice(product)](./helpers.getproductvariantsfromprice.md) | <b><i>(BETA)</i></b> |
 |  [getTranslatedProperty(element, property)](./helpers.gettranslatedproperty.md) | Get translated property from the given object. |
 |  [isProductSimple({ product, })](./helpers.isproductsimple.md) | <b><i>(BETA)</i></b> |
 |  [loadScript(src)](./helpers.loadscript.md) | <b><i>(BETA)</i></b> Helper for plugins to load external scripts for plugins |
