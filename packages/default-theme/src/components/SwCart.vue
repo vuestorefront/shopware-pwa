@@ -50,10 +50,7 @@
           <div v-if="count">
             <SfProperty
               :name="$t('Total price')"
-              class="
-                sf-property--full-width sf-property--large
-                my-cart__total-price
-              "
+              class="sf-property--full-width sf-property--large my-cart__total-price"
             >
               <template #value>
                 <SfPrice
@@ -99,10 +96,6 @@ import { computed, onMounted, ref, watch } from "@vue/composition-api"
 import SwImage from "@/components/atoms/SwImage.vue"
 import { usePriceFilter } from "@/logic/usePriceFilter.js"
 import { disableBodyScroll, clearAllBodyScrollLocks } from "body-scroll-lock"
-import {
-  mapMobileObserver,
-  unMapMobileObserver,
-} from "@storefront-ui/vue/src/utilities/mobile-observer"
 
 export default {
   name: "SwCart",
@@ -159,20 +152,8 @@ export default {
       filterPrice: usePriceFilter(),
     }
   },
-  computed: {
-    ...mapMobileObserver(),
-  },
-  beforeDestroy() {
-    unMapMobileObserver()
-  },
   watch: {
     isSidebarOpen(val) {
-      // until it's fixed in the storefront-ui we need to disable body scroll lock on mobile
-      if (this.isMobile) {
-        setTimeout(() => {
-          clearAllBodyScrollLocks()
-        }, 0)
-      }
       if (!val) {
         this.$nextTick(() => {
           clearAllBodyScrollLocks()

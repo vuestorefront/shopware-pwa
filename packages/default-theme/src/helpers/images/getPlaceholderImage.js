@@ -29,5 +29,7 @@ export default function getPlaceholderImage(width, height) {
  </linearGradient>
 </svg>`
 
-  return `data:image/svg+xml;base64,${btoa(svgSource)}`
+  const buf = Buffer.from(svgSource, "utf8")
+
+  return `data:image/svg+xml;base64,${buf.toString("base64")}`
 }

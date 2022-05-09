@@ -26,10 +26,6 @@ import { ref, reactive, onMounted, computed } from "@vue/composition-api"
 import { getSearchPageUrl } from "@/helpers"
 import { SfSearchBar } from "@storefront-ui/vue"
 import { useProductQuickSearch } from "@shopware-pwa/composables"
-import {
-  mapMobileObserver,
-  unMapMobileObserver,
-} from "@storefront-ui/vue/src/utilities/mobile-observer"
 import { debounce } from "@shopware-pwa/helpers"
 const SwSuggestSearch = () => import("@/components/SwSuggestSearch.vue")
 
@@ -55,16 +51,20 @@ export default {
       }
     }, 300)
 
+    // TODO: reactive observer
+    const isMobile = ref(true)
+    onMounted(() => {
+      isMobile.value = window?.innerWidth < 768
+    })
+
     return {
       getProducts,
       getTotal,
       isSuggestBoxOpen,
       typingQuery,
       performSuggestSearch,
+      isMobile,
     }
-  },
-  computed: {
-    ...mapMobileObserver(),
   },
   watch: {
     $route(to, from) {
@@ -75,9 +75,6 @@ export default {
         this.performSuggestSearch(value)
       }
     },
-  },
-  beforeDestroy() {
-    unMapMobileObserver()
   },
   methods: {
     performSearch() {
