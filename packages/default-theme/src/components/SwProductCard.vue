@@ -7,7 +7,6 @@
     <SfProductCard
       :title="getName"
       :image="getImageUrl"
-      :regular-price="displayPrice"
       :max-rating="5"
       :score-rating="getProductRating"
       image-width="100%"
@@ -42,6 +41,11 @@
           v-if="displayFromPrice"
           class="sw-product-card-price sf-product-card__price from-price"
           :regular="`${$t('From')} ${displayFromPrice}`"
+        />
+        <SfPrice
+          v-if="displaySinglePrice"
+          class="sw-product-card-price sf-product-card__price real-price"
+          :regular="displaySinglePrice"
         />
       </template>
     </SfProductCard>
@@ -93,9 +97,15 @@ export default {
         return filterPrice(fromPrice)
       }
     })
-     const displayVariantsFromPrice = computed(() => {
+    const displayVariantsFromPrice = computed(() => {
       if (variantsFromPrice) {
         return filterPrice(variantsFromPrice)
+      }
+    })
+    const displaySinglePrice = computed(() => {
+      if (!variantsFromPrice && !fromPrice) {
+        const realPrice = getProductRealPrice(props.product);
+        return filterPrice(realPrice?.unitPrice);
       }
     })
 
@@ -110,7 +120,8 @@ export default {
           : addToWishlist(),
       isInWishlist,
       displayFromPrice,
-      displayVariantsFromPrice
+      displayVariantsFromPrice,
+      displaySinglePrice
     }
   },
   props: {
