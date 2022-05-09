@@ -90,7 +90,7 @@ initialize project inside the directory
 npx @shopware-pwa/cli init
 ```
 
-It will ask for the address to yous shopware instance, access token, and admin credentials to load plugins. Only the first two are required to start the instance, and default settings will point to our demo instance. Then you can just begin local development by typing:
+It will ask for the address to your shopware instance, access token, and admin credentials to load plugins. Only the first two are required to start the instance, and default settings will point to our demo instance. Then you can just begin local development by typing:
 
 ```bash
 yarn dev
