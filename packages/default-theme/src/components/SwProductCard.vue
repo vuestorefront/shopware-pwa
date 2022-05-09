@@ -7,8 +7,7 @@
     <SfProductCard
       :title="getName"
       :image="getImageUrl"
-      :special-price="formatPrice(getSpecialPrice)"
-      :regular-price="formatPrice(getRegularPrice)"
+      :regular-price="displayPrice"
       :max-rating="5"
       :score-rating="getProductRating"
       image-width="100%"
@@ -33,12 +32,25 @@
           @click.native="$router.push(getRouterLink)"
         />
       </template>
+      <template #price>
+        <SfPrice
+          v-if="displayVariantsFromPrice"
+          class="sw-product-card-price sf-product-card__price variants-price"
+          :regular="`${$t('Variants from')} ${displayVariantsFromPrice}`"
+        />
+        <SfPrice
+          v-if="displayFromPrice"
+          class="sw-product-card-price sf-product-card__price from-price"
+          :regular="`${$t('From')} ${displayFromPrice}`"
+        />
+      </template>
     </SfProductCard>
   </SwPluginSlot>
 </template>
 
 <script>
-import { SfProductCard } from "@storefront-ui/vue"
+import { unref } from "@vue/composition-api"
+import { SfProductCard, SfPrice } from "@storefront-ui/vue"
 import { useAddToCart, useWishlist } from "@shopware-pwa/composables"
 import {
   getProductThumbnailUrl,
@@ -48,9 +60,12 @@ import {
   getProductCalculatedPrice,
   getProductCalculatedListingPrice,
   getProductPriceDiscount,
+  getProductVariantsFromPrice,
+  getProductFromPrice,
+  getProductRealPrice,
 } from "@shopware-pwa/helpers"
 import getResizedImage from "@/helpers/images/getResizedImage.js"
-import { toRefs } from "@vue/composition-api"
+import { toRefs, computed } from "@vue/composition-api"
 import { usePriceFilter } from "@/logic/usePriceFilter.js"
 import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
 import SwImage from "@/components/atoms/SwImage.vue"
@@ -58,6 +73,7 @@ import SwImage from "@/components/atoms/SwImage.vue"
 export default {
   components: {
     SfProductCard,
+    SfPrice,
     SwPluginSlot,
     SwImage,
   },
@@ -69,6 +85,20 @@ export default {
     const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist({
       product,
     })
+    const filterPrice = usePriceFilter();
+    const variantsFromPrice = getProductVariantsFromPrice(props.product);
+    const fromPrice = getProductFromPrice(props.product);
+    const displayFromPrice = computed(() => {
+      if (fromPrice) {
+        return filterPrice(fromPrice)
+      }
+    })
+     const displayVariantsFromPrice = computed(() => {
+      if (variantsFromPrice) {
+        return filterPrice(variantsFromPrice)
+      }
+    })
+
     return {
       quantity,
       addToCart,
@@ -79,7 +109,8 @@ export default {
           ? removeFromWishlist(product.value.id)
           : addToWishlist(),
       isInWishlist,
-      formatPrice: usePriceFilter(),
+      displayFromPrice,
+      displayVariantsFromPrice
     }
   },
   props: {
@@ -134,5 +165,10 @@ export default {
   overflow: hidden;
   --image-width: 200px;
   --image-height: 400px;
+}
+.variants-price {
+  .sf-price__regular {
+    font-size: 0.9em;
+  }
 }
 </style>

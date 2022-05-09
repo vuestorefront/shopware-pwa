@@ -28,12 +28,24 @@
           @click.native="$router.push(getRouterLink)"
         />
       </template>
+      <template #price>
+        <SfPrice
+          v-if="displayVariantsFromPrice"
+          class="sw-product-card-price sf-product-card__price variants-price"
+          :regular="`${$t('Variants from')} ${displayVariantsFromPrice}`"
+        />
+        <SfPrice
+          v-if="displayFromPrice"
+          class="sw-product-card-price sf-product-card__price from-price"
+          :regular="`${$t('From')} ${displayFromPrice}`"
+        />
+      </template>
     </SfProductCardHorizontal>
   </SwPluginSlot>
 </template>
 
 <script>
-import { SfProductCardHorizontal } from "@storefront-ui/vue"
+import { SfProductCardHorizontal, SfPrice } from "@storefront-ui/vue"
 import { useAddToCart, useWishlist } from "@shopware-pwa/composables"
 import {
   getProductMainImageUrl,
@@ -43,7 +55,11 @@ import {
   getProductCalculatedListingPrice,
   getProductPriceDiscount,
   getProductName,
+  getProductVariantsFromPrice,
+  getProductFromPrice,
+  getProductRealPrice,
 } from "@shopware-pwa/helpers"
+import { computed } from "@vue/composition-api"
 import getResizedImage from "@/helpers/images/getResizedImage.js"
 import getPlaceholderImage from "@/helpers/images/getPlaceholderImage.js"
 import { usePriceFilter } from "@/logic/usePriceFilter.js"
@@ -51,7 +67,7 @@ import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
 import SwImage from "@/components/atoms/SwImage.vue"
 
 export default {
-  components: { SfProductCardHorizontal, SwPluginSlot, SwImage },
+  components: { SfProductCardHorizontal, SwPluginSlot, SwImage, SfPrice },
   setup(props, { root }) {
     const { addToCart, quantity, getStock, isInCart } = useAddToCart({
       product: props.product,
@@ -65,6 +81,20 @@ export default {
         ? addToWishlist()
         : removeFromWishlist(props?.product?.id)
 
+    const filterPrice = usePriceFilter();
+    const variantsFromPrice = getProductVariantsFromPrice(props.product);
+    const fromPrice = getProductFromPrice(props.product);
+    const displayFromPrice = computed(() => {
+      if (fromPrice) {
+        return filterPrice(fromPrice)
+      }
+    })
+     const displayVariantsFromPrice = computed(() => {
+      if (variantsFromPrice) {
+        return filterPrice(variantsFromPrice)
+      }
+    })
+
     return {
       quantity,
       addToCart,
@@ -74,6 +104,8 @@ export default {
       toggleWishlist,
       isInWishlist,
       getPlaceholderImage,
+      displayFromPrice,
+      displayVariantsFromPrice
     }
   },
   props: {
@@ -133,6 +165,11 @@ export default {
         right: var(--spacer-xs);
       }
     }
+  }
+}
+.variants-price {
+  .sf-price__regular {
+    font-size: 0.9em;
   }
 }
 </style>
