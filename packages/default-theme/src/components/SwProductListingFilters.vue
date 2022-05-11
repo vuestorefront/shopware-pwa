@@ -68,6 +68,7 @@
       </div>
       <SfSidebar
         :title="$t('Filters')"
+        position="left"
         :visible="isFilterSidebarOpen"
         class="filters-sidebar"
         @close="closeFiltersSidebar"

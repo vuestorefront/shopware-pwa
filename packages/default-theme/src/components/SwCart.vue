@@ -2,6 +2,7 @@
   <div class="sw-side-cart">
     <SfSidebar
       :title="$t('My cart')"
+      position="right"
       :visible="isSidebarOpen"
       :heading-title="$t('My cart')"
       class="sf-sidebar--right"
