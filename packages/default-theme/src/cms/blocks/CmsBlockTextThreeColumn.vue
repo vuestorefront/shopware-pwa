@@ -62,7 +62,7 @@ export default {
 
   @include for-desktop {
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(1, 340px);
+    grid-template-rows: repeat(1, 100%);
     margin: var(--spacer-sm) 0;
   }
 
