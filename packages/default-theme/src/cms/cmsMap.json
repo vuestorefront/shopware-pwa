@@ -12,6 +12,7 @@
     "image-cover": "CmsBlockImageCover",
     "category-navigation": "CmsBlockCategoryNavigation",
     "image-bubble-row": "CmsBlockImageBubbleRow",
+    "image-text-bubble": "CmsBlockImageTextBubbleRow",
     "center-text": "CmsBlockCenterText",
     "image-four-column": "CmsBlockImageFourColumn",
     "image-highlight-row": "CmsBlockImageHighlightRow",
