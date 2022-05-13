@@ -32,7 +32,8 @@
     "product-heading": "CmsBlockDefault",
     "gallery-buybox": "CmsBlockSplitView",
     "product-description-reviews": "CmsBlockDefault",
-    "cross-selling": "CmsBlockDefault"
+    "cross-selling": "CmsBlockDefault",
+    "text-teaser-section": "CmsBlockTextTeaserSection"
   },
   "elements": {
     "product-box": "CmsElementProductCard",
