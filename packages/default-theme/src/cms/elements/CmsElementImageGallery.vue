@@ -1,5 +1,5 @@
 <template>
-  <SwProductGallery :product="product" />
+  <SwProductGallery :content="content" />
 </template>
 
 <script>
@@ -19,16 +19,6 @@ export default {
       type: Object,
       default: () => ({}),
     },
-  },
-
-  setup(props) {
-    const { page } = useCms() // fallback for provide/inject, remove in future
-    const cmsPage = inject("cms-page", page)
-    const product = computed(() => cmsPage.value?.product)
-
-    return {
-      product,
-    }
   },
 }
 </script>

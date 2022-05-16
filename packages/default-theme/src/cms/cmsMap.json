@@ -16,6 +16,7 @@
     "image-text-row": "CmsBlockImageTextRow",
     "center-text": "CmsBlockCenterText",
     "image-four-column": "CmsBlockImageFourColumn",
+    "image-gallery": "CmsBlockDefault",
     "image-highlight-row": "CmsBlockImageHighlightRow",
     "image-simple-grid": "CmsBlockImageSimpleGrid",
     "image-slider": "CmsBlockDefault",
