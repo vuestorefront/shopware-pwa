@@ -9,6 +9,7 @@
   >
     <div class="sw-navbar navbar__main">
       <SwButton
+        v-if="getAvailableFilters.length"
         class="sf-button--text navbar__filters-button"
         @click="openFiltersSidebar"
       >
@@ -16,7 +17,7 @@
           $t("Filters")
         }}
       </SwButton>
-      <div class="navbar__sort desktop-only" v-if="isMounted">
+      <div class="navbar__sort desktop-only" v-if="isMounted && getSortingOrders.length">
         <span class="navbar__label">{{ $t("Sort by") }}:</span>
         <SfSelect v-model="currentSortingOrder" class="sort-by">
           <SfSelectOption
