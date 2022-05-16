@@ -4,8 +4,6 @@
 
 <script>
 import SwProductGallery from "@/components/SwProductGallery.vue"
-import { computed, inject } from "@vue/composition-api"
-import { useCms } from "@shopware-pwa/composables"
 
 export default {
   name: "CmsElementImageGallery",
