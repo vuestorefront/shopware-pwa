@@ -33,7 +33,7 @@
     "product-three-column": "CmsBlockProductThreeColumn",
     "text-two-column": "CmsBlockTextTwoColumn",
     "form": "CmsBlockForms",
-    "product-heading": "CmsBlockDefault",
+    "product-heading": "CmsBlockProductHeading",
     "gallery-buybox": "CmsBlockSplitView",
     "product-description-reviews": "CmsBlockDefault",
     "cross-selling": "CmsBlockDefault",
