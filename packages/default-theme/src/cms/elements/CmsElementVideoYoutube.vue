@@ -1,6 +1,6 @@
 <template>
   <div class="cms-element-video-youtube">
-    <!-- <youtube
+    <youtube
       :id="slotId"
       :video-id="videoId"
       :player-vars="{
@@ -9,15 +9,15 @@
         autoPlay: autoPlay,
         loop: playInLoop
       }"
-    /> -->
+    />
   </div>
 </template>
 
 <script>
 import Vue from "vue"
-// import VueYouTubeEmbed from "vue-youtube-embed";
+import VueYouTubeEmbed from "vue-youtube-embed";
 
-// Vue.use(VueYouTubeEmbed);
+Vue.use(VueYouTubeEmbed);
 
 export default {
   components: {},
@@ -88,6 +88,3 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-@import "@/cms/settings.scss";
-</style>

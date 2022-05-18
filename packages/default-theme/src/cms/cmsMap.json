@@ -37,7 +37,9 @@
     "gallery-buybox": "CmsBlockSplitView",
     "product-description-reviews": "CmsBlockDefault",
     "cross-selling": "CmsBlockDefault",
-    "text-teaser-section": "CmsBlockTextTeaserSection"
+    "text-teaser-section": "CmsBlockTextTeaserSection",
+    "vimeo-video": "CmsBlockDefault",
+    "youtube-video": "CmsBlockDefault"
   },
   "elements": {
     "product-box": "CmsElementProductCard",
