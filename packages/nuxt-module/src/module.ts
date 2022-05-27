@@ -29,6 +29,8 @@ export async function runModule(
     moduleObject
   );
 
+  const vuexState = moduleObject.options?.shopware?.enableVuex ?? false;
+
   if (!shopwarePwaConfig.shopwareAccessToken)
     console.error("shopwareAccessToken in shopware-pwa.config.js is missing");
   if (!shopwarePwaConfig.shopwareEndpoint)
@@ -72,8 +74,8 @@ export async function runModule(
 
   // Change project source root to Target path
   moduleObject.options.srcDir = TARGET_SOURCE;
-  moduleObject.options.store = false; // disable store generation
-  moduleObject.options.features.store = false;
+  moduleObject.options.store = vuexState; // Vuex store generation
+  moduleObject.options.features.store = vuexState;
   // resolve project src aliases
   moduleObject.options.alias["~"] = TARGET_SOURCE;
   moduleObject.options.alias["@"] = TARGET_SOURCE;
