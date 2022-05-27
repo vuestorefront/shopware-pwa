@@ -469,8 +469,8 @@ jobs:
         with:
           token: "${{ github.token }}"
           namespace: "${{env.INSTANCE_CODE}}"
-          username: "${{ secrets.DOCKER_USERNAME }}"
-          password: "${{ secrets.DOCKER_PASSWORD }}"
+          username: "${{ secrets.CLOUD_PASSWORD }}"
+          password: "${{ secrets.CLOUD_PASSWORD }}"
       - name: Comment PR
         if: success()
         uses: StorefrontCloud/storefrontcloud-comment-pr-preview-deploy@master
