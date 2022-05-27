@@ -281,6 +281,8 @@
   "Congratulations! You have been successfully registered.": "Gefeliciteerd! Je bent succesvol geregistreerd",
   "You have been successfully logged out.": "Je bent succesvol uitgelogd",
   "for property": "for property",
-  "This field is required and should be at least 8 characters long":"This field is required and should be at least 8 characters long",
-  "You profile has been updated.":"You profile has been updated."
+  "This field is required and should be at least 8 characters long": "This field is required and should be at least 8 characters long",
+  "You profile has been updated.": "You profile has been updated.",
+  "From": "From",
+  "Variants from": "Variants from"
 }

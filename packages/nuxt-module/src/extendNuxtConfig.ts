@@ -109,7 +109,11 @@ const defaultConfig: NuxtConfig = {
 };
 
 const configs: NuxtConfig[] = [defaultConfig];
-export default function extendNuxtConfig(config: NuxtConfig) {
+
+export type ConfigOptions = NuxtConfig & {
+  enableVuex?: boolean;
+};
+export default function extendNuxtConfig(config: ConfigOptions) {
   configs.push(config);
   return configs.reduce((prev, next) => mergeWith(prev, next, customizer));
 }
