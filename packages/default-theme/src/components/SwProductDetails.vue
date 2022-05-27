@@ -68,13 +68,17 @@
 </template>
 <script>
 import { SfAlert, SfAddToCart, SfLoader } from "@storefront-ui/vue"
-import { getProductNumber, getProductOptions } from "@shopware-pwa/helpers"
+import {
+  getProductNumber,
+  getProductOptions,
+  getProductUrl,
+  getTranslatedProperty
+} from "@shopware-pwa/helpers"
 import {
   useAddToCart,
   useProductConfigurator,
   useNotifications,
 } from "@shopware-pwa/composables"
-import { getProductUrl, getTranslatedProperty } from "@shopware-pwa/helpers"
 import { computed, watch, toRefs } from "@vue/composition-api"
 import SwButton from "@/components/atoms/SwButton.vue"
 import SwPluginSlot from "sw-plugins/SwPluginSlot.vue"
@@ -85,7 +89,6 @@ export default {
     SfAlert,
     SfAddToCart,
     SfLoader,
-    SwButton: () => import("@/components/atoms/SwButton.vue"),
     SwProductHeading: () => import("@/components/SwProductHeading.vue"),
     SwProductSelect: () => import("@/components/SwProductSelect.vue"),
     SwPluginSlot,
