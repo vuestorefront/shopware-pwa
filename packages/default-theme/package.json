@@ -32,7 +32,9 @@
     "dayjs": "^1.10.8",
     "html-to-vue": "^1.4.0",
     "sass-loader": "^10.0.3",
-    "vue-i18n": "^8.26.5"
+    "vue-i18n": "^8.26.5",
+    "vue-vimeo-player": "^0.2.2",
+    "vue-youtube-embed": "^2.2.2"
   },
   "peerDependencies": {
     "@vue/composition-api": "^1.4.9",
@@ -66,9 +68,7 @@
     "lodash": "^4.17.21",
     "playwright": "^1.19.2",
     "prettier": "^2.5.1",
-    "vue-jest": "^4.0.0-0",
-    "vue-vimeo-player": "^0.2.2",
-    "vue-youtube-embed": "^2.2.2"
+    "vue-jest": "^4.0.0-0"
   },
   "resolutions": {
     "colors": "<=1.4.0"
