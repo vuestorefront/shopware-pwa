@@ -373,3 +373,22 @@ defaultsConfigBuilder().replace("useCms.limit", 5);
 
 - `add` would replace value if it's not an object or array, for example with `limit` property
 - you could chain methods like `defaultsConfigBuilder().add(...).remove(...).add(...)`
+
+## 10. Enabling Vuex store <a id="no10"></a>
+
+If you need to enable Vuex store in your project, you need to add flag in `nuxt.config.js`:
+
+```js
+// example nuxt.config.js
+import extendNuxtConfig from "@shopware-pwa/nuxt-module/config";
+
+export default extendNuxtConfig({
+  head: {
+    title: "Shopware PWA",
+    meta: [{ hid: "description", name: "description", content: "" }],
+  },
+  shopware: {
+    enableVuex: true,
+  },
+});
+```

@@ -64,6 +64,9 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
   beforeEach(() => {
     jest.resetAllMocks();
 
+    //clean shopware config
+    moduleObject.options.shopware = null;
+
     mockedUtils.loadConfig.mockResolvedValue({
       shopwareEndpoint: "mockedEndpoint",
       shopwareAccessToken: "mockedToken",
@@ -390,6 +393,22 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
       TARGET_SOURCE,
       event: "add",
       filePath: "some/project/filepath.vue",
+    });
+  });
+
+  describe("vuex store", () => {
+    it("should enable vuex store", async () => {
+      moduleObject.options.shopware ??= {};
+      moduleObject.options.shopware.enableVuex = true;
+      await runModule(moduleObject, {});
+      expect(moduleObject.options.store).toEqual(true);
+      expect(moduleObject.options.features.store).toEqual(true);
+    });
+
+    it("should be disabled by default", async () => {
+      await runModule(moduleObject, {});
+      expect(moduleObject.options.store).toEqual(false);
+      expect(moduleObject.options.features.store).toEqual(false);
     });
   });
 

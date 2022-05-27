@@ -1,6 +1,6 @@
 <template>
   <div class="cms-element-video-vimeo">
-    <!-- <vimeo-player
+    <vimeo-player
       ref="player"
       :video-id="videoId"
       :loop="playInLoop"
@@ -13,14 +13,14 @@
         portrait: portrait,
         byline: byLine
       }"
-    /> -->
+    />
   </div>
 </template>
 
 <script>
 import Vue from "vue"
-// import vueVimeoPlayer from "vue-vimeo-player";
-// Vue.use(vueVimeoPlayer);
+import vueVimeoPlayer from "vue-vimeo-player";
+Vue.use(vueVimeoPlayer);
 
 export default {
   components: {},
