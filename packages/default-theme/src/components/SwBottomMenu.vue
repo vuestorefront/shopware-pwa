@@ -47,11 +47,20 @@
         </SfListItem>
       </SfList>
     </transition>
+
+    <template v-slot:close-mobile>
+      <SfButton
+        class="sf-button--full-width sf-bottom-modal__cancel"
+        aria-label="Close"
+        @click="$emit('close')"
+        v-text="$t('Close')"
+      />
+    </template>
   </SfBottomModal>
 </template>
 
 <script>
-import { SfBottomModal, SfIcon, SfList } from "@storefront-ui/vue"
+import { SfBottomModal, SfButton, SfIcon, SfList } from "@storefront-ui/vue"
 import { useNavigation, useUIState } from "@shopware-pwa/composables"
 import { onMounted } from "@vue/composition-api"
 import { getCategoryUrl, getTranslatedProperty } from "@shopware-pwa/helpers"
@@ -60,6 +69,7 @@ export default {
   name: "SwBottomMenu",
   components: {
     SfBottomModal,
+    SfButton,
     SfIcon,
     SfList,
   },
