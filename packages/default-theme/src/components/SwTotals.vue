@@ -17,10 +17,7 @@
       <SfProperty
         :name="$t('Total price')"
         :value="filterPrice(total)"
-        class="
-          sf-property--full-width
-          sw-totals__property sw-totals__property-total
-        "
+        class="sf-property--full-width sw-totals__property sw-totals__property-total"
       >
       </SfProperty>
     </div>

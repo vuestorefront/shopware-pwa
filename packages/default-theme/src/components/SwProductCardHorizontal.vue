@@ -81,15 +81,15 @@ export default {
         ? addToWishlist()
         : removeFromWishlist(props?.product?.id)
 
-    const filterPrice = usePriceFilter();
-    const variantsFromPrice = getProductVariantsFromPrice(props.product);
-    const fromPrice = getProductFromPrice(props.product);
+    const filterPrice = usePriceFilter()
+    const variantsFromPrice = getProductVariantsFromPrice(props.product)
+    const fromPrice = getProductFromPrice(props.product)
     const displayFromPrice = computed(() => {
       if (fromPrice) {
         return filterPrice(fromPrice)
       }
     })
-     const displayVariantsFromPrice = computed(() => {
+    const displayVariantsFromPrice = computed(() => {
       if (variantsFromPrice) {
         return filterPrice(variantsFromPrice)
       }
@@ -105,7 +105,7 @@ export default {
       isInWishlist,
       getPlaceholderImage,
       displayFromPrice,
-      displayVariantsFromPrice
+      displayVariantsFromPrice,
     }
   },
   props: {

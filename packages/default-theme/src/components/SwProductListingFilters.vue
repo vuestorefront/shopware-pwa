@@ -1,11 +1,6 @@
 <template>
   <div
-    class="
-      cms-element-category-navigation-sidebar-filter
-      sw-navbar
-      navbar
-      section
-    "
+    class="cms-element-category-navigation-sidebar-filter sw-navbar navbar section"
   >
     <div class="sw-navbar navbar__main">
       <SwButton

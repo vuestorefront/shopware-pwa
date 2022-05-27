@@ -96,9 +96,9 @@ export default {
     },
   },
   setup(props) {
-    const { 
-      removeItem, 
-      changeItemQuantity, 
+    const {
+      removeItem,
+      changeItemQuantity,
       itemRegularPrice,
       itemSpecialPrice,
       itemOptions,

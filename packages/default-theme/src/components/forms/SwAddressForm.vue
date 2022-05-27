@@ -34,12 +34,7 @@
           :error-message="$t('Salutation must be selected')"
           required
           :valid="!$v.address.salutation.$error"
-          class="
-            sf-select--underlined
-            sw-form__input
-            sf-input--has-text
-            sf-component-select--underlined
-          "
+          class="sf-select--underlined sw-form__input sf-input--has-text sf-component-select--underlined"
           @blur="$v.address.salutation.$touch()"
         >
           <SfComponentSelectOption
@@ -103,11 +98,7 @@
           :error-message="$t('Country must be selected')"
           :valid="!$v.address.country.$error"
           required
-          class="
-            sf-select--underlined
-            sw-form__input
-            sf-component-select--underlined
-          "
+          class="sf-select--underlined sw-form__input sf-component-select--underlined"
           @blur="$v.address.country.$touch()"
         >
           <SfComponentSelectOption

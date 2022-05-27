@@ -20,10 +20,7 @@
         <SfList v-if="isDropdownOpen" class="sw-dropdown">
           <SfListItem>
             <nuxt-link
-              class="
-                sf-button sf-button--full-width sf-button--underlined
-                sw-dropdown__item
-              "
+              class="sf-button sf-button--full-width sf-button--underlined sw-dropdown__item"
               :to="getPageAccount"
               data-testid="my-account-link"
               @click.native="isDropdownOpen = false"
@@ -33,10 +30,7 @@
           </SfListItem>
           <SfListItem>
             <SwButton
-              class="
-                sf-button sf-button--full-width sf-button--underlined
-                sw-dropdown__item
-              "
+              class="sf-button sf-button--full-width sf-button--underlined sw-dropdown__item"
               data-testid="logout-button"
               @click="logoutUser()"
             >

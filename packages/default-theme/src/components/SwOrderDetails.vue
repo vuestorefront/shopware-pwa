@@ -105,11 +105,7 @@
           </SfLoader>
           <!--- CANCEL ORDER -->
           <SwButton
-            class="
-              sf-button sf-button--underlined sf-button--full-width
-              pay-button
-              color-danger
-            "
+            class="sf-button sf-button--underlined sf-button--full-width pay-button color-danger"
             @click="cancelModalVisible = true"
           >
             {{ $t("Cancel the order") }}
@@ -139,11 +135,7 @@
           </SfBottomModal>
           <!--- CHANGE PAYMENT METHOD -->
           <SwButton
-            class="
-              sf-button sf-button--underlined sf-button--full-width
-              pay-button
-              color-danger
-            "
+            class="sf-button sf-button--underlined sf-button--full-width pay-button color-danger"
             @click="openChangePaymentMethodModal"
           >
             {{ $t("Change payment method") }}

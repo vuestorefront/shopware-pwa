@@ -21,7 +21,9 @@
         <div class="product-heading__sub-rating">
           <SfRating :score="ratingAverage" :max="5" />
           <div class="product-heading__sub-reviews desktop-only">
-            <a href="#reviews">{{ $tc("review", reviews.length, {count: reviews.length})}}</a>
+            <a href="#reviews">{{
+              $tc("review", reviews.length, { count: reviews.length })
+            }}</a>
           </div>
           <div class="product-heading__sub-reviews smartphone-only">
             ({{ reviews.length }})

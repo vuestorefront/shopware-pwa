@@ -46,12 +46,7 @@
           </div>
           <div class="smartphone-only bottom bottom__close">
             <SwButton
-              class="
-                sf-button
-                sf-select__cancel
-                sf-button--full-width
-                close-button
-              "
+              class="sf-button sf-select__cancel sf-button--full-width close-button"
               @click="toggleModal()"
               data-testid="toggle-modal-button"
             >

@@ -9,29 +9,37 @@
   </div>
 </template>
 <script>
-import { useCms } from "@shopware-pwa/composables";
-import { ref, provide, computed } from "vue-demi";
+import { useCms } from "@shopware-pwa/composables"
+import { ref, provide, computed } from "vue-demi"
 
 export default {
   name: "DynamicRoute",
   components: {},
   setup() {
-    const { page, error, loading, metaTitle, metaDescription, metaKeywords, pageTitle } = useCms();
+    const {
+      page,
+      error,
+      loading,
+      metaTitle,
+      metaDescription,
+      metaKeywords,
+      pageTitle,
+    } = useCms()
 
-    const cmsPage = ref(page.value?.cmsPage);
-    const staticPage = ref(page.value);
-    const staticError = ref(error.value);
+    const cmsPage = ref(page.value?.cmsPage)
+    const staticPage = ref(page.value)
+    const staticError = ref(error.value)
 
-    provide("cms-page", page);
+    provide("cms-page", page)
 
     const getComponent = () => {
       if (staticPage.value) {
         return () =>
-          import("@/components/views/" + page.value.resourceType + ".vue");
+          import("@/components/views/" + page.value.resourceType + ".vue")
       }
       if (staticError.value)
-        return () => import("@/components/views/error.page.vue");
-    };
+        return () => import("@/components/views/error.page.vue")
+    }
 
     return {
       staticPage,
@@ -43,27 +51,27 @@ export default {
         {
           hid: "title",
           name: "title",
-          content: metaTitle.value
+          content: metaTitle.value,
         },
         {
           hid: "description",
           name: "description",
-          content: metaDescription.value
+          content: metaDescription.value,
         },
         {
           hid: "keywords",
           name: "keywords",
-          content: metaKeywords.value
-        }
+          content: metaKeywords.value,
+        },
       ]),
       pageTitle,
-    };
+    }
   },
   head() {
     return {
       title: this.pageTitle,
-      meta: this.metaObject
+      meta: this.metaObject,
     }
-  }
-};
+  },
+}
 </script>

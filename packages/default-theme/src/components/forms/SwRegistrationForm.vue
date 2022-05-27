@@ -8,11 +8,7 @@
           :label="$t('Salutation')"
           :error-message="$t('Salutation must be selected')"
           :valid="!$v.salutationId.$error"
-          class="
-            sf-select--underlined
-            sw-form__select sw-form__input
-            sf-input--has-text
-          "
+          class="sf-select--underlined sw-form__select sw-form__input sf-input--has-text"
           @blur="$v.salutationId.$touch()"
         >
           <SfSelectOption
@@ -151,11 +147,7 @@
             :error-message="$t('Salutation must be selected')"
             required
             :valid="!$v.alternativeSalutationId.$error"
-            class="
-              sf-select--underlined
-              sw-form__select sw-form__input
-              sf-input--has-text
-            "
+            class="sf-select--underlined sw-form__select sw-form__input sf-input--has-text"
             @blur="$v.alternativeSalutationId.$touch()"
           >
             <SfSelectOption
