@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import { computed, inject } from "@vue/composition-api";
 import { SfGallery } from "@storefront-ui/vue"
 import { getProductMediaGallery } from "@shopware-pwa/helpers"
 import getResizedImage from "@/helpers/images/getResizedImage.js"
@@ -26,10 +27,21 @@ export default {
   name: "SwProductGallery",
   components: { SfGallery },
   props: {
-    product: {
+    content: {
       type: Object,
       default: () => ({}),
-    },
+    }
+  },
+  setup(props) {
+    const cmsPage = inject("cms-page")
+    const product = computed(() => cmsPage?.value?.product || {
+      // create a fake product to have only the media gallery
+      media: props.content?.data?.sliderItems
+    })
+
+    return {
+      product
+    }
   },
   computed: {
     mediaGallery() {
