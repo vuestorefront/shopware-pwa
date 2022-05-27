@@ -104,11 +104,11 @@ module.exports = (toolbox: GluegunToolbox) => {
     username:
       toolbox.parameters.options.username ||
       toolbox.parameters.options.u ||
-      process.env.ADMIN_USER,
+      (toolbox.parameters.options.ci && process.env.ADMIN_USER),
     password:
       toolbox.parameters.options.password ||
       toolbox.parameters.options.p ||
-      process.env.ADMIN_PASSWORD,
+      (toolbox.parameters.options.ci && process.env.ADMIN_PASSWORD),
     devMode: toolbox.parameters.options.devMode,
     ci: toolbox.parameters.options.ci,
     stage: toolbox.parameters.options.stage,
@@ -218,6 +218,11 @@ module.exports = (toolbox: GluegunToolbox) => {
         }
         toolbox.print.error(
           `Error during API authentication: ${error.response.status} (${error.response.statusText}).`
+        );
+        toolbox.print.error(
+          toolbox.print.colors.bold(
+            `Please check credentials inside the .env file and try again.`
+          )
         );
       }
     }
