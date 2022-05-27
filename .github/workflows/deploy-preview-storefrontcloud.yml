@@ -469,7 +469,7 @@ jobs:
         with:
           token: "${{ github.token }}"
           namespace: "${{env.INSTANCE_CODE}}"
-          username: "${{ secrets.CLOUD_PASSWORD }}"
+          username: "${{ secrets.CLOUD_USERNAME }}"
           password: "${{ secrets.CLOUD_PASSWORD }}"
       - name: Comment PR
         if: success()
