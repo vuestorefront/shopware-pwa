@@ -2,6 +2,7 @@ name: Deploy PR Preview on Storefrontcloud
 env:
   PWA_HOST: https://shopware-pwa-canary.storefrontcloud.io
   INSTANCE_CODE: shopware-pwa-test
+  INSTANCE_NAMESPACE: shopware-pwa-test-europe-west1-gcp-storefront-io
   EXPERIMENTAL_IMAGE_PROCESSING_SERVER: https://test-shopware-pwa-images.vercel.app/api/image
 on:
   pull_request:
@@ -468,7 +469,7 @@ jobs:
         if: github.repository_owner	== 'vuestorefront'
         with:
           token: "${{ github.token }}"
-          namespace: "${{env.INSTANCE_CODE}}"
+          namespace: "${{env.INSTANCE_NAMESPACE}}"
           username: "${{ secrets.CLOUD_USERNAME }}"
           password: "${{ secrets.CLOUD_PASSWORD }}"
       - name: Comment PR
@@ -477,7 +478,7 @@ jobs:
         with:
           preview_url: "${{ steps.deploy.outputs.preview_url }}"
           token: "${{ github.token }}"
-          namespace: "${{env.INSTANCE_CODE}}"
+          namespace: "${{env.INSTANCE_NAMESPACE}}"
       - name: Update deployment status (success)
         if: success()
         uses: chrnorm/deployment-status@releases/v1
