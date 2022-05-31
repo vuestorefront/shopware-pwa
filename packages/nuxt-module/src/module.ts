@@ -29,7 +29,7 @@ export async function runModule(
     moduleObject
   );
 
-  const vuexState = moduleObject.options?.shopware?.enableVuex ?? false;
+  const vuexState = moduleObject.options.shopware?.enableVuex ?? false;
 
   if (!shopwarePwaConfig.shopwareAccessToken)
     console.error("shopwareAccessToken in shopware-pwa.config.js is missing");

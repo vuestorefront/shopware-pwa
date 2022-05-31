@@ -65,7 +65,7 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
     jest.resetAllMocks();
 
     //clean shopware config
-    moduleObject.options.shopware = null;
+    delete moduleObject.options.shopware;
 
     mockedUtils.loadConfig.mockResolvedValue({
       shopwareEndpoint: "mockedEndpoint",
@@ -406,6 +406,13 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
     });
 
     it("should be disabled by default", async () => {
+      await runModule(moduleObject, {});
+      expect(moduleObject.options.store).toEqual(false);
+      expect(moduleObject.options.features.store).toEqual(false);
+    });
+
+    it("should be disabled by default with shopware option", async () => {
+      moduleObject.options.shopware ??= {};
       await runModule(moduleObject, {});
       expect(moduleObject.options.store).toEqual(false);
       expect(moduleObject.options.features.store).toEqual(false);
