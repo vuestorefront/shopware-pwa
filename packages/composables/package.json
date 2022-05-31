@@ -27,10 +27,10 @@
     "@shopware-pwa/shopware-6-client": "1.4.0",
     "@vue/devtools-api": "6.1.4",
     "axios": "^0.27.2",
-    "cookie-universal": "^2.1.5",
+    "cookie-universal": "^2.2.1",
     "lodash": "^4.17.21",
     "query-string": "^7.1.1",
-    "vue-demi": "^0.12.5"
+    "vue-demi": "^0.13.0"
   },
   "peerDependencies": {
     "@vue/composition-api": "^1.6.2",

@@ -68,7 +68,7 @@ export function createShopware(app: App, options: {
 }): {
     install(app: App, options?: {
         enableDevtools: boolean;
-    } | undefined): void;
+    }): void;
     _a: App<any>;
     _e: EffectScope;
     apiInstance: ShopwareApiInstance;
