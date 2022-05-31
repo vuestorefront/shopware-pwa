@@ -58,7 +58,6 @@ export default {
 
   &__image {
     img {
-      height: 100%;
       object-fit: cover;
       object-position: center;
       width: 100%;
@@ -67,7 +66,7 @@ export default {
 
   @include for-desktop {
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(1, 340px);
+    grid-template-rows: repeat(1, auto);
     margin: var(--spacer-sm) 0;
   }
 }

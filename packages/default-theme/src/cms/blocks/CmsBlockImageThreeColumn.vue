@@ -55,7 +55,7 @@ export default {
 ::v-deep.cms-block-image-three-column {
   display: grid;
   grid-gap: var(--spacer-sm);
-  grid-template-rows: repeat(3, 340px);
+  grid-template-rows: repeat(3, auto);
   margin: var(--spacer-sm);
 
   &__image {

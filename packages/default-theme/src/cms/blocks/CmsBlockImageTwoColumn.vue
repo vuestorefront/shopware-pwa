@@ -48,7 +48,7 @@ export default {
 ::v-deep.cms-block-image-two-column {
   display: grid;
   grid-gap: var(--spacer-sm);
-  grid-template-rows: repeat(2, 340px);
+  grid-template-rows: repeat(2, auto);
   margin: var(--spacer-sm);
 
   &__image {
@@ -62,7 +62,7 @@ export default {
 
   @include for-desktop {
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(1, 340px);
+    grid-template-rows: repeat(1, auto);
     margin: var(--spacer-sm) 0;
   }
 }
