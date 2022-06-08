@@ -5,44 +5,16 @@
     :multiple="true"
     :open="open"
   >
-    <SfFooterColumn
-      v-for="category in navigationElements"
-      :key="category.id"
-      :title="getTranslatedProperty(category, 'name')"
-    >
-      <SfList v-if="category.children">
-        <SfListItem
-          v-for="childCategory in category.children"
-          :key="childCategory.id"
-        >
-          <a
-            v-if="isLinkCategory(childCategory)"
-            class="sf-header__link"
-            :href="getCategoryUrl(childCategory)"
-            target="_blank"
-          >
-            <SfMenuItem :label="getTranslatedProperty(childCategory, 'name')" />
-          </a>
-          <nuxt-link
-            v-else
-            class="sf-header__link"
-            :to="$routing.getUrl(getCategoryUrl(childCategory))"
-          >
-            <SfMenuItem :label="getTranslatedProperty(childCategory, 'name')" />
-          </nuxt-link>
-        </SfListItem>
-      </SfList>
-    </SfFooterColumn>
+    <SwFooterNavigationColumn v-for="category in navigationElements" :key="category.id" :category="category" />
+    <SwFooterService />
   </SfFooter>
 </template>
 <script>
-import { SfFooter, SfList, SfMenuItem } from "@storefront-ui/vue"
+import { SfFooter } from "@storefront-ui/vue"
+import SwFooterNavigationColumn from "@/components/organisms/SwFooterNavigationColumn.vue"
+import SwFooterService from "@/components/organisms/SwFooterService.vue"
 import { ref, watch, computed } from "@vue/composition-api"
-import {
-  getCategoryUrl,
-  isLinkCategory,
-  getTranslatedProperty,
-} from "@shopware-pwa/helpers"
+import { getTranslatedProperty } from "@shopware-pwa/helpers"
 import { useNavigation, useSharedState } from "@shopware-pwa/composables"
 import { useDomains } from "@/logic"
 
@@ -59,8 +31,8 @@ export default {
   name: "SwFooterNavigation",
   components: {
     SfFooter,
-    SfList,
-    SfMenuItem,
+    SwFooterNavigationColumn,
+    SwFooterService,
   },
   setup() {
     const { loadNavigationElements, navigationElements } = useNavigation({
@@ -91,8 +63,6 @@ export default {
 
     return {
       navigationElements,
-      getCategoryUrl,
-      isLinkCategory,
       column,
       open,
       getTranslatedProperty,
