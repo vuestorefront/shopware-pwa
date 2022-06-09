@@ -464,7 +464,7 @@ jobs:
           initial_status: in_progress
       - name: Deploy on Storefrontcloud.io
         id: deploy
-        uses: StorefrontCloud/storefrontcloud-preview-deploy@master
+        uses: StorefrontCloud/storefrontcloud-preview-deploy@0.3.0
         if: github.repository_owner	== 'vuestorefront'
         with:
           token: "${{ github.token }}"
