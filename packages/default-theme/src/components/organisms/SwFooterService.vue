@@ -1,13 +1,12 @@
 <template>
   <SwFooterNavigationColumn     
-    v-if="navigationElements && navigationElements.length"
-    :key="navigationElements[0].id" 
-    :category="navigationElements[0]" 
+    v-if="category"
+    :key="category.id" 
+    :category="category" 
   />
 </template>
 <script>
-import { getTranslatedProperty } from "@shopware-pwa/helpers"
-import { ref } from "@vue/composition-api"
+import { computed } from "@vue/composition-api"
 import { useNavigation, useSharedState } from "@shopware-pwa/composables"
 import SwFooterNavigationColumn from "@/components/organisms/SwFooterNavigationColumn.vue"
 
@@ -24,9 +23,10 @@ export default {
     preloadRef(navigationElements, async () => {
       await loadNavigationElements({ depth: 2 })
     })
+    const category = computed(() => navigationElements.value?.[0])
+
     return {
-      navigationElements,
-      getTranslatedProperty,
+      category,
     }
   },
 }
