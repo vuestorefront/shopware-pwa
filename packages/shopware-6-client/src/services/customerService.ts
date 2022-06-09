@@ -130,12 +130,12 @@ export async function getCustomerAddresses(
 export async function getCustomerOrders(
   parameters: ShopwareSearchParams = {},
   contextInstance: ShopwareApiInstance = defaultInstance
-): Promise<Order[]> {
+): Promise<EntityResult<"order", Order[]>> {
   const resp = await contextInstance.invoke.post(
     getCustomerOrderEndpoint(),
     parameters
   );
-  return resp.data.orders?.elements || [];
+  return resp.data.orders;
 }
 
 /**

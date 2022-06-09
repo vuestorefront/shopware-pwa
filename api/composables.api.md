@@ -518,11 +518,21 @@ export interface IUseCustomerAddresses {
 // @beta
 export interface IUseCustomerOrders {
     // (undocumented)
+    changeCurrentPage: (pageNumber?: number | string) => Promise<void>;
+    // (undocumented)
     errors: UnwrapRef<{
         loadOrders: ShopwareError[];
     }>;
     // (undocumented)
+    getCurrentPage: ComputedRef<number>;
+    // (undocumented)
+    getLimit: ComputedRef<number>;
+    // (undocumented)
     getOrderDetails: (orderId: string) => Promise<Order | undefined>;
+    // (undocumented)
+    getTotal: ComputedRef<number>;
+    // (undocumented)
+    getTotalPagesCount: ComputedRef<number>;
     // (undocumented)
     loadOrders: () => Promise<void>;
     // (undocumented)
