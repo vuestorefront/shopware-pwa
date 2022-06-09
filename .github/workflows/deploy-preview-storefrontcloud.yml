@@ -1,7 +1,7 @@
 name: Deploy PR Preview on Storefrontcloud
 env:
   PWA_HOST: https://shopware-pwa-canary.storefrontcloud.io
-  INSTANCE_CODE: shopware-pwa-canary-europe-west1-gcp-storefrontcloud-io
+  INSTANCE_CODE: shopware-pwa-test-europe-west1-gcp-storefrontcloud-io
   EXPERIMENTAL_IMAGE_PROCESSING_SERVER: https://test-shopware-pwa-images.vercel.app/api/image
 on:
   pull_request:
