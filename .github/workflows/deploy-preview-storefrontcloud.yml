@@ -1,7 +1,7 @@
 name: Deploy PR Preview on Storefrontcloud
 env:
   PWA_HOST: https://shopware-pwa-canary.storefrontcloud.io
-  INSTANCE_CODE: shopware-pwa-canary
+  INSTANCE_CODE: shopware-pwa-test-europe-west1-gcp-storefrontcloud-io
   EXPERIMENTAL_IMAGE_PROCESSING_SERVER: https://test-shopware-pwa-images.vercel.app/api/image
 on:
   pull_request:
@@ -464,7 +464,7 @@ jobs:
           initial_status: in_progress
       - name: Deploy on Storefrontcloud.io
         id: deploy
-        uses: StorefrontCloud/storefrontcloud-preview-deploy@master
+        uses: StorefrontCloud/storefrontcloud-preview-deploy@0.3.0
         if: github.repository_owner	== 'vuestorefront'
         with:
           token: "${{ github.token }}"
