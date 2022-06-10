@@ -22,7 +22,7 @@ describe("CustomerService - getCustomerOrders", () => {
       },
     });
     const result = await getCustomerOrders();
-    expect(result).toStrictEqual([]);
+    expect(result).toBeUndefined();
   });
 
   it("should return array of orders", async () => {
@@ -43,13 +43,15 @@ describe("CustomerService - getCustomerOrders", () => {
     const result = await getCustomerOrders();
     expect(mockedPost).toBeCalledTimes(1);
     expect(mockedPost).toBeCalledWith("/store-api/order", {});
-    expect(result).toMatchObject([
-      {
-        orderNumber: "1234",
-      },
-      {
-        orderNumber: "4321",
-      },
-    ]);
+    expect(result).toMatchObject({
+      "elements" :[
+        {
+          orderNumber: "1234",
+        },
+        {
+          orderNumber: "4321",
+        },
+      ]
+    });
   });
 });

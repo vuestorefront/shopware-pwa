@@ -62,7 +62,7 @@ export function useCustomerOrders(): IUseCustomerOrders {
 
   const getTotal = computed(() => {
     /** We will update the new way to get total after BE add it into response api */
-    const aggregations: any = ordersResult?.value?.aggregations ;
+    const aggregations: any = ordersResult.value?.aggregations;
     return aggregations?.['count-id']?.count || 0;
   });
 
@@ -75,7 +75,7 @@ export function useCustomerOrders(): IUseCustomerOrders {
   );
 
   const orders = computed(() =>
-    ordersResult?.value?.elements || []
+    ordersResult.value?.elements || []
   );
 
   const getCurrentPage = computed(() => ordersResult.value?.page || 1);
