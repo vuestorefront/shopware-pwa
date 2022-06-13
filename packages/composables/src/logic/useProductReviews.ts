@@ -9,7 +9,7 @@ import {
   ShopwareError,
   ShopwareSearchParams,
 } from "@shopware-pwa/commons/interfaces";
-import { getApplicationContext } from "@shopware-pwa/composables";
+import { useDefaults, getApplicationContext } from "@shopware-pwa/composables";
 import { UiProductReview } from "packages/helpers/src/ui-interfaces";
 import { ClientApiError } from "@shopware-pwa/commons";
 
@@ -47,6 +47,7 @@ export function useProductReviews(params: {
   const product = unref(params.product);
 
   const { apiInstance } = getApplicationContext({ contextName });
+  const { getDefaults } = useDefaults({ defaultsKey: contextName });
 
   const wasReviewSent = ref(false);
   const isSendingReview = ref(false);
@@ -66,7 +67,7 @@ export function useProductReviews(params: {
     try {
       const fetchedReviews = await getProductReviews(
         product.id,
-        parameters,
+        Object.assign({}, getDefaults(), parameters),
         apiInstance
       );
       productReviews.value = fetchedReviews.elements?.map(
