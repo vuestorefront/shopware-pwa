@@ -49,6 +49,7 @@ import { ShopwareSearchParams } from '@shopware-pwa/commons/interfaces';
 import { Sort } from '@shopware-pwa/commons/interfaces';
 import { StoreNavigationElement } from '@shopware-pwa/commons/interfaces';
 import { StoreNavigationType } from '@shopware-pwa/commons/interfaces';
+import { UiProductReview } from 'packages/helpers/src/ui-interfaces';
 import { UnwrapRef } from 'vue-demi';
 import { WritableComputedRef } from 'vue-demi';
 
@@ -653,6 +654,29 @@ export interface IUseProductQuickSearch {
     searchTerm: Ref<string>;
 }
 
+// @beta
+export interface IUseProductReviews {
+    // (undocumented)
+    addReview: (data: {
+        title: string;
+        content: string;
+        points: number;
+    }) => Promise<void>;
+    // (undocumented)
+    errors: UnwrapRef<{
+        loadProductReviews: ShopwareError[];
+        addReview: ShopwareError[];
+    }>;
+    // (undocumented)
+    isSendingReview: Ref<boolean>;
+    // (undocumented)
+    loadProductReviews: (parameters: ShopwareSearchParams) => Promise<void>;
+    // (undocumented)
+    productReviews: Ref<UiProductReview[] | null>;
+    // (undocumented)
+    wasReviewSent: Ref<boolean>;
+}
+
 // @beta (undocumented)
 export interface IUseSalutations {
     // (undocumented)
@@ -1002,6 +1026,11 @@ export function useProductConfigurator(params: {
 
 // @beta (undocumented)
 export function useProductQuickSearch(): IUseProductQuickSearch;
+
+// @beta
+export function useProductReviews(params: {
+    product: Ref<Product> | Product;
+}): IUseProductReviews;
 
 // @beta (undocumented)
 export function useSalutations(): IUseSalutations;

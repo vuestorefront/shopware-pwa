@@ -39,8 +39,8 @@
 
         <SwErrorsList :list="errorMessages" />
 
-        <SwButton class="send button">
-          {{ !isSending ? $t("Add review") : $t("Sending...") }}
+        <SwButton type="submit" class="send button">
+          {{ !isSendingReview ? $t("Add review") : $t("Sending...") }}
         </SwButton>
       </form>
 
@@ -70,6 +70,7 @@ import {
   useUser,
   useUIState,
   getApplicationContext,
+  useProductReviews,
 } from "@shopware-pwa/composables"
 
 export default {
@@ -97,17 +98,24 @@ export default {
       stateName: "LOGIN_MODAL_STATE",
     })
 
-    const errorMessages = ref([])
+    const { 
+      wasReviewSent,
+      addReview,
+      isSendingReview,
+      errors,
+     } = useProductReviews({
+      product : { id: props.productId }
+    })
+
     const reviewTitle = ref(null)
     const reviewContent = ref(null)
     const reviewRating = ref(0)
-    const wasReviewSent = ref(false)
-    const isSending = ref(false)
     const reviewRequestData = computed(() => ({
       title: reviewTitle.value,
       content: reviewContent.value,
       points: reviewRating.value,
     }))
+
     const canAddReview = computed(
       () => isLoggedIn.value && !isGuestSession.value
     )
@@ -115,20 +123,13 @@ export default {
       reviewRating.value = rating
     }
     const submitForm = async () => {
-      isSending.value = true
-      try {
-        await addProductReview(
-          props.productId,
-          reviewRequestData.value,
-          apiInstance
-        )
-        wasReviewSent.value = true
-      } catch (error) {
-        console.error("[SwAddProductReview][submitForm]: ", error)
-        errorMessages.value = error.messages
-      }
-      isSending.value = false
+      if (!canAddReview) return
+      return addReview(reviewRequestData.value)
     }
+
+    const errorMessages = computed(
+      () => errors?.addReview ?? []
+    )
 
     return {
       switchLoginModalState,
@@ -139,7 +140,7 @@ export default {
       submitForm,
       setCurrentRating,
       wasReviewSent,
-      isSending,
+      isSendingReview,
       canAddReview,
     }
   },

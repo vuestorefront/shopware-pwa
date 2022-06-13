@@ -90,11 +90,6 @@ export function getProductRatingAverage(product: Product): number | null;
 // @beta (undocumented)
 export function getProductRealPrice(product: Product): CalculatedPrice | undefined;
 
-// @public
-export function getProductReviews({ product, }?: {
-    product?: Product;
-}): UiProductReview[];
-
 // @beta
 export function getProductThumbnailUrl(product: Product): string;
 

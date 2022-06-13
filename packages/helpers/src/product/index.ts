@@ -5,7 +5,6 @@ export * from "./getProductName";
 export * from "./getProductNumber";
 export * from "./getProductOptions";
 export * from "./getProductProperties";
-export * from "./getProductReviews";
 export * from "./getProductTierPrices";
 export * from "./getProductUrl";
 export * from "./getProductRatingAverage";
