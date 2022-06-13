@@ -670,7 +670,7 @@ export interface IUseProductReviews {
     // (undocumented)
     isSendingReview: Ref<boolean>;
     // (undocumented)
-    loadProductReviews: (parameters: ShopwareSearchParams) => Promise<void>;
+    loadProductReviews: (parameters?: ShopwareSearchParams) => Promise<void>;
     // (undocumented)
     productReviews: Ref<UiProductReview[] | null>;
     // (undocumented)

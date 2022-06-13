@@ -10,5 +10,5 @@
 <b>Signature:</b>
 
 ```typescript
-loadProductReviews: (parameters: ShopwareSearchParams) => Promise<void>;
+loadProductReviews: (parameters?: ShopwareSearchParams) => Promise<void>;
 ```

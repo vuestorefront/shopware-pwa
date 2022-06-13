@@ -22,7 +22,7 @@ export interface IUseProductReviews
 |  [addReview](./composables.iuseproductreviews.addreview.md) | (data: { title: string; content: string; points: number; }) =&gt; Promise&lt;void&gt; | <b><i>(BETA)</i></b> |
 |  [errors](./composables.iuseproductreviews.errors.md) | UnwrapRef&lt;{ loadProductReviews: ShopwareError\[\]; addReview: ShopwareError\[\]; }&gt; | <b><i>(BETA)</i></b> |
 |  [isSendingReview](./composables.iuseproductreviews.issendingreview.md) | Ref&lt;boolean&gt; | <b><i>(BETA)</i></b> |
-|  [loadProductReviews](./composables.iuseproductreviews.loadproductreviews.md) | (parameters: ShopwareSearchParams) =&gt; Promise&lt;void&gt; | <b><i>(BETA)</i></b> |
+|  [loadProductReviews](./composables.iuseproductreviews.loadproductreviews.md) | (parameters?: ShopwareSearchParams) =&gt; Promise&lt;void&gt; | <b><i>(BETA)</i></b> |
 |  [productReviews](./composables.iuseproductreviews.productreviews.md) | Ref&lt;UiProductReview\[\] \| null&gt; | <b><i>(BETA)</i></b> |
 |  [wasReviewSent](./composables.iuseproductreviews.wasreviewsent.md) | Ref&lt;boolean&gt; | <b><i>(BETA)</i></b> |
 
