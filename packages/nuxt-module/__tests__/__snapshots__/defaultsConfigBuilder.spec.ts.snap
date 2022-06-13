@@ -4,6 +4,7 @@ exports[`nuxt-module - defaultsConfigBuilder get should return default config ke
 Array [
   "useCms",
   "useProductListing",
+  "useProductReviews",
   "useProductQuickSearch",
   "useListing",
   "useProduct",

@@ -19,6 +19,12 @@ describe("Composables - useProductReviews", () => {
   beforeEach(() => {
     jest.resetAllMocks();
 
+    mockedComposables.useDefaults.mockImplementation(() => {
+      return {
+        getDefaults: () => {},
+      } as any;
+    });
+
     mockedComposables.useVueContext.mockReturnValue({
       isVueComponent: false,
       isVueScope: true,
