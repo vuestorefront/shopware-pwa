@@ -37,16 +37,30 @@
         </SfList>
       </div>
     </div>
+    <div v-if="category.media" class="sw-mega-menu__image-container">
+      <nuxt-link
+        :to="$routing.getUrl(getCategoryUrl(category))"
+      >
+        <SwImage
+          :src="getImageUrl(category.media)"
+          :alt="category.media.alt || ''"
+          :width="310"
+          :height="250"
+        />
+      </nuxt-link>
+    </div>
   </SfMegaMenu>
 </template>
 
 <script>
 import { SfMegaMenu, SfMenuItem, SfList, SfHeading } from "@storefront-ui/vue"
+import getResizedImage from "@/helpers/images/getResizedImage.js"
 import { getCategoryUrl, getTranslatedProperty } from "@shopware-pwa/helpers"
+import SwImage from "@/components/atoms/SwImage.vue"
 
 export default {
   name: "SwMegaMenu",
-  components: { SfMegaMenu, SfMenuItem, SfList, SfHeading },
+  components: { SfMegaMenu, SfMenuItem, SfList, SfHeading, SwImage },
   props: {
     category: {
       type: Object,
@@ -58,7 +72,11 @@ export default {
     },
   },
   setup(props, { root }) {
-    return { getCategoryUrl, getTranslatedProperty }
+    function getImageUrl(media) {
+      return getResizedImage(media?.url, { width: 310, height: 250 })
+    }
+
+    return { getImageUrl, getCategoryUrl, getTranslatedProperty }
   },
 }
 </script>
