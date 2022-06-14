@@ -268,6 +268,14 @@
     }
   },
   "useCustomerOrders": {
+    "limit": 10,
+    "aggregations": [
+      {
+        "name": "count-id",
+        "type": "count",
+        "field": "id"
+      }
+    ],
     "sort": [
       {
         "field": "createdAt",

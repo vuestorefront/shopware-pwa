@@ -309,7 +309,7 @@ export const getCustomerLogoutEndpoint: () => string;
 export const getCustomerOrderEndpoint: () => string;
 
 // @public
-export function getCustomerOrders(parameters?: ShopwareSearchParams, contextInstance?: ShopwareApiInstance): Promise<Order[]>;
+export function getCustomerOrders(parameters?: ShopwareSearchParams, contextInstance?: ShopwareApiInstance): Promise<EntityResult<"order", Order[]>>;
 
 // @beta (undocumented)
 export const getCustomerRegisterEndpoint: () => string;

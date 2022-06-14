@@ -8,15 +8,15 @@
     >
       <SfContentCategory :title="$t('Personal Details')">
         <SfContentPage :title="$t('My profile')">
-          <nuxt-child />
+          <nuxt-child v-if="activePage === $t('My profile')" />
         </SfContentPage>
         <SfContentPage :title="$t('My addresses')">
-          <nuxt-child />
+          <nuxt-child v-if="activePage === $t('My addresses')" />
         </SfContentPage>
       </SfContentCategory>
       <SfContentCategory :title="$t('Order details')">
         <SfContentPage :title="$tc('Order history', ordersCount)">
-          <nuxt-child />
+          <nuxt-child v-if="activePage === $tc('Order history', ordersCount)" />
         </SfContentPage>
       </SfContentCategory>
       <SfContentPage :title="$t('Logout')"></SfContentPage>
@@ -30,7 +30,6 @@ import { SfContentPages } from "@storefront-ui/vue"
 import {
   useUser,
   useBreadcrumbs,
-  useCustomerOrders,
 } from "@shopware-pwa/composables"
 import { PAGE_ACCOUNT, PAGE_LOGIN } from "@/helpers/pages"
 import authMiddleware from "@/middleware/auth"
@@ -46,7 +45,6 @@ export default {
 
   setup(props, { root }) {
     const { logout, user } = useUser()
-    const { loadOrders, orders } = useCustomerOrders()
     const { setBreadcrumbs } = useBreadcrumbs()
     setBreadcrumbs([
       {
@@ -55,7 +53,7 @@ export default {
       },
     ])
     const ordersCount = computed(() => user.value && user.value.orderCount)
-    return { logout, user, loadOrders, orders, ordersCount }
+    return { logout, user, ordersCount }
   },
 
   data() {

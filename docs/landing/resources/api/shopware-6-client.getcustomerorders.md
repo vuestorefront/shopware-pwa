@@ -9,7 +9,7 @@ Get all customer's orders
 <b>Signature:</b>
 
 ```typescript
-export declare function getCustomerOrders(parameters?: ShopwareSearchParams, contextInstance?: ShopwareApiInstance): Promise<Order[]>;
+export declare function getCustomerOrders(parameters?: ShopwareSearchParams, contextInstance?: ShopwareApiInstance): Promise<EntityResult<"order", Order[]>>;
 ```
 
 ## Parameters
@@ -21,7 +21,7 @@ export declare function getCustomerOrders(parameters?: ShopwareSearchParams, con
 
 <b>Returns:</b>
 
-Promise&lt;Order\[\]&gt;
+Promise&lt;EntityResult&lt;"order", Order\[\]&gt;&gt;
 
 ## Exceptions
 

@@ -19,8 +19,13 @@ export interface IUseCustomerOrders
 
 |  Property | Type | Description |
 |  --- | --- | --- |
+|  [changeCurrentPage](./composables.iusecustomerorders.changecurrentpage.md) | (pageNumber?: number \| string) =&gt; Promise&lt;void&gt; | <b><i>(BETA)</i></b> |
 |  [errors](./composables.iusecustomerorders.errors.md) | UnwrapRef&lt;{ loadOrders: ShopwareError\[\]; }&gt; | <b><i>(BETA)</i></b> |
+|  [getCurrentPage](./composables.iusecustomerorders.getcurrentpage.md) | ComputedRef&lt;number&gt; | <b><i>(BETA)</i></b> |
+|  [getLimit](./composables.iusecustomerorders.getlimit.md) | ComputedRef&lt;number&gt; | <b><i>(BETA)</i></b> |
 |  [getOrderDetails](./composables.iusecustomerorders.getorderdetails.md) | (orderId: string) =&gt; Promise&lt;Order \| undefined&gt; | <b><i>(BETA)</i></b> |
+|  [getTotal](./composables.iusecustomerorders.gettotal.md) | ComputedRef&lt;number&gt; | <b><i>(BETA)</i></b> |
+|  [getTotalPagesCount](./composables.iusecustomerorders.gettotalpagescount.md) | ComputedRef&lt;number&gt; | <b><i>(BETA)</i></b> |
 |  [loadOrders](./composables.iusecustomerorders.loadorders.md) | () =&gt; Promise&lt;void&gt; | <b><i>(BETA)</i></b> |
 |  [orders](./composables.iusecustomerorders.orders.md) | Ref&lt;Order\[\] \| null&gt; | <b><i>(BETA)</i></b> |
 
