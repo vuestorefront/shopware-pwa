@@ -39,7 +39,7 @@
         class="title desktop-only"
         :level="4"
       />
-      <div v-if="!isEditModeOpen" class="address-manager__list">
+      <div v-if="isEditModeOpen" class="address-manager__list">
         <div
           v-for="address in addresses"
           :key="address.id"
@@ -72,7 +72,6 @@
         v-else
         @success="onAddressSave"
         @cancel="isModalOpen = false"
-        :address=activeAddress
       />
     </SfModal>
   </div>
