@@ -39,6 +39,11 @@
           class="sw-product-card-price sf-product-card__price from-price"
           :regular="`${$t('From')} ${displayFromPrice}`"
         />
+        <SfPrice
+          v-if="displaySinglePrice"
+          class="sw-product-card-price sf-product-card__price real-price"
+          :regular="displaySinglePrice"
+        />
       </template>
     </SfProductCardHorizontal>
   </SwPluginSlot>
@@ -94,6 +99,12 @@ export default {
         return filterPrice(variantsFromPrice)
       }
     })
+    const displaySinglePrice = computed(() => {
+      if (!variantsFromPrice && !fromPrice) {
+        const realPrice = getProductRealPrice(props.product);
+        return filterPrice(realPrice?.unitPrice);
+      }
+    })
 
     return {
       quantity,
@@ -105,7 +116,8 @@ export default {
       isInWishlist,
       getPlaceholderImage,
       displayFromPrice,
-      displayVariantsFromPrice
+      displayVariantsFromPrice,
+      displaySinglePrice
     }
   },
   props: {
