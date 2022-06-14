@@ -237,6 +237,7 @@
   },
   "useNavigation": {
     "associations": {
+      "media": {},
       "seoUrls": {}
     },
     "includes": {
@@ -247,7 +248,8 @@
         "id",
         "children",
         "translated",
-        "type"
+        "type",
+        "media"
       ],
       "seo_url": ["pathInfo", "seoPathInfo"]
     }
