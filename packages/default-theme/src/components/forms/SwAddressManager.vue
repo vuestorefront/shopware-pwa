@@ -39,7 +39,7 @@
         class="title desktop-only"
         :level="4"
       />
-      <div v-if="!isEditModeOpen" class="address-manager__list">
+      <div class="address-manager__list">
         <div
           v-for="address in addresses"
           :key="address.id"
@@ -58,21 +58,40 @@
             </SfAddress>
           </SfAddressPicker>
         </div>
-        <SwButton
-          class="sf-button color-secondary address-manager__add-new"
-          @click="
-            isModalOpen = true
-            isEditModeOpen = false
-          "
-        >
-          {{ $t("Add new") }}
-        </SwButton>
+        <div class="sf-button-container">
+          <SwButton
+            class="sf-button color-secondary address-manager__add-new"
+            @click="
+              isModalOpen = true
+              isEditModeOpen = false
+              isAddNew = true
+            "
+          >
+            {{ $t("Add new") }}
+          </SwButton>
+          <SwButton
+            class="sf-button color-secondary address-manager__edit"
+            @click="
+              isModalOpen = true
+              isEditModeOpen = false
+              isAddNew = false
+            "
+          >
+            {{ $t("Edit") }}
+          </SwButton>
+        </div>
       </div>
+
       <SwAddressForm
-        v-else
+        v-if="!isAddNew"
         @success="onAddressSave"
         @cancel="isModalOpen = false"
         :address=activeAddress
+      />
+      <SwAddressForm
+        v-if="isAddNew"
+        @success="onAddressSave"
+        @cancel="isModalOpen = false"
       />
     </SfModal>
   </div>
@@ -87,7 +106,7 @@ import {
 } from "@storefront-ui/vue"
 import { useSessionContext, useUser } from "@shopware-pwa/composables"
 import SwButton from "@/components/atoms/SwButton.vue"
-import { ref, watch } from "@vue/composition-api"
+import { ref, watch, computed } from "@vue/composition-api"
 import SwAddressForm from "@/components/forms/SwAddressForm.vue"
 // import SwCheckbox from '@/components/atoms/SwCheckbox.vue'
 
@@ -123,6 +142,7 @@ export default {
   setup(props, { root, emit }) {
     const isModalOpen = ref(false)
     const isEditModeOpen = ref(false)
+    const isAddNew = ref(false)
 
     const onAddressSave = (addressId) => {
       isModalOpen.value = false
@@ -138,8 +158,9 @@ export default {
       onAddressSave,
       isEditModeOpen,
       onAddressChange,
+      isAddNew
     }
-  },
+  }
 }
 </script>
 <style lang="scss" scoped>
@@ -227,6 +248,14 @@ export default {
   }
   &.sf-radio .is-active {
     border-color: var(--c-primary);
+  }
+}
+
+.sf-button-container {
+  @include for-desktop {
+      width: 100%;
+    display: flex;
+    justify-content: space-between;
   }
 }
 </style>
