@@ -49,7 +49,6 @@
 <script>
 import {
   getProductFreeShipping,
-  getProductReviews,
   getProductTierPrices,
   getProductRatingAverage,
   getProductCalculatedListingPrice,
@@ -57,9 +56,9 @@ import {
   getProductPriceDiscount,
   getTranslatedProperty,
 } from "@shopware-pwa/helpers"
-
+import { computed } from "@vue/composition-api"
 import { SfBadge, SfHeading, SfPrice, SfRating } from "@storefront-ui/vue"
-
+import { useProductReviews } from "@shopware-pwa/composables"
 import SwTierPrices from "@/components/SwTierPrices.vue"
 import { usePriceFilter } from "@/logic/usePriceFilter.js"
 
@@ -80,8 +79,17 @@ export default {
       type: Object,
     },
   },
-  setup() {
+  setup(props) {
+    const { loadProductReviews, productReviews } = useProductReviews({
+      product: props.product
+    })
+    loadProductReviews()
+    const reviews = computed(() =>
+      productReviews.value ?? []
+    )
+
     return {
+      reviews,
       filterPrice: usePriceFilter(),
       getTranslatedProperty,
     }
@@ -93,10 +101,6 @@ export default {
     },
     ratingAverage() {
       return getProductRatingAverage(this.product)
-    },
-
-    reviews() {
-      return getProductReviews({ product: this.product })
     },
 
     shippingFree() {

@@ -12,9 +12,9 @@
 <script>
 import SwProductDescription from "@/components/SwProductDescription.vue"
 import SwProductTabs from "@/components/SwProductTabs.vue"
-import { useCms } from "@shopware-pwa/composables"
+import { useCms, useProductReviews } from "@shopware-pwa/composables"
 import { computed, inject } from "@vue/composition-api"
-import { getProductReviews, getProductProperties } from "@shopware-pwa/helpers"
+import { getProductProperties } from "@shopware-pwa/helpers"
 
 export default {
   components: { SwProductDescription, SwProductTabs },
@@ -29,9 +29,12 @@ export default {
     const { page } = useCms() // fallback for provide/inject, remove in future
     const cmsPage = inject("cms-page", page)
     const product = computed(() => cmsPage.value?.product || props.content?.data?.product)
-
+    const { loadProductReviews, productReviews } = useProductReviews({
+      product
+    })
+    loadProductReviews()
     const reviews = computed(() =>
-      getProductReviews({ product: product.value })
+      productReviews.value ?? []
     )
     const properties = computed(() =>
       getProductProperties({ product: product.value })

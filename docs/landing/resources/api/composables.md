@@ -36,6 +36,7 @@ Vue's composables to be used in Shopware frontend application.
 |  [useProductAssociations(params)](./composables.useproductassociations.md) | <b><i>(BETA)</i></b> Get product association entity. Options - [IUseProductAssociations](./composables.iuseproductassociations.md) |
 |  [useProductConfigurator(params)](./composables.useproductconfigurator.md) | <b><i>(BETA)</i></b> Product options - [IUseAddToCart](./composables.iuseaddtocart.md) |
 |  [useProductQuickSearch()](./composables.useproductquicksearch.md) | <b><i>(BETA)</i></b> |
+|  [useProductReviews(params)](./composables.useproductreviews.md) | <b><i>(BETA)</i></b> Composable for listing customer orders. Options - [IUseProductReviews](./composables.iuseproductreviews.md) |
 |  [useSalutations()](./composables.usesalutations.md) | <b><i>(BETA)</i></b> |
 |  [useSessionContext()](./composables.usesessioncontext.md) | <b><i>(BETA)</i></b> Composable for session management. Options - [IUseSessionContext](./composables.iusesessioncontext.md) |
 |  [useSharedState()](./composables.usesharedstate.md) | Replacement for Vuex. Composable, which enables you to use shared state in your application. State is shared both on server and client side. |
@@ -64,6 +65,7 @@ Vue's composables to be used in Shopware frontend application.
 |  [IUseProductAssociations](./composables.iuseproductassociations.md) | <b><i>(BETA)</i></b> interface for [IUseProductAssociations](./composables.iuseproductassociations.md) composable |
 |  [IUseProductConfigurator](./composables.iuseproductconfigurator.md) | <b><i>(BETA)</i></b> interface for [useProductConfigurator()](./composables.useproductconfigurator.md) composable |
 |  [IUseProductQuickSearch](./composables.iuseproductquicksearch.md) | <b><i>(BETA)</i></b> |
+|  [IUseProductReviews](./composables.iuseproductreviews.md) | <b><i>(BETA)</i></b> interface for [useProductReviews()](./composables.useproductreviews.md) composable |
 |  [IUseSalutations](./composables.iusesalutations.md) | <b><i>(BETA)</i></b> |
 |  [IUseSessionContext](./composables.iusesessioncontext.md) | <b><i>(BETA)</i></b> interface for [useSessionContext()](./composables.usesessioncontext.md) composable |
 |  [IUseUser](./composables.iuseuser.md) | <b><i>(BETA)</i></b> interface for [useUser()](./composables.useuser.md) composable |

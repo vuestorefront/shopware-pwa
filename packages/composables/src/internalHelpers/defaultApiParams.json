@@ -137,6 +137,14 @@
       ]
     }
   },
+  "useProductReviews": {
+    "sort": [
+      {
+        "field": "createdAt",
+        "order": "desc"
+      }
+    ]
+  },
   "useProductQuickSearch": {
     "limit": 10,
     "includes": {
