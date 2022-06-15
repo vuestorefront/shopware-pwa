@@ -29,6 +29,7 @@
 |  [getProductProperties({ product, })](./helpers.getproductproperties.md) | Get product properties as ui-interfaces |
 |  [getProductRatingAverage(product)](./helpers.getproductratingaverage.md) | Get product rating average property |
 |  [getProductRealPrice(product)](./helpers.getproductrealprice.md) | <b><i>(BETA)</i></b> |
+|  [getProductReviews({ product, })](./helpers.getproductreviews.md) | Format product reviews to ui-interfaces |
 |  [getProductThumbnailUrl(product)](./helpers.getproductthumbnailurl.md) | <b><i>(BETA)</i></b> get the thumbnail image URL with the smallest width |
 |  [getProductTierPrices(product)](./helpers.getproducttierprices.md) | <b><i>(BETA)</i></b> Get the prices depending on quantity added to cart. Tier prices can be set in <code>Advanced pricing</code> tab in <code>Product view</code> (admin panel) |
 |  [getProductUrl(product)](./helpers.getproducturl.md) | Get product url. The priority is SEO url and then technical url. |
