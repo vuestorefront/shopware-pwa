@@ -1,20 +1,27 @@
 // category
 
 /**
- * @beta
+ * @public
  */
 export const getCategoryEndpoint = () => `/store-api/category`;
 
 /**
- * @beta
+ * @public
  */
 export const getCategoryDetailsEndpoint = (categoryId: string) =>
   `/store-api/category/${categoryId}`;
 
+// landing-page
+/**
+ * @public
+ */
+export const getLandingPageDetailsEndpoint = (landingPageId: string) =>
+  `/store-api/landing-page/${landingPageId}`;
+
 // product-listing
 
 /**
- * @beta
+ * @public
  */
 export const getProductListingEndpoint = (categoryId: string) =>
   `/store-api/product-listing/${categoryId}`;
@@ -22,12 +29,12 @@ export const getProductListingEndpoint = (categoryId: string) =>
 // product
 
 /**
- * @beta
+ * @public
  */
 export const getProductEndpoint = () => `/store-api/product`;
 
 /**
- * @beta
+ * @public
  */
 export const getProductDetailsEndpoint = (productId: string) =>
   `/store-api/product/${productId}`;
@@ -35,7 +42,7 @@ export const getProductDetailsEndpoint = (productId: string) =>
 // product-reviews
 
 /**
- * @beta
+ * @public
  */
 export const getProductReviewsEndpoint = (productId: string) =>
   `/store-api/product/${productId}/reviews`;
@@ -43,23 +50,23 @@ export const getProductReviewsEndpoint = (productId: string) =>
 // search
 
 /**
- * @beta
+ * @public
  */
 export const getSuggestSearchEndpoint = () => `/store-api/search-suggest`;
 
 /**
- * @beta
+ * @public
  */
 export const getSearchEndpoint = () => `/store-api/search`;
 
 // customer
 /**
- * @beta
+ * @public
  */
 export const getCustomerAddAddressEndpoint = () => `/store-api/account/address`;
 
 /**
- * @beta
+ * @public
  */
 export const getCustomerAddressEndpoint = (addressId?: string) =>
   addressId
@@ -70,66 +77,66 @@ const getCustomerDefaultAddressEndpoint = (type: string, addressId: string) =>
   `/store-api/account/address/default-${type}/${addressId}`;
 
 /**
- * @beta
+ * @public
  */
 export const getCustomerDefaultBillingAddressEndpoint = (addressId: string) =>
   getCustomerDefaultAddressEndpoint("billing", addressId);
 
 /**
- * @beta
+ * @public
  */
 export const getCustomerDefaultShippingAddressEndpoint = (addressId: string) =>
   getCustomerDefaultAddressEndpoint("shipping", addressId);
 
 /**
- * @beta
+ * @public
  */
 export const getCustomerEndpoint = () => `/store-api/account/customer`;
 /**
- * @beta
+ * @public
  */
 export const getCustomerRegisterEndpoint = () => `/store-api/account/register`;
 /**
- * @beta
+ * @public
  */
 export const getCustomerDetailsUpdateEndpoint = () =>
   `/store-api/account/change-profile`;
 
 /**
- * @beta
+ * @public
  */
 export const getCustomerLoginEndpoint = () => `/store-api/account/login`;
 
 /**
- * @beta
+ * @public
  */
 export const getCustomerLogoutEndpoint = () => `/store-api/account/logout`;
 
 /**
- * @beta
+ * @public
  */
 export const getCustomerOrderEndpoint = () => `/store-api/order`;
 
 /**
- * @beta
+ * @public
  */
 export const getCustomerUpdateEmailEndpoint = () =>
   `/store-api/account/change-email`;
 
 /**
- * @beta
+ * @public
  */
 export const getCustomerUpdatePasswordEndpoint = () =>
   `/store-api/account/change-password`;
 
 /**
- * @beta
+ * @public
  */
 export const getCustomerResetPasswordEndpoint = () =>
   `/store-api/account/recovery-password`;
 
 /**
- * @beta
+ * @public
  */
 export const getConfirmPasswordResetEndpoint = () =>
   `/store-api/account/recovery-password-confirm`;
@@ -150,28 +157,28 @@ export const getCustomerUpdatePaymentMethodEndpoint = (
 // checkout
 
 /**
- * @beta
+ * @public
  */
 export const getCheckoutCartEndpoint = () => `/store-api/checkout/cart`;
 
 /**
- * @beta
+ * @public
  */
 export const getCheckoutCartLineItemEndpoint = () =>
   `/store-api/checkout/cart/line-item`;
 
 /**
- * @beta
+ * @public
  */
 export const getCheckoutOrderEndpoint = () => `/store-api/checkout/order`;
 
 /**
- * @beta
+ * @public
  */
 export const getCancelOrderEndpoint = () => `/store-api/order/state/cancel`;
 
 /**
- * @beta
+ * @public
  */
 export const getChangeOrderPaymentMethodEndpoint = () =>
   `/store-api/order/payment`;
@@ -179,66 +186,66 @@ export const getChangeOrderPaymentMethodEndpoint = () =>
 // context
 
 /**
- * @beta
+ * @public
  */
 export const getContextEndpoint = () => `/store-api/context`;
 
 /**
- * @beta
+ * @public
  */
 export const getContextCurrencyEndpoint = () => `/store-api/currency`;
 
 /**
- * @beta
+ * @public
  */
 export const getContextLanguageEndpoint = () => `/store-api/language`;
 
 /**
- * @beta
+ * @public
  */
 export const getContextCountryEndpoint = () => `/store-api/country`;
 
 /**
- * @beta
+ * @public
  */
 export const getContextPaymentMethodEndpoint = () =>
   `/store-api/payment-method`;
 
 /**
- * @beta
+ * @public
  */
 export const getContextShippingMethodEndpoint = () =>
   `/store-api/shipping-method`;
 
 /**
- * @beta
+ * @public
  */
 export const getContextSalutationEndpoint = () => `/store-api/salutation`;
 
 // newsletter
 
 /**
- * @beta
+ * @public
  */
 export const getNewsletterSubscribeEndpoint = () => `/newsletter/subscribe`; // replace with `/store-api/v4/newsletter/subscribe`, consider using `/store-api/v4/newsletter/confirm`
 
 /**
- * @beta
+ * @public
  */
 export const getNewsletterUnsubscribeEndpoint = () => `/newsletter/unsubscribe`; // replace with `/store-api/v4/newsletter/unsubscribe`
 
 /**
- * @beta
+ * @public
  */
 export const getPageResolverEndpoint = () => `/store-api/pwa/page`;
 
 /**
- * @beta
+ * @public
  */
 export const getSeoUrlEndpoint = () => "/store-api/seo-url";
 
 /**
- * @beta
+ * @public
  */
 export const getStoreNavigationEndpoint = (
   requestActiveId: string,
@@ -246,49 +253,49 @@ export const getStoreNavigationEndpoint = (
 ) => `/store-api/navigation/${requestActiveId}/${requestRootId}`;
 
 /**
- * @beta
+ * @public
  */
 export const getContactFormEndpoint = () => `/store-api/contact-form`;
 /**
- * @beta
+ * @public
  */
 export const handlePaymentEndpoint = () => `/store-api/handle-payment`;
 
 /**
- * @beta
+ * @public
  */
 export const getStoreNewsletterSubscribeEndpoint = () =>
   `/store-api/newsletter/subscribe`;
 
 /**
- * @beta
+ * @public
  */
 export const getStoreNewsletterConfirmEndpoint = () =>
   `/store-api/newsletter/confirm`;
 
 /**
- * @beta
+ * @public
  */
 export const getStoreNewsletterUnsubscribeEndpoint = () =>
   `/store-api/newsletter/unsubscribe`;
 
 /**
- * @beta
+ * @public
  */
 export const getGetWishlistProductsEndpoint = () =>
   `/store-api/customer/wishlist`;
 /**
- * @beta
+ * @public
  */
 export const getAddWishlistProductEndpoint = (productId: string) =>
   `/store-api/customer/wishlist/add/${productId}`;
 /**
- * @beta
+ * @public
  */
 export const getRemoveWishlistProductEndpoint = (productId: string) =>
   `/store-api/customer/wishlist/delete/${productId}`;
 /**
- * @beta
+ * @public
  */
 export const getMergeWishlistProductsEndpoint = () =>
   `/store-api/customer/wishlist/merge`;
