@@ -27,6 +27,7 @@ import { ProductListingResult } from '@shopware-pwa/commons';
 import { ProductResponse } from '@shopware-pwa/commons';
 import { ProductReview } from '@shopware-pwa/commons';
 import { Salutation } from '@shopware-pwa/commons';
+import { SeoUrl } from '@shopware-pwa/commons';
 import { SessionContext } from '@shopware-pwa/commons';
 import { ShippingMethod } from '@shopware-pwa/commons';
 import { ShopwareSearchParams } from '@shopware-pwa/commons';
@@ -239,7 +240,7 @@ export const getCheckoutCartLineItemEndpoint: () => string;
 // @beta (undocumented)
 export const getCheckoutOrderEndpoint: () => string;
 
-// @public (undocumented)
+// @public @deprecated (undocumented)
 export function getCmsPage(path: string, criteria?: ShopwareSearchParams, contextInstance?: ShopwareApiInstance): Promise<CmsPageResponse>;
 
 // @beta (undocumented)
@@ -282,7 +283,7 @@ export const getCustomerAddAddressEndpoint: () => string;
 export function getCustomerAddress(addressId: string, contextInstance?: ShopwareApiInstance): Promise<CustomerAddress>;
 
 // @beta (undocumented)
-export const getCustomerAddressEndpoint: (addressId?: string) => string;
+export const getCustomerAddressEndpoint: (addressId?: string | undefined) => string;
 
 // @public
 export function getCustomerAddresses(parameters?: ShopwareSearchParams, contextInstance?: ShopwareApiInstance): Promise<EntityResult<"customer_address", CustomerAddress[]>>;
@@ -373,6 +374,9 @@ export const getRemoveWishlistProductEndpoint: (productId: string) => string;
 
 // @beta (undocumented)
 export const getSearchEndpoint: () => string;
+
+// @public (undocumented)
+export function getSeoUrl(params: ShopwareSearchParams, contextInstance?: ShopwareApiInstance): Promise<EntityResult<"seo_url", SeoUrl[]>>;
 
 // @beta (undocumented)
 export const getSeoUrlEndpoint: () => string;

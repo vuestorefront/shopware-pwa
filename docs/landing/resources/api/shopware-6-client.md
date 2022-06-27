@@ -43,6 +43,7 @@
 |  [getProduct(productId, params, contextInstance)](./shopware-6-client.getproduct.md) | Get the product with passed productId |
 |  [getProductReviews(productId, criteria, contextInstance)](./shopware-6-client.getproductreviews.md) | Get product reviews |
 |  [getProducts(criteria, contextInstance)](./shopware-6-client.getproducts.md) | Get default amount of products |
+|  [getSeoUrl(params, contextInstance)](./shopware-6-client.getseourl.md) |  |
 |  [getSeoUrls(entityId, languageId, contextInstance)](./shopware-6-client.getseourls.md) | Returns an array of SEO URLs for given entity Can be used for other languages as well by providing the languageId |
 |  [getSessionContext(contextInstance)](./shopware-6-client.getsessioncontext.md) | Loads session context, containing all session-related data. |
 |  [getShippingMethodDetails(shippingId, contextInstance)](./shopware-6-client.getshippingmethoddetails.md) |  |

@@ -11,6 +11,7 @@ import { invokePost } from "./pluginService";
 /**
  * @throws ClientApiError
  * @public
+ * @deprecated the method is becoming obsolete and will be removed in the future as the SwagShopwarePwa plugin won't be needed.
  */
 export async function getCmsPage(
   path: string,
