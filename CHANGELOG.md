@@ -1,3 +1,39 @@
+# [1.5.0](https://github.com/vuestorefront/shopware-pwa/compare/v1.4.0-gcp...v1.5.0) (2022-06-28)
+
+
+### Bug Fixes
+
+* **cli:** always ask for credentials in non CI mode ([#1873](https://github.com/vuestorefront/shopware-pwa/issues/1873)) ([2bfa538](https://github.com/vuestorefront/shopware-pwa/commit/2bfa538b17c846a8f824115571d1b6f477bd81e7))
+* **client:** reveal all errors coming from API within HTTP 4xx group ([#1866](https://github.com/vuestorefront/shopware-pwa/issues/1866)) ([158b55a](https://github.com/vuestorefront/shopware-pwa/commit/158b55a0c0a0021a5206eb38dc8fd03b2dc181d3))
+* **default-theme:** add more data for contact form request ([#1868](https://github.com/vuestorefront/shopware-pwa/issues/1868)) ([f38ac83](https://github.com/vuestorefront/shopware-pwa/commit/f38ac83f07fbd2a59c6f95ddd89535361fec2cd3))
+* **default-theme:** Adding top navigation container for using out of header ([#1898](https://github.com/vuestorefront/shopware-pwa/issues/1898)) ([21929e1](https://github.com/vuestorefront/shopware-pwa/commit/21929e15fd3ad58b76cd73c52dac98221863c88b))
+* **default-theme:** fallback real price ([9abd617](https://github.com/vuestorefront/shopware-pwa/commit/9abd617311e406a281590e5377e5de99f90e4ed1))
+* **default-theme:** fix three columns overlapping ([5d864b3](https://github.com/vuestorefront/shopware-pwa/commit/5d864b343a334dcd74bfed82c99fb33cecd9f27b))
+* **default-theme:** invalid default value for prop "list" in swerrorslist ([#1892](https://github.com/vuestorefront/shopware-pwa/issues/1892)) ([b9d0dea](https://github.com/vuestorefront/shopware-pwa/commit/b9d0deaad2b2b0e919e922999eedc350f54bf172))
+* **default-theme:** missing single price in horizontal view (product listing) ([#1888](https://github.com/vuestorefront/shopware-pwa/issues/1888)) ([9627b19](https://github.com/vuestorefront/shopware-pwa/commit/9627b191b01320be90a934cc94ccf69fc9695c10))
+* **default-theme:** override hardcoded close button ([#1880](https://github.com/vuestorefront/shopware-pwa/issues/1880)) ([5f864a7](https://github.com/vuestorefront/shopware-pwa/commit/5f864a7c6e4e1d497a2d17e90257009ed7823020))
+* cms simple grid image heigh ([8a888c2](https://github.com/vuestorefront/shopware-pwa/commit/8a888c26caf065d72267c155ba5aa21cea4cfdd4))
+* **default-theme:** overlapping of column ordered cms elements ([#1882](https://github.com/vuestorefront/shopware-pwa/issues/1882)) ([b877975](https://github.com/vuestorefront/shopware-pwa/commit/b8779754f513e1f6ba0633afc81f5823413897e4))
+* **default-theme:** remove duplicated import ([#1879](https://github.com/vuestorefront/shopware-pwa/issues/1879)) ([4b8b361](https://github.com/vuestorefront/shopware-pwa/commit/4b8b361ec0ed8c110ba77b4dd7e81fba0142e992))
+* **nuxt-module:** accept nuxt plugin mode from filename ([#1865](https://github.com/vuestorefront/shopware-pwa/issues/1865)) ([89b6b0d](https://github.com/vuestorefront/shopware-pwa/commit/89b6b0de2a5320f6ca370cae57107c5172579b68))
+
+
+### Features
+
+* **client:** get landing page method ([#1901](https://github.com/vuestorefront/shopware-pwa/issues/1901)) ([5b76223](https://github.com/vuestorefront/shopware-pwa/commit/5b76223f1e7cac9626bb8d75c19298b06a757b12))
+* **client:** seo url method ([#1900](https://github.com/vuestorefront/shopware-pwa/issues/1900)) ([4044aea](https://github.com/vuestorefront/shopware-pwa/commit/4044aea4d63cf4b67b123413104520aa24742816))
+* **composable:** making useProductReviews composable ([#1899](https://github.com/vuestorefront/shopware-pwa/issues/1899)) ([c09770a](https://github.com/vuestorefront/shopware-pwa/commit/c09770ac30c63e8feae85d8c7240a600023a6c97))
+* **default-theme:** Add pagination for placed orders ([#1897](https://github.com/vuestorefront/shopware-pwa/issues/1897)) ([7c5ec1a](https://github.com/vuestorefront/shopware-pwa/commit/7c5ec1a47d91b31b4ba876b17a6aa46acef7c2e3))
+* **default-theme:** Add service menu ([#1893](https://github.com/vuestorefront/shopware-pwa/issues/1893)) ([7758499](https://github.com/vuestorefront/shopware-pwa/commit/7758499faea7c77ec50165c1c380cb18f5b9df22))
+* **default-theme:** Allow customer to edit their address directly in checkout process ([#1894](https://github.com/vuestorefront/shopware-pwa/issues/1894)) ([246e89f](https://github.com/vuestorefront/shopware-pwa/commit/246e89fc05f645fd94a58bf4f3b58e02c3a3c47c))
+* **default-theme:** Category image in MegaMenu ([#1889](https://github.com/vuestorefront/shopware-pwa/issues/1889)) ([d7d4562](https://github.com/vuestorefront/shopware-pwa/commit/d7d45629b67a86793bc6e3acb6364afcfb4b9f4c))
+* **default-theme:** handling new cms components ([#1871](https://github.com/vuestorefront/shopware-pwa/issues/1871)) ([d5418df](https://github.com/vuestorefront/shopware-pwa/commit/d5418df8cba4bb77cadbf19cef049866e3323722))
+* **default-theme:** Improve SwImage component with srcset ([#1887](https://github.com/vuestorefront/shopware-pwa/issues/1887)) ([2189d66](https://github.com/vuestorefront/shopware-pwa/commit/2189d66a84d672b5d49417aae248db6fe3063c8c))
+* **nuxt-module:** config to enable vuex store ([#1876](https://github.com/vuestorefront/shopware-pwa/issues/1876)) ([1923bc0](https://github.com/vuestorefront/shopware-pwa/commit/1923bc02410a5eeaf2846e01dbe5d6aa550a3fa1))
+* update storefront-ui to 0.13.1 ([7664b2d](https://github.com/vuestorefront/shopware-pwa/commit/7664b2d1e413893d9b7dd0e592184fe3db056048))
+
+
+
 # [1.4.0](https://github.com/DivanteLtd/shopware-pwa/compare/v1.3.0...v1.4.0) (2022-03-14)
 
 
