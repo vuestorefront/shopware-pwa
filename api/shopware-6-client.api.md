@@ -17,6 +17,7 @@ import { CustomerAddress } from '@shopware-pwa/commons';
 import { CustomerRegistrationParams } from '@shopware-pwa/commons';
 import { CustomerWishlistResponse } from '@shopware-pwa/commons/interfaces/models/content/wishlist/CustomerWishlist';
 import { EntityResult } from '@shopware-pwa/commons';
+import { LandingPage } from '@shopware-pwa/commons';
 import { Language } from '@shopware-pwa/commons';
 import { LineItem } from '@shopware-pwa/commons';
 import { Order } from '@shopware-pwa/commons';
@@ -329,6 +330,9 @@ export const getCustomerUpdatePaymentMethodEndpoint: (paymentMethodId: string) =
 
 // @public (undocumented)
 export const getGetWishlistProductsEndpoint: () => string;
+
+// @public
+export function getLandingPage(landingPageId: string, params?: ShopwareSearchParams, contextInstance?: ShopwareApiInstance): Promise<LandingPage>;
 
 // @public (undocumented)
 export const getLandingPageDetailsEndpoint: (landingPageId: string) => string;

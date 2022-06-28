@@ -51,6 +51,7 @@ export * from "./models/content/category/Category";
 export * from "./models/content/category/CategoryTranslation";
 export * from "./models/content/cms/CmsBlock";
 export * from "./models/content/cms/CmsPage";
+export * from "./models/content/landing-page/LandingPage";
 export * from "./models/content/mail-template/MailHeaderFooter";
 export * from "./models/content/mail-template/MailHeaderFooterTranslation";
 export * from "./models/content/mail-template/MailTemplate";
