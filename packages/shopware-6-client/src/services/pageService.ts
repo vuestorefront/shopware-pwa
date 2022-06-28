@@ -1,4 +1,8 @@
-import { getPageResolverEndpoint, getSeoUrlEndpoint } from "../endpoints";
+import {
+  getPageResolverEndpoint,
+  getSeoUrlEndpoint,
+  getLandingPageDetailsEndpoint,
+} from "../endpoints";
 import { defaultInstance, ShopwareApiInstance } from "../apiService";
 import {
   ShopwareSearchParams,

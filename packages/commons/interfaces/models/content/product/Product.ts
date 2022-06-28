@@ -15,6 +15,7 @@ import { Category } from "../category/Category";
 import { Tag } from "../../system/tag/Tag";
 import { CustomField } from "../../common/CustomField";
 import { SeoUrl } from "../navigation/Navigation";
+import { CmsPage } from "../cms/CmsPage";
 
 export interface CrossSelling {
   name: String;
@@ -121,4 +122,5 @@ export interface Product {
   };
   productMediaVersiond?: null;
   crossSellings: CrossSelling[];
+  cmsPage: null | CmsPage;
 }
