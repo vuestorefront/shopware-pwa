@@ -38,7 +38,6 @@
 |  [getCustomerAddress(addressId, contextInstance)](./shopware-6-client.getcustomeraddress.md) | Get the customer's address by id |
 |  [getCustomerAddresses(parameters, contextInstance)](./shopware-6-client.getcustomeraddresses.md) | Get all customer's addresses |
 |  [getCustomerOrders(parameters, contextInstance)](./shopware-6-client.getcustomerorders.md) | Get all customer's orders |
-|  [getLandingPage(landingPageId, params, contextInstance)](./shopware-6-client.getlandingpage.md) | Fetches a landing page entity |
 |  [getOrderDetails(orderId, params, contextInstance)](./shopware-6-client.getorderdetails.md) | Get order details |
 |  [getPaymentMethodDetails(paymentId, contextInstance)](./shopware-6-client.getpaymentmethoddetails.md) |  |
 |  [getProduct(productId, params, contextInstance)](./shopware-6-client.getproduct.md) | Get the product with passed productId |

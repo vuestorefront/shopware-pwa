@@ -8,5 +8,5 @@
 <b>Signature:</b>
 
 ```typescript
-getCustomerAddressEndpoint: (addressId?: string | undefined) => string
+getCustomerAddressEndpoint: (addressId?: string) => string
 ```
