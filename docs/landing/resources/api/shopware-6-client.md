@@ -38,6 +38,7 @@
 |  [getCustomerAddress(addressId, contextInstance)](./shopware-6-client.getcustomeraddress.md) | Get the customer's address by id |
 |  [getCustomerAddresses(parameters, contextInstance)](./shopware-6-client.getcustomeraddresses.md) | Get all customer's addresses |
 |  [getCustomerOrders(parameters, contextInstance)](./shopware-6-client.getcustomerorders.md) | Get all customer's orders |
+|  [getLandingPage(landingPageId, params, contextInstance)](./shopware-6-client.getlandingpage.md) | Fetches a landing page entity |
 |  [getOrderDetails(orderId, params, contextInstance)](./shopware-6-client.getorderdetails.md) | Get order details |
 |  [getPaymentMethodDetails(paymentId, contextInstance)](./shopware-6-client.getpaymentmethoddetails.md) |  |
 |  [getProduct(productId, params, contextInstance)](./shopware-6-client.getproduct.md) | Get the product with passed productId |
@@ -100,56 +101,57 @@
 |  Variable | Description |
 |  --- | --- |
 |  [config](./shopware-6-client.config.md) |  |
-|  [getAddWishlistProductEndpoint](./shopware-6-client.getaddwishlistproductendpoint.md) | <b><i>(BETA)</i></b> |
-|  [getCancelOrderEndpoint](./shopware-6-client.getcancelorderendpoint.md) | <b><i>(BETA)</i></b> |
-|  [getCategoryDetailsEndpoint](./shopware-6-client.getcategorydetailsendpoint.md) | <b><i>(BETA)</i></b> |
-|  [getCategoryEndpoint](./shopware-6-client.getcategoryendpoint.md) | <b><i>(BETA)</i></b> |
-|  [getChangeOrderPaymentMethodEndpoint](./shopware-6-client.getchangeorderpaymentmethodendpoint.md) | <b><i>(BETA)</i></b> |
-|  [getCheckoutCartEndpoint](./shopware-6-client.getcheckoutcartendpoint.md) | <b><i>(BETA)</i></b> |
-|  [getCheckoutCartLineItemEndpoint](./shopware-6-client.getcheckoutcartlineitemendpoint.md) | <b><i>(BETA)</i></b> |
-|  [getCheckoutOrderEndpoint](./shopware-6-client.getcheckoutorderendpoint.md) | <b><i>(BETA)</i></b> |
-|  [getConfirmPasswordResetEndpoint](./shopware-6-client.getconfirmpasswordresetendpoint.md) | <b><i>(BETA)</i></b> |
-|  [getContactFormEndpoint](./shopware-6-client.getcontactformendpoint.md) | <b><i>(BETA)</i></b> |
-|  [getContextCountryEndpoint](./shopware-6-client.getcontextcountryendpoint.md) | <b><i>(BETA)</i></b> |
-|  [getContextCurrencyEndpoint](./shopware-6-client.getcontextcurrencyendpoint.md) | <b><i>(BETA)</i></b> |
-|  [getContextEndpoint](./shopware-6-client.getcontextendpoint.md) | <b><i>(BETA)</i></b> |
-|  [getContextLanguageEndpoint](./shopware-6-client.getcontextlanguageendpoint.md) | <b><i>(BETA)</i></b> |
-|  [getContextPaymentMethodEndpoint](./shopware-6-client.getcontextpaymentmethodendpoint.md) | <b><i>(BETA)</i></b> |
-|  [getContextSalutationEndpoint](./shopware-6-client.getcontextsalutationendpoint.md) | <b><i>(BETA)</i></b> |
-|  [getContextShippingMethodEndpoint](./shopware-6-client.getcontextshippingmethodendpoint.md) | <b><i>(BETA)</i></b> |
+|  [getAddWishlistProductEndpoint](./shopware-6-client.getaddwishlistproductendpoint.md) |  |
+|  [getCancelOrderEndpoint](./shopware-6-client.getcancelorderendpoint.md) |  |
+|  [getCategoryDetailsEndpoint](./shopware-6-client.getcategorydetailsendpoint.md) |  |
+|  [getCategoryEndpoint](./shopware-6-client.getcategoryendpoint.md) |  |
+|  [getChangeOrderPaymentMethodEndpoint](./shopware-6-client.getchangeorderpaymentmethodendpoint.md) |  |
+|  [getCheckoutCartEndpoint](./shopware-6-client.getcheckoutcartendpoint.md) |  |
+|  [getCheckoutCartLineItemEndpoint](./shopware-6-client.getcheckoutcartlineitemendpoint.md) |  |
+|  [getCheckoutOrderEndpoint](./shopware-6-client.getcheckoutorderendpoint.md) |  |
+|  [getConfirmPasswordResetEndpoint](./shopware-6-client.getconfirmpasswordresetendpoint.md) |  |
+|  [getContactFormEndpoint](./shopware-6-client.getcontactformendpoint.md) |  |
+|  [getContextCountryEndpoint](./shopware-6-client.getcontextcountryendpoint.md) |  |
+|  [getContextCurrencyEndpoint](./shopware-6-client.getcontextcurrencyendpoint.md) |  |
+|  [getContextEndpoint](./shopware-6-client.getcontextendpoint.md) |  |
+|  [getContextLanguageEndpoint](./shopware-6-client.getcontextlanguageendpoint.md) |  |
+|  [getContextPaymentMethodEndpoint](./shopware-6-client.getcontextpaymentmethodendpoint.md) |  |
+|  [getContextSalutationEndpoint](./shopware-6-client.getcontextsalutationendpoint.md) |  |
+|  [getContextShippingMethodEndpoint](./shopware-6-client.getcontextshippingmethodendpoint.md) |  |
 |  [getCustomerAccountConfirmEndpoint](./shopware-6-client.getcustomeraccountconfirmendpoint.md) |  |
-|  [getCustomerAddAddressEndpoint](./shopware-6-client.getcustomeraddaddressendpoint.md) | <b><i>(BETA)</i></b> |
-|  [getCustomerAddressEndpoint](./shopware-6-client.getcustomeraddressendpoint.md) | <b><i>(BETA)</i></b> |
-|  [getCustomerDefaultBillingAddressEndpoint](./shopware-6-client.getcustomerdefaultbillingaddressendpoint.md) | <b><i>(BETA)</i></b> |
-|  [getCustomerDefaultShippingAddressEndpoint](./shopware-6-client.getcustomerdefaultshippingaddressendpoint.md) | <b><i>(BETA)</i></b> |
-|  [getCustomerDetailsUpdateEndpoint](./shopware-6-client.getcustomerdetailsupdateendpoint.md) | <b><i>(BETA)</i></b> |
-|  [getCustomerEndpoint](./shopware-6-client.getcustomerendpoint.md) | <b><i>(BETA)</i></b> |
-|  [getCustomerLoginEndpoint](./shopware-6-client.getcustomerloginendpoint.md) | <b><i>(BETA)</i></b> |
-|  [getCustomerLogoutEndpoint](./shopware-6-client.getcustomerlogoutendpoint.md) | <b><i>(BETA)</i></b> |
-|  [getCustomerOrderEndpoint](./shopware-6-client.getcustomerorderendpoint.md) | <b><i>(BETA)</i></b> |
-|  [getCustomerRegisterEndpoint](./shopware-6-client.getcustomerregisterendpoint.md) | <b><i>(BETA)</i></b> |
-|  [getCustomerResetPasswordEndpoint](./shopware-6-client.getcustomerresetpasswordendpoint.md) | <b><i>(BETA)</i></b> |
-|  [getCustomerUpdateEmailEndpoint](./shopware-6-client.getcustomerupdateemailendpoint.md) | <b><i>(BETA)</i></b> |
-|  [getCustomerUpdatePasswordEndpoint](./shopware-6-client.getcustomerupdatepasswordendpoint.md) | <b><i>(BETA)</i></b> |
+|  [getCustomerAddAddressEndpoint](./shopware-6-client.getcustomeraddaddressendpoint.md) |  |
+|  [getCustomerAddressEndpoint](./shopware-6-client.getcustomeraddressendpoint.md) |  |
+|  [getCustomerDefaultBillingAddressEndpoint](./shopware-6-client.getcustomerdefaultbillingaddressendpoint.md) |  |
+|  [getCustomerDefaultShippingAddressEndpoint](./shopware-6-client.getcustomerdefaultshippingaddressendpoint.md) |  |
+|  [getCustomerDetailsUpdateEndpoint](./shopware-6-client.getcustomerdetailsupdateendpoint.md) |  |
+|  [getCustomerEndpoint](./shopware-6-client.getcustomerendpoint.md) |  |
+|  [getCustomerLoginEndpoint](./shopware-6-client.getcustomerloginendpoint.md) |  |
+|  [getCustomerLogoutEndpoint](./shopware-6-client.getcustomerlogoutendpoint.md) |  |
+|  [getCustomerOrderEndpoint](./shopware-6-client.getcustomerorderendpoint.md) |  |
+|  [getCustomerRegisterEndpoint](./shopware-6-client.getcustomerregisterendpoint.md) |  |
+|  [getCustomerResetPasswordEndpoint](./shopware-6-client.getcustomerresetpasswordendpoint.md) |  |
+|  [getCustomerUpdateEmailEndpoint](./shopware-6-client.getcustomerupdateemailendpoint.md) |  |
+|  [getCustomerUpdatePasswordEndpoint](./shopware-6-client.getcustomerupdatepasswordendpoint.md) |  |
 |  [getCustomerUpdatePaymentMethodEndpoint](./shopware-6-client.getcustomerupdatepaymentmethodendpoint.md) |  |
-|  [getGetWishlistProductsEndpoint](./shopware-6-client.getgetwishlistproductsendpoint.md) | <b><i>(BETA)</i></b> |
-|  [getMergeWishlistProductsEndpoint](./shopware-6-client.getmergewishlistproductsendpoint.md) | <b><i>(BETA)</i></b> |
-|  [getNewsletterSubscribeEndpoint](./shopware-6-client.getnewslettersubscribeendpoint.md) | <b><i>(BETA)</i></b> |
-|  [getNewsletterUnsubscribeEndpoint](./shopware-6-client.getnewsletterunsubscribeendpoint.md) | <b><i>(BETA)</i></b> |
-|  [getPageResolverEndpoint](./shopware-6-client.getpageresolverendpoint.md) | <b><i>(BETA)</i></b> |
-|  [getProductDetailsEndpoint](./shopware-6-client.getproductdetailsendpoint.md) | <b><i>(BETA)</i></b> |
-|  [getProductEndpoint](./shopware-6-client.getproductendpoint.md) | <b><i>(BETA)</i></b> |
-|  [getProductListingEndpoint](./shopware-6-client.getproductlistingendpoint.md) | <b><i>(BETA)</i></b> |
-|  [getProductReviewsEndpoint](./shopware-6-client.getproductreviewsendpoint.md) | <b><i>(BETA)</i></b> |
-|  [getRemoveWishlistProductEndpoint](./shopware-6-client.getremovewishlistproductendpoint.md) | <b><i>(BETA)</i></b> |
-|  [getSearchEndpoint](./shopware-6-client.getsearchendpoint.md) | <b><i>(BETA)</i></b> |
-|  [getSeoUrlEndpoint](./shopware-6-client.getseourlendpoint.md) | <b><i>(BETA)</i></b> |
-|  [getStoreNavigationEndpoint](./shopware-6-client.getstorenavigationendpoint.md) | <b><i>(BETA)</i></b> |
-|  [getStoreNewsletterConfirmEndpoint](./shopware-6-client.getstorenewsletterconfirmendpoint.md) | <b><i>(BETA)</i></b> |
-|  [getStoreNewsletterSubscribeEndpoint](./shopware-6-client.getstorenewslettersubscribeendpoint.md) | <b><i>(BETA)</i></b> |
-|  [getStoreNewsletterUnsubscribeEndpoint](./shopware-6-client.getstorenewsletterunsubscribeendpoint.md) | <b><i>(BETA)</i></b> |
-|  [getSuggestSearchEndpoint](./shopware-6-client.getsuggestsearchendpoint.md) | <b><i>(BETA)</i></b> |
-|  [handlePaymentEndpoint](./shopware-6-client.handlepaymentendpoint.md) | <b><i>(BETA)</i></b> |
+|  [getGetWishlistProductsEndpoint](./shopware-6-client.getgetwishlistproductsendpoint.md) |  |
+|  [getLandingPageDetailsEndpoint](./shopware-6-client.getlandingpagedetailsendpoint.md) |  |
+|  [getMergeWishlistProductsEndpoint](./shopware-6-client.getmergewishlistproductsendpoint.md) |  |
+|  [getNewsletterSubscribeEndpoint](./shopware-6-client.getnewslettersubscribeendpoint.md) |  |
+|  [getNewsletterUnsubscribeEndpoint](./shopware-6-client.getnewsletterunsubscribeendpoint.md) |  |
+|  [getPageResolverEndpoint](./shopware-6-client.getpageresolverendpoint.md) |  |
+|  [getProductDetailsEndpoint](./shopware-6-client.getproductdetailsendpoint.md) |  |
+|  [getProductEndpoint](./shopware-6-client.getproductendpoint.md) |  |
+|  [getProductListingEndpoint](./shopware-6-client.getproductlistingendpoint.md) |  |
+|  [getProductReviewsEndpoint](./shopware-6-client.getproductreviewsendpoint.md) |  |
+|  [getRemoveWishlistProductEndpoint](./shopware-6-client.getremovewishlistproductendpoint.md) |  |
+|  [getSearchEndpoint](./shopware-6-client.getsearchendpoint.md) |  |
+|  [getSeoUrlEndpoint](./shopware-6-client.getseourlendpoint.md) |  |
+|  [getStoreNavigationEndpoint](./shopware-6-client.getstorenavigationendpoint.md) |  |
+|  [getStoreNewsletterConfirmEndpoint](./shopware-6-client.getstorenewsletterconfirmendpoint.md) |  |
+|  [getStoreNewsletterSubscribeEndpoint](./shopware-6-client.getstorenewslettersubscribeendpoint.md) |  |
+|  [getStoreNewsletterUnsubscribeEndpoint](./shopware-6-client.getstorenewsletterunsubscribeendpoint.md) |  |
+|  [getSuggestSearchEndpoint](./shopware-6-client.getsuggestsearchendpoint.md) |  |
+|  [handlePaymentEndpoint](./shopware-6-client.handlepaymentendpoint.md) |  |
 |  [onConfigChange](./shopware-6-client.onconfigchange.md) |  |
 |  [setup](./shopware-6-client.setup.md) | Setup configuration. Merge default values with provided in param. This method will override existing config. For config update invoke \*\*update\*\* method. |
 |  [update](./shopware-6-client.update.md) | Update current configuration. This will change only provided values. |

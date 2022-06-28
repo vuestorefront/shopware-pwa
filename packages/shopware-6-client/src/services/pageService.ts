@@ -1,6 +1,26 @@
-import { getPageResolverEndpoint, getSeoUrlEndpoint } from "../endpoints";
+import {
+  getPageResolverEndpoint,
+  getSeoUrlEndpoint,
+  getLandingPageDetailsEndpoint,
+} from "../endpoints";
 import { defaultInstance, ShopwareApiInstance } from "../apiService";
 import { ShopwareSearchParams, CmsPageResponse } from "@shopware-pwa/commons";
+import { LandingPage } from "@shopware-pwa/commons/interfaces/models/content/landing-page/LandingPage";
+
+/**
+ * Fetches a landing page entity
+ * @throws ClientApiError
+ * @public
+ */
+export async function getLandingPage(
+  landingPageId: string,
+  params?: ShopwareSearchParams,
+  contextInstance: ShopwareApiInstance = defaultInstance
+): Promise<LandingPage> {
+  const endpoint = getLandingPageDetailsEndpoint(landingPageId);
+  const response = await contextInstance.invoke.post(endpoint, params);
+  return response?.data;
+}
 
 /**
  * @throws ClientApiError
