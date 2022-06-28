@@ -4,6 +4,11 @@
 
 ## getCmsPage() function
 
+> Warning: This API is now obsolete.
+> 
+> the method is becoming obsolete and will be removed in the future as the SwagShopwarePwa plugin won't be needed.
+> 
+
 <b>Signature:</b>
 
 ```typescript

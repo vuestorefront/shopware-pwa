@@ -1,30 +1,17 @@
-import {
-  getPageResolverEndpoint,
-  getSeoUrlEndpoint,
-  getLandingPageDetailsEndpoint,
-} from "../endpoints";
+import { getPageResolverEndpoint, getSeoUrlEndpoint } from "../endpoints";
 import { defaultInstance, ShopwareApiInstance } from "../apiService";
-import { ShopwareSearchParams, CmsPageResponse } from "@shopware-pwa/commons";
-import { LandingPage } from "@shopware-pwa/commons/interfaces/models/content/landing-page/LandingPage";
-
-/**
- * Fetches a landing page entity
- * @throws ClientApiError
- * @public
- */
-export async function getLandingPage(
-  landingPageId: string,
-  params?: ShopwareSearchParams,
-  contextInstance: ShopwareApiInstance = defaultInstance
-): Promise<LandingPage> {
-  const endpoint = getLandingPageDetailsEndpoint(landingPageId);
-  const response = await contextInstance.invoke.post(endpoint, params);
-  return response?.data;
-}
+import {
+  ShopwareSearchParams,
+  CmsPageResponse,
+  EntityResult,
+  SeoUrl,
+} from "@shopware-pwa/commons";
+import { invokePost } from "./pluginService";
 
 /**
  * @throws ClientApiError
  * @public
+ * @deprecated the method is becoming obsolete and will be removed in the future as the SwagShopwarePwa plugin won't be needed.
  */
 export async function getCmsPage(
   path: string,
@@ -72,4 +59,25 @@ export async function getSeoUrls(
   });
 
   return resp.data;
+}
+
+/**
+ *
+ *
+ * @public
+ * @throws ClientApiError
+ */
+export async function getSeoUrl(
+  params: ShopwareSearchParams,
+  contextInstance: ShopwareApiInstance = defaultInstance
+): Promise<EntityResult<"seo_url", SeoUrl[]>> {
+  const seoUrlResponse = await invokePost(
+    {
+      address: getSeoUrlEndpoint(),
+      payload: params,
+    },
+    contextInstance
+  );
+
+  return seoUrlResponse.data;
 }

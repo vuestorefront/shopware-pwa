@@ -17,7 +17,6 @@ import { CustomerAddress } from '@shopware-pwa/commons';
 import { CustomerRegistrationParams } from '@shopware-pwa/commons';
 import { CustomerWishlistResponse } from '@shopware-pwa/commons/interfaces/models/content/wishlist/CustomerWishlist';
 import { EntityResult } from '@shopware-pwa/commons';
-import { LandingPage } from '@shopware-pwa/commons/interfaces/models/content/landing-page/LandingPage';
 import { Language } from '@shopware-pwa/commons';
 import { LineItem } from '@shopware-pwa/commons';
 import { Order } from '@shopware-pwa/commons';
@@ -28,6 +27,7 @@ import { ProductListingResult } from '@shopware-pwa/commons';
 import { ProductResponse } from '@shopware-pwa/commons';
 import { ProductReview } from '@shopware-pwa/commons';
 import { Salutation } from '@shopware-pwa/commons';
+import { SeoUrl } from '@shopware-pwa/commons';
 import { SessionContext } from '@shopware-pwa/commons';
 import { ShippingMethod } from '@shopware-pwa/commons';
 import { ShopwareSearchParams } from '@shopware-pwa/commons';
@@ -240,7 +240,7 @@ export const getCheckoutCartLineItemEndpoint: () => string;
 // @public (undocumented)
 export const getCheckoutOrderEndpoint: () => string;
 
-// @public (undocumented)
+// @public @deprecated (undocumented)
 export function getCmsPage(path: string, criteria?: ShopwareSearchParams, contextInstance?: ShopwareApiInstance): Promise<CmsPageResponse>;
 
 // @public (undocumented)
@@ -283,7 +283,7 @@ export const getCustomerAddAddressEndpoint: () => string;
 export function getCustomerAddress(addressId: string, contextInstance?: ShopwareApiInstance): Promise<CustomerAddress>;
 
 // @public (undocumented)
-export const getCustomerAddressEndpoint: (addressId?: string | undefined) => string;
+export const getCustomerAddressEndpoint: (addressId?: string) => string;
 
 // @public
 export function getCustomerAddresses(parameters?: ShopwareSearchParams, contextInstance?: ShopwareApiInstance): Promise<EntityResult<"customer_address", CustomerAddress[]>>;
@@ -329,9 +329,6 @@ export const getCustomerUpdatePaymentMethodEndpoint: (paymentMethodId: string) =
 
 // @public (undocumented)
 export const getGetWishlistProductsEndpoint: () => string;
-
-// @public
-export function getLandingPage(landingPageId: string, params?: ShopwareSearchParams, contextInstance?: ShopwareApiInstance): Promise<LandingPage>;
 
 // @public (undocumented)
 export const getLandingPageDetailsEndpoint: (landingPageId: string) => string;
@@ -380,6 +377,9 @@ export const getRemoveWishlistProductEndpoint: (productId: string) => string;
 
 // @public (undocumented)
 export const getSearchEndpoint: () => string;
+
+// @public (undocumented)
+export function getSeoUrl(params: ShopwareSearchParams, contextInstance?: ShopwareApiInstance): Promise<EntityResult<"seo_url", SeoUrl[]>>;
 
 // @public (undocumented)
 export const getSeoUrlEndpoint: () => string;
