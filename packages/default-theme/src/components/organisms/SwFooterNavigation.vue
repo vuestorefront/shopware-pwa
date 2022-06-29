@@ -34,15 +34,13 @@ export default {
     SwFooterNavigationColumn,
     SwFooterService,
   },
-  setup(props) {
+  setup() {
     const { loadNavigationElements, navigationElements } = useNavigation({
       type: "footer-navigation",
     })
     const isLoadingFooterData = ref(false)
 
     const { currentDomainId } = useDomains()
-
-    const column = props.column
 
     const open = computed(() => {
       if (!navigationElements.value) {
