@@ -34,7 +34,7 @@ export default {
     SwFooterNavigationColumn,
     SwFooterService,
   },
-  setup() {
+  setup(props) {
     const { loadNavigationElements, navigationElements } = useNavigation({
       type: "footer-navigation",
     })
@@ -42,7 +42,7 @@ export default {
 
     const { currentDomainId } = useDomains()
 
-    const column = ref(4)
+    const column = ref(props.column)
 
     const open = computed(() => {
       if (!navigationElements.value) {
@@ -67,6 +67,12 @@ export default {
       open,
       getTranslatedProperty,
     }
+  },
+  props: {
+    column: {
+      type: Number,
+      default: 4,
+    },
   },
 }
 </script>
