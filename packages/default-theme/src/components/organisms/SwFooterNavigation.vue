@@ -42,7 +42,7 @@ export default {
 
     const { currentDomainId } = useDomains()
 
-    const column = ref(props.column)
+    const column = props.column
 
     const open = computed(() => {
       if (!navigationElements.value) {
