@@ -5,7 +5,11 @@
     :multiple="true"
     :open="open"
   >
-    <SwFooterNavigationColumn v-for="category in navigationElements" :key="category.id" :category="category" />
+    <SwFooterNavigationColumn
+      v-for="category in navigationElements"
+      :key="category.id"
+      :category="category"
+    />
     <SwFooterService />
   </SfFooter>
 </template>
@@ -61,7 +65,6 @@ export default {
 
     return {
       navigationElements,
-      column,
       open,
       getTranslatedProperty,
     }
