@@ -73,7 +73,7 @@
         @close="closeFiltersSidebar"
       >
         <div class="filters">
-          <!-- <SwProductListingFilter
+          <SwProductListingFilter
             class="filters__filter"
             :filter="filter"
             v-for="filter in getAvailableFilters"
@@ -82,7 +82,7 @@
             :selected-entity-filters="{}"
             :key="filter.name"
             @toggle-filter-value="toggleFilterValue"
-          /> -->
+          />
         </div>
         <template #content-bottom>
           <div class="filters__buttons">
