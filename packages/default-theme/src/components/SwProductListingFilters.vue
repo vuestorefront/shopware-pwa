@@ -1,15 +1,10 @@
 <template>
   <div
-    class="
-      cms-element-category-navigation-sidebar-filter
-      sw-navbar
-      navbar
-      section
-    "
+    class="cms-element-category-navigation-sidebar-filter sw-navbar navbar section"
   >
     <div class="sw-navbar navbar__main">
       <SwButton
-        v-if="getAvailableFilters.length"
+        v-if="isMounted && getAvailableFilters.length"
         class="sf-button--text navbar__filters-button"
         @click="openFiltersSidebar"
       >
@@ -17,7 +12,10 @@
           $t("Filters")
         }}
       </SwButton>
-      <div class="navbar__sort desktop-only" v-if="isMounted && getSortingOrders.length">
+      <div
+        class="navbar__sort desktop-only"
+        v-if="isMounted && getSortingOrders.length"
+      >
         <span class="navbar__label">{{ $t("Sort by") }}:</span>
         <SfSelect v-model="currentSortingOrder" class="sort-by">
           <SfSelectOption
@@ -75,7 +73,7 @@
         @close="closeFiltersSidebar"
       >
         <div class="filters">
-          <SwProductListingFilter
+          <!-- <SwProductListingFilter
             class="filters__filter"
             :filter="filter"
             v-for="filter in getAvailableFilters"
@@ -84,7 +82,7 @@
             :selected-entity-filters="{}"
             :key="filter.name"
             @toggle-filter-value="toggleFilterValue"
-          />
+          /> -->
         </div>
         <template #content-bottom>
           <div class="filters__buttons">
@@ -141,6 +139,7 @@ export default {
       changeCurrentSortingOrder,
       getSortingOrders,
       getAvailableFilters,
+      getCurrentListing,
       search,
       getCurrentFilters,
       getTotal,
@@ -179,6 +178,7 @@ export default {
       getCurrentFilters,
       isMounted,
       getTranslatedProperty,
+      getCurrentListing,
     }
   },
   data() {
