@@ -1,3 +1,17 @@
+## [1.5.1](https://github.com/vuestorefront/shopware-pwa/compare/v1.5.0...v1.5.1) (2022-06-30)
+
+
+### Bug Fixes
+
+* **default-theme:** listing hydration ([#1908](https://github.com/vuestorefront/shopware-pwa/issues/1908)) ([2a1ce1f](https://github.com/vuestorefront/shopware-pwa/commit/2a1ce1fddf90f117fe31313a0a103f3f66f78baf))
+
+
+### Features
+
+* **default-theme:** prop for columns count in footer navigation ([#1904](https://github.com/vuestorefront/shopware-pwa/issues/1904)) ([d277784](https://github.com/vuestorefront/shopware-pwa/commit/d277784243a3345148b107a2bcd717f3ae6551a7))
+
+
+
 # [1.5.0](https://github.com/vuestorefront/shopware-pwa/compare/v1.4.0-gcp...v1.5.0) (2022-06-28)
 
 
