@@ -4,7 +4,7 @@
   >
     <div class="sw-navbar navbar__main">
       <SwButton
-        v-if="isMounted && getAvailableFilters.length"
+        v-show="isMounted && getAvailableFilters.length"
         class="sf-button--text navbar__filters-button"
         @click="openFiltersSidebar"
       >
