@@ -42,8 +42,6 @@ export default {
 
     const { currentDomainId } = useDomains()
 
-    const column = ref(4)
-
     const open = computed(() => {
       if (!navigationElements.value) {
         return []
@@ -67,6 +65,12 @@ export default {
       open,
       getTranslatedProperty,
     }
+  },
+  props: {
+    column: {
+      type: Number,
+      default: 4,
+    },
   },
 }
 </script>
