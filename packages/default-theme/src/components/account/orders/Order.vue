@@ -25,7 +25,7 @@
             'text-success': order.stateMachineState.technicalName === 'closed',
             'text-info': order.stateMachineState.technicalName === 'open',
           }"
-          >{{ order.stateMachineState.name }}</span
+          >{{ order.stateMachineState.translated.name }}</span
         >
       </template>
     </SfTableData>
