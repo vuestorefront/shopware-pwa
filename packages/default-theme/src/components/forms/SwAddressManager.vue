@@ -10,7 +10,7 @@
         <span>{{ activeAddress.firstName }} {{ activeAddress.lastName }}</span>
         <p>{{ activeAddress.street }}</p>
         <p>{{ activeAddress.zipcode }} {{ activeAddress.city }}</p>
-        <p>{{ activeAddress.country.name }}</p>
+        <p>{{ activeAddress.country ? activeAddress.country.name : "" }}</p>
         <p>{{ activeAddress.phoneNumber }}</p>
       </div>
       <SwButton
@@ -53,7 +53,7 @@
               <span>{{ address.firstName }} {{ address.lastName }}</span>
               <p>{{ address.street }}</p>
               <span>{{ address.zipcode }} {{ address.city }}</span>
-              <span>{{ address.country.name }}</span>
+              <span>{{ address.country ? address.country.name : "" }}</span>
               <span>{{ address.phoneNumber }}</span>
             </SfAddress>
           </SfAddressPicker>
@@ -86,7 +86,7 @@
         v-if="!isAddNew"
         @success="onAddressSave"
         @cancel="isModalOpen = false"
-        :address=activeAddress
+        :address="activeAddress"
       />
       <SwAddressForm
         v-if="isAddNew"
@@ -158,9 +158,9 @@ export default {
       onAddressSave,
       isEditModeOpen,
       onAddressChange,
-      isAddNew
+      isAddNew,
     }
-  }
+  },
 }
 </script>
 <style lang="scss" scoped>
@@ -253,7 +253,7 @@ export default {
 
 .sf-button-container {
   @include for-desktop {
-      width: 100%;
+    width: 100%;
     display: flex;
     justify-content: space-between;
   }
