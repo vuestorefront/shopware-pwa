@@ -59,8 +59,17 @@
     padding-right: var(--form-select-padding-right);
     padding-top: var(--form-select-padding-top);
 
+
+    @include for-mobile {
+      &__dropdown {
+        position: relative;
+
+      }
+    }
+
     .sf-select__selected.sf-select-option {
       min-height: 46px;
+      position: relative;
     }
   }
 
@@ -96,6 +105,16 @@
     &__select {
       --form-select-padding-bottom: var(--spacer-sm);
       --form-select-padding-top: var(--spacer-sm);
+    }
+  }
+
+  @include for-mobile {
+    .sw-select {
+      div {
+        .sf-component-select__dropdown {
+          position: relative;
+        }
+      }
     }
   }
 }
