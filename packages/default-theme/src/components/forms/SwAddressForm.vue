@@ -34,12 +34,7 @@
           :error-message="$t('Salutation must be selected')"
           required
           :valid="!$v.address.salutation.$error"
-          class="
-            sf-select--underlined
-            sw-form__input
-            sf-input--has-text
-            sf-component-select--underlined
-          "
+          class="sw-select sf-select--underlined sw-form__input sf-input--has-text sf-component-select--underlined"
           @blur="$v.address.salutation.$touch()"
         >
           <SfComponentSelectOption
@@ -103,11 +98,7 @@
           :error-message="$t('Country must be selected')"
           :valid="!$v.address.country.$error"
           required
-          class="
-            sf-select--underlined
-            sw-form__input
-            sf-component-select--underlined
-          "
+          class="sf-select--underlined sw-form__input sf-component-select--underlined sw-select"
           @blur="$v.address.country.$touch()"
         >
           <SfComponentSelectOption
@@ -226,12 +217,12 @@ export default {
     // address model ready to be sent to API
     const getAddressModel = computed(() => ({
       id: props.address.id,
-      firstName: props.address.firstName,
-      lastName: props.address.lastName,
-      zipcode: props.address.zipcode,
-      street: props.address.street,
-      city: props.address.city,
-      phoneNumber: props.address.phoneNumber,
+      firstName: props.address?.firstName,
+      lastName: props.address?.lastName,
+      zipcode: props.address?.zipcode,
+      street: props.address?.street,
+      city: props.address?.city,
+      phoneNumber: props.address?.phoneNumber,
       countryId: selectedCountryId.value,
       salutationId: selectedSalutationId.value,
     }))
@@ -311,6 +302,6 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import "@/assets/scss/forms";
 </style>

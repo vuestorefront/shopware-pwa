@@ -1,3 +1,13 @@
+## [1.5.2](https://github.com/vuestorefront/shopware-pwa/compare/v1.5.1...v1.5.2) (2022-07-05)
+
+
+### Bug Fixes
+
+* **default-theme:** missing country name in address manager ([1bc3ca3](https://github.com/vuestorefront/shopware-pwa/commit/1bc3ca31a79d265449775c42bf936d18aac238ae))
+* sharedStore is not injected into Vue instance ([#1912](https://github.com/vuestorefront/shopware-pwa/issues/1912)) ([f331871](https://github.com/vuestorefront/shopware-pwa/commit/f331871a7b93adc66e3264ee131b0c195da6d744))
+
+
+
 ## [1.5.1](https://github.com/vuestorefront/shopware-pwa/compare/v1.5.0...v1.5.1) (2022-06-30)
 
 
