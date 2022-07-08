@@ -45,7 +45,7 @@ test("[DESKTOP] Happy path guest user", async ({ page }) => {
   await page.click("text=Shipping methods");
 
   await page.click(
-    '[data-testid="checkout-payment-method-Cash-on-delivery"] div'
+    "div[data-testid='checkout-payment-method-Cash-on-delivery']"
   );
   await page.click(
     '[data-testid="checkout-payment-method-Cash-on-delivery"] .is-active'
