@@ -175,7 +175,7 @@ export interface CmsSlot {
 /**
  * @public
  */
-export type SectionType = "default";
+export type SectionType = "default" | "sidebar";
 
 /**
  * @public
