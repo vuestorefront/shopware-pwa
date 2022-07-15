@@ -4,10 +4,10 @@
       {{ $t("Keep your addresses and contact details updated.") }}
     </p>
     <SwErrorsList :list="formErrors" />
-    <div class="sw-form" v-if="address">
+    <div class="sw-form" v-if="addressModel.id">
       <div class="inputs-group">
         <SwInput
-          v-model="address.firstName"
+          v-model="addressModel.firstName"
           name="firstName"
           :label="$t('First name')"
           :error-message="$t('First name is required')"
@@ -17,7 +17,7 @@
           @blur="$v.address.firstName.$touch()"
         />
         <SwInput
-          v-model="address.lastName"
+          v-model="addressModel.lastName"
           name="lastName"
           :label="$t('Last name')"
           :error-message="$t('Last name is required')"
@@ -29,7 +29,7 @@
       </div>
       <div class="inputs-group">
         <SfComponentSelect
-          v-model="address.salutation"
+          v-model="addressModel.salutationId"
           :label="$t('Salutation')"
           :error-message="$t('Salutation must be selected')"
           required
@@ -38,15 +38,15 @@
           @blur="$v.address.salutation.$touch()"
         >
           <SfComponentSelectOption
-            v-for="salutationOption in getMappedSalutations"
+            v-for="salutationOption in getSalutations"
             :key="salutationOption.id"
-            :value="salutationOption"
+            :value="salutationOption.id"
           >
-            {{ salutationOption.name }}
+            {{ getTranslatedProperty(salutationOption, "displayName") }}
           </SfComponentSelectOption>
         </SfComponentSelect>
         <SwInput
-          v-model="address.street"
+          v-model="addressModel.street"
           name="street"
           :label="$t('Street and house number')"
           :error-message="$t('Street is required')"
@@ -59,7 +59,7 @@
 
       <div class="inputs-group">
         <SwInput
-          v-model="address.city"
+          v-model="addressModel.city"
           name="city"
           :label="$t('City')"
           :error-message="$t('City is required')"
@@ -70,7 +70,7 @@
         />
         <SwInput
           v-if="displayState"
-          v-model="address.state"
+          v-model="addressModel.state"
           name="state"
           :label="$t('State/Province')"
           :error-message="$t('State is required')"
@@ -82,7 +82,7 @@
       </div>
       <div class="inputs-group">
         <SwInput
-          v-model="address.zipcode"
+          v-model="addressModel.zipcode"
           name="zipcode"
           :label="$t('Zip code')"
           :error-message="$t('Zip code is required')"
@@ -93,7 +93,7 @@
         />
 
         <SfComponentSelect
-          v-model="address.country"
+          v-model="addressModel.countryId"
           :label="$t('Country')"
           :error-message="$t('Country must be selected')"
           :valid="!$v.address.country.$error"
@@ -102,16 +102,16 @@
           @blur="$v.address.country.$touch()"
         >
           <SfComponentSelectOption
-            v-for="countryOption in getMappedCountries"
+            v-for="countryOption in getCountries"
             :key="countryOption.id"
-            :value="countryOption"
+            :value="countryOption.id"
           >
-            {{ countryOption.name }}
+            {{ getTranslatedProperty(countryOption, "name") }}
           </SfComponentSelectOption>
         </SfComponentSelect>
       </div>
       <SwInput
-        v-model="address.phoneNumber"
+        v-model="addressModel.phoneNumber"
         name="phoneNumber"
         :label="$t('Phone number')"
         :error-message="$t('Wrong phone number')"
@@ -136,18 +136,17 @@
 
 <script>
 import useVuelidate from "@vuelidate/core"
-import { required, requiredIf } from "@vuelidate/validators"
-import { computed, reactive, ref } from "@vue/composition-api"
+import { required } from "@vuelidate/validators"
+import { computed, reactive } from "@vue/composition-api"
 import { SfAlert, SfComponentSelect } from "@storefront-ui/vue"
 import {
   useCountries,
   useCountry,
-  useUser,
   useSalutations,
   useNotifications,
   useCustomerAddresses,
 } from "@shopware-pwa/composables"
-import { mapCountries, mapSalutations } from "@shopware-pwa/helpers"
+import { getTranslatedProperty } from "@shopware-pwa/helpers"
 import SwButton from "@/components/atoms/SwButton.vue"
 import SwInput from "@/components/atoms/SwInput.vue"
 import SwErrorsList from "@/components/SwErrorsList.vue"
@@ -181,34 +180,11 @@ export default {
     const { getSalutations } = useSalutations()
     const { addAddress, updateAddress, errors } = useCustomerAddresses()
     const { getCountries, error: countriesError } = useCountries()
-    // simplify entities
-    const getMappedCountries = computed(() => mapCountries(getCountries.value))
-    const getMappedSalutations = computed(() =>
-      mapSalutations(getSalutations.value)
-    )
-    // append a model
-    props.address.salutation = ref(
-      getMappedSalutations.value.find(
-        (salutation) => salutation.id === props.address.salutationId
-      )
-    )
-    props.address.country = ref(
-      getMappedCountries.value.find(
-        (country) => country.id === props.address.countryId
-      )
-    )
+    const addressModel = reactive(props.address)
     const existingAddress = computed(() => !!props.address?.id)
     // compute selected id
-    const selectedCountryId = computed(
-      () =>
-        (props.address.country && props.address.country.id) ||
-        props.address.countryId
-    )
-    const selectedSalutationId = computed(
-      () =>
-        (props.address.salutation && props.address.salutation.id) ||
-        props.address.salutationId
-    )
+    const selectedCountryId = computed(() => addressModel.countryId)
+    const selectedSalutationId = computed(() => addressModel.salutationId)
     // check whether state is required
     const { displayState, forceState } = useCountry({
       countryId: selectedCountryId,
@@ -216,13 +192,13 @@ export default {
 
     // address model ready to be sent to API
     const getAddressModel = computed(() => ({
-      id: props.address.id,
-      firstName: props.address?.firstName,
-      lastName: props.address?.lastName,
-      zipcode: props.address?.zipcode,
-      street: props.address?.street,
-      city: props.address?.city,
-      phoneNumber: props.address?.phoneNumber,
+      id: addressModel.id,
+      firstName: addressModel.firstName,
+      lastName: addressModel.lastName,
+      zipcode: addressModel.zipcode,
+      street: addressModel.street,
+      city: addressModel.city,
+      phoneNumber: addressModel.phoneNumber,
       countryId: selectedCountryId.value,
       salutationId: selectedSalutationId.value,
     }))
@@ -234,10 +210,10 @@ export default {
         : addAddress(getAddressModel.value)
 
     return {
+      addressModel,
       addAddress,
       countriesError,
-      getMappedCountries,
-      getMappedSalutations,
+      getSalutations,
       displayState,
       forceState,
       saveAddress,
@@ -245,6 +221,8 @@ export default {
       pushSuccess,
       formErrors: errors.updateAddress,
       existingAddress,
+      getCountries,
+      getTranslatedProperty,
       $v: useVuelidate({ $scope: "addressForm", $stopPropagation: true }),
     }
   },
