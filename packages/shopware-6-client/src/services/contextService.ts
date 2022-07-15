@@ -78,7 +78,7 @@ export function setCurrentBillingAddress(
  */
 export async function getAvailableCurrencies(
   contextInstance: ShopwareApiInstance = defaultInstance
-): Promise<EntityResult<"currency", Currency[]>> {
+): Promise<Currency[]> {
   const { data } = await contextInstance.invoke.get(
     getContextCurrencyEndpoint()
   );
