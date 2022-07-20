@@ -164,12 +164,12 @@ export interface CmsSlot {
   extensions: [any];
   id: string;
   translations: any | null;
-  config: any;
+  config: unknown;
   slot: string;
   block: CmsBlock | null;
   blockId: string;
   fieldConfig: CmsFieldConfig[];
-  data?: any;
+  data?: unknown;
 }
 
 /**
