@@ -2,13 +2,6 @@
   <div class="sw-reset-password" @keyup.enter="invokeResetPassword">
     <SwErrorsList :list="resetPasswordErrors" />
     <div v-if="!emailSent" class="form sw-reset-password__form">
-      <SfAlert
-        v-if="userError"
-        class="sw-reset-password__alert"
-        type="danger"
-        :message="userError.message"
-        data-testid="reset-alert"
-      />
       <SwInput
         v-model="email"
         name="email"
@@ -44,7 +37,10 @@
 import { SfAlert, SfHeading } from "@storefront-ui/vue"
 import useVuelidate from "@vuelidate/core"
 import { required, email } from "@vuelidate/validators"
-import { useCustomerPassword } from "@shopware-pwa/composables"
+import {
+  useCustomerPassword,
+  getApplicationContext,
+} from "@shopware-pwa/composables"
 import SwButton from "@/components/atoms/SwButton.vue"
 import SwInput from "@/components/atoms/SwInput.vue"
 import SwErrorsList from "@/components/SwErrorsList.vue"
@@ -61,10 +57,19 @@ export default {
   },
   setup() {
     const { resetPassword, errors } = useCustomerPassword()
+    const { routing } = getApplicationContext({
+      contextName: "SwResetPassword",
+    })
+    const getCurrentDomain = computed(
+      () =>
+        routing.getCurrentDomain.value?.url ||
+        (process.client && window.location.origin)
+    )
     return {
       resetPassword,
       $v: useVuelidate(),
       resetPasswordErrors: computed(() => errors.resetPassword || []),
+      getCurrentDomain,
     }
   },
   validations: {
@@ -82,6 +87,7 @@ export default {
       }
 
       this.emailSent = await this.resetPassword({
+        storefrontUrl: this.getCurrentDomain,
         email: this.email,
       })
     },
