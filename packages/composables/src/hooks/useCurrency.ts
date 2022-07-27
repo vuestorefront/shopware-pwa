@@ -49,7 +49,7 @@ export function useCurrency(): IUseCurrency {
   }): Promise<void> => {
     if (!options?.forceReload && _availableCurrencies.value?.length) return;
     const response = await getAvailableCurrencies(apiInstance);
-    _availableCurrencies.value = response?.elements;
+    _availableCurrencies.value = response;
   };
 
   const setCurrency = async (currency: Partial<Currency>): Promise<void> => {

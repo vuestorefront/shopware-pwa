@@ -25,11 +25,12 @@
 </template>
 
 <script>
-import { computed } from "@vue/composition-api"
+import { computed, ref } from "@vue/composition-api"
 import { SfContentPages } from "@storefront-ui/vue"
 import {
   useUser,
   useBreadcrumbs,
+  getApplicationContext,
 } from "@shopware-pwa/composables"
 import { PAGE_ACCOUNT, PAGE_LOGIN } from "@/helpers/pages"
 import authMiddleware from "@/middleware/auth"
@@ -44,21 +45,32 @@ export default {
   middleware: authMiddleware,
 
   setup(props, { root }) {
+    const { route } = getApplicationContext({
+      contextName: "account-page",
+    })
     const { logout, user } = useUser()
     const { setBreadcrumbs } = useBreadcrumbs()
+    const ordersCount = computed(() => user.value && user.value.orderCount)
+
+    const subPageMap = {
+      "account-profile": root.$t("My profile"),
+      "account-addresses": root.$t("My addresses"),
+      "account-addresses-add-id": root.$t("My addresses"),
+      "account-orders": root.$tc("Order history", ordersCount.value),
+    }
+
+    const activePage = ref(subPageMap[route?.name])
     setBreadcrumbs([
       {
         name: root.$t("My Account"),
         path: PAGE_ACCOUNT,
       },
     ])
-    const ordersCount = computed(() => user.value && user.value.orderCount)
-    return { logout, user, ordersCount }
+    return { logout, user, ordersCount, activePage }
   },
 
   data() {
     return {
-      activePage: this.$t("My profile"),
       allAddresses: [],
     }
   },
@@ -78,10 +90,6 @@ export default {
         this.activePage = this.$t("My profile")
       }
     },
-  },
-
-  mounted() {
-    this.updateActivePage(this.activePage)
   },
 
   methods: {
