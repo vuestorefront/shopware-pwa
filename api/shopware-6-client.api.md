@@ -190,7 +190,7 @@ export const getAddWishlistProductEndpoint: (productId: string) => string;
 export function getAvailableCountries(contextInstance?: ShopwareApiInstance): Promise<EntityResult<"country", Country[]>>;
 
 // @public (undocumented)
-export function getAvailableCurrencies(contextInstance?: ShopwareApiInstance): Promise<EntityResult<"currency", Currency[]>>;
+export function getAvailableCurrencies(contextInstance?: ShopwareApiInstance): Promise<Currency[]>;
 
 // @public (undocumented)
 export function getAvailableLanguages(contextInstance?: ShopwareApiInstance): Promise<EntityResult<"language", Language[]>>;

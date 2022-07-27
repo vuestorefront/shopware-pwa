@@ -7,7 +7,7 @@
 <b>Signature:</b>
 
 ```typescript
-export declare function getAvailableCurrencies(contextInstance?: ShopwareApiInstance): Promise<EntityResult<"currency", Currency[]>>;
+export declare function getAvailableCurrencies(contextInstance?: ShopwareApiInstance): Promise<Currency[]>;
 ```
 
 ## Parameters
@@ -18,7 +18,7 @@ export declare function getAvailableCurrencies(contextInstance?: ShopwareApiInst
 
 <b>Returns:</b>
 
-Promise&lt;EntityResult&lt;"currency", Currency\[\]&gt;&gt;
+Promise&lt;Currency\[\]&gt;
 
 ## Exceptions
 
