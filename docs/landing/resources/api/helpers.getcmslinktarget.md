@@ -9,14 +9,19 @@ Return the target attribute for the cms link
 <b>Signature:</b>
 
 ```typescript
-export declare function getCmsLinkTarget(content?: CmsSlot): String;
+export declare function getCmsLinkTarget(content?: Omit<CmsSlot, "data"> & {
+    data?: {
+        url?: string;
+        newTab?: boolean;
+    };
+}): String;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  content | CmsSlot |  |
+|  content | Omit&lt;CmsSlot, "data"&gt; &amp; { data?: { url?: string; newTab?: boolean; }; } |  |
 
 <b>Returns:</b>
 
