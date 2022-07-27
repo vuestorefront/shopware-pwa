@@ -1,3 +1,20 @@
+## [1.5.3](https://github.com/vuestorefront/shopware-pwa/compare/v1.5.2...v1.5.3) (2022-07-27)
+
+
+### Bug Fixes
+
+* **commons:** types adjustment ([6a4751e](https://github.com/vuestorefront/shopware-pwa/commit/6a4751eca8fc2f3f587bd3949cd64c12257ac5ab))
+* **composables:** loading currencies ([#1920](https://github.com/vuestorefront/shopware-pwa/issues/1920)) ([762b888](https://github.com/vuestorefront/shopware-pwa/commit/762b88888ce1f69dd5c9e656f676534e9f10c61a))
+* **default-theme:** edit address on ssr ([#1919](https://github.com/vuestorefront/shopware-pwa/issues/1919)) ([be2a2c5](https://github.com/vuestorefront/shopware-pwa/commit/be2a2c5e63de326c4da7799fe2fcdda8bc839bb4))
+* **default-theme:** prevent redirecting to profile page on SSR ([#1921](https://github.com/vuestorefront/shopware-pwa/issues/1921)) ([49e97d4](https://github.com/vuestorefront/shopware-pwa/commit/49e97d43422c61d4b01056e0ed8a69ecd4339807))
+* **default-theme:** reset password error list ([#1923](https://github.com/vuestorefront/shopware-pwa/issues/1923)) ([82fb0c4](https://github.com/vuestorefront/shopware-pwa/commit/82fb0c456d968367132d775d6282f2c1900d10a9))
+* **default-theme:** text blocks overlap ([#1914](https://github.com/vuestorefront/shopware-pwa/issues/1914)) ([38bd61d](https://github.com/vuestorefront/shopware-pwa/commit/38bd61de68d29bb983936492962b6c0c1a1011dc))
+* **default-theme:** Use translated name of order.stateMachineState in order history ([#1909](https://github.com/vuestorefront/shopware-pwa/issues/1909)) ([fb19d50](https://github.com/vuestorefront/shopware-pwa/commit/fb19d5040ab4bcc8c8e42d8d50d737325aa152f8))
+* **nuxt-module:** clean up the dump bundle file after the build ([#1924](https://github.com/vuestorefront/shopware-pwa/issues/1924)) ([267cb5d](https://github.com/vuestorefront/shopware-pwa/commit/267cb5db6b0b53ecd658acd819f77900b2db16ee))
+* correct typing for CmsSlot ([7379e84](https://github.com/vuestorefront/shopware-pwa/commit/7379e84abb122e0c828526be2cb47ab90a7f3705))
+
+
+
 ## [1.5.2](https://github.com/vuestorefront/shopware-pwa/compare/v1.5.1...v1.5.2) (2022-07-05)
 
 
