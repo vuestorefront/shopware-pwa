@@ -29,10 +29,19 @@ export function getCmsEntityByType(page?: CmsPageResponse | null): Product | Cat
 export function getCmsLayoutConfiguration(content: CmsBlock | CmsSection): LayoutConfiguration;
 
 // @public
-export function getCmsLink(content?: CmsSlot): String;
+export function getCmsLink(content?: Omit<CmsSlot, "data"> & {
+    data?: {
+        url?: string;
+    };
+}): String;
 
 // @public
-export function getCmsLinkTarget(content?: CmsSlot): String;
+export function getCmsLinkTarget(content?: Omit<CmsSlot, "data"> & {
+    data?: {
+        url?: string;
+        newTab?: boolean;
+    };
+}): String;
 
 // @public (undocumented)
 export function getCmsTechnicalPath(page: CmsPageResponse): string | undefined;

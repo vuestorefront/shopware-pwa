@@ -299,6 +299,20 @@ export async function runModule(
       const sourceDir = path.join(TARGET_SOURCE, "static");
       const destinationDir = path.join(builder.options.rootDir, "static");
       await fse.copy(sourceDir, destinationDir);
+
+      const temporaryShopwarePwaDumpFile = path.join(
+        moduleObject.options.rootDir,
+        ".shopware-pwa",
+        "pwa-bundles.json"
+      );
+
+      if (fse.existsSync(temporaryShopwarePwaDumpFile)) {
+        try {
+          fse.removeSync(temporaryShopwarePwaDumpFile);
+        } catch (error) {
+          console.error("error while trying to remove a dump file: ", error);
+        }
+      }
       console.info(
         "Moved static files to root directory static folder. Make sure your static files are placed inside `src/static` directory."
       );

@@ -5,6 +5,8 @@ import { CmsSlot } from "@shopware-pwa/commons";
  *
  * @public
  */
-export function getCmsLink(content?: CmsSlot): String {
+export function getCmsLink(
+  content?: Omit<CmsSlot, "data"> & { data?: { url?: string } }
+): String {
   return content?.data?.url || "";
 }

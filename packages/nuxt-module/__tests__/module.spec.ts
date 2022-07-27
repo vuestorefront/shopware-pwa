@@ -442,6 +442,58 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
     );
   });
 
+  it("should remove a temporary json file after the build is done", async () => {
+    moduleObject.options.dev = false;
+    const afterBuildMethods: any[] = [];
+    mockedFse.existsSync.mockReturnValue(true);
+    moduleObject.nuxt.hook.mockImplementation(
+      (hookName: string, method: Function) => {
+        hookName === "build:done" && afterBuildMethods.push(method);
+      }
+    );
+    await runModule(moduleObject, {});
+    expect(moduleObject.nuxt.hook).toBeCalledWith(
+      "build:done",
+      expect.any(Function)
+    );
+
+    expect(afterBuildMethods.length).toEqual(1);
+    await afterBuildMethods[0](moduleObject);
+    const pathToDelete = path.join(
+      moduleObject.options.rootDir,
+      ".shopware-pwa",
+      "pwa-bundles.json"
+    );
+    expect(mockedFse.existsSync).toBeCalledWith(pathToDelete);
+    expect(mockedFse.removeSync).toBeCalledWith(pathToDelete);
+  });
+
+  it("should catch the error while a temporary json cannot be deleted", async () => {
+    moduleObject.options.dev = false;
+    const afterBuildMethods: any[] = [];
+    mockedFse.existsSync.mockReturnValue(true);
+    mockedFse.removeSync.mockImplementationOnce(() => {
+      throw new Error("test");
+    });
+
+    moduleObject.nuxt.hook.mockImplementation(
+      (hookName: string, method: Function) => {
+        hookName === "build:done" && afterBuildMethods.push(method);
+      }
+    );
+    await runModule(moduleObject, {});
+    expect(moduleObject.nuxt.hook).toBeCalledWith(
+      "build:done",
+      expect.any(Function)
+    );
+
+    await afterBuildMethods[0](moduleObject);
+    expect(consoleErrorSpy).toHaveBeenLastCalledWith(
+      "error while trying to remove a dump file: ",
+      expect.any(Error)
+    );
+  });
+
   it("should add plugins registered in theme - js|ts files only including extracted mode", async () => {
     mockedFiles.getAllFiles.mockReturnValueOnce([
       "/file/path/plugins/notifications.js",

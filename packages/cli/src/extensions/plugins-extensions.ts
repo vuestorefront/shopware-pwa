@@ -5,6 +5,12 @@ import { join } from "path";
 module.exports = (toolbox: GluegunToolbox) => {
   toolbox.plugins = {};
 
+  type DumpBundlesResponse = {
+    success: boolean;
+    buildArtifact: { [key: string]: string };
+    bundleConfig: any;
+  };
+
   let runningRefreshPlugins: boolean = false;
   toolbox.plugins.invokeRefreshPlugins = async (devMode: boolean = false) => {
     if (runningRefreshPlugins) {
@@ -38,7 +44,7 @@ module.exports = (toolbox: GluegunToolbox) => {
   }: {
     shopwareEndpoint: string;
     authToken: string;
-  }) => {
+  }): Promise<DumpBundlesResponse> => {
     const pluginsConfigRsponse = await axios.post(
       `${toolbox.normalizeBaseUrl(
         shopwareEndpoint
@@ -50,7 +56,7 @@ module.exports = (toolbox: GluegunToolbox) => {
         },
       }
     );
-    return pluginsConfigRsponse.data.buildArtifact;
+    return pluginsConfigRsponse.data;
   };
 
   toolbox.fetchPluginsConfig = async ({ config }: { config: string }) => {
@@ -310,12 +316,11 @@ module.exports = (toolbox: GluegunToolbox) => {
         return;
       }
 
-      const buildArtifact = await toolbox.fetchPluginsBuildArtifact({
-        ...toolbox.inputParameters,
-        authToken,
-      });
-
-      const pluginsConfig = await toolbox.fetchPluginsConfig(buildArtifact);
+      const { buildArtifact, bundleConfig }: DumpBundlesResponse =
+        await toolbox.fetchPluginsBuildArtifact({
+          ...toolbox.inputParameters,
+          authToken,
+        });
 
       await toolbox.filesystem.removeAsync(`.shopware-pwa/pwa-bundles.json`);
       await toolbox.filesystem.removeAsync(`.shopware-pwa/pwa-bundles-assets`);
@@ -324,7 +329,7 @@ module.exports = (toolbox: GluegunToolbox) => {
       );
       await toolbox.filesystem.writeAsync(
         ".shopware-pwa/pwa-bundles.json",
-        pluginsConfig
+        bundleConfig
       );
 
       await toolbox.loadPluginsAssetFile(buildArtifact);

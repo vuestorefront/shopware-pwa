@@ -9,14 +9,18 @@ Gets the link of a cms slot
 <b>Signature:</b>
 
 ```typescript
-export declare function getCmsLink(content?: CmsSlot): String;
+export declare function getCmsLink(content?: Omit<CmsSlot, "data"> & {
+    data?: {
+        url?: string;
+    };
+}): String;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  content | CmsSlot |  |
+|  content | Omit&lt;CmsSlot, "data"&gt; &amp; { data?: { url?: string; }; } |  |
 
 <b>Returns:</b>
 
