@@ -468,7 +468,7 @@ describe("nuxt-module - ShopwarePWAModule runModule", () => {
     expect(mockedFse.removeSync).toBeCalledWith(pathToDelete);
   });
 
-  it("should remove a temporary json file after the build is done", async () => {
+  it("should catch the error while a temporary json cannot be deleted", async () => {
     moduleObject.options.dev = false;
     const afterBuildMethods: any[] = [];
     mockedFse.existsSync.mockReturnValue(true);
