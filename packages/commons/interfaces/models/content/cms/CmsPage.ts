@@ -138,7 +138,17 @@ export type CmsSlotType =
   | "product-listing"
   | "product-box"
   | "slot"
-  | "text";
+  | "text"
+  | "image-slider"
+  | "image-gallery"
+  | "youtube-video"
+  | "vimeo-video"
+  | "sidebar-filter"
+  | "category-navigation"
+  | "product-description-reviews"
+  | "buy-box"
+  | "cross-selling"
+  | "form";
 
 /**
  * @public
@@ -164,18 +174,18 @@ export interface CmsSlot {
   extensions: [any];
   id: string;
   translations: any | null;
-  config: unknown;
+  config: any;
   slot: string;
   block: CmsBlock | null;
   blockId: string;
   fieldConfig: CmsFieldConfig[];
-  data?: unknown;
+  data?: any;
 }
 
 /**
  * @public
  */
-export type SectionType = "default" | "sidebar";
+export type SectionType = "default";
 
 /**
  * @public
