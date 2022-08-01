@@ -327,6 +327,25 @@ module.exports = (toolbox: GluegunToolbox) => {
       await toolbox.filesystem.removeAsync(
         `.shopware-pwa/pwa-bundles-assets.zip`
       );
+
+      // Notify about the new way of fetching the bundles information
+      if (typeof bundleConfig === "undefined") {
+        toolbox.print.divider();
+        toolbox.print.info(
+          toolbox.print.colors.bgYellow(
+            toolbox.print.colors.black("Breaking change!")
+          )
+        );
+        toolbox.print.warning(
+          "The way to fetch the plugins' config has changed.\nPlease upgrade your SwagShopwarePwa plugin (>= v0.3.3) in Shopware 6 instance."
+        );
+        toolbox.print.warning(
+          "More info here: https://github.com/shopware/SwagShopwarePwa/commit/8cb521f54838fd4bc125ea2be4e10608f2b826de"
+        );
+        toolbox.print.divider();
+      }
+
+      // leave writing to cause an error
       await toolbox.filesystem.writeAsync(
         ".shopware-pwa/pwa-bundles.json",
         bundleConfig
