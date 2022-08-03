@@ -55,6 +55,7 @@ export interface IUseUser {
   isLoggedIn: ComputedRef<boolean>;
   isCustomerSession: ComputedRef<boolean>;
   isGuestSession: ComputedRef<boolean>;
+  isNewsletterSubscribed: ComputedRef<boolean>;
   country: Ref<Country | null>;
   salutation: Ref<Salutation | null>;
   refreshUser: () => Promise<void>;
@@ -263,6 +264,7 @@ export function useUser(): IUseUser {
     () => !!user.value?.id && !user.value.guest
   );
   const isGuestSession = computed(() => !!user.value?.guest);
+  const isNewsletterSubscribed = computed(() => !!user.value?.newsletter);
 
   return {
     login,
@@ -273,6 +275,7 @@ export function useUser(): IUseUser {
     isLoggedIn,
     isCustomerSession,
     isGuestSession,
+    isNewsletterSubscribed,
     refreshUser,
     logout,
     updateEmail,

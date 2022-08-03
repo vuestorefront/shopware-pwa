@@ -345,7 +345,8 @@
         "addresses",
         "defaultBillingAddressId",
         "defaultShippingAddressId",
-        "orderCount"
+        "orderCount",
+        "newsletter"
       ]
     }
   },

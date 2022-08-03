@@ -26,6 +26,17 @@
         </template>
       </SwPassword>
     </SfTab>
+    <SfTab :title="$t('Newsletter')">
+      <SwNewsletter>
+        <template #message>
+          <p class="message">
+            {{
+              $t("Here you can change your newsletter status")
+            }}
+          </p>
+        </template>
+      </SwNewsletter>
+    </SfTab>
   </SfTabs>
 </template>
 
@@ -35,6 +46,7 @@ import { useBreadcrumbs } from "@shopware-pwa/composables"
 import { PAGE_ACCOUNT } from "@/helpers/pages"
 import SwPassword from "@/components/forms/SwPassword.vue"
 import SwPersonalInfo from "@/components/forms/SwPersonalInfo.vue"
+import SwNewsletter from "@/components/account/SwNewsletter.vue"
 
 export default {
   name: "MyProfile",
@@ -42,6 +54,7 @@ export default {
     SfTabs,
     SwPassword,
     SwPersonalInfo,
+    SwNewsletter
   },
   setup(props, { root }) {
     const { setBreadcrumbs } = useBreadcrumbs()
