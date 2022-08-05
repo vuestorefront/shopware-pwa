@@ -14,7 +14,7 @@
       </SwButton>
       <div
         class="navbar__sort desktop-only"
-        v-show="isMounted && getSortingOrders.length"
+        v-if="isMounted && getSortingOrders.length"
       >
         <span class="navbar__label">{{ $t("Sort by") }}:</span>
         <SfSelect v-model="currentSortingOrder" class="sort-by">
