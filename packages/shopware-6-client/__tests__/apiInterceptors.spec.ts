@@ -264,5 +264,16 @@ describe("apiInterceptors", () => {
         });
       }
     });
+
+    it("it should not fail when api is unreachable", async () => {
+      try {
+        await errorInterceptor({} as any);
+      } catch (error) {
+        expect(error).toStrictEqual({
+          statusCode: 500,
+          messages: [],
+        });
+      }
+    });
   });
 });
