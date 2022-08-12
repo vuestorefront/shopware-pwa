@@ -55,7 +55,7 @@ const guessTheStatusCodeFromTheMessage = (message: string): number => {
  * @returns {(string|ShopwareError[])} single message if statusCode !== 400, array of native errors otherwise
  */
 const extractApiErrorMessage = (error: ShopwareApiError): ShopwareError[] => {
-  return error.response.data?.errors || [];
+  return error.response?.data?.errors || [];
 };
 
 /**

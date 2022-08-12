@@ -111,8 +111,13 @@
   @include for-mobile {
     .sw-select {
       div {
-        .sf-component-select__dropdown {
-          position: relative;
+        .sf-component-select{
+          &__dropdown {
+            position: relative;
+          }
+          &__cancel {
+            pointer-events: none;
+          }
         }
       }
     }
