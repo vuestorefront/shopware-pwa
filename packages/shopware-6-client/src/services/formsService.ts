@@ -60,15 +60,13 @@ export async function newsletterSubscribe(
  * @public
  */
 export async function newsletterUnsubscribe(
-  {
-    email,
-  }: {
+  params: {
     email: string;
   },
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<void> {
   await contextInstance.invoke.post(
     getStoreNewsletterUnsubscribeEndpoint(),
-    email
+    params
   );
 }
