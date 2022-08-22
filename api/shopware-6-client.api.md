@@ -469,8 +469,8 @@ export function invokePost({ address, payload, }: {
     payload?: any;
 }, contextInstance?: ShopwareApiInstance): Promise<any>;
 
-// @public (undocumented)
-export function isUserSubscribingNewsletter(contextInstance?: ShopwareApiInstance): Promise<boolean>;
+// @public
+export function isNewsletterSubscriber(contextInstance?: ShopwareApiInstance): Promise<boolean>;
 
 // @public
 export function login({ username, password }?: {

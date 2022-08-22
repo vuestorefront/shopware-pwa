@@ -387,7 +387,13 @@ export async function setDefaultCustomerPaymentMethod(
   return response.data;
 }
 
-export async function isUserSubscribingNewsletter(
+/**
+ * Checking if user is newsletter subscriber
+ *
+ * @throws ClientApiError
+ * @public
+ */
+export async function isNewsletterSubscriber(
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<boolean> {
   const response = await contextInstance.invoke.post(

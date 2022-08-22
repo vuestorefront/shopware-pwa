@@ -55,7 +55,7 @@
 |  [handlePayment(params, contextInstance)](./shopware-6-client.handlepayment.md) |  |
 |  [invokeGet({ address }, contextInstance)](./shopware-6-client.invokeget.md) | Invoke custom GET request to shopware API. Mostly for plugins usage. You can skip domain and pass only endpoint ex. <code>/api/my/endpoint</code> |
 |  [invokePost({ address, payload, }, contextInstance)](./shopware-6-client.invokepost.md) | Invoke custom POST request to shopware API. Mostly for plugins usage. You can skip domain and pass only endpoint ex. <code>/api/my/endpoint</code> |
-|  [isUserSubscribingNewsletter(contextInstance)](./shopware-6-client.isusersubscribingnewsletter.md) |  |
+|  [isNewsletterSubscriber(contextInstance)](./shopware-6-client.isnewslettersubscriber.md) | Checking if user is newsletter subscriber |
 |  [login({ username, password }, contextInstance)](./shopware-6-client.login.md) | Login user to shopware instance. |
 |  [logout(contextInstance)](./shopware-6-client.logout.md) | End up the user session. |
 |  [mergeWishlistProducts(productIds, contextInstance)](./shopware-6-client.mergewishlistproducts.md) | Merge the current Wishlist with a products with provided IDs |
