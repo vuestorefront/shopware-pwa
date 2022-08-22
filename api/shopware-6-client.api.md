@@ -470,7 +470,10 @@ export function invokePost({ address, payload, }: {
 }, contextInstance?: ShopwareApiInstance): Promise<any>;
 
 // @public
-export function isNewsletterSubscriber(contextInstance?: ShopwareApiInstance): Promise<boolean>;
+export function isNewsletterSubscriber(contextInstance?: ShopwareApiInstance): Promise<{
+    status: string;
+    apiAlias: string;
+}>;
 
 // @public
 export function login({ username, password }?: {

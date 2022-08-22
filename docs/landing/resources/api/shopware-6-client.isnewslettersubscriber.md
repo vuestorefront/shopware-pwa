@@ -9,7 +9,10 @@ Checking if user is newsletter subscriber
 <b>Signature:</b>
 
 ```typescript
-export declare function isNewsletterSubscriber(contextInstance?: ShopwareApiInstance): Promise<boolean>;
+export declare function isNewsletterSubscriber(contextInstance?: ShopwareApiInstance): Promise<{
+    status: string;
+    apiAlias: string;
+}>;
 ```
 
 ## Parameters
@@ -20,7 +23,7 @@ export declare function isNewsletterSubscriber(contextInstance?: ShopwareApiInst
 
 <b>Returns:</b>
 
-Promise&lt;boolean&gt;
+Promise&lt;{ status: string; apiAlias: string; }&gt;
 
 ## Exceptions
 
