@@ -15,6 +15,7 @@ import {
   getConfirmPasswordResetEndpoint,
   getCustomerAccountConfirmEndpoint,
   getCustomerUpdatePaymentMethodEndpoint,
+  getNewsletterRecipientEnpoint,
 } from "../endpoints";
 import { defaultInstance, ShopwareApiInstance } from "../apiService";
 import {
@@ -384,4 +385,13 @@ export async function setDefaultCustomerPaymentMethod(
     getCustomerUpdatePaymentMethodEndpoint(paymentMethodId)
   );
   return response.data;
+}
+
+export async function isUserSubscribingNewsletter(
+  contextInstance: ShopwareApiInstance = defaultInstance
+): Promise<boolean> {
+  const response = await contextInstance.invoke.post(
+    getNewsletterRecipientEnpoint()
+  );
+  return response.data.status === "undefined" ? false : true;
 }

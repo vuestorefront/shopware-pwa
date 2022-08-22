@@ -55,11 +55,12 @@
 |  [handlePayment(params, contextInstance)](./shopware-6-client.handlepayment.md) |  |
 |  [invokeGet({ address }, contextInstance)](./shopware-6-client.invokeget.md) | Invoke custom GET request to shopware API. Mostly for plugins usage. You can skip domain and pass only endpoint ex. <code>/api/my/endpoint</code> |
 |  [invokePost({ address, payload, }, contextInstance)](./shopware-6-client.invokepost.md) | Invoke custom POST request to shopware API. Mostly for plugins usage. You can skip domain and pass only endpoint ex. <code>/api/my/endpoint</code> |
+|  [isUserSubscribingNewsletter(contextInstance)](./shopware-6-client.isusersubscribingnewsletter.md) |  |
 |  [login({ username, password }, contextInstance)](./shopware-6-client.login.md) | Login user to shopware instance. |
 |  [logout(contextInstance)](./shopware-6-client.logout.md) | End up the user session. |
 |  [mergeWishlistProducts(productIds, contextInstance)](./shopware-6-client.mergewishlistproducts.md) | Merge the current Wishlist with a products with provided IDs |
 |  [newsletterSubscribe(params, contextInstance)](./shopware-6-client.newslettersubscribe.md) |  |
-|  [newsletterUnsubscribe({ email, }, contextInstance)](./shopware-6-client.newsletterunsubscribe.md) |  |
+|  [newsletterUnsubscribe(params, contextInstance)](./shopware-6-client.newsletterunsubscribe.md) |  |
 |  [register(params, contextInstance)](./shopware-6-client.register.md) | Register a customer |
 |  [removeCartItem(itemId, contextInstance)](./shopware-6-client.removecartitem.md) | Deletes the cart line item by id.<!-- -->This method may be used for deleting "product" type item lines as well as "promotion" type item lines. |
 |  [removeWishlistProduct(productId, contextInstance)](./shopware-6-client.removewishlistproduct.md) | Delete a product with a specific ID from the wishlist |
@@ -137,6 +138,7 @@
 |  [getGetWishlistProductsEndpoint](./shopware-6-client.getgetwishlistproductsendpoint.md) |  |
 |  [getLandingPageDetailsEndpoint](./shopware-6-client.getlandingpagedetailsendpoint.md) |  |
 |  [getMergeWishlistProductsEndpoint](./shopware-6-client.getmergewishlistproductsendpoint.md) |  |
+|  [getNewsletterRecipientEnpoint](./shopware-6-client.getnewsletterrecipientenpoint.md) |  |
 |  [getNewsletterSubscribeEndpoint](./shopware-6-client.getnewslettersubscribeendpoint.md) |  |
 |  [getNewsletterUnsubscribeEndpoint](./shopware-6-client.getnewsletterunsubscribeendpoint.md) |  |
 |  [getPageResolverEndpoint](./shopware-6-client.getpageresolverendpoint.md) |  |

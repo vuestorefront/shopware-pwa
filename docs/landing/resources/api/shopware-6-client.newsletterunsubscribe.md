@@ -8,7 +8,7 @@
 <b>Signature:</b>
 
 ```typescript
-export declare function newsletterUnsubscribe({ email, }: {
+export declare function newsletterUnsubscribe(params: {
     email: string;
 }, contextInstance?: ShopwareApiInstance): Promise<void>;
 ```
@@ -17,7 +17,7 @@ export declare function newsletterUnsubscribe({ email, }: {
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  { email, } | { email: string; } |  |
+|  params | { email: string; } |  |
 |  contextInstance | [ShopwareApiInstance](./shopware-6-client.shopwareapiinstance.md) |  |
 
 <b>Returns:</b>
