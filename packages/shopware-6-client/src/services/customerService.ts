@@ -395,9 +395,12 @@ export async function setDefaultCustomerPaymentMethod(
  */
 export async function isNewsletterSubscriber(
   contextInstance: ShopwareApiInstance = defaultInstance
-): Promise<boolean> {
+): Promise<{
+  status: string;
+  apiAlias: string;
+}> {
   const response = await contextInstance.invoke.post(
     getNewsletterRecipientEnpoint()
   );
-  return response.data.status === "undefined" ? false : true;
+  return response.data;
 }
