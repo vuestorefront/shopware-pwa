@@ -24,7 +24,8 @@
   "dependencies": {
     "axios": "^0.27.2",
     "lodash": "^4.17.21",
-    "query-string": "^7.1.1"
+    "query-string": "^7.1.1",
+    "@shopware-pwa/commons": "1.5.3"
   },
   "devDependencies": {
     "@types/query-string": "^6.3.0"
