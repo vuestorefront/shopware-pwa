@@ -61,8 +61,10 @@ export default {
       default: () => {},
     },
   },
-  data() {
-    return {}
+  fetch() {
+    if (process.server) {
+      this.$nuxt.context.res.statusCode = this.code
+    }
   },
   computed: {
     code() {
