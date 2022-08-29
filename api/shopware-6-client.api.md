@@ -507,7 +507,7 @@ export interface NewsletterSubscribeData {
 }
 
 // @public (undocumented)
-export function newsletterUnsubscribe({ email, }: {
+export function newsletterUnsubscribe(params: {
     email: string;
 }, contextInstance?: ShopwareApiInstance): Promise<void>;
 

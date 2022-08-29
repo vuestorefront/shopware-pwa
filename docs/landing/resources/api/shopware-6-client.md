@@ -59,7 +59,7 @@
 |  [logout(contextInstance)](./shopware-6-client.logout.md) | End up the user session. |
 |  [mergeWishlistProducts(productIds, contextInstance)](./shopware-6-client.mergewishlistproducts.md) | Merge the current Wishlist with a products with provided IDs |
 |  [newsletterSubscribe(params, contextInstance)](./shopware-6-client.newslettersubscribe.md) |  |
-|  [newsletterUnsubscribe({ email, }, contextInstance)](./shopware-6-client.newsletterunsubscribe.md) |  |
+|  [newsletterUnsubscribe(params, contextInstance)](./shopware-6-client.newsletterunsubscribe.md) |  |
 |  [register(params, contextInstance)](./shopware-6-client.register.md) | Register a customer |
 |  [removeCartItem(itemId, contextInstance)](./shopware-6-client.removecartitem.md) | Deletes the cart line item by id.<!-- -->This method may be used for deleting "product" type item lines as well as "promotion" type item lines. |
 |  [removeWishlistProduct(productId, contextInstance)](./shopware-6-client.removewishlistproduct.md) | Delete a product with a specific ID from the wishlist |
