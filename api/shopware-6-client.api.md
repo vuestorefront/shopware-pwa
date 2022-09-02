@@ -341,6 +341,9 @@ export const getLandingPageDetailsEndpoint: (landingPageId: string) => string;
 export const getMergeWishlistProductsEndpoint: () => string;
 
 // @public (undocumented)
+export const getNewsletterRecipientEnpoint: () => string;
+
+// @public (undocumented)
 export const getNewsletterSubscribeEndpoint: () => string;
 
 // @public (undocumented)
@@ -465,6 +468,12 @@ export function invokePost({ address, payload, }: {
     address: string;
     payload?: any;
 }, contextInstance?: ShopwareApiInstance): Promise<any>;
+
+// @public
+export function isNewsletterSubscriber(contextInstance?: ShopwareApiInstance): Promise<{
+    status: string;
+    apiAlias: string;
+}>;
 
 // @public
 export function login({ username, password }?: {
