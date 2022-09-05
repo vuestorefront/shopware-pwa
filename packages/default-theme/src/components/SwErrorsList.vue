@@ -40,7 +40,7 @@ export default {
     const formatErrorMessage = (error) => `${
       isFieldRelatedError(error.code) ? `${error.source.pointer}: ` : ""
     }
-${error.detail}`
+    ${(root.$te(`errors.${error.code}`))? root.$t(`errors.${error.code}`): error.detail }`
 
     return {
       isFieldRelatedError,
