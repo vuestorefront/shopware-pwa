@@ -25,7 +25,7 @@
       </SwButton>
       <SwButton
         @click="$router.back()"
-        class="11 sf-button--full-width sf-button--text error-page__actions-button"
+        class="sf-button--full-width sf-button--text error-page__actions-button"
       >
       {{ $t("Back") }}
       </SwButton>
