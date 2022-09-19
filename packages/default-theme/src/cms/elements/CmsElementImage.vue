@@ -1,5 +1,5 @@
 <template>
-  <div v-if="imagesUrl && imagesUrl.length">
+  <div v-if="(imagesUrl && imagesUrl.length) || imgUrl">
     <SwLink
       v-if="link"
       :link="link"
@@ -8,6 +8,7 @@
     >
       <SwImage
         :srcset="imagesUrl"
+        :src="imgUrl"
         :title="title"
         :alt="alt"
         :loading="lazyLoad"
@@ -17,6 +18,7 @@
     <SwImage
       v-else
       :srcset="imagesUrl"
+      :src="imgUrl"
       :title="title"
       :alt="alt"
       :loading="lazyLoad"
@@ -59,6 +61,10 @@ export default {
 
     imagesUrl() {
       return this.getMedia?.thumbnails ?? []
+    },
+
+    imgUrl() {
+      return getResizedImage(this.getMedia && this.getMedia.url)
     },
 
     lazyLoad() {

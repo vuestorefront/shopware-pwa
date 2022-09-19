@@ -11,7 +11,6 @@
         v-show="getBreadcrumbs.length > 0"
         :breadcrumbs="getBreadcrumbs"
         class="sw-breadcrumbs layout__sized"
-        @click="redirectTo"
       />
     </SwPluginSlot>
 
@@ -113,11 +112,6 @@ export default defineComponent({
     }
   },
   middleware: ["pages"],
-  methods: {
-    redirectTo(route) {
-      return this.$router.push(this.$routing.getUrl(route.link))
-    },
-  },
 })
 </script>
 

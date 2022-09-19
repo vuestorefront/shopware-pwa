@@ -203,6 +203,7 @@
   "Name Z-A": "Name Z-A",
   "Price ascending": "Price ascending",
   "Price descending": "Price descending",
+  "created at": "created at",
   "Topseller": "TOP seller",
   "manufacturer": "Manufacturer",
   "price": "Price",
@@ -285,5 +286,25 @@
   "This field is required and should be at least 8 characters long": "This field is required and should be at least 8 characters long",
   "You profile has been updated.": "You profile has been updated.",
   "From": "From",
-  "Variants from": "Variants from"
+  "Variants from": "Variants from",
+  "errors": {
+    "CHECKOUT__CUSTOMER_ADDRESS_NOT_FOUND": "Customer address not found",
+    "CHECKOUT__CUSTOMER_AUTH_BAD_CREDENTIALS": "Invalid username and/or password",
+    "CHECKOUT__CUSTOMER_ADDRESS_IS_ACTIVE": "Customer address is an active address and cannot be deleted",
+    "CHECKOUT__CUSTOMER_ADDRESS_IS_DEFAULT": "Customer address is a default address and cannot be deleted",
+    "CHECKOUT__CUSTOMER_IS_ALREADY_CONFIRMED": "The customer is already confirmed",
+    "CHECKOUT__CUSTOMER_AUTH_THROTTLED": "Customer auth throttled",
+    "CHECKOUT__CUSTOMER_GROUP_REGISTRATION_NOT_FOUND": "Customer group registration not found",
+    "CHECKOUT__CUSTOMER_NOT_FOUND_BY_HASH": "No matching customer for the hash was found.",
+    "CHECKOUT__CUSTOMER_NOT_FOUND_BY_ID": "No matching customer",
+    "CHECKOUT__CUSTOMER_NOT_FOUND": "No matching customer was found",
+    "CHECKOUT__CUSTOMER_RECOVERY_HASH_EXPIRED": "The hash is expired",
+    "CHECKOUT__WISHLIST_IS_NOT_ACTIVATED": "Wishlist is not activated!",
+    "CHECKOUT__WISHLIST_NOT_FOUND": "Wishlist for this customer was not found",
+    "CHECKOUT__DUPLICATE_WISHLIST_PRODUCT": "Product already added in wishlist",
+    "CHECKOUT__CUSTOMER_IS_INACTIVE": "The customer is inactive",
+    "CHECKOUT__LEGACY_PASSWORD_ENCODER_NOT_FOUND": "Encoder not found",
+    "CHECKOUT__NO_HASH_PROVIDED": "The given hash is empty",
+    "CHECKOUT__WISHLIST_PRODUCT_NOT_FOUND": "Wishlist product not found"
+  }
 }

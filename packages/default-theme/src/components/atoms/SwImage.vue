@@ -28,9 +28,16 @@ export default {
       resolution: item.width
       })) ?? []
     )
-    const imgUrl = computed(() => props.srcset?.reduce(function (res, thumb) {
-      return thumb.width < res.width ? thumb : res;
-    })?.url ?? props.src)
+    const imgUrl = computed(() => {
+      if (props.srcset && props.srcset.length) {
+        return props.srcset.reduce(
+          (res, thumb) => (thumb.width < res.width ? thumb : res),
+          props.srcset[0]
+        )?.url ?? props.src
+      } else {
+        return props.src
+      }
+    });
 
     return {
       placeholder: getPlaceholderImage(width, height),
