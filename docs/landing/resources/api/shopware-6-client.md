@@ -22,6 +22,7 @@
 |  [createCustomerAddress(params, contextInstance)](./shopware-6-client.createcustomeraddress.md) | Create an address and respond the new address's id |
 |  [createInstance(initialConfig)](./shopware-6-client.createinstance.md) |  |
 |  [createOrder(params, contextInstance)](./shopware-6-client.createorder.md) | Creates an order for logged in and guest users |
+|  [deleteAccount(contextInstance)](./shopware-6-client.deleteaccount.md) | Delete a customer account |
 |  [deleteCustomerAddress(addressId, contextInstance)](./shopware-6-client.deletecustomeraddress.md) | Delete's the customer's address by id |
 |  [getAvailableCountries(contextInstance)](./shopware-6-client.getavailablecountries.md) | Get all available countries |
 |  [getAvailableCurrencies(contextInstance)](./shopware-6-client.getavailablecurrencies.md) |  |
@@ -125,6 +126,7 @@
 |  [getCustomerAddressEndpoint](./shopware-6-client.getcustomeraddressendpoint.md) |  |
 |  [getCustomerDefaultBillingAddressEndpoint](./shopware-6-client.getcustomerdefaultbillingaddressendpoint.md) |  |
 |  [getCustomerDefaultShippingAddressEndpoint](./shopware-6-client.getcustomerdefaultshippingaddressendpoint.md) |  |
+|  [getCustomerDeleteEndpoint](./shopware-6-client.getcustomerdeleteendpoint.md) |  |
 |  [getCustomerDetailsUpdateEndpoint](./shopware-6-client.getcustomerdetailsupdateendpoint.md) |  |
 |  [getCustomerEndpoint](./shopware-6-client.getcustomerendpoint.md) |  |
 |  [getCustomerLoginEndpoint](./shopware-6-client.getcustomerloginendpoint.md) |  |

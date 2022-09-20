@@ -181,6 +181,9 @@ export interface CustomerUpdateProfileParam {
 }
 
 // @public
+export function deleteAccount(contextInstance?: ShopwareApiInstance): Promise<void>;
+
+// @public
 export function deleteCustomerAddress(addressId: string, contextInstance?: ShopwareApiInstance): Promise<void>;
 
 // @public (undocumented)
@@ -294,6 +297,9 @@ export const getCustomerDefaultBillingAddressEndpoint: (addressId: string) => st
 
 // @public (undocumented)
 export const getCustomerDefaultShippingAddressEndpoint: (addressId: string) => string;
+
+// @public (undocumented)
+export const getCustomerDeleteEndpoint: () => string;
 
 // @public (undocumented)
 export const getCustomerDetailsUpdateEndpoint: () => string;
