@@ -51,7 +51,7 @@ export function useCartItem({
   qtySteps = 50,
 }: {
   cartItem: LineItem;
-  qtySteps: number;
+  qtySteps?: number;
 }): IUseCartItem {
   if (!cartItem) {
     throw new Error("[useCartItem] mandatory cartItem argument is missing.");

@@ -20,6 +20,7 @@ export interface IUseCartItem
 |  Property | Type | Description |
 |  --- | --- | --- |
 |  [changeItemQuantity](./composables.iusecartitem.changeitemquantity.md) | (quantity: number) =&gt; Promise&lt;void&gt; | <b><i>(BETA)</i></b> |
+|  [getProductQtySteps](./composables.iusecartitem.getproductqtysteps.md) | ComputedRef&lt;number\[\] \| null&gt; | <b><i>(BETA)</i></b> |
 |  [isProduct](./composables.iusecartitem.isproduct.md) | ComputedRef&lt;boolean&gt; | <b><i>(BETA)</i></b> |
 |  [isPromotion](./composables.iusecartitem.ispromotion.md) | ComputedRef&lt;boolean&gt; | <b><i>(BETA)</i></b> |
 |  [itemImageThumbnailUrl](./composables.iusecartitem.itemimagethumbnailurl.md) | ComputedRef&lt;string&gt; | <b><i>(BETA)</i></b> |
