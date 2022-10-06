@@ -96,18 +96,23 @@ export function useCartItem({
 
   const getProductQtySteps = computed(() => {
     const quantityInformation = cartItem.quantityInformation;
-    const purchaseSteps = quantityInformation?.purchaseSteps || 1;
+    if (
+      !quantityInformation ||
+      !quantityInformation.purchaseSteps ||
+      quantityInformation.purchaseSteps === 1
+    )
+      return null;
+
+    const purchaseSteps = quantityInformation.purchaseSteps;
     const availableStock =
-      quantityInformation?.maxPurchase &&
+      quantityInformation.maxPurchase &&
       quantityInformation.maxPurchase < qtySteps * purchaseSteps
         ? quantityInformation.maxPurchase
         : qtySteps;
 
-    if (purchaseSteps <= 1) return null;
-
     let i = purchaseSteps;
     let options: number[] = [];
-    while (i < availableStock) {
+    while (i <= availableStock) {
       options.push(i);
       i += purchaseSteps;
     }

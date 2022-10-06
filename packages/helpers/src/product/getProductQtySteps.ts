@@ -10,15 +10,16 @@ export function getProductQtySteps(
   availableStockParam = 100,
   qtySteps = 50
 ): number[] | null {
-  const availableStock = product?.availableStock || availableStockParam;
-
-  if (!product.purchaseSteps || product?.purchaseSteps <= 1) return null;
-
-  let i = product.purchaseSteps;
+  if (!product.purchaseSteps || product.purchaseSteps <= 1) return null;
+  const availableStock = product.availableStock || availableStockParam;
+  const stepsFromStock = Math.floor(availableStock / product.purchaseSteps);
+  const steps = qtySteps < stepsFromStock ? qtySteps : stepsFromStock;
   let options: number[] = [];
-  while (i <= availableStock || i < qtySteps) {
-    options.push(i);
-    i += product.purchaseSteps;
+  let i = 1;
+
+  while (i <= steps) {
+    options.push(product.purchaseSteps * i++);
   }
+
   return options;
 }
