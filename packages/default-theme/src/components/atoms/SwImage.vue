@@ -45,7 +45,7 @@ export default {
       }
     });
 
-    const loading = computed(() => props.loading || '');
+    const loading = computed(() => props.loading || 'eager');
 
     return {
       placeholder: getPlaceholderImage(width, height),
