@@ -354,5 +354,49 @@ describe("Composables - useCart", () => {
         expect(mockedShopwareClient.getProduct).not.toBeCalled();
       });
     });
+
+    describe("getProductQtySteps", () => {
+      it("should return product qty", async () => {
+        const cartItem = {
+          quantityInformation: {
+            purchaseSteps: 10,
+            maxPurchase: 90000,
+          },
+        };
+        const { getProductQtySteps } = useCartItem({
+          cartItem,
+        } as any);
+
+        expect(getProductQtySteps.value).toStrictEqual([10, 20, 30, 40, 50]);
+      });
+
+      it("should return product qty - product stock", async () => {
+        const cartItem = {
+          quantityInformation: {
+            purchaseSteps: 10,
+            maxPurchase: 40,
+          },
+        };
+        const { getProductQtySteps } = useCartItem({
+          cartItem,
+        } as any);
+
+        expect(getProductQtySteps.value).toStrictEqual([10, 20, 30, 40]);
+      });
+
+      it("should return null", async () => {
+        const cartItem = {
+          quantityInformation: {
+            maxPurchase: 90000,
+          },
+        };
+
+        const { getProductQtySteps } = useCartItem({
+          cartItem,
+        } as any);
+
+        expect(getProductQtySteps.value).toBe(null);
+      });
+    });
   });
 });

@@ -398,6 +398,8 @@ export interface IUseCartItem {
     // (undocumented)
     getProductItemSeoUrlData(): Promise<Partial<Product>>;
     // (undocumented)
+    getProductQtySteps: ComputedRef<number[] | null>;
+    // (undocumented)
     isProduct: ComputedRef<boolean>;
     // (undocumented)
     isPromotion: ComputedRef<boolean>;
@@ -901,8 +903,9 @@ export function useBreadcrumbs(params?: {
 export function useCart(): IUseCart;
 
 // @beta
-export function useCartItem({ cartItem, }: {
+export function useCartItem({ cartItem, qtySteps, }: {
     cartItem: LineItem;
+    qtySteps?: number;
 }): IUseCartItem;
 
 // @beta

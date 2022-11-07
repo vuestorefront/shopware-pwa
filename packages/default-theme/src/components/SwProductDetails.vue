@@ -40,6 +40,14 @@
         class="product-details__add-to-cart"
         @click="addToCart"
       >
+        <template #quantity-select-input v-if="purchaseStepsOptions">
+          <SfComponentSelect v-model="quantity"
+            class="sw-select sf-add-to-cart__select-quantity sw-select sw-form__input">
+            <SfComponentSelectOption v-for="step in purchaseStepsOptions" :key="step" :value="step" >
+              {{ step }}
+            </SfComponentSelectOption>
+          </SfComponentSelect>
+        </template>
         <template #add-to-cart-btn>
           <SwButton
             class="sf-button--full-width"
@@ -67,12 +75,13 @@
   </div>
 </template>
 <script>
-import { SfAlert, SfAddToCart, SfLoader } from "@storefront-ui/vue"
+import { SfAlert, SfAddToCart, SfLoader, SfComponentSelect } from "@storefront-ui/vue"
 import {
   getProductNumber,
   getProductOptions,
   getProductUrl,
-  getTranslatedProperty
+  getTranslatedProperty,
+  getProductQtySteps
 } from "@shopware-pwa/helpers"
 import {
   useAddToCart,
@@ -93,6 +102,7 @@ export default {
     SwProductSelect: () => import("@/components/SwProductSelect.vue"),
     SwPluginSlot,
     SwButton,
+    SfComponentSelect
   },
   props: {
     product: {
@@ -144,6 +154,8 @@ export default {
       })
     }
 
+    const purchaseStepsOptions = computed(() => getProductQtySteps(product.value))
+
     return {
       stock,
       description,
@@ -157,6 +169,7 @@ export default {
       getProductOptions,
       onOptionChanged,
       getTranslatedProperty,
+      purchaseStepsOptions
     }
   },
 }
@@ -197,6 +210,23 @@ export default {
     margin: 1.5rem 0;
     @include for-desktop {
       margin: var(--spacer-xl) 0;
+    }
+    .sf-add-to-cart__select-quantity {
+      border: 1px solid var(--c-dark-variant);
+      padding: 0;
+      margin: 0;
+      ::v-deep .sf-component-select__chevron {
+        top: calc(50% + 3px);
+      }
+    }
+    ::v-deep {
+      .sf-component-select__error-message {
+        display: none;
+      }
+
+      .sf-component-select-option {
+        padding-left: 16px;
+      }
     }
   }
   &__alert {

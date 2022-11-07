@@ -27,6 +27,7 @@
 |  [getProductPriceDiscount(product)](./helpers.getproductpricediscount.md) | <b><i>(BETA)</i></b> Get value of price discount |
 |  [getProductPriceDiscountPercentage(product)](./helpers.getproductpricediscountpercentage.md) | <b><i>(BETA)</i></b> Get the percentage value of discount |
 |  [getProductProperties({ product, })](./helpers.getproductproperties.md) | Get product properties as ui-interfaces |
+|  [getProductQtySteps(product, availableStockParam, qtySteps)](./helpers.getproductqtysteps.md) | Get product qty steps |
 |  [getProductRatingAverage(product)](./helpers.getproductratingaverage.md) | Get product rating average property |
 |  [getProductRealPrice(product)](./helpers.getproductrealprice.md) | <b><i>(BETA)</i></b> |
 |  [getProductReviews({ product, })](./helpers.getproductreviews.md) | Format product reviews to ui-interfaces |
