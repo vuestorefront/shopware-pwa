@@ -1,7 +1,7 @@
 <template>
   <div class="sw-products-gallery">
     <SfSection v-if="products && products.length > 4" class="section">
-      <SfCarousel class="product-carousel" :settings="options" :style="style">
+      <SfCarousel ref="carousel" class="product-carousel" :settings="options" :style="style">
         <SfCarouselItem v-for="product in products" :key="product.id">
           <SwProductCard :product="product" class="product-carousel__product" />
         </SfCarouselItem>
@@ -41,6 +41,11 @@ export default {
           1023: { perView: 2 },
         },
       },
+    }
+  },
+  beforeDestroy() {
+    if (this.$refs.carousel.glide) {
+      this.$refs.carousel.glide.destroy();
     }
   },
 }

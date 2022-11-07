@@ -38,7 +38,7 @@ import SwButton from "@/components/atoms/SwButton.vue"
 import SwImage from "@/components/atoms/SwImage.vue"
 
 const customMessageDictionary = {
-  404: "We can't find what you are looking for. Are you lost?",
+  404: "We can't find what you are looking for.",
   408: "The API is taking to long to respond",
   500: "Oops, something went terribly wrong :(",
   502: "Server couldn't complete your request. Please try again in few seconds.",
