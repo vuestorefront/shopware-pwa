@@ -9,11 +9,13 @@
 </template>
 
 <script>
+import SwPluginSlot from "sw-plugins/SwPluginSlot.vue";
 import ProductCard from "@/components/card/ProductCard.vue"
 
 export default {
   components: {
     ProductCard,
+    SwPluginSlot
   },
   props: {
     product: {
