@@ -12,5 +12,5 @@ export interface Salutation {
   translations: SalutationTranslation[] | null;
   translated: object;
   updatedAt: string | null;
-  extenstions: object;
+  extensions: object;
 }
