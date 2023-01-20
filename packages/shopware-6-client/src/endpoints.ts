@@ -305,3 +305,7 @@ export const getRemoveWishlistProductEndpoint = (productId: string) =>
  */
 export const getMergeWishlistProductsEndpoint = () =>
   `/store-api/customer/wishlist/merge`;
+/**
+ * @public
+ */
+export const getCustomerDeleteEndpoint = () => `/store-api/account/customer`

@@ -9,6 +9,7 @@ import {
   getCustomerDefaultBillingAddressEndpoint,
   getCustomerDefaultShippingAddressEndpoint,
   getCustomerLogoutEndpoint,
+  getCustomerDeleteEndpoint,
   getCustomerLoginEndpoint,
   getCustomerOrderEndpoint,
   getCustomerAddAddressEndpoint,
@@ -81,6 +82,18 @@ export async function logout(
   contextInstance: ShopwareApiInstance = defaultInstance
 ): Promise<void> {
   await contextInstance.invoke.post(getCustomerLogoutEndpoint());
+}
+
+/**
+ * Delete a customer account
+ *
+ * @throws ClientApiError
+ * @public
+ */
+export async function deleteAccount(
+  contextInstance: ShopwareApiInstance = defaultInstance
+): Promise<void> {
+  await contextInstance.invoke.delete(getCustomerDeleteEndpoint());
 }
 
 /**
