@@ -1,5 +1,11 @@
 <template>
-  <SfImage :src="imgUrl" :srcsets="srcsets" v-bind="{ ...$props, ...$attrs }" :placeholder="placeholder" />
+  <SfImage
+    :src="imgUrl"
+    :srcsets="srcsets"
+    :loading="loading"
+    :placeholder="placeholder"
+    v-bind="{ ...$props, ...$attrs }"
+  />
 </template>
 
 <script>
@@ -39,10 +45,13 @@ export default {
       }
     });
 
+    const loading = computed(() => props.loading || 'eager');
+
     return {
       placeholder: getPlaceholderImage(width, height),
       srcsets,
-      imgUrl
+      imgUrl,
+      loading
     }
   },
 }

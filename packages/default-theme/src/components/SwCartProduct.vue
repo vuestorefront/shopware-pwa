@@ -60,13 +60,25 @@
         </div>
       </div>
     </template>
+    <template #input>
+      <div class="sf-collected-product__quantity-wrapper">
+        <SfComponentSelect v-if="purchaseStepsOptions" v-model="quantity" class="sf-collected-product__quantity-selector sw-select sf-select-quantity sw-select sw-form__input">
+          <SfComponentSelectOption v-for="step in purchaseStepsOptions" :key="step" :value="step">
+            {{ step }}
+          </SfComponentSelectOption>
+        </SfComponentSelect>
+
+        <SfQuantitySelector v-else :qty="quantity" class="sf-collected-product__quantity-selector"
+          @input="$emit('input', $event)" />
+      </div>
+    </template>
   </SfCollectedProduct>
 </template>
 <script>
-import { getProductMainImageUrl, getProductUrl } from "@shopware-pwa/helpers"
+import { getProductMainImageUrl, getProductUrl, getProductQtySteps } from "@shopware-pwa/helpers"
 import { useCart, useCartItem } from "@shopware-pwa/composables"
 import { ref, watch, computed } from "@vue/composition-api"
-import { SfCollectedProduct, SfProperty, SfPrice } from "@storefront-ui/vue"
+import { SfCollectedProduct, SfProperty, SfPrice, SfQuantitySelector, SfComponentSelect } from "@storefront-ui/vue"
 import getResizedImage from "@/helpers/images/getResizedImage.js"
 import SwImage from "@/components/atoms/SwImage.vue"
 import { usePriceFilter } from "@/logic/usePriceFilter.js"
@@ -80,7 +92,8 @@ export default {
     SwImage,
     SfPrice,
     SwPluginSlot,
-  },
+    SfQuantitySelector,
+    SfComponentSelect  },
   props: {
     product: {
       type: Object,
@@ -109,6 +122,7 @@ export default {
       isProduct,
       isPromotion,
       getProductItemSeoUrlData,
+      getProductQtySteps
     } = useCartItem({ cartItem: props.product })
 
     // get the URL from async loaded product data - passed by the parent component
@@ -148,6 +162,7 @@ export default {
       stock: itemStock,
       isPromotion,
       filterPrice: usePriceFilter(),
+      purchaseStepsOptions: getProductQtySteps
     }
   },
 }
@@ -221,6 +236,27 @@ export default {
   &.promotion::v-deep {
     .sf-collected-product__quantity-wrapper {
       display: none;
+    }
+  }
+  .sf-select-quantity {
+    border: 1px solid var(--c-dark-variant);
+    padding: 0;
+    margin: 0;
+    background: var(--c-white);
+      width: var(--quantity-selector-width, 6.75rem);
+
+    ::v-deep .sf-component-select__chevron {
+      top: calc(50% + 5px);
+    }
+  }
+
+  ::v-deep {
+    .sf-component-select__error-message {
+      display: none;
+    }
+
+    .sf-component-select-option {
+      padding-left: 16px;
     }
   }
 }

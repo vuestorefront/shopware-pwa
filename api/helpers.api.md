@@ -94,6 +94,9 @@ export function getProductProperties({ product, }?: {
 }): UiProductProperty[];
 
 // @public
+export function getProductQtySteps(product: Product, availableStockParam?: number, qtySteps?: number): number[] | null;
+
+// @public
 export function getProductRatingAverage(product: Product): number | null;
 
 // @beta (undocumented)

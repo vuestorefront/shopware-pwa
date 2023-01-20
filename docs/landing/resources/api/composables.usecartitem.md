@@ -12,8 +12,9 @@ Composable for cart item management. Options - [IUseCartItem](./composables.iuse
 <b>Signature:</b>
 
 ```typescript
-export declare function useCartItem({ cartItem, }: {
+export declare function useCartItem({ cartItem, qtySteps, }: {
     cartItem: LineItem;
+    qtySteps?: number;
 }): IUseCartItem;
 ```
 
@@ -21,7 +22,7 @@ export declare function useCartItem({ cartItem, }: {
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  { cartItem, } | { cartItem: LineItem; } |  |
+|  { cartItem, qtySteps, } | { cartItem: LineItem; qtySteps?: number; } |  |
 
 <b>Returns:</b>
 

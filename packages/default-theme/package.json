@@ -71,6 +71,7 @@
     "vue-jest": "^4.0.0-0"
   },
   "resolutions": {
-    "colors": "<=1.4.0"
+    "colors": "<=1.4.0",
+    "@glidejs/glide": "3.5.2"
   }
 }

@@ -1,5 +1,5 @@
 <template>
-  <SfHero class="cms-element-image-slider">
+  <SfHero ref="hero" class="cms-element-image-slider">
     <SfHeroItem
       v-for="slide in getSlides"
       :key="slide.media.id"
@@ -44,6 +44,11 @@ export default {
     getSlides() {
       return (this.content.data && this.content.data.sliderItems) || []
     },
+  },
+  beforeDestroy() {
+    if (this.$refs.hero.glide) {
+      this.$refs.hero.glide.destroy();
+    }
   },
 }
 </script>

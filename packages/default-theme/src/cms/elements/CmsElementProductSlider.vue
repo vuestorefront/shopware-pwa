@@ -1,7 +1,7 @@
 <template>
   <div class="cms-element-product-slider">
     <SfSection :title-heading="title" class="section">
-      <SfCarousel class="product-carousel" :settings="options">
+      <SfCarousel ref="carousel" class="product-carousel" :settings="options">
         <SfCarouselItem
           v-for="product in products"
           :key="product.id"
@@ -63,6 +63,11 @@ export default {
       },
     }
   },
+  beforeDestroy() {
+    if (this.$refs.carousel.glide) {
+      this.$refs.carousel.glide.destroy();
+    }
+  }
 }
 </script>
 

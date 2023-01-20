@@ -8,5 +8,5 @@
 
 ### Checklist
 
-- [ ] the [list of features](docs/guide/FEATURELIST.md) is updated (if it's a feature and it's relevant)
-- [ ] I followed [contributing](https://github.com/DivanteLtd/shopware-pwa/blob/master/CONTRIBUTING.md) guidelines
+- [ ] the [list of features](https://github.com/vuestorefront/shopware-pwa/blob/master/docs/landing/resources/features.md) is updated (if it's a feature and it's relevant)
+- [ ] I followed [contributing](https://github.com/vuestorefront/shopware-pwa/blob/master/CONTRIBUTING.md) guidelines

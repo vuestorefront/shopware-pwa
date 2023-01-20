@@ -38,6 +38,7 @@ export interface IUseCartItem {
   changeItemQuantity: (quantity: number) => Promise<void>;
   removeItem: () => Promise<void>;
   getProductItemSeoUrlData(): Promise<Partial<Product>>;
+  getProductQtySteps: ComputedRef<number[] | null>;
 }
 
 /**
@@ -47,8 +48,10 @@ export interface IUseCartItem {
  */
 export function useCartItem({
   cartItem,
+  qtySteps = 50,
 }: {
   cartItem: LineItem;
+  qtySteps?: number;
 }): IUseCartItem {
   if (!cartItem) {
     throw new Error("[useCartItem] mandatory cartItem argument is missing.");
@@ -90,6 +93,31 @@ export function useCartItem({
   const isProduct = computed(() => cartItem.type === "product");
 
   const isPromotion = computed(() => cartItem.type === "promotion");
+
+  const getProductQtySteps = computed(() => {
+    const quantityInformation = cartItem.quantityInformation;
+    if (
+      !quantityInformation ||
+      !quantityInformation.purchaseSteps ||
+      quantityInformation.purchaseSteps === 1
+    )
+      return null;
+
+    const purchaseSteps = quantityInformation.purchaseSteps;
+    const availableStock =
+      quantityInformation.maxPurchase &&
+      quantityInformation.maxPurchase < qtySteps * purchaseSteps
+        ? quantityInformation.maxPurchase
+        : qtySteps;
+
+    let i = purchaseSteps;
+    let options: number[] = [];
+    while (i <= availableStock) {
+      options.push(i);
+      i += purchaseSteps;
+    }
+    return options;
+  });
 
   async function removeItem() {
     const result = await removeCartItem(cartItem.id, apiInstance);
@@ -134,6 +162,7 @@ export function useCartItem({
     changeItemQuantity,
     removeItem,
     getProductItemSeoUrlData,
+    getProductQtySteps,
     lineItem: computed(() => cartItem),
     itemRegularPrice,
     itemSpecialPrice,
