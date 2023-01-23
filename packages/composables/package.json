@@ -25,15 +25,15 @@
   "dependencies": {
     "@shopware-pwa/helpers": "1.5.3",
     "@shopware-pwa/shopware-6-client": "1.5.3",
-    "@vue/devtools-api": "6.1.4",
+    "@vue/devtools-api": "6.5.0",
     "axios": "^0.27.2",
-    "cookie-universal": "^2.2.1",
+    "cookie-universal": "^2.2.2",
     "lodash": "^4.17.21",
     "query-string": "^7.1.1",
-    "vue-demi": "^0.13.0"
+    "vue-demi": "^0.13.11"
   },
   "peerDependencies": {
-    "@vue/composition-api": "^1.6.2",
+    "@vue/composition-api": "^1.7.1",
     "vue": "^2.0.0 || >=3.0.0-rc.0"
   },
   "peerDependenciesMeta": {
@@ -43,7 +43,7 @@
   },
   "devDependencies": {
     "@shopware-pwa/commons": "1.5.3",
-    "@vue/composition-api": "^1.6.2",
+    "@vue/composition-api": "^1.7.1",
     "vue": "2.6.14"
   },
   "publishConfig": {
