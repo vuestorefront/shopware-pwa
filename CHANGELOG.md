@@ -1,3 +1,34 @@
+# [1.6.0](https://github.com/vuestorefront/shopware-pwa/compare/v1.5.3...v1.6.0) (2023-01-23)
+
+
+### Bug Fixes
+
+* **api-client:** parsing error message when API cannot be reached ([#1931](https://github.com/vuestorefront/shopware-pwa/issues/1931)) ([59da884](https://github.com/vuestorefront/shopware-pwa/commit/59da884bdde41689739a18c84d7a30d30622f2de))
+* **client:** update newsletter unsubscribe function ([#1939](https://github.com/vuestorefront/shopware-pwa/issues/1939)) ([1a161a7](https://github.com/vuestorefront/shopware-pwa/commit/1a161a7e33ad46d3fb38ca08b220583fc003b6b2))
+* **default-theme:** breadcrumb routing issue ([#1932](https://github.com/vuestorefront/shopware-pwa/issues/1932)) ([f676abc](https://github.com/vuestorefront/shopware-pwa/commit/f676abcd01079814603000fc72137fea3a1ad69c))
+* **default-theme:** catalog, hydration problem ([#1929](https://github.com/vuestorefront/shopware-pwa/issues/1929)) ([a06f4ca](https://github.com/vuestorefront/shopware-pwa/commit/a06f4ca919886810471407e12b92801a4211f00c))
+* **default-theme:** destroy glide-when-unmount ([#1956](https://github.com/vuestorefront/shopware-pwa/issues/1956)) ([64f92f4](https://github.com/vuestorefront/shopware-pwa/commit/64f92f42d6f36fcb0c791026a7140bf3ac8bd342))
+* **default-theme:** import swpluginslot ([#1967](https://github.com/vuestorefront/shopware-pwa/issues/1967)) ([de129f3](https://github.com/vuestorefront/shopware-pwa/commit/de129f33cea27677340d54ae1081d664f58ca7f3))
+* **default-theme:** price from translation ([#1943](https://github.com/vuestorefront/shopware-pwa/issues/1943)) ([401c1d3](https://github.com/vuestorefront/shopware-pwa/commit/401c1d3aa9e27d41054edf8438d77e3e2916f70a))
+* **default-theme:** toggle on cancel button ([#1930](https://github.com/vuestorefront/shopware-pwa/issues/1930)) ([ed638ba](https://github.com/vuestorefront/shopware-pwa/commit/ed638ba8016cd9858577e2638008b9383c2705fd))
+* **default-theme:** translate text from back button ([#1949](https://github.com/vuestorefront/shopware-pwa/issues/1949)) ([ffd9c8e](https://github.com/vuestorefront/shopware-pwa/commit/ffd9c8e4b7ff3a1f8881411569558c688e0114f3))
+
+
+### Features
+
+* **composable:** Add more CmsSlotType for Frontends references ([#1925](https://github.com/vuestorefront/shopware-pwa/issues/1925)) ([21131d9](https://github.com/vuestorefront/shopware-pwa/commit/21131d9927863356b2255b75aa8005b5bec27c14))
+* **default-theme:** add purchase-steps ([#1955](https://github.com/vuestorefront/shopware-pwa/issues/1955)) ([30391ad](https://github.com/vuestorefront/shopware-pwa/commit/30391adc0a2d2da1861f520aa591b947ddbb89c2))
+* **default-theme:** change 404 translation ([#1961](https://github.com/vuestorefront/shopware-pwa/issues/1961)) ([ad488bc](https://github.com/vuestorefront/shopware-pwa/commit/ad488bc5a5cb65a200eab5e94dd73082523380da))
+* **default-theme:** improve performance ([#1962](https://github.com/vuestorefront/shopware-pwa/issues/1962)) ([1655823](https://github.com/vuestorefront/shopware-pwa/commit/1655823861529f0113ca49b388f730b4708b4cbb))
+* **default-theme:** Improve SwImage component when no thumbnail ([#1936](https://github.com/vuestorefront/shopware-pwa/issues/1936)) ([2c8b383](https://github.com/vuestorefront/shopware-pwa/commit/2c8b383bb3711e234128e22db3bcc37b2f8576ba))
+* **default-theme:** Prevent img loading lazy as default ([#1954](https://github.com/vuestorefront/shopware-pwa/issues/1954)) ([122ab57](https://github.com/vuestorefront/shopware-pwa/commit/122ab577500d2e6114d17898d93aa27301fb3965))
+* **default-theme:** Set HTTP status code when accessing error page through SSR ([#1944](https://github.com/vuestorefront/shopware-pwa/issues/1944)) ([f3c1eba](https://github.com/vuestorefront/shopware-pwa/commit/f3c1eba434ed890286d34b3ae655819fc2583077))
+* **shopware-6-client:** Add delete customer method to customer service ([#1951](https://github.com/vuestorefront/shopware-pwa/issues/1951)) ([844a18d](https://github.com/vuestorefront/shopware-pwa/commit/844a18d37657a771e0b2826695ff2e874282aa8a))
+* error code handling ([#1948](https://github.com/vuestorefront/shopware-pwa/issues/1948)) ([a75276b](https://github.com/vuestorefront/shopware-pwa/commit/a75276b2d7cb55a868085981e3d3cdc08d8b84ff))
+* **shopware-6-client:** add newsletter recipient endpoint ([#1942](https://github.com/vuestorefront/shopware-pwa/issues/1942)) ([25aaa9a](https://github.com/vuestorefront/shopware-pwa/commit/25aaa9a8266f95d337843c09ea5d9b78c89640ad))
+
+
+
 ## [1.5.3](https://github.com/vuestorefront/shopware-pwa/compare/v1.5.2...v1.5.3) (2022-07-27)
 
 
