@@ -2,13 +2,13 @@
   <div v-if="crossSellCollection.length" class="products__recomendations">
     <SfLoader :loading="isLoading">
       <div class="products-recomendations__section">
-        <SfTabs :open-tab="1">
+        <SfTabs :open-tab="1" @click:tab="changeTab">
           <SfTab
             v-for="crossSellItem in crossSellCollection"
             :key="crossSellItem.crossSelling.id"
             :title="getTranslatedProperty(crossSellItem.crossSelling, 'name')"
           >
-            <SwProductCarousel :products="crossSellItem.products" />
+            <SwProductCarousel ref="carousels" :products="crossSellItem.products" />
           </SfTab>
         </SfTabs>
       </div>
@@ -39,9 +39,17 @@ export default {
   },
   setup(props) {
     const isLoading = ref(false)
+    const carousels = ref(null);
+
+    const changeTab = (e) => {
+      carousels.value[e - 1]?.refresh();
+    }
+
     if (props.crossSellings) {
       const crossSellCollection = computed(() => props.crossSellings || [])
       return {
+        carousels,
+        changeTab,
         crossSellCollection,
         isLoading,
         getTranslatedProperty,
@@ -73,7 +81,10 @@ export default {
       })
       isLoading.value = false
     })
+   
     return {
+      carousels,
+      changeTab,
       crossSellCollection,
       isLoading,
       getTranslatedProperty,
