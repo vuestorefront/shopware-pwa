@@ -46,9 +46,9 @@ export default {
   methods: {
     refresh () {
       if (this.$refs.carousel.glide) {
-        setTimeout(() => {
+        this.$nextTick(() => {
           this.$refs.carousel.glide.update();
-        }, 200);
+        });
       }
     }
   },
