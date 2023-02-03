@@ -96,10 +96,10 @@
           v-model="addressModel.countryId"
           :label="$t('Country')"
           :error-message="$t('Country must be selected')"
-          :valid="!$v.address.country.$error"
+          :valid="!$v.address.countryId.$error"
           required
           class="sf-select--underlined sw-form__input sf-component-select--underlined sw-select"
-          @blur="$v.address.country.$touch()"
+          @blur="$v.address.countryId.$touch()"
         >
           <SfComponentSelectOption
             v-for="countryOption in getCountries"
@@ -269,7 +269,7 @@ export default {
       zipcode: {
         required,
       },
-      country: {
+      countryId: {
         required,
       },
       phoneNumber: {
