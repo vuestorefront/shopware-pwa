@@ -1,3 +1,14 @@
+## [1.6.1](https://github.com/vuestorefront/shopware-pwa/compare/v1.6.0...v1.6.1) (2023-02-03)
+
+
+### Bug Fixes
+
+* **default-theme:** carousel not refresh when cross selling change tab ([#1979](https://github.com/vuestorefront/shopware-pwa/issues/1979)) ([7f9befc](https://github.com/vuestorefront/shopware-pwa/commit/7f9befccc6b863216447616199c75911dbf5b4cf))
+* typo in interface ([#1974](https://github.com/vuestorefront/shopware-pwa/issues/1974)) ([af7564c](https://github.com/vuestorefront/shopware-pwa/commit/af7564c861859b1c3bdbe2713ac533a40cab79e8))
+* **default-theme:** SwAddressForm.vue country validation ([#1976](https://github.com/vuestorefront/shopware-pwa/issues/1976)) ([2dadc33](https://github.com/vuestorefront/shopware-pwa/commit/2dadc33fcfe6d9545ee666b1a72123aa27ecaccf))
+
+
+
 # [1.6.0](https://github.com/vuestorefront/shopware-pwa/compare/v1.5.3...v1.6.0) (2023-01-23)
 
 
