@@ -43,6 +43,15 @@ export default {
       },
     }
   },
+  methods: {
+    refresh () {
+      if (this.$refs.carousel.glide) {
+        this.$nextTick(() => {
+          this.$refs.carousel.glide.update();
+        });
+      }
+    }
+  },
   beforeDestroy() {
     if (this.$refs.carousel.glide) {
       this.$refs.carousel.glide.destroy();
