@@ -1,6 +1,5 @@
 import { defaultInstance, ConfigChangedArgs } from "./apiService";
 import { ClientSettings } from "./settings";
-export { ClientSettings } from "./settings";
 export {
   createInstance,
   ConfigChangedArgs,
