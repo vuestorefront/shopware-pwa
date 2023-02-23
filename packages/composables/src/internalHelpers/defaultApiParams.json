@@ -238,8 +238,7 @@
   },
   "useNavigation": {
     "associations": {
-      "media": {},
-      "seoUrls": {}
+      "media": {}
     },
     "includes": {
       "category": [
