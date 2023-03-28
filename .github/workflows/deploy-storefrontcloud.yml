@@ -26,7 +26,7 @@ jobs:
           npx @shopware-pwa/cli@latest init --ci --devMode --shopwareDomainsAllowList=${{ env.RELEASE_URL }} --shopwareDomainsAllowList=${{ env.RELEASE_URL }}/de
           yarn build
       - name: Build and publish docker image
-        uses: elgohr/Publish-Docker-Github-Action@2.14
+        uses: elgohr/Publish-Docker-Github-Action@v5
         with:
           name: shopware-pwa-storefrontcloud-io/vue-storefront:${{ github.sha }}
           registry: registry.storefrontcloud.io
