@@ -29,7 +29,7 @@ export default {
     const width = (props.imageWidth && props.imageWidth + "px") || "100%"
     const height = (props.imageHeight && props.imageHeight + "px") || "100%"
     const srcsets = computed(() => props.srcset?.map(item => ({
-      src: item.url,
+      src: encodeURI(item.url),
       width: item.width,
       resolution: item.width
       })) ?? []
