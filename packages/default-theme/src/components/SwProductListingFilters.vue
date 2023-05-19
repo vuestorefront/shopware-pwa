@@ -140,7 +140,7 @@ export default {
       getSortingOrders,
       getAvailableFilters,
       getCurrentListing,
-      search,
+      search: listingSearch,
       getCurrentFilters,
       getTotal,
     } = useListing({ listingType: props.listingType })
@@ -164,6 +164,15 @@ export default {
       get: () => getCurrentSortingOrder.value,
       set: (order) => changeCurrentSortingOrder(order),
     })
+
+    const search = () => {
+      listingSearch({
+        ...sidebarSelectedFilters.value,
+        manufacturer: sidebarSelectedFilters.value.manufacturer?.join("|"),
+        properties: sidebarSelectedFilters.value.properties?.join("|")
+      })
+    }
+
 
     return {
       search,
@@ -192,7 +201,6 @@ export default {
         this.sidebarSelectedFilters,
         filter
       )
-
       this.search(this.sidebarSelectedFilters)
     },
     async clearAllFilters() {

@@ -1,7 +1,7 @@
 import { ref, Ref, UnwrapRef, reactive, unref } from "vue-demi";
 import {
   getProductReviews,
-  addProductReview
+  addProductReview,
 } from "@shopware-pwa/shopware-6-client";
 import {
   Product,
@@ -57,7 +57,7 @@ export function useProductReviews(params: {
     addReview: ShopwareError[];
   }> = reactive({
     loadProductReviews: [],
-    addReview: []
+    addReview: [],
   });
   const productReviews: Ref<UiProductReview[] | null> = ref(null);
 
@@ -70,16 +70,24 @@ export function useProductReviews(params: {
         Object.assign({}, getDefaults(), parameters),
         apiInstance
       );
-      productReviews.value = fetchedReviews.elements?.map(
-        ({ id, externalUser, customerId, createdAt, content, points }: ProductReview) => ({
-          id,
-          author: externalUser ? externalUser : customerId,
-          date: createdAt,
-          message: content,
-          rating: points,
-        })
-      ) ?? [];
-    } catch(e) {
+      productReviews.value =
+        fetchedReviews.elements?.map(
+          ({
+            id,
+            externalUser,
+            customerId,
+            createdAt,
+            content,
+            points,
+          }: ProductReview) => ({
+            id,
+            author: externalUser ? externalUser : customerId,
+            date: createdAt,
+            message: content,
+            rating: points,
+          })
+        ) ?? [];
+    } catch (e) {
       const err: ClientApiError = e;
       errors.loadProductReviews = err.messages;
     }
@@ -92,18 +100,14 @@ export function useProductReviews(params: {
   }) => {
     isSendingReview.value = true;
     try {
-      await addProductReview(
-        product.id,
-        data,
-        apiInstance
-      );
+      await addProductReview(product.id, data, apiInstance);
       wasReviewSent.value = true;
     } catch (error) {
       console.error("[SwAddProductReview][submitForm]: ", error);
       errors.addReview = error.messages;
     }
     isSendingReview.value = false;
-  }
+  };
 
   return {
     productReviews,

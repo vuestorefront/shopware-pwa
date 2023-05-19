@@ -117,7 +117,7 @@ describe("Composables - useCheckout", () => {
         isLoggedIn.value = true;
         sessionContextMock.value = {
           customer: {
-            activeBillingAddress: {
+            defaultBillingAddress: {
               street: "some street",
             },
           },

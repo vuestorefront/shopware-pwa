@@ -127,7 +127,7 @@ export function useCheckout(): IUseCheckout {
     () => sessionContext.value?.shippingLocation?.address
   );
   const billingAddress = computed(
-    () => sessionContext.value?.customer?.activeBillingAddress
+    () => sessionContext.value?.customer?.defaultBillingAddress
   );
 
   return {
