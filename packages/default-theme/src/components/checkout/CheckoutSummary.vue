@@ -30,10 +30,8 @@ import ShippingSection from "@/components/checkout/ShippingSection.vue"
 import PaymentSection from "@/components/checkout/PaymentSection.vue"
 import SwAddressManager from "@/components/forms/SwAddressManager.vue"
 import {
-  useCart,
   useCustomerAddresses,
   useSessionContext,
-  useUser,
 } from "@shopware-pwa/composables"
 
 export default {
@@ -84,8 +82,6 @@ export default {
       addedActiveBillingAddress,
     }
   },
-
-
 }
 </script>
 <style lang="scss" scoped>

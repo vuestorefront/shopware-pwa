@@ -7,6 +7,7 @@ import { BillingAddress } from "./BillingAddress";
 import { CustomerAddress } from "./CustomerAddress";
 import { Promotion } from "../promotion/Promotion";
 import { Tag } from "../../system/tag/Tag";
+import { CustomField } from "../../common/CustomField";
 
 /**
  * @beta
@@ -46,7 +47,7 @@ export interface Customer {
   autoIncrement: number;
   tags: Tag[] | null;
   promotions: Promotion[] | null;
-  customFields: unknown;
+  customFields: CustomField[];
   productReviews: ProductReview[];
   doubleOptInConfirmDate: null | string;
   doubleOptInEmailSentDate: string;
