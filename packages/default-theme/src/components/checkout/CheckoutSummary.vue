@@ -1,6 +1,6 @@
 <template>
   <div class="sw-checkout-summary">
-    <div class="sw-checkout-summary__addresses">
+    <div class="sw-checkout-summary__addresses" v-if="activeShippingAddress">
       <SwAddressManager
         :title-text="$t('Shipping address')"
         class="sw-checkout-summary__addresses-wrapper"
@@ -24,15 +24,14 @@
 </template>
 
 <script>
+import { onMounted } from "@vue/composition-api"
 import PaymentMethodSummary from "@/components/checkout/summary/PaymentMethodSummary.vue"
 import ShippingSection from "@/components/checkout/ShippingSection.vue"
 import PaymentSection from "@/components/checkout/PaymentSection.vue"
 import SwAddressManager from "@/components/forms/SwAddressManager.vue"
 import {
-  useCart,
   useCustomerAddresses,
   useSessionContext,
-  useUser,
 } from "@shopware-pwa/composables"
 
 export default {
@@ -44,8 +43,11 @@ export default {
     SwAddressManager,
   },
   setup() {
-    const { addresses, loadAddresses } = useCustomerAddresses()
-    loadAddresses()
+    const { addresses, loadAddresses } = useCustomerAddresses();
+
+    onMounted(() => {
+      loadAddresses();
+    });
 
     const {
       activeShippingAddress,
@@ -79,20 +81,6 @@ export default {
       changeActiveBillingAddress,
       addedActiveBillingAddress,
     }
-  },
-  computed: {
-    shipping() {
-      return {} // this.order.shipping
-    },
-    shippingMethod() {
-      return { label: "" }
-    },
-    payment() {
-      return {} // this.order.payment
-    },
-    paymentMethod() {
-      return { label: "" }
-    },
   },
 }
 </script>

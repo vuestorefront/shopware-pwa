@@ -130,7 +130,7 @@ describe("Composables - useSessionContext", () => {
       it("should return activeBillingAddress from context", () => {
         stateContext.value = {
           customer: {
-            activeBillingAddress: {
+            defaultBillingAddress: {
               id: "address-billing-id",
             },
           },
@@ -156,8 +156,8 @@ describe("Composables - useSessionContext", () => {
     describe("activeShippingAddress", () => {
       it("should return activeShippingAddress from context", () => {
         stateContext.value = {
-          customer: {
-            activeShippingAddress: {
+          shippingLocation: {
+            address: {
               id: "address-shipping-id",
             },
           },

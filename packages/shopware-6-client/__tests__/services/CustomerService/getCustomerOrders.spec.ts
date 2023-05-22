@@ -44,14 +44,14 @@ describe("CustomerService - getCustomerOrders", () => {
     expect(mockedPost).toBeCalledTimes(1);
     expect(mockedPost).toBeCalledWith("/store-api/order", {});
     expect(result).toMatchObject({
-      "elements" :[
+      elements: [
         {
           orderNumber: "1234",
         },
         {
           orderNumber: "4321",
         },
-      ]
+      ],
     });
   });
 });
