@@ -2,6 +2,8 @@
   "useCms": {
     "limit": 10,
     "associations": {
+      "cmsPage": {},
+
       "manufacturer": {
         "associations": {
           "media": {}
@@ -51,6 +53,7 @@
       ],
       "cms_page": ["id", "name", "sections", "type", "config"],
       "product": [
+        "cmsPage",
         "media",
         "productReviews",
         "name",
