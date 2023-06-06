@@ -9,7 +9,6 @@
   </div>
 </template>
 <script>
-import { useCms } from "@shopware-pwa/composables";
 import { useCms65 } from "@shopware-pwa/composables";
 import { ref, provide, computed } from "vue-demi";
 

@@ -1,6 +1,5 @@
 import {
   useBreadcrumbs,
-  useCms,
   extendScopeContext,
   useCms65,
 } from "@shopware-pwa/composables"
@@ -16,25 +15,22 @@ export default async function ({ app, route, redirect, from }) {
 
   await scope.run(async () => {
     // reset breadcrumbs - useful during the swtich between static to non-static route
-    const { clear, setBreadcrumbs } = useBreadcrumbs()
+    const { clear, setBreadcrumbs } = useBreadcrumbs({
+      hideHomeLink: true,
+    })
     const { search, currentSearchPathKey, page } = useCms65()
     const pathMatch = route?.params?.pathMatch
 
-    await search(pathMatch, route.query)
-
-    return true
-    // if (isStaticPage(route)) {
-    //   clear()
-    //   return
-    // }
+    if (isStaticPage(route)) {
+      clear()
+    }
     if (
-      true ||
-      route.params?.pathMatch !== currentSearchPathKey.value ||
+      pathMatch !== currentSearchPathKey.value ||
       from.meta?.[0]?.domainId !== route?.meta?.[0]?.domainId
     ) {
       // route path shouldn't have virtual domain's prefix included in URL
       // because it's no a part of URL in seo_urls SW6 table
-      const pathMatch = route?.params?.pathMatch
+
       await search(pathMatch, route.query)
 
       // redirect to the cannnical URL if current path does not match the canonical one
@@ -45,10 +41,16 @@ export default async function ({ app, route, redirect, from }) {
       ) {
         return redirect(app.$routing.getUrl(page.value.canonicalPathInfo))
       }
-    } else {
-      // When we're going back from static page to CMS page, which is already loaded we should set breadcrumbs
-      // const breadcrumbs = page.value?.breadcrumb
-      // breadcrumbs && setBreadcrumbs(Object.values(breadcrumbs))
+    }
+    const breadcrumbs = page.value?.breadcrumb
+    if (breadcrumbs?.length) {
+      setBreadcrumbs(
+        breadcrumbs.map((breadcrumb) => ({
+          name: breadcrumb,
+          // @TODO: handle links once they are available in the response
+          //link: null
+        }))
+      )
     }
   })
 

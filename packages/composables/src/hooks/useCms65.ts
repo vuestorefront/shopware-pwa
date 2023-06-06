@@ -11,6 +11,7 @@ import { _parseUrlQuery } from "@shopware-pwa/helpers";
 import {
   getApplicationContext,
   useDefaults,
+  useSessionContext,
   useSharedState,
   useVueContext,
 } from "@shopware-pwa/composables";
@@ -44,6 +45,10 @@ export function useCms65(params?: {
 }) {
   const COMPOSABLE_NAME = "useCms";
   const coreFunctionality = coreUseCms();
+  const { refreshSessionContext } = useSessionContext();
+
+  const { sharedRef } = useSharedState();
+  const storeSessionContext = sharedRef(`useSessionContext-sessionContext`);
 
   // Handle CMS context
   const { isVueComponent } = useVueContext();
@@ -59,7 +64,6 @@ export function useCms65(params?: {
     ? `${contextName}(cms-${cmsContext})`
     : contextName;
 
-  const { sharedRef } = useSharedState();
   const _searchPath = sharedRef<string>(`${cacheKey}-searchPath`);
   const _cmsError = sharedRef<any>(`${cacheKey}-cmsError`, null);
   const _cmsLoading = sharedRef(`${cacheKey}-cmsLoading`, false);
@@ -80,21 +84,39 @@ export function useCms65(params?: {
     const criteria: SearchCriteria = _parseUrlQuery(query);
     const searchCriteria = merge({}, getDefaults(), criteria);
 
-    try {
-      const seoUrlsResult = await getSeoUrl(
-        {
-          filter: [
-            {
-              field: "seoPathInfo",
-              value: path,
-              type: SearchFilterType.EQUALS,
-            },
-          ],
-        },
-        apiInstance,
-      );
+    let foundUrl: Pick<SeoUrl, "foreignKey" | "routeName"> = null;
 
-      const foundUrl = seoUrlsResult?.elements?.[0];
+    try {
+      if (!path || path === "/") {
+        await refreshSessionContext();
+
+        foundUrl = {
+          foreignKey:
+            storeSessionContext.value?.salesChannel?.navigationCategoryId,
+          routeName: "frontend.navigation.page",
+        };
+      } else {
+        const isTechnicalUrl =
+          path.includes("navigation/") ||
+          path.includes("detail/") ||
+          path.includes("landingPage/");
+
+        const seoUrlsResult = await getSeoUrl(
+          {
+            filter: [
+              {
+                field: !isTechnicalUrl ? "seoPathInfo" : "pathInfo",
+                value: isTechnicalUrl ? "/" + path : path,
+                type: SearchFilterType.EQUALS,
+              },
+            ],
+          },
+          apiInstance,
+        );
+
+        foundUrl = seoUrlsResult?.elements?.[0];
+      }
+
       seoUrlData.value = foundUrl;
 
       const fetchedEntity: AxiosResponse = await invokePost(
@@ -121,7 +143,7 @@ export function useCms65(params?: {
         cmsPage: isProduct
           ? fetchedEntity.data?.product?.cmsPage
           : fetchedEntity.data?.cmsPage || {},
-        breadcrumb: null,
+        breadcrumb: fetchedEntity?.data?.breadcrumb,
         apiAlias: "pwa_page_result",
       };
     } catch (e) {
