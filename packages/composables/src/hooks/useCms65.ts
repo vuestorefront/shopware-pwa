@@ -1,11 +1,10 @@
-import { Ref, computed, ComputedRef, provide, inject, unref } from "vue-demi";
+import { computed, provide, inject } from "vue-demi";
 import {
   SearchCriteria,
   ClientApiError,
   CmsPageResponse,
   SearchFilterType,
   SeoUrl,
-  Category,
 } from "@shopware-pwa/commons/interfaces";
 import { _parseUrlQuery } from "@shopware-pwa/helpers";
 import {
@@ -88,7 +87,9 @@ export function useCms65(params?: {
 
     try {
       if (!path || path === "/") {
-        await refreshSessionContext();
+        if (!storeSessionContext.value?.salesChannel?.navigationCategoryId) {
+          await refreshSessionContext();
+        }
 
         foundUrl = {
           foreignKey:
