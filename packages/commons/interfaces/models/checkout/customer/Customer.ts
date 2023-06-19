@@ -42,8 +42,6 @@ export interface Customer {
   defaultPaymentMethod: PaymentMethod;
   defaultBillingAddress: BillingAddress;
   defaultShippingAddress: ShippingAddress;
-  activeBillingAddress: BillingAddress;
-  activeShippingAddress: ShippingAddress;
   addresses: Array<CustomerAddress>;
   orderCustomers: Array<OrderCustomer> | null;
   autoIncrement: number;

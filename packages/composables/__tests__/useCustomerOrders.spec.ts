@@ -42,7 +42,7 @@ describe("Composables - useCustomerOrders", () => {
               id: "12345",
               orderNumber: "100123",
             },
-          ]
+          ],
         };
         mockedApiClient.getCustomerOrders.mockResolvedValueOnce(
           ordersResponse as any
@@ -77,7 +77,7 @@ describe("Composables - useCustomerOrders", () => {
 
       it("should return 0 when there is no orders", () => {
         const ordersResponse = {
-          elements: []
+          elements: [],
         };
         mockedApiClient.getCustomerOrders.mockResolvedValueOnce(
           ordersResponse as any
@@ -86,29 +86,29 @@ describe("Composables - useCustomerOrders", () => {
 
         expect(getTotal.value).toEqual(0);
       });
-  
+
       it("should return total same value with count field", async () => {
         const ordersResponse = {
           aggregations: {
-            'count-id': {
-              count: 20
-            }
+            "count-id": {
+              count: 20,
+            },
           },
           elements: Array(20).fill({
             id: "11111",
             orderNumber: "100120",
-          })
+          }),
         };
         mockedApiClient.getCustomerOrders.mockResolvedValueOnce(
           ordersResponse as any
         );
-        
+
         const { getTotal, loadOrders } = useCustomerOrders();
         await loadOrders();
         expect(getTotal.value).toEqual(20);
       });
     });
-  
+
     describe("getLimit", () => {
       it("should return 10 when there is no configuration set", async () => {
         const ordersResponse = {
@@ -127,7 +127,7 @@ describe("Composables - useCustomerOrders", () => {
         await loadOrders();
         expect(getLimit.value).toEqual(10);
       });
-  
+
       it("should return limit from current orders", async () => {
         const ordersResponse = {
           elements: [
@@ -136,7 +136,7 @@ describe("Composables - useCustomerOrders", () => {
               orderNumber: "100123",
             },
           ],
-          limit: 11
+          limit: 11,
         };
         mockedApiClient.getCustomerOrders.mockResolvedValueOnce(
           ordersResponse as any
@@ -146,42 +146,42 @@ describe("Composables - useCustomerOrders", () => {
         expect(getLimit.value).toEqual(11);
       });
     });
-  
+
     describe("getTotalPagesCount", () => {
       it("should return 0 when there is no currentListing", async () => {
         const ordersResponse = {
           aggregations: {
-            'count-id': {
-              count: 0
-            }
+            "count-id": {
+              count: 0,
+            },
           },
-          elements: []
+          elements: [],
         };
         mockedApiClient.getCustomerOrders.mockResolvedValueOnce(
           ordersResponse as any
         );
-        
+
         const { getTotalPagesCount, loadOrders } = useCustomerOrders();
         await loadOrders();
         expect(getTotalPagesCount.value).toEqual(0);
       });
-  
+
       it("should return ceiled pages count from current listing", async () => {
         const ordersResponse = {
           aggregations: {
-            'count-id': {
-              count: 22
-            }
+            "count-id": {
+              count: 22,
+            },
           },
           elements: Array(22).fill({
             id: "11111",
             orderNumber: "100120",
-          })
+          }),
         };
         mockedApiClient.getCustomerOrders.mockResolvedValueOnce(
           ordersResponse as any
         );
-        
+
         const { getTotalPagesCount, loadOrders } = useCustomerOrders();
         await loadOrders();
         expect(getTotalPagesCount.value).toEqual(3);
@@ -197,27 +197,27 @@ describe("Composables - useCustomerOrders", () => {
       it("should return 1 when there is no orders", async () => {
         const ordersResponse = {
           aggregations: {
-            'count-id': {
-              count: 0
-            }
+            "count-id": {
+              count: 0,
+            },
           },
-          elements: []
+          elements: [],
         };
         mockedApiClient.getCustomerOrders.mockResolvedValueOnce(
           ordersResponse as any
         );
-        
+
         const { getCurrentPage, loadOrders } = useCustomerOrders();
         await loadOrders();
         expect(getCurrentPage.value).toEqual(1);
       });
-  
+
       it("should return page number from current listing", async () => {
         const ordersResponse = {
           aggregations: {
-            'count-id': {
-              count: 3
-            }
+            "count-id": {
+              count: 3,
+            },
           },
           page: 3,
           limit: 1,
@@ -229,32 +229,36 @@ describe("Composables - useCustomerOrders", () => {
             {
               id: "12346",
               orderNumber: "100123",
-            }
-          ]
+            },
+          ],
         };
         mockedApiClient.getCustomerOrders.mockResolvedValueOnce(
           ordersResponse as any
         );
-        
+
         const { getCurrentPage, loadOrders } = useCustomerOrders();
         await loadOrders();
         expect(getCurrentPage.value).toEqual(3);
       });
     });
-  
+
     describe("changeCurrentPage", () => {
       it("should invoke search with changed page number", async () => {
-        const ordersResponse = (page: number) : EntityResult<"order", Order[]> => ({
+        const ordersResponse = (
+          page: number
+        ): EntityResult<"order", Order[]> => ({
           aggregations: [],
           page,
           limit: 10,
-          entity: 'order',
+          entity: "order",
           total: 10,
-          apiAlias: '',
-          elements: []
+          apiAlias: "",
+          elements: [],
         });
-        mockedApiClient.getCustomerOrders.mockImplementationOnce(async (params) => Promise.resolve(ordersResponse(params?.page || 1)));
-        
+        mockedApiClient.getCustomerOrders.mockImplementationOnce(
+          async (params) => Promise.resolve(ordersResponse(params?.page || 1))
+        );
+
         const { changeCurrentPage, getCurrentPage } = useCustomerOrders();
         await changeCurrentPage(3);
         expect(getCurrentPage.value).toEqual(3);

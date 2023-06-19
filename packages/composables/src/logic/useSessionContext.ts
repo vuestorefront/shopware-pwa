@@ -144,7 +144,7 @@ export function useSessionContext(): IUseSessionContext {
   };
 
   const activeShippingAddress = computed(
-    () => sessionContext.value?.customer?.activeShippingAddress || null
+    () => sessionContext.value?.shippingLocation?.address || null
   );
   const setActiveShippingAddress = async (
     address: Partial<ShippingAddress>
@@ -159,7 +159,7 @@ export function useSessionContext(): IUseSessionContext {
   };
 
   const activeBillingAddress = computed(
-    () => sessionContext.value?.customer?.activeBillingAddress || null
+    () => sessionContext.value?.customer?.defaultBillingAddress || null
   );
   const setActiveBillingAddress = async (address: Partial<BillingAddress>) => {
     if (!address?.id) {
