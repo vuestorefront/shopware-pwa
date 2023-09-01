@@ -30,7 +30,7 @@
     "cookie-universal": "^2.2.2",
     "lodash": "^4.17.21",
     "query-string": "^7.1.1",
-    "vue-demi": "^0.13.11"
+    "vue-demi": "^0.14.5"
   },
   "peerDependencies": {
     "@vue/composition-api": "^1.7.1",
