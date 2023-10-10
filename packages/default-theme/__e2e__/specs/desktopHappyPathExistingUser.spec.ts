@@ -41,7 +41,7 @@ test("[DESKTOP] Happy path logged in user", async ({ page, baseURL }) => {
   ]);
 
   await page.click(
-    '[data-testid="checkout-payment-method-Cash-on-delivery"] div'
+    "div[data-testid='checkout-payment-method-Cash-on-delivery']"
   );
   await page.click(
     '[data-testid="checkout-payment-method-Cash-on-delivery"] .is-active'
