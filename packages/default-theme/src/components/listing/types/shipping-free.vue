@@ -14,8 +14,6 @@
   </div>
 </template>
 <script>
-import { computed, ref } from "@vue/composition-api"
-
 import { SfFilter, SfHeading } from "@storefront-ui/vue"
 import SwInput from "@/components/atoms/SwInput.vue"
 import SwCheckbox from "@/components/atoms/SwCheckbox.vue"
@@ -30,7 +28,7 @@ export default {
   },
   data() {
     return {
-      selected: this.currentFilters[this.filter.code] === "true",
+      selected: this.currentFilters[this.filter.code] === true,
     }
   },
   props: {
@@ -41,6 +39,11 @@ export default {
     currentFilters: {
       type: Object,
       default: () => ({}),
+    },
+  },
+  watch: {
+    currentFilters(val) {
+      this.selected = val[this.filter.code] === true;
     },
   },
 }

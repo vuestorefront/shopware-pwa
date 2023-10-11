@@ -22,12 +22,10 @@
   </div>
 </template>
 <script>
-import { computed, ref } from "@vue/composition-api"
-
+import { watch, ref } from "@vue/composition-api"
 import { SfFilter, SfHeading } from "@storefront-ui/vue"
 import SwInput from "@/components/atoms/SwInput.vue"
 import useVuelidate from "@vuelidate/core"
-import { required, email } from "@vuelidate/validators"
 
 export default {
   components: {
@@ -72,6 +70,19 @@ export default {
         value: max.value,
       })
     }
+
+    watch(() => props.currentFilters[minFilterCode], (v) => {
+      if (min.value !== v) {
+        min.value = v;
+      }
+    });
+
+    watch(() => props.currentFilters[maxFilterCode], (v) => {
+      if (max.value !== v) {
+        max.value = v;
+      }
+    });
+
     return {
       min,
       max,
