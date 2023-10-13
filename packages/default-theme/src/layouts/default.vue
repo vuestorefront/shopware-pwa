@@ -67,7 +67,9 @@ export default defineComponent({
 
   setup() {
     const { route, routing } = getApplicationContext()
-    const { breadcrumbs } = useBreadcrumbs()
+    const { breadcrumbs } = useBreadcrumbs({
+      hideHomeLink: true
+    })
     const { isOpen: isSidebarOpen } = useUIState({
       stateName: "CART_SIDEBAR_STATE",
     })

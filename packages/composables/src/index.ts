@@ -48,6 +48,7 @@ export * from "./logic/useProductReviews";
 export * from "./logic/useSharedState";
 export * from "./logic/useOrderDetails";
 export * from "./getVueContext";
+export * from "./hooks/useCms65";
 export {
   getApplicationContext,
   ShopwareDomain,
