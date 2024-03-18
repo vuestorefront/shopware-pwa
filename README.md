@@ -72,7 +72,7 @@ PS: Check [StorefrontUI](https://github.com/DivanteLtd/storefront-ui/) - our UI 
         </a>
       </td>
       <td align="left" valign="top">
-        Try out our open demo and if you like it <strong> first give us some star on Github ★</strong> and then contact us on <a href="https://discord.vuestorefront.io">#shopware-pwa channel @ Vue Storefront Official Discord</a> or via contributors@vuestorefront.io. <br /><br /> This demo site is connected to <a href="https://github.com/shopware/platform">Shopware 6</a>. <br />
+        Try out our open demo and if you like it <strong> first give us some star on Github ★</strong> and then contact us on <a href="https://discord.vuestorefront.io">#shopware-pwa channel @ Alokai Official Discord</a> or via contributors@vuestorefront.io. <br /><br /> This demo site is connected to <a href="https://github.com/shopware/platform">Shopware 6</a>. <br />
       </td>
     </tr>
   </tbody>
@@ -177,7 +177,7 @@ It is a native integration dedicated for Shopware 6, which means all the Shopwar
 
 ### Tech stack
 
-- [Vue Storefront](https://www.vuestorefront.io/)
+- [Alokai](https://www.vuestorefront.io/)
 - Shopware-6-Client based on Axios
 - [StorefrontUI](https://www.storefrontui.io/)
 - [VueJS](https://vuejs.org/)
