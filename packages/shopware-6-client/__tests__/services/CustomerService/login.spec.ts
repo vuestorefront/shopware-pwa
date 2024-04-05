@@ -22,7 +22,7 @@ describe("CustomerService - login", () => {
     } as any;
   });
   it("should invoke a POST request with given parameters", async () => {
-    mockedPost.mockResolvedValueOnce({ data: {} } as any);
+    mockedPost.mockResolvedValueOnce({ data: {}, headers: {} } as any);
 
     await login(undefined);
     expect(mockedPost).toBeCalledTimes(1);
@@ -34,6 +34,7 @@ describe("CustomerService - login", () => {
   it("should return context token in new format if old does not exist", async () => {
     mockedPost.mockResolvedValueOnce({
       data: { contextToken: "RmzTExFStSBW5GhPmQNicSK6bhUQhqXi" },
+      headers: {}
     });
 
     const result = await login({
@@ -47,6 +48,26 @@ describe("CustomerService - login", () => {
     });
 
     expect(result.contextToken).toEqual("RmzTExFStSBW5GhPmQNicSK6bhUQhqXi");
+  });
+  it("should return context token from the header if it's missing in JSON response", async () => {
+    mockedPost.mockResolvedValueOnce({
+      data: {},
+      headers: {
+        "sw-context-token": "AmzTExFStSBW5GhPmQNicSK6bhUQhqXz"
+      }
+    });
+
+    const result = await login({
+      username: credentials.username,
+      password: credentials.password,
+    });
+    expect(mockedPost).toBeCalledTimes(1);
+    expect(mockedPost).toBeCalledWith(getCustomerLoginEndpoint(), {
+      username: credentials.username,
+      password: credentials.password,
+    });
+
+    expect(result.contextToken).toEqual("AmzTExFStSBW5GhPmQNicSK6bhUQhqXz");
   });
   it("should return context token", async () => {
     mockedPost.mockResolvedValueOnce({
