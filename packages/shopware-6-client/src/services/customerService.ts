@@ -68,7 +68,7 @@ export async function login(
     password,
   });
   const contextToken =
-    resp.data["sw-context-token"] || resp.data["contextToken"] || resp.headers?.["sw-context-token"];
+    resp.data["sw-context-token"] || resp.data["contextToken"] || resp.headers["sw-context-token"];
   return { contextToken };
 }
 
