@@ -1,5 +1,10 @@
 # Shopware PWA composables
 
+> [!WARNING]
+> Deprecated. This package is deprecated. Look out for the new project [Showpare Composable Frontends](https://frontends.shopware.com/).
+>
+> Direct replacement of this package is [@shopware/composables](https://npmjs.com/package/@shopware/composables) package
+
 Vue 3 composables dedicated for Shopware.  
 Package implements Vue Storefront Next architecture and provides agnostic composables for eCommerce logic.
 

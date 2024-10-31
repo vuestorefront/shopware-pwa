@@ -1,3 +1,13 @@
+## [1.6.2](https://github.com/vuestorefront/shopware-pwa/compare/v1.6.1...v1.6.2) (2024-10-31)
+
+
+### Bug Fixes
+
+* **default-theme:** srcset image display wrong incase url have space ([#1985](https://github.com/vuestorefront/shopware-pwa/issues/1985)) ([f7bad06](https://github.com/vuestorefront/shopware-pwa/commit/f7bad0666534caa743f29c822b9e5d18a8a034b8))
+* **default-theme:** sync up data in some filter component ([#2009](https://github.com/vuestorefront/shopware-pwa/issues/2009)) ([7b9685d](https://github.com/vuestorefront/shopware-pwa/commit/7b9685d1750b77a761015b37f4d25e87f28b1c61))
+
+
+
 ## [1.6.1](https://github.com/vuestorefront/shopware-pwa/compare/v1.6.0...v1.6.1) (2023-02-03)
 
 

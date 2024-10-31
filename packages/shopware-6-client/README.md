@@ -1,5 +1,10 @@
 # API client for Shopware 6
 
+> [!WARNING]
+> Deprecated. This package is deprecated. Look out for the new project [Showpare Composable Frontends](https://frontends.shopware.com/).
+>
+> Direct replacement of this package is [@shopware/api-client](https://npmjs.com/package/@shopware/api-client) package
+
 See compatibility with Shopware 6 in our [docs](https://shopware-pwa-docs.vuestorefront.io/landing/getting-started/prepare-shopware.html#compatibility-table)
 
 ## Installing

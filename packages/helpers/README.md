@@ -1,5 +1,10 @@
 # Shopware PWA helpers
 
+> [!WARNING]
+> Deprecated. This package is deprecated. Look out for the new project [Showpare Composable Frontends](https://frontends.shopware.com/).
+>
+> Direct replacement of this package is [@shopware/helpers](https://npmjs.com/package/@shopware/helpers) package
+
 Helpers dedicated for Shopware.  
 The package implements Vue Storefront Next architecture and provides agnostic mappers for data transfer objects.
 
